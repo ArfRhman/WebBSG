@@ -1,0 +1,16 @@
+		<table border=1>
+			<thead>
+				<tr>
+					<th>VAC</th>
+					<th>BattCurrent</th>
+					<th>48V</th>
+					<th>24V</th>
+					<th>19.5V</th>
+					<th>13.5V</th>
+					<th>12V</th>
+					<th>6.5V</th>
+				</tr>
+			</thead>
+			<tbody>
+						</tbody>
+			</table>
