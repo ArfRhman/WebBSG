@@ -671,6 +671,14 @@ function budget()
 		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
 		$this->load->view('top', $data);
 		$this->load->view('sales/budget_edit', $data);
+		break;
+		case 'getDataBudget':
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
+		$json = json_encode($data);
+		echo $json;
+		break;
 	}
 }
+
 }
