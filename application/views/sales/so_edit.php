@@ -118,7 +118,7 @@
                                                             <div class="form-group">
                                                                 <label class="col-md-2 control-label" for="email">Other Status</label>
                                                                 <div class="col-md-3">
-                                                                    <input id="email" name="other_status" value="<?php echo $so->row()->other_status; ?>"  placeholder="Other Status" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Softcopy</label>                                            <div class="col-md-3">                                                <input name="softcopy" type="file"></div>
+                                                                    <input id="email" name="other_status" value="<?php echo $so->row()->other_status; ?>"  placeholder="Other Status" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Softcopy</label>                                            <div class="col-md-3">                                              <input name="softcopy" type="file"><span style="color:red;">*leave blank if wont change</span></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div class="col-md-12 text-right">

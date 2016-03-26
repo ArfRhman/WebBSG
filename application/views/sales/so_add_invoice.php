@@ -1,4 +1,4 @@
-	<aside class="right-side">
+<aside class="right-side">
 	<!-- Main content -->
     <section class="content-header">
 		<h1>Welcome to Dashboard</h1>

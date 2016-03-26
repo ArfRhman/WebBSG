@@ -145,6 +145,11 @@ class Sales extends CI_Controller {
 			$this->load->view('top', $data);
 			$this->load->view('sales/so_view_delivery', $data);
 			break;
+			case 'detail_delivery_view':
+			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id_so', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_view_detail_delivery', $data);
+			break;
 			case 'invoice_view':
 			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing', 'id_so', $this->uri->segment(4));
 			$this->load->view('top', $data);
@@ -175,6 +180,31 @@ class Sales extends CI_Controller {
 			$this->load->view('top', $data);
 			$this->load->view('sales/so_edit_detail', $data);
 			break;
+			case 'edit_delivery':
+			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_edit_delivery', $data);
+			break;
+			case 'edit_detail_delivery':
+			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_edit_detail_delivery', $data);
+			break;
+			case 'edit_invoice':
+			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing', 'id', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_edit_invoice', $data);
+			break;
+			case 'edit_payment':
+			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_payment', 'id', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_edit_payment', $data);
+			break;
+			case 'edit_cost':
+			$data['so'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_cost', 'id', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_edit_cost', $data);
+			break;
 			case 'add':
 			$this->load->view('top', $data);
 			$this->load->view('sales/so_add', $data);
@@ -186,6 +216,10 @@ class Sales extends CI_Controller {
 			case 'add_delivery':
 			$this->load->view('top', $data);
 			$this->load->view('sales/so_add_delivery', $data);
+			break;
+			case 'add_detail_delivery':
+			$this->load->view('top', $data);
+			$this->load->view('sales/so_add_detail_delivery', $data);
 			break;
 			case 'add_invoice':
 			$this->load->view('top', $data);
@@ -280,55 +314,57 @@ $this->session->set_flashdata('data','Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'save_delivery':
-print_r($_POST);
-$dir = "image/s_delivery/";
-$file = $dir . $_FILES['awb_file']['name'];
-if(move_uploaded_file($_FILES['awb_file']['tmp_name'], $file))
-{
-	$data = array(
-		'id_so' => $this->uri->segment(4), 
-		'do_no' => $this->input->post('do_no'), 
-		'do_date' => $this->input->post('do_date'), 
-		'delivery' => $this->input->post('delivery'), 
-		'delivery_by' => $this->input->post('delivery_by'), 
-		'name' => $this->input->post('name'), 
-		'method' => $this->input->post('method'), 
-		'awb_no' => $this->input->post('awb_no'), 
-		'depart' => $this->input->post('depart'), 
-		'received' => $this->input->post('received'), 
-		'received_by' => $this->input->post('received_by'), 
-		'nett' => $this->input->post('nett'),
-		'awb_file' => $file,
-		);
-	$this->mddata->insertIntoTbl('tbl_sale_so_delivery', $data);
-	$this->session->set_flashdata('data','Data Has Been Saved');
-	redirect($_SERVER['HTTP_REFERER']);
+if($_FILES['awb_file']['size'] > 0){
+	$dir = "image/s_delivery/";
+	$file = $dir . $_FILES['awb_file']['name'];
+	move_uploaded_file($_FILES['awb_file']['tmp_name'], $file);
+}else{
+	$file = '';
 }
+$data = array(
+	'id_so' => $this->uri->segment(4), 
+	'do_no' => $this->input->post('do_no'), 
+	'do_date' => $this->input->post('do_date'), 
+	'delivery' => $this->input->post('delivery'), 
+	'delivery_by' => $this->input->post('delivery_by'), 
+	'name' => $this->input->post('name'), 
+	'method' => $this->input->post('method'), 
+	'awb_no' => $this->input->post('awb_no'), 
+	'depart' => $this->input->post('depart'), 
+	'received' => $this->input->post('received'), 
+	'received_by' => $this->input->post('received_by'), 
+	'nett' => $this->input->post('nett'),
+	'awb_file' => $file,
+	);
+$this->mddata->insertIntoTbl('tbl_sale_so_delivery', $data);
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'save_invoice':
-print_r($_POST);
-$dir = "image/s_invoice/";
-$file = $dir . $_FILES['file']['name'];
-if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
-{
-	$data = array(
-		'id_so' => $this->uri->segment(4), 
-		'no' => $this->input->post('no'), 
-		'date' => $this->input->post('date'), 
-		'amount' => $this->input->post('amount'), 
-		'desc' => $this->input->post('desc'), 
-		'due' => $this->input->post('due'), 
-		'sent' => $this->input->post('sent'), 
-		'sent_by' => $this->input->post('sent_by'), 
-		'received_by' => $this->input->post('received_by'), 
-		'received_date' => $this->input->post('received_date'), 
-		'receipt_no' => $this->input->post('receipt_no'),
-		'receipt_file' => $file,
-		);
-	$this->mddata->insertIntoTbl('tbl_sale_so_invoicing', $data);
-	$this->session->set_flashdata('data','Data Has Been Saved');
-	redirect($_SERVER['HTTP_REFERER']);
+if($_FILES['file']['size'] > 0){
+	$dir = "image/s_invoice/";
+	$file = $dir . $_FILES['file']['name'];
+	move_uploaded_file($_FILES['file']['tmp_name'], $file);
+}else{
+	$file = '';
 }
+$data = array(
+	'id_so' => $this->uri->segment(4), 
+	'no' => $this->input->post('no'), 
+	'date' => $this->input->post('date'), 
+	'amount' => $this->input->post('amount'), 
+	'desc' => $this->input->post('desc'), 
+	'due' => $this->input->post('due'), 
+	'sent' => $this->input->post('sent'), 
+	'sent_by' => $this->input->post('sent_by'), 
+	'received_by' => $this->input->post('received_by'), 
+	'received_date' => $this->input->post('received_date'), 
+	'receipt_no' => $this->input->post('receipt_no'),
+	'receipt_file' => $file,
+	);
+$this->mddata->insertIntoTbl('tbl_sale_so_invoicing', $data);
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'save_payment':
 print_r($_POST);
@@ -350,7 +386,7 @@ case 'save_cost':
 $data = array(
 	'id_so' => $this->uri->segment(4), 
 	'sales_com' => $this->input->post('sales_com'), 
-	'sales' => $this->input->post('sales_com'), 
+	'sales' => $this->input->post('sales'), 
 	'bank_interest' => $this->input->post('bank_interest'),
 	'bank' => $this->input->post('bank'), 
 	'transport' => $this->input->post('transport'), 
@@ -428,6 +464,116 @@ if($_FILES['softcopy']['size'] > 0)
 	$this->session->set_flashdata('data','Data Has Been Saved');
 	redirect($_SERVER['HTTP_REFERER']);
 }
+break;
+case 'update_detail':
+$data = array(
+	'item' => $this->input->post('item'), 
+	'item_name' => $this->input->post('item_name'), 
+	'brand' => $this->input->post('brand'), 
+	'mou' => $this->input->post('mou'), 
+	'qty' => $this->input->post('qty'), 
+	'price' => $this->input->post('price'), 
+	'disc' => $this->input->post('disc'), 
+	'nett' => $this->input->post('nett'), 
+	'total' => $this->input->post('total'), 
+	'subtotal' => $this->input->post('subtotal'), 
+	'discount' => $this->input->post('discount'), 
+	'delivery' => $this->input->post('delivery'), 
+	'nett_tax' => $this->input->post('nett_tax'), 
+	'vat' => $this->input->post('vat'), 
+	'grand_total' => $this->input->post('grand_total'),
+	);
+$this->mddata->updateDataTbl('tbl_sale_so_detail', $data, 'id', $this->uri->segment(4));
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'update_delivery':
+if($_FILES['awb_file']['size'] > 0){
+	$dir = "image/s_delivery/";
+	$file = $dir . $_FILES['awb_file']['name'];
+	move_uploaded_file($_FILES['awb_file']['tmp_name'], $file);
+}else{
+	$file = $this->input->post('oldAWB');
+}
+$data = array(
+
+	'do_no' => $this->input->post('do_no'), 
+	'do_date' => $this->input->post('do_date'), 
+	'delivery' => $this->input->post('delivery'), 
+	'delivery_by' => $this->input->post('delivery_by'), 
+	'name' => $this->input->post('name'), 
+	'method' => $this->input->post('method'), 
+	'awb_no' => $this->input->post('awb_no'), 
+	'depart' => $this->input->post('depart'), 
+	'received' => $this->input->post('received'), 
+	'received_by' => $this->input->post('received_by'), 
+	'nett' => $this->input->post('nett'),
+	'awb_file' => $file,
+	);
+$this->mddata->updateDataTbl('tbl_sale_so_delivery', $data, 'id', $this->uri->segment(4));
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'update_invoice':
+if($_FILES['file']['size'] > 0){
+	$dir = "image/s_invoice/";
+	$file = $dir . $_FILES['file']['name'];
+	move_uploaded_file($_FILES['file']['tmp_name'], $file);
+}else{
+	$file = $this->input->post('old_file');
+}
+$data = array(
+	'no' => $this->input->post('no'), 
+	'date' => $this->input->post('date'), 
+	'amount' => $this->input->post('amount'), 
+	'desc' => $this->input->post('desc'), 
+	'due' => $this->input->post('due'), 
+	'sent' => $this->input->post('sent'), 
+	'sent_by' => $this->input->post('sent_by'), 
+	'received_by' => $this->input->post('received_by'), 
+	'received_date' => $this->input->post('received_date'), 
+	'receipt_no' => $this->input->post('receipt_no'),
+	'receipt_file' => $file,
+	);
+$this->mddata->updateDataTbl('tbl_sale_so_invoicing', $data, 'id', $this->uri->segment(4));
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'update_payment':
+$data = array(
+	'reference' => $this->input->post('reference'), 
+	'due_date' => $this->input->post('due_date'), 
+	'payment_date' => $this->input->post('payment_date'), 
+	'through' => $this->input->post('through'), 
+	'amount' => $this->input->post('amount'), 
+	'account' => $this->input->post('account'), 
+	'remark' => $this->input->post('remark'), 
+	);
+$this->mddata->updateDataTbl('tbl_sale_so_payment', $data, 'id', $this->uri->segment(4));
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'update_cost':
+$data = array(
+	'sales_com' => $this->input->post('sales_com'), 
+	'sales' => $this->input->post('sales'), 
+	'bank_interest' => $this->input->post('bank_interest'),
+	'bank' => $this->input->post('bank'), 
+	'transport' => $this->input->post('transport'), 
+	'adm' => $this->input->post('adm'), 
+	'other' => $this->input->post('other'), 
+	'extcom' => $this->input->post('extcom'), 
+	'extcom_pro' => $this->input->post('extcom_pro'), 
+	'income' => $this->input->post('income'), 
+	'nett' => $this->input->post('nett'), 
+	'receiver' => $this->input->post('receiver'), 
+	'approved' => $this->input->post('approved'), 
+	'payment_date' => $this->input->post('payment_date'), 
+	'through' => $this->input->post('through'), 
+	);
+$this->mddata->updateDataTbl('tbl_sale_so_cost', $data, 'id', $this->uri->segment(4));
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'delete':
 $this->mddata->deleteTblData('tbl_sale_so', $this->uri->segment(4));
@@ -653,9 +799,10 @@ function direksi()
 	}
 }
 // Add by Arif 2016
+
 function budget()
 {
-	$data['ac'] = "s_so";
+	$data['ac'] = "s_budget";
 	switch($this->uri->segment(3))
 	{
 		case 'view':
@@ -677,6 +824,48 @@ function budget()
 		$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
 		$json = json_encode($data);
 		echo $json;
+		break;
+	}
+}
+function realisasi()
+{
+	$data['ac'] = "s_realisasi";
+	switch($this->uri->segment(3))
+	{
+		case 'view':
+		// $data['so'] = $this->mddata->getAllDataTbl('tbl_sale_so');
+		$this->load->view('top', $data);
+		$this->load->view('sales/realisasi_view', $data);
+		break;
+		case 'add':
+		$this->load->view('top', $data);
+		$this->load->view('sales/realisasi_add', $data);
+		break;
+		case 'edit':
+		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
+		$this->load->view('top', $data);
+		$this->load->view('sales/realisasi_edit', $data);
+		break;
+	}
+}
+function target()
+{
+	$data['ac'] = "s_target";
+	switch($this->uri->segment(3))
+	{
+		case 'view':
+		// $data['so'] = $this->mddata->getAllDataTbl('tbl_sale_so');
+		$this->load->view('top', $data);
+		$this->load->view('sales/target_view', $data);
+		break;
+		case 'add':
+		$this->load->view('top', $data);
+		$this->load->view('sales/target_add', $data);
+		break;
+		case 'edit':
+		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
+		$this->load->view('top', $data);
+		$this->load->view('sales/target_edit', $data);
 		break;
 	}
 }

@@ -27,6 +27,7 @@
                                 <table class="table table-striped table-responsive" id="table1">
                                     <thead>
                                         <tr>
+                                        <th>No</th>
                                             <th>Budget Code</th>
                                             <th>Main Budget</th>
                                             <th>Sub Budget Lv. 1</th>

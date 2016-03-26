@@ -49,7 +49,7 @@
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Disc</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="disc" placeholder="disc" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Nett Unit Price</label>                                            <div class="col-md-3">                                                <input id="email" name="nett" placeholder="Nett Unit Price" class="form-control" type="text"></div>
+                                                <input id="email" name="disc" placeholder="Disc" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Nett Unit Price</label>                                            <div class="col-md-3">                                                <input id="email" name="nett" placeholder="Nett Unit Price" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Total Price</label>

@@ -27,6 +27,7 @@
                                 <table class="table table-striped table-responsive" id="table1">
                                     <thead>
                                         <tr>
+                                             <th>No</th>
                                             <th>No SO</th>
                                             <th>SO Date</th>
                                             <th>PO No</th>
@@ -46,6 +47,7 @@
 									{
 									?>
                                         <tr>
+                                            <td><?php echo $no; $no++;?></td>
 											<td><?php echo $c->so_no; ?></td>
 											<td><?php echo $c->so_date; ?></td>
 											<td><?php echo $c->po_no; ?></td>
@@ -54,7 +56,10 @@
 											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->customer_name)->row()->name; ?></td>
 											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->am)->row()->name; ?></td>
 											<td><?php echo $c->pn; ?></td>
-											<td><?php echo anchor(base_url($c->softcopy), 'Download'); ?></td>
+											<td><?php 
+                                            if($c->softcopy!='') echo anchor(base_url($c->softcopy), 'Download');
+                                            else echo '-';
+                                             ?></td>
 											<td>
 												<div class='btn-group'>
 													<button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
@@ -71,7 +76,7 @@
 												</div>
 											</td>
 										</tr>
-									<?php
+									<?php 
 									}
 									?>
 									</tbody>

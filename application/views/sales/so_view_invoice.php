@@ -58,7 +58,9 @@
 											<td><?php echo $c->received_by; ?></td>
 											<td><?php echo $c->received_date; ?></td>
 											<td><?php echo $c->receipt_no; ?></td>
-											<td><?php echo anchor(base_url($c->receipt_file), 'Download'); ?></td>
+											<td><?php 
+                                             if($c->receipt_file!='') echo anchor(base_url($c->receipt_file), 'Download');
+                                            else echo '-'; ?></td>
 											<td>
 												<div class='btn-group'>
 													<button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>

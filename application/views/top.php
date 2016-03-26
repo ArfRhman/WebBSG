@@ -240,7 +240,7 @@ if($this->session->userdata('active') == FALSE)
 									</ul>
 								</li>
 								<?php } ?>
-								<li <?php if($ac == "s_so") echo "class='active'"; ?>>
+								<li <?php if($this->uri->segment(1) == "sales") echo "class='active'"; ?>>
 									<a href="#">
 										<i class="livicon" data-name="table" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
 										<span class="title">Transaction</span>
@@ -262,20 +262,20 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 >= 1)
 										{
 										?>
-										<li >
+										<li <?php if($ac == "s_budget") echo "class='active'"; ?>>
 											<a href="<?php echo site_url('sales/budget/view');?>">
 												<i class="fa fa-angle-double-right"></i>
 												Budget
 											</a>
 										</li>
-										<li>
-											<a href="#">
+										<li <?php if($ac == "s_realisasi") echo "class='active'"; ?>>
+											<a href="<?php echo site_url('sales/realisasi/view');?>">
 												<i class="fa fa-angle-double-right"></i>
 												Realisasi
 											</a>
 										</li>
-										<li>
-											<a href="#">
+										<li  <?php if($ac == "s_target") echo "class='active'"; ?>>
+											<a href="<?php echo site_url('sales/target/view');?>">
 												<i class="fa fa-angle-double-right"></i>
 												Forecast/Target
 											</a>
