@@ -29,7 +29,8 @@
                     </span>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/budget/save');?>" method="post">
+                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/realisasi/update');?>" method="post">
+                        <input type="hidden" name="no" value="<?=$realisasi->no;?>">
                         <fieldset>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="name">Budget Code</label>
@@ -41,35 +42,35 @@
                                       foreach($sql->result() as $s)
                                       {
                                         ?>
-                                        <option value="<?php echo $s->id; ?>"><?php echo $s->code ?></option>
+                                        <option value="<?php echo $s->id; ?>" <?=$realisasi->budget_code == $s->id ? 'selected' : ''?>><?php echo $s->code ?></option>
                                         <?php
                                     }
                                     ?>
                                 </select> 	
                             </div>																					<label class="col-md-2 control-label" for="email">Main Budget</label>
                             <div class="col-md-3">
-                                <input id="mainBudget" name="main_budget" placeholder="Main Budget" class="form-control" type="text" readonly></div>      
+                                <input id="mainBudget" value="<?=$realisasi->main_budget;?>" name="main_budget" placeholder="Main Budget" class="form-control" type="text" readonly></div>      
                             </div>
                             <div class="form-group">
                              <label class="col-md-2 control-label" for="email">Sub Budget Level 1</label>
                              <div class="col-md-3">
-                                <input id="subBudgetLv1" name="sub_budget_lv1" placeholder="Sub Budget Level 1" class="form-control" type="text" readonly></div>            																				<label class="col-md-2 control-label" for="email">Sub Budget Level 2</label>
+                                <input id="subBudgetLv1" value="<?=$realisasi->sub_budget_level1;?>" name="sub_budget_lv1" placeholder="Sub Budget Level 1" class="form-control" type="text" readonly></div>            																				<label class="col-md-2 control-label" for="email">Sub Budget Level 2</label>
                                 <div class="col-md-3">
-                                    <input id="subBudgetLv2" name="sub_budget_lv2" placeholder="Sub Budget Level 2" class="form-control" type="text" readonly></div>
+                                    <input id="subBudgetLv2" value="<?=$realisasi->sub_budget_level2;?>" name="sub_budget_lv2" placeholder="Sub Budget Level 2" class="form-control" type="text" readonly></div>
                                 </div>
                                 <div class="form-group">
                                  <label class="col-md-2 control-label" for="email">Date</label>
                                  <div class="col-md-3">
-                                    <input id="email" name="date" placeholder="Date" class="form-control datepicker" type="text"></div>                                                                                       
+                                    <input id="email" value="<?=$realisasi->date;?>" name="date" placeholder="Date" class="form-control datepicker" type="text"></div>                                                                                       
                                     <label class="col-md-2 control-label" for="email">Transaction Description</label>
                                     <div class="col-md-3">
-                                        <input id="email" name="transaction" placeholder="Transaction Description" class="form-control" type="text"></div>
+                                        <input id="email" value="<?=$realisasi->transaction_description;?>" name="transaction" placeholder="Transaction Description" class="form-control" type="text"></div>
                                   
                                 </div>
                                 <div class="form-group">
                                  <label class="col-md-2 control-label" for="email">Amount</label>
                                  <div class="col-md-3">
-                                    <input id="email" name="amount" placeholder="Amount" class="form-control datepicker" type="text"></div>                                                                                       
+                                    <input id="email" value="<?=$realisasi->amount;?>" name="amount" placeholder="Amount" class="form-control" type="text"></div>                                                                                       
                                    
                                   
                                 </div>

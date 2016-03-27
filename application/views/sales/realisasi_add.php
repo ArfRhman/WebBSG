@@ -29,7 +29,7 @@
                     </span>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/budget/save');?>" method="post">
+                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/realisasi/save');?>" method="post">
                         <fieldset>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="name">Budget Code</label>
@@ -69,7 +69,7 @@
                                 <div class="form-group">
                                  <label class="col-md-2 control-label" for="email">Amount</label>
                                  <div class="col-md-3">
-                                    <input id="email" name="amount" placeholder="Amount" class="form-control datepicker" type="text"></div>                                                                                       
+                                    <input id="email" name="amount" placeholder="Amount" class="form-control" type="text"></div>                                                                                       
                                    
                                   
                                 </div>

@@ -806,7 +806,7 @@ function budget()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		// $data['so'] = $this->mddata->getAllDataTbl('tbl_sale_so');
+		$data['budget'] = $this->mddata->getAllDataTbl('tbl_sale_budget');
 		$this->load->view('top', $data);
 		$this->load->view('sales/budget_view', $data);
 		break;
@@ -815,7 +815,7 @@ function budget()
 		$this->load->view('sales/budget_add', $data);
 		break;
 		case 'edit':
-		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
+		$data['budget'] = $this->mddata->getDataFromTblWhere('tbl_sale_budget', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/budget_edit', $data);
 		break;
@@ -825,6 +825,39 @@ function budget()
 		$json = json_encode($data);
 		echo $json;
 		break;
+		case 'save':
+		$p = $this->input->post();
+		$data = array(
+			'budget_code' => $p['budget_cd'],
+			'main_budget' => $p['main_budget'],
+			'sub_budget_level1' => $p['sub_budget_lv1'],
+			'sub_budget_level2' => $p['sub_budget_lv2'],
+			'periode' => $p['periode'],
+			'amount' => $p['amount']
+			);
+		$this->mddata->insertIntoTbl('tbl_sale_budget',$data);
+		$this->session->set_flashdata('data','Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$data = array(
+			'budget_code' => $p['budget_cd'],
+			'main_budget' => $p['main_budget'],
+			'sub_budget_level1' => $p['sub_budget_lv1'],
+			'sub_budget_level2' => $p['sub_budget_lv2'],
+			'periode' => $p['periode'],
+			'amount' => $p['amount']
+			);
+
+		$this->mddata->updateDataTbl('tbl_sale_budget',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_budget','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
 	}
 }
 function realisasi()
@@ -833,7 +866,7 @@ function realisasi()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		// $data['so'] = $this->mddata->getAllDataTbl('tbl_sale_so');
+		$data['realisasi'] = $this->mddata->getAllDataTbl('tbl_sale_realisasi');
 		$this->load->view('top', $data);
 		$this->load->view('sales/realisasi_view', $data);
 		break;
@@ -842,9 +875,43 @@ function realisasi()
 		$this->load->view('sales/realisasi_add', $data);
 		break;
 		case 'edit':
-		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
+		$data['realisasi'] = $this->mddata->getDataFromTblWhere('tbl_sale_realisasi', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/realisasi_edit', $data);
+		break;
+		case 'save':
+		$p = $this->input->post();
+		$data = array(
+			'budget_code' => $p['budget_cd'],
+			'main_budget' => $p['main_budget'],
+			'sub_budget_level1' => $p['sub_budget_lv1'],
+			'sub_budget_level2' => $p['sub_budget_lv2'],
+			'date' => $p['date'],
+			'transaction_description' => $p['transaction'],
+			'amount' => $p['amount']
+			);
+		$this->mddata->insertIntoTbl('tbl_sale_realisasi',$data);
+		$this->session->set_flashdata('data','Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$data = array(
+			'budget_code' => $p['budget_cd'],
+			'main_budget' => $p['main_budget'],
+			'sub_budget_level1' => $p['sub_budget_lv1'],
+			'sub_budget_level2' => $p['sub_budget_lv2'],
+			'date' => $p['date'],
+			'transaction_description' => $p['transaction'],
+			'amount' => $p['amount']
+			);
+		$this->mddata->updateDataTbl('tbl_sale_realisasi',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_realisasi','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }
@@ -854,7 +921,7 @@ function target()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		// $data['so'] = $this->mddata->getAllDataTbl('tbl_sale_so');
+		$data['target'] = $this->mddata->getAllDataTbl('tbl_sale_target');
 		$this->load->view('top', $data);
 		$this->load->view('sales/target_view', $data);
 		break;
@@ -866,6 +933,23 @@ function target()
 		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
 		$this->load->view('top', $data);
 		$this->load->view('sales/target_edit', $data);
+		break;
+		case 'save':
+		$p = $this->input->post();
+		$data = array(
+			'a_m' => $p['am'],
+			'periode' => $p['periode'],
+			'operator' => $p['operator'],
+			'customer' => $p['customer_name'],
+			'amount' => $p['amount']
+			);
+		$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+		$this->session->set_flashdata('data','Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_target','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }

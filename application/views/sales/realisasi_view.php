@@ -41,37 +41,31 @@
                                     <tbody>
 									<?php
 									$no = 1;
-									/*foreach($so->result() as $c)
+									foreach($realisasi->result() as $c)
 									{
 									?>
                                         <tr>
-											<td><?php echo $c->so_no; ?></td>
-											<td><?php echo $c->so_date; ?></td>
-											<td><?php echo $c->po_no; ?></td>
-											<td><?php echo $c->po_date; ?></td>
-											<td><?php echo $c->customer_id; ?></td>
-											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->customer_name)->row()->name; ?></td>
-											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->am)->row()->name; ?></td>
-											<td><?php echo $c->pn; ?></td>
-											<td><?php echo anchor(base_url($c->softcopy), 'Download'); ?></td>
+											<td><?php echo $no; ?></td>
+											<td><?php echo $c->budget_code; ?></td>
+											<td><?php echo $c->main_budget; ?></td>
+											<td><?php echo $c->sub_budget_level1; ?></td>
+											<td><?php echo $c->sub_budget_level2; ?></td>
+                                            <td><?php echo $c->date; ?></td>
+                                            <td><?php echo $c->transaction_description; ?></td>
+                                            <td><?php echo $c->amount; ?></td>
 											<td>
 												<div class='btn-group'>
 													<button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
 														<ul class='dropdown-menu pull-right' role='menu'>															
-															<li><a href='<?php echo site_url('sales/so/edit/'.$c->id)?>' >Edit</a></li>
-															<li><a href='<?php echo site_url('sales/so/delete/'.$c->id);?>' class="delete" data-id = "<?php echo $c->id;?>">Delete</a></li>
-															<li><a href='<?php echo site_url('sales/so/all_view/'.$c->id)?>'>View All Data</a></li>
-															<li><a href='<?php echo site_url('sales/so/detail_view/'.$c->id)?>'>SO Detail</a></li>
-															<li><a href='<?php echo site_url('sales/so/delivery_view/'.$c->id)?>'>SO Delivery Information</a></li>
-															<li><a href='<?php echo site_url('sales/so/invoice_view/'.$c->id)?>'>SO Invoicing & Collection Information</a></li>
-															<li><a href='<?php echo site_url('sales/so/payment_view/'.$c->id)?>'>Payment Information</a></li>
-															<li><a href='<?php echo site_url('sales/so/cost_view/'.$c->id)?>'>Cost & Commitment Information</a></li>
+															<li><a href='<?php echo site_url('sales/realisasi/edit/'.$c->no)?>' >Edit</a></li>
+															<li><a href='<?php echo site_url('sales/realisasi/delete/'.$c->no);?>' class="delete" data-id = "<?php echo $c->no;?>">Delete</a></li>
 														</ul>													
 												</div>
 											</td>
 										</tr>
 									<?php
-									}*/
+                                    $no++;
+									}
 									?>
 									</tbody>
 								</table>

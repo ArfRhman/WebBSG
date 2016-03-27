@@ -52,6 +52,11 @@ class model_data extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete($tbl);
 	}
+
+	function deleteGeneral($tbl, $field, $id){
+		$this->db->where($field, $id);
+		$this->db->delete($tbl);	
+	}
 	
 	function getDataFromTblWhere($tbl, $field, $data)
 	{
