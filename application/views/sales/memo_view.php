@@ -58,10 +58,16 @@
 												<td><?php echo $c->diketahui ?></td>
 												<td><?php echo $c->diverifikasi ?></td>
 												<td>
-													<a href="<?php echo site_url('sales/memo/delete/'.$c->id)?>" class="btn btn-danger">Delete</a>
-													<a href="<?php echo site_url('sales/memo/edit/'.$c->id)?>" class="btn btn-info">Edit</a>
-													<a href="<?php echo site_url('sales/memo/view_subfield/'.$c->id)?>" class="btn btn-warning">Subfield</a>
-													<a href="<?php echo site_url('sales/memo/preview/'.$c->id)?>" class="btn btn-success">Print / Preview</a>
+                                                <div class='btn-group'>
+                                                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
+                                                        <ul class='dropdown-menu pull-right' role='menu'>                                                           
+													<li><a href="<?php echo site_url('sales/memo/edit/'.$c->id)?>">Edit</a></li>
+                                                     <li><a href="<?php echo site_url('sales/memo/delete/'.$c->id)?>">Delete</a></li>
+													<li><a href="<?php echo site_url('sales/memo/view_subfield/'.$c->id)?>">Subfield</a></li>
+													<li><a href="<?php echo site_url('sales/memo/preview/'.$c->id)?>">Print / Preview</a>
+                                                    </li>
+                                                    </ul>
+                                                    </div>
 												</td>
                                             </tr>
 											<?php
