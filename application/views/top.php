@@ -419,25 +419,25 @@ if($this->session->userdata('active') == FALSE)
 										{
 										?>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/graph_import/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Graphic Import Cost
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/graph_transport/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Graphic Transport Cost
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/import_performance/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Lead Time Performance
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/supply/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Supply Lead Time Performance
 											</a>
@@ -468,13 +468,13 @@ if($this->session->userdata('active') == FALSE)
 										{
 										?>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/import_cost/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Cost Report
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/transport_cost/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Transport Cost Report
 											</a>
@@ -485,13 +485,13 @@ if($this->session->userdata('active') == FALSE)
 										{
 										?>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/import_lead/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Lead Time Report
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/supply_report/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Supply Lead Time Report
 											</a>
@@ -502,7 +502,7 @@ if($this->session->userdata('active') == FALSE)
 										{
 										?>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/budget_actual/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Budget vs Actual Report
 											</a>
@@ -513,7 +513,7 @@ if($this->session->userdata('active') == FALSE)
 										{
 										?>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/cases/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Cases
 											</a>
@@ -535,7 +535,7 @@ if($this->session->userdata('active') == FALSE)
 										{
 										?>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/po/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Purchase Order
 											</a>
@@ -569,13 +569,13 @@ if($this->session->userdata('active') == FALSE)
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/budget/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Budget
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/realisasi/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Realisasi
 											</a>
@@ -620,7 +620,7 @@ if($this->session->userdata('active') == FALSE)
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/letter/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Letter Of Authorization
 											</a>
@@ -693,25 +693,25 @@ if($this->session->userdata('active') == FALSE)
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/licenses/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Licences
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/operational/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Operational SOP
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/government/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Government Regulation
 											</a>
 										</li>
 										<li>
-											<a href="#">
+											<a href="<?php echo site_url('op/bussiness/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Business Document Template
 											</a>

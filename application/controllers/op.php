@@ -357,4 +357,256 @@ class Op extends CI_Controller {
 				break;
 		}
 	}
+
+
+	function graph_import()
+	{
+		$data['ac'] = "op_graph_import";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/graph_import_view', $data);
+			break;
+		}
+	}
+	function graph_transport()
+	{
+		$data['ac'] = "op_graph_transport";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/graph_transport_view', $data);
+			break;
+		}
+	}
+	function import_performance()
+	{
+		$data['ac'] = "op_import_performance";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/import_performance_view', $data);
+			break;
+		}
+	}
+	function supply()
+	{
+		$data['ac'] = "op_supply";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/supply_view', $data);
+			break;
+		}
+	}
+
+	function import_cost()
+	{
+		$data['ac'] = "op_importcost";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/import_cost_view', $data);
+			break;
+		}
+	}
+	function transport_cost()
+	{
+		$data['ac'] = "op_supply";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/transport_cost_view', $data);
+			break;
+		}
+	}
+	function import_lead()
+	{
+		$data['ac'] = "op_supply";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/import_lead_view', $data);
+			break;
+		}
+	}
+	function supply_report()
+	{
+		$data['ac'] = "op_supply";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/supply_report_view', $data);
+			break;
+		}
+	}
+	function budget_actual()
+	{
+		$data['ac'] = "op_supply";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/budget_actual_view', $data);
+			break;
+		}
+	}
+	function cases()
+	{
+		$data['ac'] = "op_supply";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/cases_view', $data);
+			break;
+		}
+	}
+	function po()
+	{
+		$data['ac'] = "op_po";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/po_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/po_add', $data);								
+			break;
+		}
+	}
+	function budget()
+	{
+		$data['ac'] = "op_budget";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/budget_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/budget_add', $data);								
+			break;
+		}
+	}
+	function realisasi()
+	{
+		$data['ac'] = "op_realisasi";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/realisasi_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/realisasi_add', $data);								
+			break;
+		}
+	}
+	function letter()
+	{
+		$data['ac'] = "op_letter";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/letter_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/letter_add', $data);								
+			break;
+		}
+	}
+	function licenses()
+	{
+		$data['ac'] = "op_licenses";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/licenses_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/licenses_add', $data);								
+			break;
+		}
+
+	}
+	function operational()
+	{
+		$data['ac'] = "op_operational";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/operational_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/operational_add', $data);								
+			break;
+		}
+	}
+	function government()
+	{
+		$data['ac'] = "op_government";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/government_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/government_add', $data);								
+			break;
+		}
+	}
+	function bussiness()
+	{
+		$data['ac'] = "op_bussiness";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/bussiness_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/bussiness_add', $data);								
+			break;
+		}
+	}
 }
