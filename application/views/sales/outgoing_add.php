@@ -54,7 +54,7 @@
 
 										<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-										Add Agent / Broker
+										Add Outgoing Letter Registration
 
 									</h3>
 
@@ -73,21 +73,20 @@
 										<fieldset>
 
 											<div class="form-group">
+											
+												<label class="col-md-2 control-label" for="name">Nomor Surat</label>
 
-												<label class="col-md-2 control-label" for="name">Tanggal</label>
+												<div class="col-md-3">
+
+													<input id="name" name="nomer" placeholder="Nomor surat" class="form-control" type="text"></div>
+
+												<label class="col-md-2 control-label" for="name">Tanggal Surat</label>
 
 												<div class="col-md-3">
 
 													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
-												
-												<label class="col-md-2 control-label" for="email">Tujuan</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="tujuan" placeholder="Tujuan" class="form-control" type="text"></div>
 
 											</div>
-
 											<div class="form-group">
 
 												<label class="col-md-2 control-label" for="email">Perihal</label>
@@ -96,6 +95,30 @@
 
 													<input id="email" name="perihal" placeholder="Perihal" class="form-control" type="text"></div>
 													
+												
+												<label class="col-md-2 control-label" for="email">Tujuan</label>
+<div class="col-md-3">												
+												<select name="tujuan" class="form-control">
+												<?php
+													$sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
+													foreach($sql->result() as $s)
+													{
+														?>
+														<option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
+														<?php
+													}
+												?>
+												</select> 
+												</div>
+
+											</div>
+
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="email">Desc</label>
+
+												<div class="col-md-3">
+												
+													<input id="email" name="desc" placeholder="Description" class="form-control" type="text"></div>
 													
 												<label class="col-md-2 control-label" for="email">Pembuat</label>
 
@@ -117,12 +140,11 @@
 
 
 											<div class="form-group">
-											
-												<label class="col-md-2 control-label" for="email">Penanggung Jawab</label>
+											<label class="col-md-2 control-label" for="email">File</label>
 
 												<div class="col-md-3">
-												
-													<input id="email" name="jawab" placeholder="Penanggung jawab" class="form-control" type="text"></div>
+
+													<input id="email" name="file"  type="file"></div>
 													
 												<label class="col-md-2 control-label" for="email">Letak</label>
 
@@ -135,11 +157,7 @@
 
 											<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="email">Desc</label>
-
-												<div class="col-md-3">
 												
-													<input id="email" name="desc" placeholder="Description" class="form-control" type="text"></div>
 													
 												<label class="col-md-2 control-label" for="email">Archive Code</label>
 
@@ -149,16 +167,7 @@
 												
 
 											</div>
-											<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="email">File</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="file"  type="file"></div>
-
-											</div>
-
 											<div class="form-group">
 
 												<div class="col-md-12 text-right">

@@ -54,7 +54,7 @@
 
 										<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-										Add Agent / Broker
+										Edit Outgoing Letter Registration
 
 									</h3>
 
@@ -71,6 +71,21 @@
 									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/outgoing/update/'.$this->uri->segment(4)); ?>"  method="post">
 
 										<fieldset>
+											<div class="form-group">
+											
+												<label class="col-md-2 control-label" for="name">Nomor Surat</label>
+
+												<div class="col-md-3">
+
+													<input id="name" name="nomer" placeholder="Nomor surat" class="form-control" type="text" value="<?php echo $in->row()->tanggal; ?>"></div>
+
+												<label class="col-md-2 control-label" for="name">Tanggal Surat</label>
+
+												<div class="col-md-3">
+
+													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" value="<?php echo $in->row()->tanggal; ?>"></div>
+
+											</div>
 
 											<div class="form-group">
 
@@ -78,7 +93,7 @@
 
 												<div class="col-md-3">
 
-													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" value="<?php echo $in->row()->tanggal; ?>"></div>
+													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" ></div>
 												
 												<label class="col-md-2 control-label" for="email">Tujuan</label>
 

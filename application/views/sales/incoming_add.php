@@ -54,7 +54,7 @@
 
 										<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-										Add Agent / Broker
+										Add  Incoming Letter Registration
 
 									</h3>
 
@@ -80,7 +80,7 @@
 
 													<input id="name" name="nomer" placeholder="Nomor surat" class="form-control" type="text"></div>
 
-												<label class="col-md-2 control-label" for="name">Tanggal</label>
+												<label class="col-md-2 control-label" for="name">Tanggal Surat</label>
 
 												<div class="col-md-3">
 
@@ -130,6 +130,15 @@
 
 													<input id="email" name="letak" placeholder="Letak" class="form-control" type="text"></div>
 
+												<label class="col-md-2 control-label" for="email">Desc</label>
+
+												<div class="col-md-3">
+												
+													<input id="email" name="desc" placeholder="Description" class="form-control" type="text"></div>
+
+											</div>
+												<div class="form-group">
+											
 												<label class="col-md-2 control-label" for="email">File</label>
 
 												<div class="col-md-3">
