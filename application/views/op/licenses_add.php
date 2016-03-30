@@ -78,7 +78,7 @@
 
 												<div class="col-md-3">
 
-													<input id="license_name" name="license_name" placeholder="Nomor surat" class="form-control" type="text"></div>
+													<input id="license_name" name="license_name" placeholder="License Name" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="issuing">Issuing Institution</label>
 
@@ -133,7 +133,7 @@
 												<label class="col-md-2 control-label" for="explanation">Explanation</label>
 
 												<div class="col-md-3">
-													<input id="explanation" name="file"  type="file"></div>
+													<input id="explanation" name="fileEx"  type="file"></div>
 													
 
 											</div>

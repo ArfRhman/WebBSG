@@ -68,7 +68,7 @@
 
                                 <div class="panel-body">
 
-                                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/operational/save');?>" method="post">
+                                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/government/save');?>" method="post">
 
                                         <fieldset>
 
@@ -78,14 +78,14 @@
 
                                                 <div class="col-md-3">
                                                     <select name="type" class="form-control">
-                                                        <option>SK Menteri</option>
-                                                        <option>Peraturan Pemerintah</option>
-                                                        <option>Undang-Undang</option>
-                                                        <option>Surat Edaran</option>
-                                                        <option>Kepres</option>
-                                                        <option>Perpu</option>
-                                                        <option>Pergub</option>
-                                                        <option>Lain-lain</option>
+                                                        <option value="SK Menteri">SK Menteri</option>
+                                                        <option value="Peraturan Pemerintah">Peraturan Pemerintah</option>
+                                                        <option value="Undang-Undang">Undang-Undang</option>
+                                                        <option value="Surat Edaran">Surat Edaran</option>
+                                                        <option value="Kepres">Kepres</option>
+                                                        <option value="Perpu">Perpu</option>
+                                                        <option value="Pergub">Pergub</option>
+                                                        <option value="Lain-lain">Lain-lain</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -126,7 +126,7 @@
                                                 <label class="col-md-2 control-label" for="doc">Regulation Doc.</label>
 
                                                 <div class="col-md-3">
-                                                    <input id="doc" name="doc"  type="file"></div> 
+                                                    <input id="doc" name="file"  type="file"></div> 
                                             </div>
 
                                             <div class="form-group">

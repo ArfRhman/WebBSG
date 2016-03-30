@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 26, 2016 at 09:39 AM
+-- Generation Time: Mar 30, 2016 at 07:02 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -99,14 +99,15 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_budget` (
   `level2` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tbl_dm_budget`
 --
 
 INSERT INTO `tbl_dm_budget` (`id`, `code`, `main`, `level1`, `level2`, `description`) VALUES
-(1, '001', 'test', '1', '2', 't');
+(1, '001', 'test', '1', '2', 't'),
+(2, 'budget2', 'budmain', 'bud1', 'bud2', 'hahaha');
 
 -- --------------------------------------------------------
 
@@ -1699,13 +1700,20 @@ CREATE TABLE IF NOT EXISTS `tbl_op_letter_of_authorization` (
   `description` varchar(255) NOT NULL,
   `authorizer_name` varchar(255) NOT NULL,
   `authorizer_title` varchar(255) NOT NULL,
-  `authorizer_name2` varchar(255) NOT NULL,
-  `authorizer_title2` varchar(255) NOT NULL,
-  `authorizer_id` varchar(255) NOT NULL,
+  `authorized_name` varchar(255) NOT NULL,
+  `authorized_title` varchar(255) NOT NULL,
+  `authorized_id` varchar(255) NOT NULL,
   `file` text NOT NULL,
   `archive_code` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tbl_op_letter_of_authorization`
+--
+
+INSERT INTO `tbl_op_letter_of_authorization` (`no`, `loa_no`, `loa_date`, `subject`, `addressed_to`, `description`, `authorizer_name`, `authorizer_title`, `authorized_name`, `authorized_title`, `authorized_id`, `file`, `archive_code`) VALUES
+(2, '1', '23 Mar 2016', 'piko', '2', 'descripsi', '1', 'qwe', 'qwe', 'qwe', 'qwe', 'image/op_letter/daging_ayam.jpg', 'asdad');
 
 -- --------------------------------------------------------
 
@@ -2106,6 +2114,25 @@ CREATE TABLE IF NOT EXISTS `tbl_op_st_tabel` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_outgoing_letter_registration`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_outgoing_letter_registration` (
+  `no` int(11) NOT NULL AUTO_INCREMENT,
+  `ol_no` varchar(255) NOT NULL,
+  `ol_date` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `adressed_to` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `signer_by` varchar(255) NOT NULL,
+  `file` text NOT NULL,
+  `archive_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_position`
 --
 
@@ -2137,6 +2164,30 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_budget` (
   `sub_budget_level2` varchar(255) NOT NULL,
   `periode` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tbl_sale_budget`
+--
+
+INSERT INTO `tbl_sale_budget` (`no`, `budget_code`, `main_budget`, `sub_budget_level1`, `sub_budget_level2`, `periode`, `amount`) VALUES
+(1, '1', 'test', '1', '2', '2011', '1000'),
+(3, '2', 'budmain', 'bud1', 'bud2', '2011', '24444');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sale_catatan_direksi`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_sale_catatan_direksi` (
+  `no` int(11) NOT NULL AUTO_INCREMENT,
+  `csd_no` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `addressed_to` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `file` text NOT NULL,
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -2208,30 +2259,38 @@ INSERT INTO `tbl_sale_incoming` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_sale_incoming_letter_registration`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_sale_incoming_letter_registration` (
+  `no` int(11) NOT NULL AUTO_INCREMENT,
+  `received_date` varchar(255) NOT NULL,
+  `from` varchar(255) NOT NULL,
+  `letter_no` varchar(255) NOT NULL,
+  `letter_date` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `addressed_to` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `file` text NOT NULL,
+  `archive_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_sale_internal_memo`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `memo_id` varchar(255) NOT NULL,
-  `kepada` varchar(255) NOT NULL,
-  `tembusan` varchar(255) NOT NULL,
-  `devisi` varchar(255) NOT NULL,
-  `tempo` varchar(255) NOT NULL,
-  `pembayaran` varchar(255) NOT NULL,
-  `diajukan` varchar(255) NOT NULL,
-  `diketahui` varchar(255) NOT NULL,
-  `diverifikasi` varchar(255) NOT NULL,
-  `ref` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `tbl_sale_internal_memo`
---
-
-INSERT INTO `tbl_sale_internal_memo` (`id`, `memo_id`, `kepada`, `tembusan`, `devisi`, `tempo`, `pembayaran`, `diajukan`, `diketahui`, `diverifikasi`, `ref`) VALUES
-(3, 'we', 'Gia Nuralamsyah', 'Gia Nuralamsyah', '1.Wireline', '2016-01-01', 'w21r', 'Gia Nuralamsyah', 'Gia Nuralamsyah', 'Gia Nuralamsyah', 'www');
+  `no` int(11) NOT NULL AUTO_INCREMENT,
+  `internal_memo_no` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `addressed_to` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `file` text NOT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2249,7 +2308,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo_subfield` (
   `uraian` varchar(255) NOT NULL,
   `invoice` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `tbl_sale_internal_memo_subfield`
@@ -2257,7 +2316,8 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo_subfield` (
 
 INSERT INTO `tbl_sale_internal_memo_subfield` (`id`, `id_memo`, `cost_id`, `vendor`, `rate`, `amount`, `uraian`, `invoice`) VALUES
 (4, 2, '6. Facilitator''s Fee', 'forwarder', 'USD', '1200000', 'rame', '001'),
-(5, 1, '0', '0', '0', '0', '0', '0');
+(5, 1, '0', '0', '0', '0', '0', '0'),
+(6, 3, '7. Supporting Tools', 'ALITA PRAYA MITRA, PT', 'SGD', '1', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -2285,15 +2345,10 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_letter_of_support` (
   `version_of_support` varchar(255) NOT NULL,
   `los_no` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL,
-  `addressed_to` text NOT NULL,
-  `customer_to_support` varchar(255) NOT NULL,
-  `customer_address` varchar(255) NOT NULL,
+  `addressed_to` varchar(255) NOT NULL,
+  `customer_of_support` varchar(255) NOT NULL,
   `project_name` varchar(255) NOT NULL,
   `product_name` varchar(255) NOT NULL,
-  `period_of_warranty` varchar(255) NOT NULL,
-  `signer_name` varchar(255) NOT NULL,
-  `signer_title` varchar(255) NOT NULL,
-  `archive_code` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -2331,7 +2386,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_outgoing` (
   `desc` text NOT NULL,
   `archive_code` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `tbl_sale_outgoing`
@@ -2342,7 +2397,9 @@ INSERT INTO `tbl_sale_outgoing` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, 
 (7, '2', '01 Mar 2016', 'bandung', '1', '0', 'Gia Nuralamsyah', '-', '-', 'image/s_outgoing/Elliptical Ends Horizontal Cylindrical Tank Volume.xlsx', '', ''),
 (8, '3', '16 Mar 2016', '', 'a', '0', 'Gia Nuralamsyah', '', '', '', '', ''),
 (9, '4', '08 Mar 2016', 'a', 'a', '0', 'Gia Nuralamsyah', 'a', 'a', '', 'a', 'a'),
-(10, '5', '02 Mar 2016', '-', '-', '0', 'Gia Nuralamsyah', '-', '-', 'image/s_outgoing/Konsep Sales & Ops Dashboard(2).docx', '-', '-');
+(10, '5', '02 Mar 2016', '-', '-', '0', 'Gia Nuralamsyah', '-', '-', 'image/s_outgoing/Konsep Sales & Ops Dashboard(2).docx', '-', '-'),
+(11, '6', '01 Mar 2016', 'a', 'a', '0', 'Gia Nuralamsyah', 'a', 'a', '', 'a', 'a'),
+(12, '7', '09 Mar 2016', '74', 'ad', '0', 'Gia Nuralamsyah', '0', 'asds', 'image/s_outgoing/waterfall.PNG', 'ads', '1231');
 
 -- --------------------------------------------------------
 
@@ -2379,7 +2436,15 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_realisasi` (
   `transaction_description` text NOT NULL,
   `amount` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `tbl_sale_realisasi`
+--
+
+INSERT INTO `tbl_sale_realisasi` (`no`, `budget_code`, `main_budget`, `sub_budget_level1`, `sub_budget_level2`, `date`, `transaction_description`, `amount`) VALUES
+(1, '1', 'test', '1', '2', '30 Mar 2016', 'aasasdad', '24444'),
+(4, '2', 'budmain', 'bud1', 'bud2', '07 Mar 2016', 'abc', '2');
 
 -- --------------------------------------------------------
 
@@ -2604,13 +2669,20 @@ INSERT INTO `tbl_sale_so_payment` (`id`, `id_so`, `reference`, `due_date`, `paym
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_target` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
-  `a/m` varchar(255) NOT NULL,
+  `a_m` varchar(255) NOT NULL,
   `periode` varchar(255) NOT NULL,
   `operator` varchar(255) NOT NULL,
   `customer` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `tbl_sale_target`
+--
+
+INSERT INTO `tbl_sale_target` (`no`, `a_m`, `periode`, `operator`, `customer`, `amount`) VALUES
+(1, '1', '2011', '1', '9', '211');
 
 -- --------------------------------------------------------
 
