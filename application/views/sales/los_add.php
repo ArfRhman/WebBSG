@@ -22,7 +22,7 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    Edit Internal Memo
+                                    Add Letter Of Support
                                 </h3>
                                 <span class="pull-right">
                                     <i class="glyphicon glyphicon-chevron-up clickable"></i>
@@ -32,17 +32,41 @@
                                 <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/memo/save');?>" method="post">
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label" for="name">Internal Memo No.</label>
+                                            <label class="col-md-2 control-label" for="name">Version of Support</label>
                                             <div class="col-md-3">
-                                                <input id="name" name="memo_no" placeholder="Internal Memo No" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Date</label>                                          <div class="col-md-3">                                                <input id="name" name="memo_date" placeholder="Date" class="form-control datepicker" type="text"></div>
+                                                <select class="form-control" name="los_version">
+                                                    <option>English</option>
+                                                    <option>Indonesia</option>
+                                                </select>
+                                            </div>                                                                                      <label class="col-md-2 control-label" for="email">Los No</label>                                          <div class="col-md-3">                                                <input id="name" name="los_no" placeholder="Los No" class="form-control" type="text"></div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label" for="email">Addressed To</label>
+                                            <label class="col-md-2 control-label" for="email">Date</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="memo_addressed" placeholder="Addressed To" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Subject</label>                                            <div class="col-md-3">                                                <input id="email" name="memo_subject" placeholder="Subject" class="form-control" type="text"></div>
+                                                <input id="email" name="los_date" placeholder="Date" class="form-control datepicker" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Addressed To</label>                                            <div class="col-md-3">                                                <input id="email" name="los_address_to" placeholder="Addressed To" class="form-control" type="text"></div>
                                         </div>
                                         <div class="form-group">
-                                           <label class="col-md-2 control-label" for="email">File</label>                                            <div class="col-md-3">                                                <input name="file" type="file"><span style="color:red;">*leave blank if wont change</span></div>                                                                               
+                                            <label class="col-md-2 control-label" for="email">Costumer To Support</label>
+                                            <div class="col-md-3">
+                                               <select name="los_costumer_support" class="form-control">
+                                                <?php
+                                                    $sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
+                                                    foreach($sql->result() as $s)
+                                                    {
+                                                        ?>
+                                                        <option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
+                                                        <?php
+                                                    }
+                                                ?>
+                                                </select> </div>                                                                                      <label class="col-md-2 control-label" for="email">Project Name</label>   
+                                                <div class="col-md-3">                                              
+                                                  <input id="email" name="los_project_name" placeholder="Project Name" class="form-control" type="text">
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                           <label class="col-md-2 control-label" for="email">Product Name</label>   
+                                                <div class="col-md-3">                                              
+                                                  <input id="email" name="los_product_name" placeholder="Product Name" class="form-control" type="text">                                                                               
                                         </div>
                                         
                                        

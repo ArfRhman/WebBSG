@@ -27,19 +27,23 @@
                                     <table class="table table-striped table-responsive" id="table1">
                                         <thead>
                                             <tr>
-                                                <th>No.</th>
-                                                <th>Internal Memo No.</th>
-                                                <th>Date</th>
-                                                <th>Addressed To</th>
-                                                <th>Subject</th>
-                                                <th>File</th>
+                                                <th>Memo ID</th>
+                                                <th>No Ref</th>
+                                                <th>Kepada</th>
+                                                <th>Tembusan</th>
+                                                <th>Devisi</th>
+                                                <th>Jatuh Tempo</th>
+                                                <th>Cara Pembayaran</th>
+                                                <th>Diajukan</th>
+                                                <th>Diketahui</th>
+                                                <th>Diverifikasi</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 											<?php
 											$no = 1;
-											/*foreach($memo->result() as $c)
+											foreach($memo->result() as $c)
 											{
 											?>
                                             <tr>
@@ -67,7 +71,7 @@
 												</td>
                                             </tr>
 											<?php
-											}*/
+											}
 											?>
                                         </tbody>
                                     </table>

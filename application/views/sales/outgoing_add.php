@@ -74,31 +74,31 @@
 
 											<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="name">Nomor Surat</label>
+												<label class="col-md-2 control-label" for="name">OL No.</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="nomer" placeholder="Nomor surat" class="form-control" type="text"></div>
+													<input id="name" name="outgoing_no" placeholder="Outgoing Letter No" class="form-control" type="text"></div>
 
-												<label class="col-md-2 control-label" for="name">Tanggal Surat</label>
+												<label class="col-md-2 control-label" for="name">OL Date</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="name" name="outgoing_date" placeholder="Outgoing Letter Date" class="form-control datepicker" type="text"></div>
 
 											</div>
 											<div class="form-group">
 
-												<label class="col-md-2 control-label" for="email">Perihal</label>
+												<label class="col-md-2 control-label" for="email">Subject</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="perihal" placeholder="Perihal" class="form-control" type="text"></div>
+													<input id="email" name="outgoing_subject" placeholder="Subject" class="form-control" type="text"></div>
 													
 												
-												<label class="col-md-2 control-label" for="email">Tujuan</label>
+												<label class="col-md-2 control-label" for="email">Addressed To</label>
 <div class="col-md-3">												
-												<select name="tujuan" class="form-control">
+												<select name="outgoing_addressed_to" class="form-control">
 												<?php
 													$sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
 													foreach($sql->result() as $s)
@@ -114,17 +114,17 @@
 											</div>
 
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="email">Desc</label>
+												<label class="col-md-2 control-label" for="email">Description</label>
 
 												<div class="col-md-3">
 												
 													<input id="email" name="desc" placeholder="Description" class="form-control" type="text"></div>
 													
-												<label class="col-md-2 control-label" for="email">Pembuat</label>
+												<label class="col-md-2 control-label" for="email">Signer By</label>
 
 													<div class="col-md-3">
 
-														<select name="pembuat" class="form-control">
+														<select name="outgoing_signer_by" class="form-control">
 															<?php
 															foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
 															{
@@ -146,27 +146,15 @@
 
 													<input id="email" name="file"  type="file"></div>
 													
-												<label class="col-md-2 control-label" for="email">Letak</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="letak" placeholder="Letak" class="form-control" type="text"></div>
-												
-
-											</div>
-
-											<div class="form-group">
-											
-												
-													
 												<label class="col-md-2 control-label" for="email">Archive Code</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="archieve" placeholder="Archieve Code" class="form-control" type="text"></div>
+													<input id="email" name="outgoind_archive_code" placeholder="Archive Code" class="form-control" type="text"></div>
 												
 
 											</div>
+
 											
 											<div class="form-group">
 

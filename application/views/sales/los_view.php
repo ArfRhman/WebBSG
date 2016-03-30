@@ -10,7 +10,7 @@
 						if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
 						{
 						?>
-							<a href="<?php echo site_url('sales/memo/add')?>" class="btn btn-success">Add New Data</a>
+							<a href="<?php echo site_url('sales/los/add')?>" class="btn btn-success">Add New Data</a>
 						<?php
 						}
 						?>
@@ -19,7 +19,7 @@
                                 <div class="panel-title pull-left">
                                        <div class="caption">
                                     <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    Memo List
+                                    Letter Of Support List
                                 </div>
                                 </div>
                             </div>
@@ -28,11 +28,13 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Internal Memo No.</th>
+                                                <th>Version of Support</th>
+                                                <th>LoS No</th>
                                                 <th>Date</th>
                                                 <th>Addressed To</th>
-                                                <th>Subject</th>
-                                                <th>File</th>
+                                                <th>Costumer To Support</th>
+                                                <th>Project Name</th>
+                                                <th>Product Name</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

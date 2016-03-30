@@ -22,7 +22,7 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    Edit Internal Memo
+                                    Add Catatan Singkat Direksi
                                 </h3>
                                 <span class="pull-right">
                                     <i class="glyphicon glyphicon-chevron-up clickable"></i>
@@ -32,17 +32,17 @@
                                 <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/memo/save');?>" method="post">
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label" for="name">Internal Memo No.</label>
+                                            <label class="col-md-2 control-label" for="name">CSD No.</label>
                                             <div class="col-md-3">
-                                                <input id="name" name="memo_no" placeholder="Internal Memo No" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Date</label>                                          <div class="col-md-3">                                                <input id="name" name="memo_date" placeholder="Date" class="form-control datepicker" type="text"></div>
+                                                <input id="name" name="csd_no" placeholder="CSD No" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Date</label>                                          <div class="col-md-3">                                                <input id="name" name="csd_date" placeholder="Date" class="form-control datepicker" type="text"></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Addressed To</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="memo_addressed" placeholder="Addressed To" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Subject</label>                                            <div class="col-md-3">                                                <input id="email" name="memo_subject" placeholder="Subject" class="form-control" type="text"></div>
+                                                <input id="email" name="csdaddressed" placeholder="Addressed To" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Subject</label>                                            <div class="col-md-3">                                                <input id="email" name="csd_subject" placeholder="Subject" class="form-control" type="text"></div>
                                         </div>
                                         <div class="form-group">
-                                           <label class="col-md-2 control-label" for="email">File</label>                                            <div class="col-md-3">                                                <input name="file" type="file"><span style="color:red;">*leave blank if wont change</span></div>                                                                               
+                                           <label class="col-md-2 control-label" for="email">File</label>                                            <div class="col-md-3">                                                <input name="file" type="file"></div>                                                                               
                                         </div>
                                         
                                        

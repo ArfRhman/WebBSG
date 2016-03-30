@@ -32,7 +32,7 @@
                                                 <th>Date</th>
                                                 <th>Address To</th>
                                                 <th>Subject</th>
-                                                <th>file</th>
+                                                <th>File</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

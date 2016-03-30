@@ -56,21 +56,22 @@
 
                                                 <th>No</th>
 
-                                                <th>Nomor Surat</th>
+                                                <th>Received Date</th>
 
-                                                <th>Tanggal</th>
+                                                <th>From</th>
 
-                                                <th>Tujuan</th>
+                                                <th>Letter No</th>
 
-                                                <th>Perihal</th>
+                                                <th>Letter Date</th>
 
-                                                <th>Tgl. Terima</th>
+                                                <th>Subject</th>
 
-                                                <th>Pembuat</th>
+                                                <th>Addressed To</th>
 
-                                                <th>Letak</th>
+                                                <th>Descrption</th>
 
-                                                <th>file</th>
+                                                <th>File</th>
+                                                <th>Archive Code</th>
 
                                                 <th>Action</th>
 
@@ -84,7 +85,7 @@
 
 											$no = 1;
 
-											foreach($in->result() as $c)
+											/*foreach($in->result() as $c)
 
 											{
 
@@ -138,7 +139,7 @@
 
 											<?php
 
-											}
+											}*/
 
 											?>
 

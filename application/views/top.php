@@ -240,7 +240,7 @@ if($this->session->userdata('active') == FALSE)
 									</ul>
 								</li>
 								<?php } ?>
-								<li <?php if($this->uri->segment(1) == "sales") echo "class='active'"; ?>>
+								<li <?php if($this->uri->segment(2) == "so" || $ac == "s_budget" || $ac == "s_realisasi" || $ac == "s_target") echo "class='active'"; ?>>
 									<a href="#">
 										<i class="livicon" data-name="table" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
 										<span class="title">Transaction</span>
@@ -283,7 +283,7 @@ if($this->session->userdata('active') == FALSE)
 										<?php } ?>
 									</ul>
 								</li>
-								<li <?php if($ac == "s_memo" || $ac == "s_incoming" || $ac == "s_outgoing") echo "class='active'";?>>
+								<li <?php if($ac == "s_memo" || $ac == "s_incoming" || $ac == "s_outgoing" || $ac == "s_direksi" || $ac == "s_los") echo "class='active'";?>>
 									<a href="#">
 										<i class="livicon" data-name="lab" data-c="#EF6F6C" data-hc="#EF6F6C" data-size="18" data-loop="true"></i>
 										<span class="title">Other Forms</span>
@@ -315,11 +315,11 @@ if($this->session->userdata('active') == FALSE)
 										<li <?php if($ac == "s_direksi") echo "class='active'";?>>
 											<a href="<?php echo site_url("sales/direksi/view"); ?>">
 												<i class="fa fa-angle-double-right"></i>
-												Catatan Direksi
+												Catatan Singkat Direksi
 											</a>
 										</li>
-										<li>
-											<a href="#">
+										<li <?php if($ac == "s_los") echo "class='active'";?>>
+											<a href="<?php echo site_url("sales/los/view"); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Letter Of Support
 											</a>

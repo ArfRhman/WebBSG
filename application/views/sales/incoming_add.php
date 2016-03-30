@@ -74,76 +74,74 @@
 
 											<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="name">Nomor Surat</label>
+												<label class="col-md-2 control-label" for="name">Received Datet</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="nomer" placeholder="Nomor surat" class="form-control" type="text"></div>
+													<input id="name" name="incoming_date" placeholder="Received Date" class="form-control datepicker" type="text"></div>
 
-												<label class="col-md-2 control-label" for="name">Tanggal Surat</label>
+												<label class="col-md-2 control-label" for="name">From</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="name" name="incoming_from" placeholder="From" class="form-control" type="text"></div>
 
 											</div>
 
 											<div class="form-group">
 												
-												<label class="col-md-2 control-label" for="email">Tujuan</label>
+												<label class="col-md-2 control-label" for="email">Letter No</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="tujuan" placeholder="Tujuan" class="form-control" type="text"></div>
+													<input id="email" name="incoming_letter_no" placeholder="Letter No" class="form-control" type="text"></div>
 
-												<label class="col-md-2 control-label" for="email">Perihal</label>
+												<label class="col-md-2 control-label" for="email">Letter Date</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="perihal" placeholder="Perihal" class="form-control" type="text"></div>
+													<input id="email" name="incoming_letter_date" placeholder="Letter Date" class="form-control datepicker" type="text"></div>
 
 											</div>
 
 
 											<div class="form-group">
 												
-												<label class="col-md-2 control-label" for="email">Tgl. Terima</label>
+												<label class="col-md-2 control-label" for="email">Subject</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="terima" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="email" name="incoming_subject" placeholder="Subject" class="form-control" type="text"></div>
 
-												<label class="col-md-2 control-label" for="email">Pembuat</label>
+												<label class="col-md-2 control-label" for="email">Addressed To</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="pembuat" placeholder="Pembuat" class="form-control" type="text"></div>
+													<input id="email" name="incoming_addressed_to" placeholder="Addressed To" class="form-control" type="text"></div>
 
 											</div>
 
 
 											<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="email">Letak</label>
+												<label class="col-md-2 control-label" for="email">Description</label>
 
 												<div class="col-md-3">
 
-													<input id="email" name="letak" placeholder="Letak" class="form-control" type="text"></div>
-
-												<label class="col-md-2 control-label" for="email">Desc</label>
-
-												<div class="col-md-3">
-												
-													<input id="email" name="desc" placeholder="Description" class="form-control" type="text"></div>
-
-											</div>
-												<div class="form-group">
-											
-												<label class="col-md-2 control-label" for="email">File</label>
+													<input id="email" name="incoming_descrption" placeholder="Descrption" class="form-control" type="text"></div>
+<label class="col-md-2 control-label" for="email">File</label>
 
 												<div class="col-md-3">
 
 													<input id="email" name="file"  type="file"></div>
+
+											</div>
+												<div class="form-group">
+											<label class="col-md-2 control-label" for="email">Archive Code</label>
+
+												<div class="col-md-3">
+
+													<input id="email" name="incoming_archive_code" placeholder="Archive Code" class="form-control" type="text"></div>
 
 											</div>
 

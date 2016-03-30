@@ -68,60 +68,68 @@
 
 								<div class="panel-body">
 
-									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/outgoing/update/'.$this->uri->segment(4)); ?>"  method="post">
+									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/outgoing/update');?>" method="post">
 
 										<fieldset>
+
 											<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="name">Nomor Surat</label>
+												<label class="col-md-2 control-label" for="name">OL No.</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="nomer" placeholder="Nomor surat" class="form-control" type="text" value="<?php echo $in->row()->tanggal; ?>"></div>
+													<input id="name" name="outgoing_no" placeholder="Outgoing Letter No" class="form-control" type="text"></div>
 
-												<label class="col-md-2 control-label" for="name">Tanggal Surat</label>
+												<label class="col-md-2 control-label" for="name">OL Date</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" value="<?php echo $in->row()->tanggal; ?>"></div>
+													<input id="name" name="outgoing_date" placeholder="Outgoing Letter Date" class="form-control datepicker" type="text"></div>
 
 											</div>
-
 											<div class="form-group">
 
-												<label class="col-md-2 control-label" for="name">Tanggal</label>
+												<label class="col-md-2 control-label" for="email">Subject</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" ></div>
+													<input id="email" name="outgoing_subject" placeholder="Subject" class="form-control" type="text"></div>
+													
 												
-												<label class="col-md-2 control-label" for="email">Tujuan</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="tujuan" placeholder="Tujuan" class="form-control" type="text" value="<?php echo $in->row()->tujuan; ?>"></div>
+												<label class="col-md-2 control-label" for="email">Addressed To</label>
+<div class="col-md-3">												
+												<select name="outgoing_addressed_to" class="form-control">
+												<?php
+													$sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
+													foreach($sql->result() as $s)
+													{
+														?>
+														<option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
+														<?php
+													}
+												?>
+												</select> 
+												</div>
 
 											</div>
 
 											<div class="form-group">
-
-												<label class="col-md-2 control-label" for="email">Perihal</label>
+												<label class="col-md-2 control-label" for="email">Description</label>
 
 												<div class="col-md-3">
-
-													<input id="email" name="perihal" placeholder="Perihal" class="form-control" type="text" value="<?php echo $in->row()->perihal; ?>"></div>
+												
+													<input id="email" name="desc" placeholder="Description" class="form-control" type="text"></div>
 													
-													
-												<label class="col-md-2 control-label" for="email">Pembuat</label>
+												<label class="col-md-2 control-label" for="email">Signer By</label>
 
 													<div class="col-md-3">
 
-														<select name="pembuat" class="form-control">
+														<select name="outgoing_signer_by" class="form-control">
 															<?php
 															foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
 															{
 															?>
-															<option <?php if($c == $in->row()->pembuat)echo 'selected'?> value="<?php echo $c->name; ?>"><?php echo $c->name; ?></option>	
+															<option value="<?php echo $c->name; ?>"><?php echo $c->name; ?></option>	
 															<?php
 															}
 															?>
@@ -132,33 +140,22 @@
 
 
 											<div class="form-group">
-											
-												<label class="col-md-2 control-label" for="email">Penanggung Jawab</label>
-
-												<div class="col-md-3">
-												
-													<input id="email" name="jawab" placeholder="Penanggung jawab" class="form-control" type="text" value="<?php echo $in->row()->jawab; ?>"></div>
-													
-												<label class="col-md-2 control-label" for="email">Letak</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="letak" placeholder="Letak" class="form-control" type="text" value="<?php echo $in->row()->letak; ?>"></div>
-												
-
-											</div>
-
-
-											<div class="form-group">
-											
-												<label class="col-md-2 control-label" for="email">File</label>
+											<label class="col-md-2 control-label" for="email">File</label>
 
 												<div class="col-md-3">
 
 													<input id="email" name="file"  type="file"></div>
+													
+												<label class="col-md-2 control-label" for="email">Archive Code</label>
+
+												<div class="col-md-3">
+
+													<input id="email" name="outgoind_archive_code" placeholder="Archive Code" class="form-control" type="text"></div>
+												
 
 											</div>
 
+											
 											<div class="form-group">
 
 												<div class="col-md-12 text-right">

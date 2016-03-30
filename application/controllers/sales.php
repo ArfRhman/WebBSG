@@ -782,7 +782,7 @@ function outgoing()
 
 function direksi()
 {
-	$data['ac'] = "s_direksti";
+	$data['ac'] = "s_direksi";
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
@@ -792,13 +792,40 @@ function direksi()
 		break;			
 		case 'add':								
 		$this->load->view('top', $data);				
-		$this->load->view('sales/outgoing_add', $data);								
+		$this->load->view('sales/direksi_add', $data);								
+		break;
+		case 'edit':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/direksi_edit', $data);								
 		break;
 		case 'save':
 		break;
 	}
 }
 // Add by Arif 2016
+
+function LoS()
+{
+	$data['ac'] = "s_los";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_letter_of_support');
+		$this->load->view('top', $data);
+		$this->load->view('sales/los_view', $data);
+		break;			
+		case 'add':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/los_add', $data);								
+		break;
+		case 'edit':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/los_edit', $data);								
+		break;
+		case 'save':
+		break;
+	}
+}
 
 function budget()
 {
