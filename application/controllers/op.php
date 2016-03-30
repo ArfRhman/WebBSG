@@ -851,13 +851,54 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['business'] = $this->mddata->getAllDataTbl('tbl_op_business_doc_template');
 			$this->load->view('top', $data);
 			$this->load->view('op/bussiness_view', $data);
 			break;
 			case 'add':								
 			$this->load->view('top', $data);				
 			$this->load->view('op/bussiness_add', $data);								
+			break;
+			case 'save':
+			$dir = "image/op_business/";
+			$file = $dir . $_FILES['file']['name'];
+			$p = $this->input->post();
+			$data = array(
+				'document_name' => $p['name'],
+				'description' => $p['desc']
+				);
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['document_template'] = $file;
+			}
+			$this->mddata->insertIntoTbl('tbl_op_business_doc_template', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case'edit':
+			$data['business'] = $this->mddata->getDataFromTblWhere('tbl_op_business_doc_template', 'no', $this->uri->segment(4))->row();
+			$this->load->view('top', $data);
+			$this->load->view('op/bussiness_edit', $data);
+			break;
+			case 'update':
+			$dir = "image/op_business/";
+			$file = $dir . $_FILES['file']['name'];
+			$p = $this->input->post();
+			$data = array(
+				'document_name' => $p['name'],
+				'description' => $p['desc']
+				);
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['document_template'] = $file;
+			}
+			$this->mddata->updateDataTbl('tbl_op_business_doc_template',$data,'no',$p['no']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case'delete':
+			$this->mddata->deleteGeneral('tbl_op_business_doc_template','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}

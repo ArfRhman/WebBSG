@@ -54,7 +54,7 @@
 
                                     <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-                                    Add Business Document Template
+                                    Edit Business Document Template
 
                                 </h3>
 
@@ -68,8 +68,8 @@
 
                             <div class="panel-body">
 
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/bussiness/save');?>" method="post">
-
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/bussiness/update');?>" method="post">
+                                    <input type="hidden" name="no" value="<?=$business->no;?>">
                                     <fieldset>
 
 
@@ -80,7 +80,7 @@
 
                                             <div class="col-md-3">
 
-                                                <input id="name" name="name" placeholder="Document Name" class="form-control" type="text"></div>
+                                                <input id="name" value="<?=$business->document_name?>" name="name" placeholder="Document Name" class="form-control" type="text"></div>
 
 
                                             </div>
@@ -90,14 +90,14 @@
                                                 <label class="col-md-2 control-label" for="desc">Desciption</label>
 
                                                 <div class="col-md-3">
-                                                    <input id="desc" name="desc" placeholder="Desciption" class="form-control" type="text"></div> 
+                                                    <input id="desc" value="<?=$business->description;?>" name="desc" placeholder="Desciption" class="form-control" type="text"></div> 
                                                 </div>
                                                 <div class="form-group">
 
                                                     <label class="col-md-2 control-label" for="doc">Document Template</label>
 
                                                     <div class="col-md-3">
-                                                    <input id="doc" name="file"  type="file"></div> 
+                                                        <input id="doc" name="file"  type="file"></div> 
                                                     </div>
 
                                                     <div class="form-group">
