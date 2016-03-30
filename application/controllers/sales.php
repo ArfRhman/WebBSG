@@ -37,7 +37,7 @@ class Sales extends CI_Controller {
 			$this->load->view('sales/memo_add', $data);
 			break;
 			case 'edit':
-			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
+			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('sales/memo_edit', $data);
 			break;
@@ -47,18 +47,18 @@ class Sales extends CI_Controller {
 			$this->load->view('sales/memo_edit_subfield', $data);
 			break;
 			case 'save':
+			$dir = "image/s_memo/";
+			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'memo_id' => $this->input->post('memo_id'),
-				'ref' => $this->input->post('ref'), 
-				'kepada' => $this->input->post('kepada'), 
-				'devisi' => $this->input->post('devisi'), 
-				'tembusan' => $this->input->post('tembusan'), 
-				'tempo' => $this->input->post('tempo'), 
-				'pembayaran' => $this->input->post('pembayaran'), 
-				'diajukan' => $this->input->post('diajukan'),
-				'diketahui' => $this->input->post('diketahui'), 
-				'diverifikasi' => $this->input->post('diverifikasi'),
+				'date' => $p['memo_date'],
+				'addressed_to' => $p['memo_addressed'],
+				'subject' => $p['memo_subject']
 				);
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['file'] = $file;
+			}
 			$this->mddata->insertIntoTbl('tbl_sale_internal_memo', $data);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
@@ -78,19 +78,19 @@ class Sales extends CI_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'update':
+			$dir = "image/s_memo/";
+			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'memo_id' => $this->input->post('memo_id'),
-				'ref' => $this->input->post('ref'), 
-				'kepada' => $this->input->post('kepada'), 
-				'devisi' => $this->input->post('devisi'), 
-				'tembusan' => $this->input->post('tembusan'), 
-				'tempo' => $this->input->post('tempo'), 
-				'pembayaran' => $this->input->post('pembayaran'), 
-				'diajukan' => $this->input->post('diajukan'),
-				'diketahui' => $this->input->post('diketahui'), 
-				'diverifikasi' => $this->input->post('diverifikasi'),
+				'date' => $p['memo_date'],
+				'addressed_to' => $p['memo_addressed'],
+				'subject' => $p['memo_subject']
 				);
-			$this->mddata->updateDataTbl('tbl_sale_internal_memo', $data, 'id', $this->uri->segment(4));
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['file'] = $file;
+			}
+			$this->mddata->updateDataTbl('tbl_sale_internal_memo',$data,'no',$p['no']);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
@@ -108,7 +108,7 @@ class Sales extends CI_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'delete':
-			$this->mddata->deleteTblData('tbl_sale_internal_memo', $this->uri->segment(4));
+			$this->mddata->deleteGeneral('tbl_sale_internal_memo','no', $this->uri->segment(4));
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'delete_subfield':
@@ -1027,7 +1027,7 @@ function target()
 		$this->load->view('sales/target_add', $data);
 		break;
 		case 'edit':
-		// $data['memo'] = $this->mddata->getDataFromTblWhere('tbl_sale_internal_memo', 'id', $this->uri->segment(4));
+		$data['target'] = $this->mddata->getDataFromTblWhere('tbl_sale_target', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/target_edit', $data);
 		break;
@@ -1041,6 +1041,19 @@ function target()
 			'amount' => $p['amount']
 			);
 		$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+		$this->session->set_flashdata('data','Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$data = array(
+			'a_m' => $p['am'],
+			'periode' => $p['periode'],
+			'operator' => $p['operator'],
+			'customer' => $p['customer_name'],
+			'amount' => $p['amount']
+			);
+		$this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$p['no']);
 		$this->session->set_flashdata('data','Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
