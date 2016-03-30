@@ -283,7 +283,7 @@ if($this->session->userdata('active') == FALSE)
 										<?php } ?>
 									</ul>
 								</li>
-								<li <?php if($ac == "s_memo" || $ac == "s_incoming" || $ac == "s_outgoing" || $ac == "s_direksi" || $ac == "s_los") echo "class='active'";?>>
+								<li <?php if($ac == "s_memo" || $ac == "s_incoming" || $ac == "s_outgoing" || $ac == "s_direksi" || $ac == "s_los" || $ac == "s_visit") echo "class='active'";?>>
 									<a href="#">
 										<i class="livicon" data-name="lab" data-c="#EF6F6C" data-hc="#EF6F6C" data-size="18" data-loop="true"></i>
 										<span class="title">Other Forms</span>
@@ -329,8 +329,8 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd4')->d4 >= 1)
 										{
 										?>
-										<li>
-											<a href="#">
+										<li <?php if($ac == "s_visit") echo "class='active'";?>>
+											<a href="<?php echo site_url("sales/visit/view"); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Customer Visit Report
 											</a>
@@ -374,21 +374,21 @@ if($this->session->userdata('active') == FALSE)
 								if($this->mddata->access($this->session->userdata('group'), 'd6')->d6 >= 1)
 								{
 								?>
-								<li>
+								<li <?php if($ac == "s_sop" || $ac == "s_policies") echo "class='active'";?>>
 									<a href="#">
 										<i class="livicon" data-name="map" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
 										<span class="title">Rules And Downloads</span>
 										<span class="fa arrow"></span>
 									</a>
 									<ul class="sub-menu">
-										<li>
-											<a href="#">
+										<li <?php if($ac == "s_policies") echo "class='active'";?>>
+											<a href="<?php echo site_url("sales/policies/view"); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												List Of Policies
 											</a>
 										</li>
-										<li>
-											<a href="#">
+										<li <?php if($ac == "s_sop") echo "class='active'";?>>
+											<a href="<?php echo site_url("sales/sop/view"); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Sales SOP
 											</a>

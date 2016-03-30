@@ -826,7 +826,77 @@ function LoS()
 		break;
 	}
 }
-
+function visit()
+{
+	$data['ac'] = "s_visit";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_customer_visit');
+		$this->load->view('top', $data);
+		$this->load->view('sales/visit_view', $data);
+		break;	
+		case 'detail':
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_customer_visit');
+		$this->load->view('top', $data);
+		$this->load->view('sales/visit_detail', $data);
+		break;					
+		case 'add':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/visit_add', $data);								
+		break;
+		case 'edit':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/visit_edit', $data);								
+		break;
+		case 'save':
+		break;
+	}
+}
+function policies()
+{
+	$data['ac'] = "s_policies";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_policies');
+		$this->load->view('top', $data);
+		$this->load->view('sales/policies_view', $data);
+		break;			
+		case 'add':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/policies_add', $data);								
+		break;
+		case 'edit':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/policies_edit', $data);								
+		break;
+		case 'save':
+		break;
+	}
+}
+function sop()
+{
+	$data['ac'] = "s_sop";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/sop_view', $data);
+		break;			
+		case 'add':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/sop_add', $data);								
+		break;
+		case 'edit':								
+		$this->load->view('top', $data);				
+		$this->load->view('sales/sop_edit', $data);								
+		break;
+		case 'save':
+		break;
+	}
+}
 function budget()
 {
 	$data['ac'] = "s_budget";
