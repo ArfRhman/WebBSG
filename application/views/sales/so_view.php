@@ -53,7 +53,7 @@
 											<td><?php echo $c->po_no; ?></td>
 											<td><?php echo $c->po_date; ?></td>
 											<td><?php echo $c->customer_id; ?></td>
-											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->customer_name)->row()->name; ?></td>
+											<td><?php echo $c->customer_name; ?></td>
 											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->am)->row()->name; ?></td>
 											<td><?php echo $c->pn; ?></td>
 											<td><?php 

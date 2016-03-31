@@ -407,7 +407,7 @@ if($this->session->userdata('active') == FALSE)
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li>
+                                <li <?php if($ac == "op_graph_import" || $ac == "op_graph_transport" || $ac == "op_import_performance" || $ac== "op_supply") echo "class='active'; "?>>
 									<a href="#">
 										<i class="livicon" data-name="home" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
 										<span class="title">Dashboard</span>
@@ -418,25 +418,25 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd7')->d7 >= 1)
 										{
 										?>
-										<li>
+										<li <?php if($ac == "op_graph_import") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/graph_import/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Graphic Import Cost
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_graph_transport") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/graph_transport/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Graphic Transport Cost
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_import_performance") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/import_performance/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Lead Time Performance
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_supply") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/supply/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Supply Lead Time Performance
@@ -447,16 +447,16 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd8')->d8 >= 1)
 										{
 										?>
-										<li>
+										<!-- <li>
 											<a href="#">
 												<i class="fa fa-angle-double-right"></i>
 												Budget vs Actual
 											</a>
-										</li>
+										</li> -->
 										<?php } ?>
 									</ul>
 								</li>
-								<li>
+								<li <?php if($ac == "op_import_cost" || $ac == "op_transport_cost" || $ac == "op_import_lead" || $ac == "op_supply_report" || $ac== "op_budget_actual" || $ac== "op_cases") echo "class='active'; "?>>
 									<a href="#">
 										<i class="livicon" data-name="barchart" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i>
 										<span class="title">Operational Report</span>
@@ -467,13 +467,13 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd9')->d9 >= 1)
 										{
 										?>
-										<li>
+										<li <?php if($ac == "op_import_cost") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/import_cost/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Cost Report
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_transport_cost") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/transport_cost/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Transport Cost Report
@@ -484,13 +484,13 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd10')->d10 >= 1)
 										{
 										?>
-										<li>
+										<li <?php if($ac == "op_import_lead") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/import_lead/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Lead Time Report
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_supply_report") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/supply_report/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Supply Lead Time Report
@@ -501,7 +501,7 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd11')->d11 >= 1)
 										{
 										?>
-										<li>
+										<li <?php if($ac == "op_budget_actual") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/budget_actual/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Budget vs Actual Report
@@ -512,7 +512,7 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd8')->d8 >= 1)
 										{
 										?>
-										<li>
+										<li <?php if($ac == "op_cases") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/cases/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Cases
@@ -523,7 +523,7 @@ if($this->session->userdata('active') == FALSE)
 										?>
 									</ul>
 								</li>
-								<li>
+								<li <?php if($ac == "op_po" || $ac == "op_price" || $ac == "op_budget" || $ac== "op_realisasi") echo "class='active'; "?>>
 									<a href="#">
 										<i class="livicon" data-name="table" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
 										<span class="title">Transaction</span>
@@ -534,7 +534,7 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd12')->d12 >= 1)
 										{
 										?>
-										<li>
+										<li <?php if($ac == "op_po") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/po/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Purchase Order
@@ -562,19 +562,19 @@ if($this->session->userdata('active') == FALSE)
 												Petty Cash
 											</a>
 										</li>
-										<li>
-											<a href="#">
+										<li <?php if($ac == "op_price") echo "class='active'";?>>
+											<a href="<?php echo site_url('op/price/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Price List
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_budget") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/budget/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Budget
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_realisasi") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/realisasi/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Realisasi
@@ -585,7 +585,7 @@ if($this->session->userdata('active') == FALSE)
 										?>
 									</ul>
 								</li>
-								<li <?php if($ac == "op_memo" || $ac == "op_incoming" || $ac == "op_outgoing") echo "class='active'; "?>>
+								<li <?php if($ac == "op_memo" || $ac == "op_incoming" || $ac == "op_outgoing" || $ac== "op_payment"  || $ac =="op_letter") echo "class='active'; "?>>
 									<a href="#">
 										<i class="livicon" data-name="lab" data-c="#EF6F6C" data-hc="#EF6F6C" data-size="18" data-loop="true"></i>
 										<span class="title">Other Forms</span>
@@ -596,8 +596,8 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 >= 1)
 										{
 										?>
-										<li>
-											<a href="#">
+										<li <?php if($ac == "op_payment") echo "class='active'";?>>
+											<a href="<?php echo site_url('op/payment/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Payment Memo
 											</a>
@@ -619,7 +619,7 @@ if($this->session->userdata('active') == FALSE)
 												Outgoing Letter Registration
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_letter") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/letter/view')?>">
 												<i class="fa fa-angle-double-right"></i>
 												Letter Of Authorization
@@ -679,7 +679,7 @@ if($this->session->userdata('active') == FALSE)
 								if($this->mddata->access($this->session->userdata('group'), 'd20')->d20 >= 1)
 								{
 								?>
-								<li <?php if($ac == "op_hs") echo "class='active'"; ?>>
+								<li <?php if($ac == "op_hs" || $ac =="op_licenses" || $ac== "op_operational" || $ac =="op_government" || $ac =="op_bussiness") echo "class='active'"; ?>>
 									<a href="#">
 										<i class="livicon" data-name="map" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
 										<span class="title">Rules And Downloads</span>
@@ -692,25 +692,25 @@ if($this->session->userdata('active') == FALSE)
 												HS Code List
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_licenses") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/licenses/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Import Licences
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_operational") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/operational/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Operational SOP
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_government") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/government/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Government Regulation
 											</a>
 										</li>
-										<li>
+										<li <?php if($ac == "op_bussiness") echo "class='active'";?>>
 											<a href="<?php echo site_url('op/bussiness/view'); ?>">
 												<i class="fa fa-angle-double-right"></i>
 												Business Document Template

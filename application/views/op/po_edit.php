@@ -54,7 +54,7 @@
 
 										<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-										Add Transaksi Purchase Order
+										Edit Transaksi Purchase Order
 
 									</h3>
 
@@ -978,4 +978,3 @@
 }
 
 ?>
-						

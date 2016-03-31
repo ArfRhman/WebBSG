@@ -6,13 +6,7 @@
     <section class="content">
 				<div class="row">
                     <div class="col-lg-12">
-						<?php
-						if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
-						{
-						?>							<a href="<?php echo site_url('op/incoming/add')?>" class="btn btn-success">Add New Data</a>
-						<?php
-						}
-						?>
+						
                         <div class="panel panel-primary filterable">
                             <div class="panel-heading clearfix  ">
                                 <div class="panel-title pull-left">

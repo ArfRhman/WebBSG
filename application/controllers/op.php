@@ -410,7 +410,7 @@ class Op extends CI_Controller {
 
 	function import_cost()
 	{
-		$data['ac'] = "op_importcost";
+		$data['ac'] = "op_import_cost";
 		switch($this->uri->segment(3))
 		{
 			case 'view':
@@ -422,7 +422,7 @@ class Op extends CI_Controller {
 	}
 	function transport_cost()
 	{
-		$data['ac'] = "op_supply";
+		$data['ac'] = "op_transport_cost";
 		switch($this->uri->segment(3))
 		{
 			case 'view':
@@ -434,7 +434,7 @@ class Op extends CI_Controller {
 	}
 	function import_lead()
 	{
-		$data['ac'] = "op_supply";
+		$data['ac'] = "op_import_lead";
 		switch($this->uri->segment(3))
 		{
 			case 'view':
@@ -446,7 +446,7 @@ class Op extends CI_Controller {
 	}
 	function supply_report()
 	{
-		$data['ac'] = "op_supply";
+		$data['ac'] = "op_supply_report";
 		switch($this->uri->segment(3))
 		{
 			case 'view':
@@ -458,7 +458,7 @@ class Op extends CI_Controller {
 	}
 	function budget_actual()
 	{
-		$data['ac'] = "op_supply";
+		$data['ac'] = "op_budget_actual";
 		switch($this->uri->segment(3))
 		{
 			case 'view':
@@ -470,7 +470,7 @@ class Op extends CI_Controller {
 	}
 	function cases()
 	{
-		$data['ac'] = "op_supply";
+		$data['ac'] = "op_cases";
 		switch($this->uri->segment(3))
 		{
 			case 'view':
@@ -494,6 +494,48 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);				
 			$this->load->view('op/po_add', $data);								
 			break;
+			case"edit":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_edit', $data);
+			break;
+		}
+	}
+	function price()
+	{
+		$data['ac'] = "op_price";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/price_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/price_add', $data);								
+			break;
+		}
+	}
+	function payment()
+	{
+		$data['ac'] = "op_payment";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/payment_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/payment_add', $data);								
+			break;
+			case"edit":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/payment_edit', $data);
+			break;	
 		}
 	}
 	function budget()
@@ -507,8 +549,13 @@ class Op extends CI_Controller {
 			$this->load->view('op/budget_view', $data);
 			break;
 			case 'add':								
-			$this->load->view('top', $data);				
-			$this->load->view('op/budget_add', $data);								
+				$this->load->view('top', $data);				
+				$this->load->view('op/budget_add', $data);								
+			break;
+			case"edit":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/budget_edit', $data);
 			break;
 		}
 	}
@@ -525,6 +572,11 @@ class Op extends CI_Controller {
 			case 'add':								
 			$this->load->view('top', $data);				
 			$this->load->view('op/realisasi_add', $data);								
+			break;
+			case"edit":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/realisasi_edit', $data);
 			break;
 		}
 	}

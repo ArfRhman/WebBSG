@@ -6,60 +6,62 @@
     <section class="content">
 				<div class="row">
                     <div class="col-lg-12">
-						
+						<?php
+						if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
+						{
+						?>							<a href="<?php echo site_url('op/price/add')?>" class="btn btn-success">Add New Data</a>
+						<?php
+						}
+						?>
+                        
                         <div class="panel panel-primary filterable">
                             <div class="panel-heading clearfix  ">
                                 <div class="panel-title pull-left">
                                        <div class="caption">
                                     <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                   Supply Lead Time Performance
+                                 Price List
                                 </div>
                                 </div>
                             </div>
                             <div class="panel-body">
-                                   <table class="table table-striped table-responsive" id="table1">
+                                    <table class="table table-striped table-responsive" id="table1">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Customer</th>
-                                                <th>DO No</th>
-                                                <th>DO Date</th>
-                                                <th>SO No</th>
-                                                <th>DO Amount</th>
-                                                <th>Delivery Date</th>
-                                                <th>DO Received time</th>
-                                                <th>Receiving Date</th>
-                                                <th>Goods Received time</th>
-                                                <th>Lead Time Days</th>
-                                                <th>Lead Time Hours</th>
-                                                <th>Forwarder Name</th>
+                                               <!--  <th>No</th>
+                                                <th>Budget Code</th>
+                                                <th>Main Budget</th>
+                                                <th>Sub Budget Level 1</th>
+                                                <th>Sub Budget Level 2</th>
+                                                <th>Date</th>
+                                                <th>Transaction Description</th>
+                                                <th>Amount</th>
 
+
+                                                <th>Action</th>
+ -->
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            //$no = 1;
-                                            //foreach($in->result() as $c)
-                                            //{
-                                            ?>
+											<?php
+											//$no = 1;
+											//foreach($in->result() as $c)
+											//{
+											?>
                                             <tr>
+												<td><?php //echo $no; $no++; ?></td>
                                                 <td><?php //echo $no; $no++; ?></td>
-                                                <td><?php //echo $c->nomer ?></td>
-                                                <td><?php //echo $c->tanggal ?></td>
-                                                <td><?php //echo $c->tujuan?></td>
-                                                <td><?php //echo $c->perihal ?></td>
-                                                <td><?php //echo $c->terima ?></td>
-                                                <td><?php //echo $c->pembuat ?></td>
-                                                <td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
+												<td><?php //echo $c->nomer ?></td>
+												<td><?php //echo $c->tanggal ?></td>
+												<td><?php //echo $c->tujuan?></td>
+												<td><?php //echo $c->perihal ?></td>
+												<td><?php //echo $c->terima ?></td>
+												<td><?php //echo $c->pembuat ?></td>
+												<td><?php //echo $c->letak ?></td>
+                                                
                                             </tr>
-                                            <?php
-                                            //}
-                                            ?>
+											<?php
+											//}
+											?>
                                         </tbody>
                                     </table>
                             </div>

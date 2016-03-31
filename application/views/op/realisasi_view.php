@@ -9,7 +9,7 @@
 						<?php
 						if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
 						{
-						?>							<a href="<?php echo site_url('op/letter/add')?>" class="btn btn-success">Add New Data</a>
+						?>							<a href="<?php echo site_url('op/realisasi/add')?>" class="btn btn-success">Add New Data</a>
 						<?php
 						}
 						?>
@@ -56,7 +56,15 @@
 												<td><?php //echo $c->perihal ?></td>
 												<td><?php //echo $c->terima ?></td>
 												<td><?php //echo $c->pembuat ?></td>
-												<td><?php //echo $c->letak ?></td>
+												<td>                                                                                                       
+                                                    <div class='btn-group'>                                                     
+                                                        <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                                                        <ul class='dropdown-menu pull-right' role='menu'>       
+                                                        <li><a href='<?php echo site_url('op/realisasi/edit/')?>' >Edit</a></li>         
+                                                            <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
+                                                        </ul>                                                 
+                                                    </div>
+                                                </td>
                                                 
                                             </tr>
 											<?php
