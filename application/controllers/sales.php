@@ -754,7 +754,7 @@ function outgoing()
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'edit':
-		$data['out'] = $this->mddata->getDataFromTblWhere('tbl_sale_outgoing_letter_registration', 'no', $this->uri->segment(4))->row();
+		$data['out'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing_letter_registration', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/outgoing_edit', $data);
 		break;

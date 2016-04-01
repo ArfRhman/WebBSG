@@ -75,6 +75,23 @@ class Op extends CI_Controller {
 		}
 	}
 	
+	function stock()
+	{
+		$data['ac'] = "op_stock";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+				$this->load->view('top', $data);
+				$this->load->view('op/stock_view', $data);
+			break;
+			case 'add':								
+				$this->load->view('top', $data);				
+				$this->load->view('op/stock_add', $data);								
+			break;
+		}
+	}
+	
 	function memo()
 	{
 		$data['ac'] = "op_memo";
@@ -187,7 +204,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_incoming');
+			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_incoming_letter_registration');
 			$this->load->view('top', $data);
 			$this->load->view('op/incoming_view', $data);
 			break;						
@@ -196,74 +213,56 @@ class Op extends CI_Controller {
 			$this->load->view('op/incoming_add', $data);								
 			break;
 			case 'save':
-				//select nomor terakhir
-				//$nomor = $this->db->query("SELECT * FROM tbl_op_incoming ORDER BY `id` DESC");
-				//$tahun = date('Y');
-				//$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
-				//$fn = 0;
-				// if($tahun == $sy)
-				// {
-					// if($nomor->num_rows() == 0)
-					// {
-						// $fn = 1;
-					// } else {
-						// $n = $nomor->row()->nomer;
-						// $fn = $n + 1;
-					// }
-				// } else {
-					//update tahun 
-					// $data = array(
-						// 'tahun' => $tahun,
-					// );
-					// $this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
-					// $fn = 1;
-				// }
 			$dir = "image/incoming/";
 			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-					//'nomer' => $fn,					
-				'nomer' => $this->input->post('nomer'), 
-				'tanggal' => $this->input->post('tanggal'), 
-				'tujuan' => $this->input->post('tujuan'), 
-				'perihal' => $this->input->post('perihal'), 
-				'terima' => $this->input->post('terima'), 
-				'pembuat' => $this->input->post('pembuat'), 
-				'letak' => $this->input->post('letak'),
+				'received_date' => $p['incoming_date'],
+				'from' => $p['incoming_from'],
+				'letter_no' => $p['incoming_letter_no'],
+				'letter_date' => $p['incoming_letter_date'],
+				'subject' => $p['incoming_subject'],
+				'addressed_to' => $p['incoming_addressed_to'],
+				'description' => $p['incoming_description'],
+				'archive_code' => $p['incoming_archive_code']
 				);
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 			{
 				$data['file'] = $file;
 			}
-			$this->mddata->insertIntoTbl('tbl_op_incoming', $data);
+			$this->mddata->insertIntoTbl('tbl_op_incoming_letter_registration', $data);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'edit':
-			$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_incoming', 'id', $this->uri->segment(4));
+			$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_incoming_letter_registration', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/incoming_edit', $data);
 			break;
 			case 'update':
 			$dir = "image/incoming/";
 			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'tanggal' => $this->input->post('tanggal'), 
-				'tujuan' => $this->input->post('tujuan'), 
-				'perihal' => $this->input->post('perihal'), 
-				'terima' => $this->input->post('terima'), 
-				'pembuat' => $this->input->post('pembuat'), 
-				'letak' => $this->input->post('letak'),
+				'received_date' => $p['incoming_date'],
+				'from' => $p['incoming_from'],
+				'letter_no' => $p['incoming_letter_no'],
+				'letter_date' => $p['incoming_letter_date'],
+				'subject' => $p['incoming_subject'],
+				'addressed_to' => $p['incoming_addressed_to'],
+				'description' => $p['incoming_description'],
+				'archive_code' => $p['incoming_archive_code']
 				);
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 			{
 				$data['file'] = $file;
 			}
-			$this->mddata->updateDataTbl('tbl_op_incoming', $data, 'id', $this->uri->segment(4));
+			$this->mddata->updateDataTbl('tbl_op_incoming_letter_registration',$data,'no',$p['no']);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'delete':
-			$this->mddata->deleteTblData('tbl_op_incoming', $this->uri->segment(4));
+			$this->mddata->deleteGeneral('tbl_op_incoming_letter_registration','no', $this->uri->segment(4));
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
@@ -275,7 +274,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_outgoing');
+			$data['out'] = $this->mddata->getAllDataTbl('tbl_op_outgoing_letter_registration');
 			$this->load->view('top', $data);
 			$this->load->view('op/outgoing_view', $data);
 			break;						
@@ -285,7 +284,7 @@ class Op extends CI_Controller {
 			break;
 			case 'save':
 				//select nomor terakhir
-			$nomor = $this->db->query("SELECT * FROM tbl_op_outgoing ORDER BY `id` DESC");
+			$nomor = $this->db->query("SELECT * FROM tbl_op_outgoing_letter_registration ORDER BY `no` DESC");
 			$tahun = date('Y');
 			$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
 			$fn = 0;
@@ -303,7 +302,7 @@ class Op extends CI_Controller {
 				$data = array(
 					'tahun' => $tahun,
 					);
-				$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
+				$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'no', '1');
 				$fn = 1;
 			}
 			$dir = "image/outgoing/";
@@ -322,12 +321,12 @@ class Op extends CI_Controller {
 			{
 				$data['file'] = $file;
 			}
-			$this->mddata->insertIntoTbl('tbl_op_outgoing', $data);
+			$this->mddata->insertIntoTbl('tbl_op_outgoing_letter_registration', $data);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'edit':
-			$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+			$data['out'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing_letter_registration', 'no', $this->uri->segment(4));
 			$this->load->view('top', $data);
 			$this->load->view('op/outgoing_edit', $data);
 			break;
@@ -347,12 +346,12 @@ class Op extends CI_Controller {
 			{
 				$data['file'] = $file;
 			}
-			$this->mddata->updateDataTbl('tbl_op_outgoing', $data, 'id', $this->uri->segment(4));
+			$this->mddata->updateDataTbl('tbl_op_outgoing_letter_registration', $data, 'no', $this->uri->segment(4));
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'delete':
-			$this->mddata->deleteTblData('tbl_op_outgoing', $this->uri->segment(4));
+			$this->mddata->deleteGeneral('tbl_op_outgoing_letter_registration','no', $this->uri->segment(4));
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
@@ -499,6 +498,36 @@ class Op extends CI_Controller {
 				$this->load->view('top', $data);
 				$this->load->view('op/po_edit', $data);
 			break;
+			case"payment":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_payment_view', $data);
+			break;
+			case"payment_add":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_payment_add', $data);
+			break;
+			case"payment_edit":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_payment_edit', $data);
+			break;
+			case"report":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_report_view', $data);
+			break;
+			case"report_add":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_report_add', $data);
+			break;
+			case"report_edit":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+				$this->load->view('top', $data);
+				$this->load->view('op/po_report_edit', $data);
+			break;
 		}
 	}
 	function price()
@@ -508,12 +537,12 @@ class Op extends CI_Controller {
 		{
 			case 'view':
 				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
-				$this->load->view('top', $data);
-				$this->load->view('op/price_view', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/price_view', $data);
 			break;
 			case 'add':								
-				$this->load->view('top', $data);				
-				$this->load->view('op/price_add', $data);								
+			$this->load->view('top', $data);				
+			$this->load->view('op/price_add', $data);								
 			break;
 		}
 	}
@@ -524,17 +553,17 @@ class Op extends CI_Controller {
 		{
 			case 'view':
 				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
-				$this->load->view('top', $data);
-				$this->load->view('op/payment_view', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/payment_view', $data);
 			break;
 			case 'add':								
-				$this->load->view('top', $data);				
-				$this->load->view('op/payment_add', $data);								
+			$this->load->view('top', $data);				
+			$this->load->view('op/payment_add', $data);								
 			break;
 			case"edit":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/payment_edit', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/payment_edit', $data);
 			break;	
 		}
 	}
@@ -549,13 +578,13 @@ class Op extends CI_Controller {
 			$this->load->view('op/budget_view', $data);
 			break;
 			case 'add':								
-				$this->load->view('top', $data);				
-				$this->load->view('op/budget_add', $data);								
+			$this->load->view('top', $data);				
+			$this->load->view('op/budget_add', $data);								
 			break;
 			case"edit":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/budget_edit', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/budget_edit', $data);
 			break;
 		}
 	}
@@ -575,8 +604,8 @@ class Op extends CI_Controller {
 			break;
 			case"edit":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/realisasi_edit', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/realisasi_edit', $data);
 			break;
 		}
 	}

@@ -115,7 +115,7 @@
 
 												<select name="to" class="form-control">
 													<?php
-													foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
+													foreach($this->mddata->getAllDataTbl('tbl_dm_customer')->result() as $c)
 													{
 														?>
 														<option value="<?php echo $c->id; ?>" <?=$letter->addressed_to==$c->id ? 'selected' : ''?>><?php echo $c->name; ?></option>	

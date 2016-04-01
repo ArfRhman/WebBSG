@@ -80,11 +80,19 @@
 												<input id="load_date" name="load_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
 											</div>
 
-											<label class="col-md-2 control-label" for="authorizer_title">Authorizer Title</label>
+											<label class="col-md-2 control-label" for="authorized_name">Authorized Name</label>
 
 											<div class="col-md-3">
-
-												<input id="authorizer_title" name="authorizer_title" placeholder="Authorizer Title" class="form-control" type="text">
+												<select name="authorized_name" class="form-control">
+													<?php
+													foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
+													{
+														?>
+														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
+														<?php
+													}
+													?>
+												</select>
 											</div>
 
 										</div>
@@ -98,10 +106,10 @@
 												<input id="subject" name="subject" placeholder="Subject" class="form-control" type="text">
 											</div>
 
-											<label class="col-md-2 control-label" for="authorized_name">Authorized Name</label>
+											<label class="col-md-2 control-label" for="authorized_name">Authorized Title</label>
 
 											<div class="col-md-3">
-												<input id="authorized_name" name="authorized_name" placeholder="Authorized Name" class="form-control" type="text">
+												<input id="authorized_title" name="authorized_title" placeholder="Authorized Title" class="form-control" type="text">
 
 											</div>
 
@@ -115,7 +123,7 @@
 
 												<select name="to" class="form-control">
 													<?php
-													foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
+													foreach($this->mddata->getAllDataTbl('tbl_dm_customer')->result() as $c)
 													{
 														?>
 														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
@@ -125,24 +133,7 @@
 												</select>
 											</div>
 
-											<label class="col-md-2 control-label" for="authorized_title">Authorized Title</label>
-
-											<div class="col-md-3">
-
-												<input id="authorized_title" name="authorized_title" placeholder="Authorized Title" class="form-control" type="text">
-											</div>
-
-
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label" for="desc">Description</label>
-
-											<div class="col-md-3">
-
-												<input id="desc" name="desc" placeholder="Description" class="form-control" type="text">
-											</div>
-
-											<label class="col-md-2 control-label" for="authorized_id">Authorized ID</label>
+											<label class="col-md-2 control-label" for="authorized_title">Authorized ID</label>
 
 											<div class="col-md-3">
 
@@ -152,22 +143,13 @@
 
 										</div>
 										<div class="form-group">
-
-											<label class="col-md-2 control-label" for="authorizer_name">Authorizer Name</label>
+											<label class="col-md-2 control-label" for="desc">Description</label>
 
 											<div class="col-md-3">
-												<select name="authorizer_name" class="form-control">
-													<?php
-													foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
-													{
-														?>
-														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
-														<?php
-													}
-													?>
-												</select>
+
+												<input id="desc" name="desc" placeholder="Description (Isi Surat)" class="form-control" type="text">
 											</div>
-											
+
 											<label class="col-md-2 control-label" for="email">File</label>
 
 											<div class="col-md-3">
@@ -179,6 +161,22 @@
 										</div>
 										<div class="form-group">
 
+											<label class="col-md-2 control-label" for="authorizer_name">Authorizer Name</label>
+
+											<div class="col-md-3">
+												<select name="authorizer_name" class="form-control" id="opAuthName">
+												  <option value=""> -- Pilih Authorizer Name --</option>
+													<?php
+													foreach($this->mddata->getAllDataTbl('tbl_dm_personnel')->result() as $c)
+													{
+														?>
+														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
+														<?php
+													}
+													?>
+												</select>
+											</div>
+											
 											<label class="col-md-2 control-label" for="archive">Archive code</label>
 
 											<div class="col-md-3">
@@ -186,6 +184,17 @@
 												<input id="archive" name="archive" placeholder="Archive code" class="form-control" type="text">
 											</div>
 
+
+										</div>
+										<div class="form-group">
+
+												<label class="col-md-2 control-label" for="authorizer_title">Authorizer Title</label>
+
+											<div class="col-md-3">
+
+											
+												<input id="authTit" name="authorizer_title" placeholder="Authorizer Title" class="form-control" type="text">
+											</div>
 
 										</div>
 
@@ -274,6 +283,23 @@
 			$('.datepicker').datepicker({
 				format:'dd M yyyy'
 			});
+			 $("#opAuthName").change(function(){
+                      if($("#opAuthName").val()!=""){
+                          $.ajax({
+                            type:'POST',
+                            url: "<?php echo site_url('dm/personnel/getDataPersonel') ?>",
+                            data: "id=" + $("#opAuthName").val(),
+                            success: function(data){
+                               var obj = JSON.parse(data);
+                               $('#authTit').val(obj.position);
+                           }
+                       }); 
+
+                      }else{
+                        $('#authTit').val('');
+                       
+                    } 
+                });
 		});
 
 	</script>

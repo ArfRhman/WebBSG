@@ -13,6 +13,7 @@
               <?php
           }
           ?>
+          <a href="<?php echo site_url('op/po/payment')?>" class="btn btn-success">Payment Information</a>
           <a href="<?php echo site_url('op/po/report')?>" class="btn btn-success">Report</a>
           <div class="panel panel-primary filterable">
             <div class="panel-heading clearfix  ">

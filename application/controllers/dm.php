@@ -1120,6 +1120,12 @@ function personnel()
 		$this->mddata->deleteTblData('tbl_dm_personnel', $this->uri->segment(4));
 		redirect('dm/personnel/view');
 		break;
+		case 'getDataPersonel':
+			$id = $_POST['id'];
+			$data = $this->mddata->getDataFromTblWhere('tbl_position', 'id', $id)->row();
+			$json = json_encode($data);
+			echo $json;
+			break;
 	}
 }
 
@@ -1242,6 +1248,12 @@ function item()
 		$this->load->view('top', $data);
 		$this->load->view('dm/item_view_subfield', $data);
 		break;
+		case'get_field':
+			$id = $_POST['id'];
+			$data = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $id)->row();
+			$json = json_encode($data);
+			echo $json;
+		break;
 	}
 }
 
@@ -1291,6 +1303,12 @@ function budget()
 		case 'delete':
 		$this->mddata->deleteTblData('tbl_dm_budget', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case'get_field':
+			$id = $_POST['id'];
+			$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
+			$json = json_encode($data);
+			echo $json;
 		break;
 	}
 }

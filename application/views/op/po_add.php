@@ -78,12 +78,18 @@
 												<div class="col-md-3">
 
 													<input id="po_no" name="po_no" placeholder="PO No" class="form-control" type="text"></div>
-												<label class="col-md-2 control-label" for="moda">Moda</label>
+												<label class="col-md-2 control-label" for="curr">Currency</label>
 
 												<div class="col-md-3">
+												<input type="text" class="form-control" placeholder="Currency" name="curr" list="currList">
+                                          			<datalist id="currList">
+	                                                	<option value="IDR">
+	                                                 	<option value="USD">
+	                                                 	<option value="SGD">
+	                                                 	<option value="EUR">
 
-													<input id="moda" name="moda" placeholder="Moda" class="form-control" type="text"></div>
-
+                                                  	</datalist>
+												</div>		
 											</div>
 
 											<div class="form-group">
@@ -206,20 +212,7 @@
 												
 											</div>
 
-											<div class="form-group">
-												<label class="col-md-2 control-label" for="curr">Currency</label>
-
-												<div class="col-md-3">
-												<input type="text" class="form-control" placeholder="Currency" name="curr" list="currList">
-                                          			<datalist id="currList">
-	                                                	<option value="IDR">
-	                                                 	<option value="USD">
-	                                                 	<option value="SGD">
-	                                                 	<option value="EUR">
-
-                                                  	</datalist>
-												</div>												
-											</div>
+											
 
 											
 
@@ -229,12 +222,12 @@
 												<label class="col-md-2 control-label" for="item_code">Item Code</label>
 
 												<div class="col-md-3">
-													<select name="item_code" class="form-control">
+													<select name="item_code" id="item_code" class="form-control">
 													<?php 
 														foreach($this->mddata->getAllDataTbl('tbl_dm_item')->result() as $c)
 														{
 														?>
-														<option value="<?php echo $c->code; ?>"><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>	
+														<option value="<?php echo $c->id; ?>"><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>	
 														<?php
 														}
 													?>
@@ -255,7 +248,7 @@
 
 												<div class="col-md-3">
 
-													<input id="item" name="item" placeholder="Item" class="form-control" type="text"></div>
+													<input id="item" disabled="true" name="item" placeholder="Item" class="form-control" type="text"></div>
 												<label class="col-md-2 control-label" for="unit">Unit Price</label>
 
 												<div class="col-md-3">
@@ -302,13 +295,13 @@
 
 												<div class="col-md-3">
 
-													<input id="lc" name="lc" placeholder="ETF LC" class="form-control" type="text"></div>
+													<input id="lc" name="lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_prod">ATF Production</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_prod" name="atf_prod" placeholder="ATF Production" class="form-control" type="text"></div>
+													<input id="atf_prod" name="atf_prod" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -318,13 +311,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_prod" name="etf_prod" placeholder="ETF Production" class="form-control" type="text"></div>
+													<input id="etf_prod" name="etf_prod" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_depart">ATF Vessel Depart</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_depart" name="atf_depart" placeholder="ATF Vessel Depart" class="form-control" type="text"></div>
+													<input id="atf_depart" name="atf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -335,13 +328,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_depart" name="etf_depart" placeholder="ETF Vessel Depart" class="form-control" type="text"></div>
+													<input id="etf_depart" name="etf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_arrival">ATF Vessel Arrival</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_arrival" name="atf_arrival" placeholder="ATF Vessel Arrival" class="form-control" type="text"></div>
+													<input id="atf_arrival" name="atf_arrival" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -352,13 +345,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_arrival" name="etf_arrival" placeholder="ETF Vessel Arrival" class="form-control" type="text"></div>
+													<input id="etf_arrival" name="etf_arrival" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_clearance">ATF Clearance</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_clearance" name="atf_clearance" placeholder="ATF Clearance" class="form-control" type="text"></div>
+													<input id="atf_clearance" name="atf_clearance" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -368,13 +361,13 @@
 
 												<div class="col-md-3">
 
-													<input id="no" name="no" placeholder="ETF Clearance" class="form-control" type="text"></div>
+													<input id="no" name="no" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_wh">ATF WH Arrival</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_wh" name="atf_wh" placeholder="ATF WH Arrival" class="form-control" type="text"></div>
+													<input id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -384,7 +377,7 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_wh" name="etf_wh" placeholder="ETF WH Arrival" class="form-control" type="text"></div>
+													<input id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="actual">Actual Lead Time (days)</label>
 
@@ -418,7 +411,7 @@
 
 												<div class="col-md-3">
 
-													<input id="atf_lc" name="atf_lc" placeholder="ATF LC" class="form-control" type="text"></div>
+													<input id="atf_lc" name="atf_lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="forecast">Forecast Level</label>
 
@@ -1019,8 +1012,25 @@
 			$('.datepicker').datepicker({
 				format:'dd M yyyy'
 			});
+			 $("#item_code").change(function(){
+                      if($("#item_code").val()!=""){
+                          $.ajax({
+                            type:'POST',
+                            url: "<?php echo site_url('dm/item/get_field') ?>",
+                            data: "id=" + $("#item_code").val(),
+                            success: function(data){
+                               var obj = JSON.parse(data);
+                               $('#item').val(obj.nama);
+                           }
+                       }); 
+
+                      }else{
+                        $('#item').val('');
+                    } 
+            });
+              
 		});
-	
+		
 	</script>
 
 </body>

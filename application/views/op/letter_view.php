@@ -37,7 +37,7 @@
                             <th>Authorizer Title</th>
                             <th>Authorized Name</th>
                             <th>Authorized Title</th>
-                            <td>Authorized ID</td>
+                            <th>Authorized ID</th>
                             <th>File</th>
                             <th>Archive Code</th>
                             <th>Action</th>
@@ -77,7 +77,7 @@
                         </td>
                         <td><?php echo $c->loa_date ?></td>
                         <td><?php echo $c->subject?></td>
-                        <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->addressed_to)->row()->name; ?></td>
+                        <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->addressed_to)->row()->name; ?></td>
                         <td><?php echo $c->description ?></td>
                         <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->authorizer_name)->row()->name; ?></td>
                         <td><?php echo $c->authorizer_title ?></td>
