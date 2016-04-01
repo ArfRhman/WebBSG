@@ -47,10 +47,32 @@ class Sales extends CI_Controller {
 			$this->load->view('sales/memo_edit_subfield', $data);
 			break;
 			case 'save':
+			$nomor = $this->db->query("SELECT * FROM tbl_sale_internal_memo ORDER BY no DESC");
+			$tahun = date('Y');
+			$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
+			$fn = 0;
+			if($tahun == $sy)
+			{
+				if($nomor->num_rows() == 0)
+				{
+					$fn = 1;
+				} else {
+					$n = $nomor->row()->internal_memo_no;
+					$fn = $n + 1;
+				}
+			} else {
+					//update tahun 
+				$data = array(
+					'tahun' => $tahun,
+					);
+				$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
+				$fn = 1;
+			}
 			$dir = "image/s_memo/";
 			$file = $dir . $_FILES['file']['name'];
 			$p=$this->input->post();
 			$data = array(
+				'internal_memo_no' => $fn,
 				'date' => $p['memo_date'],
 				'addressed_to' => $p['memo_addressed'],
 				'subject' => $p['memo_subject']
@@ -610,78 +632,65 @@ function incoming()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_incoming');
+		$data['incoming'] = $this->mddata->getAllDataTbl('tbl_sale_incoming_letter_registration');
 		$this->load->view('top', $data);
 		$this->load->view('sales/incoming_view', $data);
-		break;				case 'add':								$this->load->view('top', $data);				$this->load->view('sales/incoming_add', $data);								break;
+		break;
+		case 'add':
+		$this->load->view('top', $data);
+		$this->load->view('sales/incoming_add', $data);
+		break;
 		case 'save':
-				//select nomor terakhir
-				// $nomor = $this->db->query("SELECT * FROM tbl_sale_incoming ORDER BY `id` DESC");
-				// $tahun = date('Y');
-				// $sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
-				// $fn = 0;
-				// if($tahun == $sy)
-				// {
-					// if($nomor->num_rows() == 0)
-					// {
-						// $fn = 1;
-					// } else {
-						// $n = $nomor->row()->nomer;
-						// $fn = $n + 1;
-					// }
-				// } else {
-					//update tahun 
-					// $data = array(
-						// 'tahun' => $tahun,
-					// );
-					// $this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
-					// $fn = 1;
-				// }
 		$dir = "image/s_incoming/";
 		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
 		$data = array(
-			'nomer' => $this->input->post('nomer'),
-			'tanggal' => $this->input->post('tanggal'), 
-			'tujuan' => $this->input->post('tujuan'), 
-			'perihal' => $this->input->post('perihal'), 
-			'terima' => $this->input->post('terima'), 
-			'pembuat' => $this->input->post('pembuat'), 
-			'letak' => $this->input->post('letak'),
+			'received_date' => $p['incoming_date'],
+			'from' => $p['incoming_from'],
+			'letter_no' => $p['incoming_letter_no'],
+			'letter_date' => $p['incoming_letter_date'],
+			'subject' => $p['incoming_subject'],
+			'addressed_to' => $p['incoming_addressed_to'],
+			'description' => $p['incoming_description'],
+			'archive_code' => $p['incoming_archive_code']
 			);
 		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 		{
 			$data['file'] = $file;
 		}
-		$this->mddata->insertIntoTbl('tbl_sale_incoming', $data);
+		$this->mddata->insertIntoTbl('tbl_sale_incoming_letter_registration', $data);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'edit':
-		$data['in'] = $this->mddata->getDataFromTblWhere('tbl_sale_incoming', 'id', $this->uri->segment(4));
+		$data['in'] = $this->mddata->getDataFromTblWhere('tbl_sale_incoming_letter_registration', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/incoming_edit', $data);
 		break;
 		case 'update':
 		$dir = "image/s_incoming/";
 		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
 		$data = array(
-			'tanggal' => $this->input->post('tanggal'), 
-			'tujuan' => $this->input->post('tujuan'), 
-			'perihal' => $this->input->post('perihal'), 
-			'terima' => $this->input->post('terima'), 
-			'pembuat' => $this->input->post('pembuat'), 
-			'letak' => $this->input->post('letak'),
+			'received_date' => $p['incoming_date'],
+			'from' => $p['incoming_from'],
+			'letter_no' => $p['incoming_letter_no'],
+			'letter_date' => $p['incoming_letter_date'],
+			'subject' => $p['incoming_subject'],
+			'addressed_to' => $p['incoming_addressed_to'],
+			'description' => $p['incoming_description'],
+			'archive_code' => $p['incoming_archive_code']
 			);
 		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 		{
 			$data['file'] = $file;
 		}
-		$this->mddata->updateDataTbl('tbl_sale_incoming', $data, 'id', $this->uri->segment(4));
+		$this->mddata->updateDataTbl('tbl_sale_incoming_letter_registration',$data,'no',$p['no']);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'delete':
-		$this->mddata->deleteTblData('tbl_sale_incoming', $this->uri->segment(4));
+		$this->mddata->deleteGeneral('tbl_sale_incoming_letter_registration','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
@@ -693,7 +702,7 @@ function outgoing()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_outgoing');
+		$data['out'] = $this->mddata->getAllDataTbl('tbl_sale_outgoing_letter_registration');
 		$this->load->view('top', $data);
 		$this->load->view('sales/outgoing_view', $data);
 		break;			
@@ -703,7 +712,7 @@ function outgoing()
 		break;
 		case 'save':
 				//select nomor terakhir
-		$nomor = $this->db->query("SELECT * FROM tbl_sale_outgoing ORDER BY `id` DESC");
+		$nomor = $this->db->query("SELECT * FROM tbl_sale_outgoing_letter_registration ORDER BY no DESC");
 		$tahun = date('Y');
 		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
 		$fn = 0;
@@ -726,55 +735,51 @@ function outgoing()
 		}
 		$dir = "image/s_outgoing/";
 		$file = $dir . $_FILES['file']['name'];
+		$p = $this->input->post();
 		$data = array(
-			'nomer' => $fn,
-			'tanggal' => $this->input->post('tanggal'), 
-			'tujuan' => $this->input->post('tujuan'), 
-			'perihal' => $this->input->post('perihal'), 
-			'terima' => $this->input->post('terima'), 
-			'pembuat' => $this->input->post('pembuat'), 
-			'jawab' => $this->input->post('jawab'), 
-			'letak' => $this->input->post('letak'),
-			'archive_code' => $this->input->post('archieve'),
-			'desc' => $this->input->post('desc'),
+			'ol_no' => $fn,
+			'ol_date' => $p['outgoing_date'],
+			'subject' => $p['outgoing_subject'],
+			'addressed_to' => $p['outgoing_addressed_to'],
+			'description' => $p['desc'],
+			'signer_by' => $p['outgoing_signer_by'],
+			'archive_code' => $p['outgoing_archive_code']
 			);
 		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 		{
 			$data['file'] = $file;
 		}
-		$this->mddata->insertIntoTbl('tbl_sale_outgoing', $data);
+		$this->mddata->insertIntoTbl('tbl_sale_outgoing_letter_registration', $data);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'edit':
-		$data['in'] = $this->mddata->getDataFromTblWhere('tbl_sale_outgoing', 'id', $this->uri->segment(4));
+		$data['out'] = $this->mddata->getDataFromTblWhere('tbl_sale_outgoing_letter_registration', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/outgoing_edit', $data);
 		break;
 		case 'update':
 		$dir = "image/s_outgoing/";
 		$file = $dir . $_FILES['file']['name'];
+		$p = $this->input->post();
 		$data = array(
-			'tanggal' => $this->input->post('tanggal'), 
-			'tujuan' => $this->input->post('tujuan'), 
-			'perihal' => $this->input->post('perihal'), 
-			'terima' => $this->input->post('terima'), 
-			'pembuat' => $this->input->post('pembuat'), 
-			'jawab' => $this->input->post('jawab'), 
-			'letak' => $this->input->post('letak'),
-			'archive_code' => $this->input->post('archieve'),
-			'desc' => $this->input->post('desc'),
+			'ol_date' => $p['outgoing_date'],
+			'subject' => $p['outgoing_subject'],
+			'addressed_to' => $p['outgoing_addressed_to'],
+			'description' => $p['desc'],
+			'signer_by' => $p['outgoing_signer_by'],
+			'archive_code' => $p['outgoing_archive_code']
 			);
 		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 		{
 			$data['file'] = $file;
 		}
-		$this->mddata->updateDataTbl('tbl_sale_outgoing', $data, 'id', $this->uri->segment(4));
+		$this->mddata->updateDataTbl('tbl_sale_outgoing_letter_registration',$data,'no',$p['no']);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'delete':
-		$this->mddata->deleteTblData('tbl_sale_outgoing', $this->uri->segment(4));
+		$this->mddata->deleteGeneral('tbl_sale_outgoing_letter_registration','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
@@ -786,7 +791,7 @@ function direksi()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_direksi');
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_catatan_direksi');
 		$this->load->view('top', $data);
 		$this->load->view('sales/direksi_view', $data);
 		break;			
@@ -794,11 +799,71 @@ function direksi()
 		$this->load->view('top', $data);				
 		$this->load->view('sales/direksi_add', $data);								
 		break;
-		case 'edit':								
-		$this->load->view('top', $data);				
-		$this->load->view('sales/direksi_edit', $data);								
-		break;
 		case 'save':
+				//select nomor terakhir
+		$nomor = $this->db->query("SELECT * FROM tbl_sale_catatan_direksi ORDER BY no DESC");
+		$tahun = date('Y');
+		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
+		$fn = 0;
+		if($tahun == $sy)
+		{
+			if($nomor->num_rows() == 0)
+			{
+				$fn = 1;
+			} else {
+				$n = $nomor->row()->csd_no;
+				$fn = $n + 1;
+			}
+		} else {
+					//update tahun 
+			$data = array(
+				'tahun' => $tahun,
+				);
+			$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
+			$fn = 1;
+		}
+		$dir = "image/s_direksi/";
+		$file = $dir . $_FILES['file']['name'];
+		$p = $this->input->post();
+		$data = array(
+			'csd_no' => $fn,
+			'date' => $p['csd_date'] ,
+			'addressed_to' => $p['csdaddressed'],
+			'subject' => $p['csd_subject']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['file'] = $file;
+		}
+		$this->mddata->insertIntoTbl('tbl_sale_catatan_direksi', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'edit':
+		$data['ln'] = $this->mddata->getDataFromTblWhere('tbl_sale_catatan_direksi', 'no', $this->uri->segment(4))->row();
+		$this->load->view('top', $data);
+		$this->load->view('sales/direksi_edit', $data);
+		break;
+		case 'update':
+		$dir = "image/s_direksi/";
+		$file = $dir . $_FILES['file']['name'];
+		$p = $this->input->post();
+		$data = array(
+			'date' => $p['csd_date'] ,
+			'addressed_to' => $p['csdaddressed'],
+			'subject' => $p['csd_subject']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['file'] = $file;
+		}
+		$this->mddata->updateDataTbl('tbl_sale_catatan_direksi',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_catatan_direksi','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }
@@ -818,11 +883,66 @@ function LoS()
 		$this->load->view('top', $data);				
 		$this->load->view('sales/los_add', $data);								
 		break;
-		case 'edit':								
-		$this->load->view('top', $data);				
-		$this->load->view('sales/los_edit', $data);								
-		break;
 		case 'save':
+			//select nomor terakhir
+		$nomor = $this->db->query("SELECT * FROM tbl_sale_letter_of_support ORDER BY no DESC");
+		$tahun = date('Y');
+		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
+		$fn = 0;
+		if($tahun == $sy)
+		{
+			if($nomor->num_rows() == 0)
+			{
+				$fn = 1;
+			} else {
+				$n = $nomor->row()->los_no;
+				$fn = $n + 1;
+			}
+		} else {
+					//update tahun 
+			$data = array(
+				'tahun' => $tahun,
+				);
+			$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
+			$fn = 1;
+		}
+		$p = $this->input->post();
+		$data = array(
+			'version_of_support' => $p['los_version'],
+			'los_no' => $fn,
+			'date' => $p['los_date'],
+			'addressed_to' => $p['los_address_to'],
+			'customer_of_support' => $p['los_customer_support'],
+			'project_name' => $p['los_project_name'],
+			'product_name' => $p['los_product_name']
+			);
+		
+		$this->mddata->insertIntoTbl('tbl_sale_letter_of_support', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'edit':
+		$data['in'] = $this->mddata->getDataFromTblWhere('tbl_sale_letter_of_support', 'no', $this->uri->segment(4))->row();
+		$this->load->view('top', $data);
+		$this->load->view('sales/los_edit', $data);
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$data = array(
+			'version_of_support' => $p['los_version'],
+			'date' => $p['los_date'],
+			'addressed_to' => $p['los_address_to'],
+			'customer_of_support' => $p['los_customer_support'],
+			'project_name' => $p['los_project_name'],
+			'product_name' => $p['los_product_name']
+			);
+		$this->mddata->updateDataTbl('tbl_sale_letter_of_support',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_letter_of_support','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }

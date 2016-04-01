@@ -29,17 +29,16 @@
                                 </span>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/memo/save');?>" method="post">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/direksi/save');?>" method="post">
                                     <fieldset>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label" for="name">CSD No.</label>
-                                            <div class="col-md-3">
-                                                <input id="name" name="csd_no" placeholder="CSD No" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Date</label>                                          <div class="col-md-3">                                                <input id="name" name="csd_date" placeholder="Date" class="form-control datepicker" type="text"></div>
+                                            <label class="col-md-2 control-label" for="email">Subject</label>                                            <div class="col-md-3">                                                <input id="email" name="csd_subject" placeholder="Subject" class="form-control" type="text"></div>
+                                                <label class="col-md-2 control-label" for="email">Date</label>                                          <div class="col-md-3">                                                <input id="name" name="csd_date" placeholder="Date" class="form-control datepicker" type="text"></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Addressed To</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="csdaddressed" placeholder="Addressed To" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Subject</label>                                            <div class="col-md-3">                                                <input id="email" name="csd_subject" placeholder="Subject" class="form-control" type="text"></div>
+                                                <input id="email" name="csdaddressed" placeholder="Addressed To" class="form-control" type="text"></div>                                                                                      
                                         </div>
                                         <div class="form-group">
                                            <label class="col-md-2 control-label" for="email">File</label>                                            <div class="col-md-3">                                                <input name="file" type="file"></div>                                                                               

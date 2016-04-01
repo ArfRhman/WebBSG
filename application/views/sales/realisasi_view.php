@@ -46,7 +46,7 @@
 									?>
                                         <tr>
 											<td><?php echo $no; ?></td>
-											<td><?php echo $c->budget_code; ?></td>
+											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $c->budget_code)->row()->code; ?></td>
 											<td><?php echo $c->main_budget; ?></td>
 											<td><?php echo $c->sub_budget_level1; ?></td>
 											<td><?php echo $c->sub_budget_level2; ?></td>

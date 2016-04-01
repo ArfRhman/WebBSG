@@ -1,84 +1,84 @@
 	<aside class="right-side">
 
-	<!-- Main content -->
+		<!-- Main content -->
 
-    <section class="content-header">
+		<section class="content-header">
 
-		<h1>Welcome to Dashboard</h1>
+			<h1>Welcome to Dashboard</h1>
 
-    </section>
+		</section>
 
-    <section class="content">
+		<section class="content">
 
-				<div class="row">
+			<div class="row">
 
-                    <div class="col-lg-12">
+				<div class="col-lg-12">
 
-						<?php
+					<?php
 
-						if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
+					if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
 
-						{
+					{
 
 						?>
 						
+						<?php
+
+						if($this->session->flashdata('data') == TRUE)
+
+						{
+
+							?>
+
+							<div class="panel-heading">
+
+								<h3 class="panel-title">
+
+									<?php echo $this->session->flashdata('data');?>
+
+								</h3>
+
+							</div>
+
 							<?php
 
-								if($this->session->flashdata('data') == TRUE)
+						}
 
-								{
+						?>
+						
+						<div class="panel panel-primary" id="hidepanel1">
 
-								?>
+							<div class="panel-heading">
 
-								<div class="panel-heading">
+								<h3 class="panel-title">
 
-									<h3 class="panel-title">
+									<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-										<?php echo $this->session->flashdata('data');?>
+									Add  Incoming Letter Registration
 
-									</h3>
+								</h3>
 
-								</div>
+								<span class="pull-right">
 
-								<?php
+									<i class="glyphicon glyphicon-chevron-up clickable"></i>
 
-								}
+								</span>
 
-								?>
-							
-							<div class="panel panel-primary" id="hidepanel1">
+							</div>
 
-								<div class="panel-heading">
+							<div class="panel-body">
 
-									<h3 class="panel-title">
+								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/incoming/save');?>" method="post">
 
-										<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+									<fieldset>
 
-										Add  Incoming Letter Registration
-
-									</h3>
-
-									<span class="pull-right">
-
-										<i class="glyphicon glyphicon-chevron-up clickable"></i>
-
-									</span>
-
-								</div>
-
-								<div class="panel-body">
-
-									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/incoming/save');?>" method="post">
-
-										<fieldset>
-
-											<div class="form-group">
+										<div class="form-group">
 											
-												<label class="col-md-2 control-label" for="name">Received Datet</label>
+											<label class="col-md-2 control-label" for="name">Received Date</label>
 
-												<div class="col-md-3">
+											<div class="col-md-3">
 
-													<input id="name" name="incoming_date" placeholder="Received Date" class="form-control datepicker" type="text"></div>
+												<input id="name" name="incoming_date" placeholder="Received Date" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="name">From</label>
 
@@ -86,159 +86,159 @@
 
 													<input id="name" name="incoming_from" placeholder="From" class="form-control" type="text"></div>
 
-											</div>
-
-											<div class="form-group">
-												
-												<label class="col-md-2 control-label" for="email">Letter No</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="incoming_letter_no" placeholder="Letter No" class="form-control" type="text"></div>
-
-												<label class="col-md-2 control-label" for="email">Letter Date</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="incoming_letter_date" placeholder="Letter Date" class="form-control datepicker" type="text"></div>
-
-											</div>
-
-
-											<div class="form-group">
-												
-												<label class="col-md-2 control-label" for="email">Subject</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="incoming_subject" placeholder="Subject" class="form-control" type="text"></div>
-
-												<label class="col-md-2 control-label" for="email">Addressed To</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="incoming_addressed_to" placeholder="Addressed To" class="form-control" type="text"></div>
-
-											</div>
-
-
-											<div class="form-group">
-											
-												<label class="col-md-2 control-label" for="email">Description</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="incoming_descrption" placeholder="Descrption" class="form-control" type="text"></div>
-<label class="col-md-2 control-label" for="email">File</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="file"  type="file"></div>
-
-											</div>
-												<div class="form-group">
-											<label class="col-md-2 control-label" for="email">Archive Code</label>
-
-												<div class="col-md-3">
-
-													<input id="email" name="incoming_archive_code" placeholder="Archive Code" class="form-control" type="text"></div>
-
-											</div>
-
-											<div class="form-group">
-
-												<div class="col-md-12 text-right">
-
-													<button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
-
 												</div>
 
-											</div>
+												<div class="form-group">
+													
+													<label class="col-md-2 control-label" for="email">Letter No</label>
 
-										</fieldset>
+													<div class="col-md-3">
 
-									</form>
+														<input id="email" name="incoming_letter_no" placeholder="Letter No" class="form-control" type="text"></div>
 
-								</div>
+														<label class="col-md-2 control-label" for="email">Letter Date</label>
 
-							</div>
-						</div>
+														<div class="col-md-3">
 
-				</div>
+															<input id="email" name="incoming_letter_date" placeholder="Letter Date" class="form-control datepicker" type="text"></div>
 
-    </section>
+														</div>
 
-		</aside>
 
-        <!-- right-side -->
+														<div class="form-group">
+															
+															<label class="col-md-2 control-label" for="email">Subject</label>
 
-    </div>
+															<div class="col-md-3">
 
-    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
+																<input id="email" name="incoming_subject" placeholder="Subject" class="form-control" type="text"></div>
 
-        <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
+																<label class="col-md-2 control-label" for="email">Addressed To</label>
 
-    </a>
+																<div class="col-md-3">
 
-    <!-- global js -->
+																	<input id="email" name="incoming_addressed_to" placeholder="Addressed To" class="form-control" type="text"></div>
 
-    <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+																</div>
 
-    <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <!--livicons-->
+																<div class="form-group">
+																	
+																	<label class="col-md-2 control-label" for="email">Description</label>
 
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+																	<div class="col-md-3">
 
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+																		<input id="email" name="incoming_description" placeholder="Descrption" class="form-control" type="text"></div>
+																		<label class="col-md-2 control-label" for="email">File</label>
 
-    <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+																		<div class="col-md-3">
 
-    <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+																			<input id="email" name="file"  type="file"></div>
 
-    <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+																		</div>
+																		<div class="form-group">
+																			<label class="col-md-2 control-label" for="email">Archive Code</label>
 
-    <!-- end of global js -->
+																			<div class="col-md-3">
 
-    <!-- begining of page level js -->
+																				<input id="email" name="incoming_archive_code" placeholder="Archive Code" class="form-control" type="text"></div>
 
-    <!-- Back to Top-->
+																			</div>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+																			<div class="form-group">
 
-    <!--   maps -->
+																				<div class="col-md-12 text-right">
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
+																					<button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
+																				</div>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
+																			</div>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
+																		</fieldset>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
+																	</form>
 
-    <!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-	
-	<script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+																</div>
 
-    <!-- end of page level js -->
-	
-	<script>
-		$(document).ready(function(){
-			$('.datepicker').datepicker({
-				format:'dd M yyyy'
-			});
-		});
-	
-	</script>
+															</div>
+														</div>
 
-</body>
+													</div>
 
-</html>
-<?php
+												</section>
 
-}
+											</aside>
 
-?>
-						
+											<!-- right-side -->
+
+										</div>
+
+										<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
+
+											<i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
+
+										</a>
+
+										<!-- global js -->
+
+										<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+										<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
+
+										<!--livicons-->
+
+										<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+
+										<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+
+										<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+
+										<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+
+										<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+
+										<!-- end of global js -->
+
+										<!-- begining of page level js -->
+
+										<!-- Back to Top-->
+
+										<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+
+										<!--   maps -->
+
+										<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
+
+										<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
+
+										<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
+
+										<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
+
+										<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
+
+										<!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
+										
+										<script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+
+										<!-- end of page level js -->
+										
+										<script>
+											$(document).ready(function(){
+												$('.datepicker').datepicker({
+													format:'dd M yyyy'
+												});
+											});
+											
+										</script>
+
+									</body>
+
+									</html>
+									<?php
+
+								}
+
+								?>
+								

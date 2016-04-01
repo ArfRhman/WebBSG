@@ -1,228 +1,247 @@
 	<aside class="right-side">
 
-	<!-- Main content -->
+		<!-- Main content -->
 
-    <section class="content-header">
+		<section class="content-header">
 
-		<h1>Welcome to Dashboard</h1>
+			<h1>Welcome to Dashboard</h1>
 
-    </section>
+		</section>
 
-    <section class="content">
+		<section class="content">
 
-				<div class="row">
+			<div class="row">
 
-                    <div class="col-lg-12">
+				<div class="col-lg-12">
 
-						<?php
+					<?php
 
-						if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
+					if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
 
-						{
-
-						?>
-							<a href="<?php echo site_url('sales/outgoing/add')?>" class="btn btn-success">Add New Data</a>
-						<?php
-
-						}
+					{
 
 						?>
+						<a href="<?php echo site_url('sales/outgoing/add')?>" class="btn btn-success">Add New Data</a>
+						<?php
 
-                        <div class="panel panel-primary filterable">
+					}
 
-                            <div class="panel-heading clearfix  ">
+					?>
 
-                                <div class="panel-title pull-left">
+					<div class="panel panel-primary filterable">
 
-                                       <div class="caption">
+						<div class="panel-heading clearfix  ">
 
-                                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+							<div class="panel-title pull-left">
 
-                                    Outgoing Letter List
+								<div class="caption">
 
-                                </div>
+									<i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-                                </div>
+									Outgoing Letter List
 
-                            </div>
+								</div>
 
-                            <div class="panel-body">
+							</div>
 
-                                    <table class="table table-striped table-responsive" id="table1">
+						</div>
 
-                                        <thead>
+						<div class="panel-body">
 
-                                            <tr>
+							<table class="table table-striped table-responsive" id="table1">
 
-                                                <th>No</th>
+								<thead>
 
-                                                <th>OL No</th>
+									<tr>
 
-                                                <th>OL Date</th>
+										<th>No</th>
 
-                                                <th>Subject</th>
+										<th>OL No</th>
 
-                                                <th>Addressed To</th>
+										<th>OL Date</th>
 
-                                                <th>Description</th>
+										<th>Subject</th>
 
-                                                <th>Signer By</th>
+										<th>Addressed To</th>
 
-                                                <th>File</th>
-                                                <th>Archive Code</th>
+										<th>Description</th>
 
-                                                <th>Action</th>
+										<th>Signer By</th>
 
-                                            </tr>
+										<th>File</th>
+										<th>Archive Code</th>
 
-                                        </thead>
+										<th>Action</th>
 
-                                        <tbody>
+									</tr>
 
-											<?php
+								</thead>
 
-											$no = 1;
+								<tbody>
 
-											/*foreach($in->result() as $c)
+									<?php
 
-											{
+									$no = 1;
 
-											?>
+									foreach($out->result() as $c)
 
-                                            <tr>
+									{
 
-												<td><?php echo $no; $no++; ?></td>
+										?>
 
-												<td><?php echo $c->nomer ?></td>
+										<tr>
 
-												<td><?php echo $c->tanggal ?></td>
+											<td><?php echo $no; $no++; ?></td>
 
-												<td><?php echo $c->tujuan?></td>
+											<td>
+												<?php 
+												$nomor = "";
+												if($c->ol_no >= 1)
+												{
+													$nomor = "00".$c->ol_no;
+												}
+												if($c->ol_no >= 10)
+												{
+													$nomor = "0".$c->ol_no;
+												}
+												if($c->ol_no >= 100)
+												{
+													$nomor = $c->ol_no;
+												}
+												$kode = "/OL-SLS/BSG/";
+												$arrDate = explode(' ',$c->ol_date);
+												$tahun = $arrDate[0];
+												$bulan = $arrDate[1];
+												$fb = $this->mddata->decrom_MMM($bulan);
+												echo $nomor.$kode.$fb."/".$arrDate[2];
+												?>
+											</td>
+											<td><?php echo $c->ol_date ?></td>
 
-												<td><?php echo $c->perihal ?></td>
+											<td><?php echo $c->subject ?></td>
 
-												<td><?php echo $c->terima ?></td>
+											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->addressed_to)->row()->name; ?></td>
 
-												<td><?php echo $c->pembuat ?></td>
+											<td><?php echo $c->description ?></td>
 
-												<td><?php echo $c->letak ?></td>
+											<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->signer_by)->row()->name; ?></td>
 
-												<td>
+											<td>
 
-													<?php 
+												<?php 
 
-													if($c->file != "") 
+												if($c->file != "") 
 
-													{
+												{
 
-														echo anchor(base_url($c->file), "Download File");	
+													echo anchor(base_url($c->file), "Download File");	
 
-													} ?>
+												} ?>
 
-												</td>
+											</td>
+											<td><?php echo $c->archive_code ?></td>
+											<td>
 
-												<td>
-													
-													<div class='btn-group'>
-														<button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
-														<ul class='dropdown-menu pull-right' role='menu'>
-															<li><a href='<?php echo site_url('sales/incoming/edit/'.$c->id)?>' >Edit</a></li>
-															<li><a href='#' class="delete" data-id = "<?php echo $c->id;?>">Delete</a></li>
-														</ul>
-													</div>
+												<div class='btn-group'>
+													<button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
+													<ul class='dropdown-menu pull-right' role='menu'>
+														<li><a href='<?php echo site_url('sales/outgoing/edit/'.$c->no)?>' >Edit</a></li>
+														<li><a href='<?php echo site_url('sales/outgoing/delete/'.$c->no)?>' class="delete">Delete</a></li>
+													</ul>
+												</div>
 
-												</td>
+											</td>
 
-                                            </tr>
+										</tr>
 
-											<?php
+										<?php
 
-											}*/
+									}
 
-											?>
+									?>
 
-                                        </tbody>
+								</tbody>
 
-                                    </table>
+							</table>
 
-                            </div>
-
-                        </div>
+						</div>
 
 					</div>
 
 				</div>
 
-    </section>
+			</div>
 
-		</aside>
+		</section>
 
-        <!-- right-side -->
+	</aside>
 
-    </div>
+	<!-- right-side -->
 
-    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
+</div>
 
-        <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
+<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
 
-    </a>
+	<i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-    <!-- global js -->
+</a>
 
-    <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+<!-- global js -->
 
-    <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
 
-    <!--livicons-->
+<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+<!--livicons-->
 
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
 
-    <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
 
-    <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
 
-    <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
 
-    <!-- end of global js -->
+<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
 
-    <!-- begining of page level js -->
+<!-- end of global js -->
 
-    <!-- Back to Top-->
+<!-- begining of page level js -->
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+<!-- Back to Top-->
 
-    <!--   maps -->
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
+<!--   maps -->
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
-	
-	<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
 
-    <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
 
-    <!-- end of page level js -->
-	
-	<script>
-		$(document).ready(function(){
-			$('.delete').on('click',function(){
-				var btn = $(this);
-				bootbox.confirm('Are you sure to delete this record?', function(result){
-					if(result ==true){
-						window.location = "<?php echo site_url('sales/incoming/delete');?>/"+btn.data('id');
-					}
-				});
+<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
+
+<!-- end of page level js -->
+
+<script>
+	$(document).ready(function(){
+		$('.delete').on('click',function(){
+			var btn = $(this);
+			bootbox.confirm('Are you sure to delete this record?', function(result){
+				if(result ==true){
+					window.location = "<?php echo site_url('sales/incoming/delete');?>/"+btn.data('id');
+				}
 			});
 		});
-	</script>
+	});
+</script>
 
 </body>
 

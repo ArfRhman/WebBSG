@@ -47,17 +47,18 @@
                              <td>
                                 <?php 
                                 $nomor = "";
-                                if($c->no >= 1)
+                                $res = $c->internal_memo_no;
+                                if($res >= 1)
                                 {
-                                    $nomor = "00".$c->no;
+                                    $nomor = "00".$res;
                                 }
-                                if($c->no >= 10)
+                                if($res >= 10)
                                 {
-                                    $nomor = "0".$c->no;
+                                    $nomor = "0".$res;
                                 }
-                                if($c->no >= 100)
+                                if($res >= 100)
                                 {
-                                    $nomor = $c->no;
+                                    $nomor = $res;
                                 }
                                 $kode = "/LOS-SLS/BSG/";
                                 $arrDate = explode(' ',$c->date);
