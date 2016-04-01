@@ -141,8 +141,17 @@
 												<label class="col-md-2 control-label" for="suplier">Suplier</label>
 
 												<div class="col-md-3">
-
-													<input id="suplier" name="suplier" placeholder="Suplier" class="form-control" type="text"></div>
+													<select name="suplier" class="form-control">
+													<?php 
+														foreach($this->mddata->getAllDataTbl('tbl_dm_supplier')->result() as $c)
+														{
+														?>
+														<option value="<?php echo $c->id; ?>"><?php echo $c->supplier; ?></option>	
+														<?php
+														}
+													?>
+													</select></div>
+													
 												
 												<label class="col-md-2 control-label" for="type">Payment Type</label>
 
@@ -157,8 +166,17 @@
 												<label class="col-md-2 control-label" for="forwarder">Forwarder</label>
 
 												<div class="col-md-3">
-
-													<input id="forwarder" name="forwarder" placeholder="forwarder" class="form-control" type="text"></div>
+													<select name="forwarder" class="form-control">
+													<?php 
+														foreach($this->mddata->getAllDataTbl('tbl_dm_forwarder')->result() as $c)
+														{
+														?>
+														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
+														<?php
+														}
+													?>
+													</select></div>
+													<!-- <input id="forwarder" name="" placeholder="forwarder" class="form-control" type="text"></div> -->
 
 												<label class="col-md-2 control-label" for="delivery">Delivery Date</label>
 
@@ -170,11 +188,15 @@
 											</div>
 
 											<div class="form-group">
-												<label class="col-md-2 control-label" for="name">Currency</label>
+												<label class="col-md-2 control-label" for="name">Moda</label>
 
 												<div class="col-md-3">
-
-													<input id="no" name="no" placeholder="Currency" class="form-control" type="text"></div>
+													<input type="text" class="form-control" placeholder="Moda" name="moda" list="modaList">
+                                          			<datalist id="modaList">
+	                                                 <option value="Air">
+	                                                  <option value="Sea">
+                                                  	</datalist>
+												</div>
 												<label class="col-md-2 control-label" for="terms">Other Terms</label>
 
 												<div class="col-md-3">
@@ -182,6 +204,21 @@
 													<input id="terms" name="terms" placeholder="Other Terms" class="form-control" type="text"></div>
 
 												
+											</div>
+
+											<div class="form-group">
+												<label class="col-md-2 control-label" for="curr">Currency</label>
+
+												<div class="col-md-3">
+												<input type="text" class="form-control" placeholder="Currency" name="curr" list="currList">
+                                          			<datalist id="currList">
+	                                                	<option value="IDR">
+	                                                 	<option value="USD">
+	                                                 	<option value="SGD">
+	                                                 	<option value="EUR">
+
+                                                  	</datalist>
+												</div>												
 											</div>
 
 											
@@ -192,8 +229,17 @@
 												<label class="col-md-2 control-label" for="item_code">Item Code</label>
 
 												<div class="col-md-3">
-
-													<input id="item_code" name="item_code" placeholder="Item Code" class="form-control" type="text"></div>
+													<select name="item_code" class="form-control">
+													<?php 
+														foreach($this->mddata->getAllDataTbl('tbl_dm_item')->result() as $c)
+														{
+														?>
+														<option value="<?php echo $c->code; ?>"><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>	
+														<?php
+														}
+													?>
+													</select>
+													</div>
 
 												<label class="col-md-2 control-label" for="currency">Currency</label>
 
@@ -412,7 +458,7 @@
 
 												<div class="col-md-3">
 
-													<input id="form_date" name="form_date" placeholder="Form E/AK/etc Date" class="form-control" type="text"></div>
+													<input id="form_date" name="form_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -451,7 +497,7 @@
 
 												<div class="col-md-3">
 
-													<input id="awb_date" name="awb_date" placeholder="AWB/BL Date" class="form-control" type="text"></div>
+													<input id="awb_date" name="awb_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="spjk">SPJK/SPJM</label>
 
@@ -496,7 +542,7 @@
 
 												<div class="col-md-3">
 
-													<input id="invoice_date" name="invoice_date" placeholder="Invoice Date" class="form-control" type="text"></div>
+													<input id="invoice_date" name="invoice_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="gr_date">GR Date</label>
 
@@ -619,8 +665,15 @@
 												<label class="col-md-2 control-label" for="curr">Currency</label>
 
 												<div class="col-md-3">
+													<input type="text" class="form-control" placeholder="Currency" name="currency" list="currencyList">
+                                          			<datalist id="currencyList">
+	                                                	<option value="IDR">
+	                                                 	<option value="USD">
+	                                                 	<option value="SGD">
+	                                                 	<option value="EUR">
 
-													<input id="curr" name="curr" placeholder="Currency" class="form-control" type="text"></div>
+                                                  	</datalist>
+												</div>
 
 												<label class="col-md-2 control-label" for="cif">CIF BC</label>
 
