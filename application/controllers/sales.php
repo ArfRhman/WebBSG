@@ -1183,5 +1183,160 @@ function target()
 		break;
 	}
 }
-
+// BEGIN REPORT
+function forecast()
+{
+	$data['ac'] = "s_forecast";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/forecast_view', $data);
+		break;			
+	}
+}
+function period()
+{
+	$data['ac'] = "s_period";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/period_view', $data);
+		break;			
+	}
+}
+function product()
+{
+	$data['ac'] = "s_product";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/product_view', $data);
+		break;			
+	}
+}
+function account()
+{
+	$data['ac'] = "s_account";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/account_view', $data);
+		break;			
+	}
+}
+function customer()
+{
+	$data['ac'] = "s_customer";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/customer_view', $data);
+		break;	
+		case 'detail':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/customer_detail', $data);
+		break;			
+	}
+}
+function loss()
+{
+	$data['ac'] = "s_loss";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/loss_view', $data);
+		break;			
+	}
+}
+function ar()
+{
+	$data['ac'] = "s_ar";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/ar_view', $data);
+		break;			
+	}
+}
+function stock()
+{
+	$data['ac'] = "s_stock";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/stock_view', $data);
+		break;			
+	}
+}
+function division()
+{
+	$data['ac'] = "s_division";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/division_view', $data);
+		break;			
+	}
+}
+function achievement()
+{
+	$data['ac'] = "s_achievement";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/achievement_view', $data);
+		break;	
+		case 'detail':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/achievement_detail', $data);
+		break;			
+	}
+}
+function profit()
+{
+	$data['ac'] = "s_profit";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/profit_view', $data);
+		break;			
+	}
+}
+function external()
+{
+	$data['ac'] = "s_external";
+	switch($this->uri->segment(3))		
+	{
+		case 'view':
+		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$this->load->view('top', $data);
+		$this->load->view('sales/external_view', $data);
+		break;			
+	}
+}
+// END REPORT
 }
