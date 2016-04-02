@@ -28,7 +28,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs_code_list');
 			$this->load->view('top', $data);
 			$this->load->view('op/hs_view', $data);
 			break;
@@ -37,40 +37,54 @@ class Op extends CI_Controller {
 			$this->load->view('op/hs_add', $data);
 			break;
 			case 'save':
+			$dir = "image/hs/";
+			$file = $dir . $_FILES['file']['name'];
 			$data = array(
-				'code' => $this->input->post('code'),
-				'description' => $this->input->post('description'),
-				'uraian' => $this->input->post('uraian'),
-				'duty' => $this->input->post('duty'),
-				'lartas' => $this->input->post('lartas'),
-				'jenis' => $this->input->post('jenis'),
-				'catatan' => $this->input->post('catatan'), 
+				'hs_code' => $this->input->post('hs_code'),
+				'percentage_hs_code' => $this->input->post('hs_percent_code'),
+				'items' => $this->input->post('hs_items'),
+				'description_eng' => $this->input->post('hs_desc_eng'),
+				'descroption_ind' => $this->input->post('hs_desc_ind'),
+				'tarif_preference' => $this->input->post('hs_trf_pref'),
+				'lartas' => $this->input->post('hs_lartas'), 
+				'other_information' => $this->input->post('hs_other'), 
 				);
-			$this->mddata->insertIntoTbl('tbl_op_hs', $data);
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['hs_insw'] = $file;
+			}
+			$this->mddata->insertIntoTbl('tbl_op_hs_code_list', $data);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'edit':
-			$data['hs'] = $this->mddata->getDataFromTblWhere('tbl_op_hs', 'id', $this->uri->segment(4));
+			$data['hs'] = $this->mddata->getDataFromTblWhere('tbl_op_hs_code_list', 'no', $this->uri->segment(4));
 			$this->load->view('top', $data);
 			$this->load->view('op/hs_edit', $data);
 			break;
 			case 'update':
+			$dir = "image/hs/";
+			$file = $dir . $_FILES['file']['name'];
 			$data = array(
-				'code' => $this->input->post('code'),
-				'description' => $this->input->post('description'),
-				'uraian' => $this->input->post('uraian'),
-				'duty' => $this->input->post('duty'),
-				'lartas' => $this->input->post('lartas'),
-				'jenis' => $this->input->post('jenis'),
-				'catatan' => $this->input->post('catatan'), 
+				'hs_code' => $this->input->post('hs_code'),
+				'percentage_hs_code' => $this->input->post('hs_percent_code'),
+				'items' => $this->input->post('hs_items'),
+				'description_eng' => $this->input->post('hs_desc_eng'),
+				'descroption_ind' => $this->input->post('hs_desc_ind'),
+				'tarif_preference' => $this->input->post('hs_trf_pref'),
+				'lartas' => $this->input->post('hs_lartas'), 
+				'other_information' => $this->input->post('hs_other'), 
 				);
-			$this->mddata->updateDataTbl('tbl_op_hs', $data, 'id', $this->uri->segment(4));
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['hs_insw'] = $file;
+			}
+			$this->mddata->updateDataTbl('tbl_op_hs_code_list', $data, 'no', $this->input->post('id'));
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'delete':
-			$this->mddata->deleteTblData('tbl_op_hs', $this->uri->segment(4));
+			$this->mddata->deleteGeneral('tbl_op_hs_code_list','no', $this->uri->segment(4));
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 	}
