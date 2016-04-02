@@ -108,7 +108,7 @@
                                                 {
                                                     $nomor = $c->ol_no;
                                                 }
-                                                $kode = "/OL-SLS/BSG/";
+                                                $kode = "/OL-OPS/BSG/";
                                                 $arrDate = explode(' ',$c->ol_date);
                                                 $tahun = $arrDate[0];
                                                 $bulan = $arrDate[1];

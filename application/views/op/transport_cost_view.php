@@ -36,27 +36,27 @@
                                         </thead>
                                         <tbody>
 											<?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
+											$no = 1;
+											foreach($data->result() as $c)
+											{
 											?>
                                             <tr>
-												<td><?php //echo $no; $no++; ?></td>
-												<td><?php //echo $c->nomer ?></td>
-												<td><?php //echo $c->tanggal ?></td>
-												<td><?php //echo $c->tujuan?></td>
-												<td><?php //echo $c->perihal ?></td>
-												<td><?php //echo $c->terima ?></td>
-												<td><?php //echo $c->pembuat ?></td>
-												<td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
-                                                <td><?php //echo $c->letak ?></td>
+												<td><?php echo $no; $no++; ?></td>
+												<td><?php echo $c->division ?></td>
+												<td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->am)->row()->name; ?></td>
+												<td><?php echo isset($this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id_so', $c->id)->row()->do_no); ?></td>
+												<td><?php echo isset($this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id_so', $c->id)->row()->do_date); ?></td>
+												<td><?php echo $c->so_no ?></td>
+												<td><?php echo $c->so_date ?></td>
+												<td><?php echo $c->customer_name ?></td>
+                                                <td><?php echo isset($this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id_so', $c->id)->row()->nett); ?></td>
+                                                <td><?php echo isset($this->mddata->getDataFromTblWhere('tbl_sale_so_cost', 'id_so', $c->id)->row()->transport); ?></td>
                                                 <td><?php //echo $c->letak ?></td>
                                                 <td><?php //echo $c->letak ?></td>
                                                 
                                             </tr>
 											<?php
-											//}
+											}
 											?>
                                         </tbody>
                                     </table>

@@ -94,7 +94,7 @@
 
 													<div class="col-md-3">
 
-														<input id="email" name="incoming_subject" placeholder="Subject" class="form-control" type="text"></div>
+														<input id="email" name="memo_subject" placeholder="Subject" class="form-control" type="text"></div>
 
 														<label class="col-md-2 control-label" for="email">File</label>
 

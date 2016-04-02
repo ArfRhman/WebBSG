@@ -38,30 +38,66 @@
               </tr>
             </thead>
             <tbody>
-             <?php $no = 1; ?>
-             <td><?php echo $no; $no++; ?></td>
-             <td>a</td>
-             <td>a</td>
-             <td>a</td>
-             <td>a</td>
-             <td>a</td>
-             <td>
-              <div class='btn-group'>
-                <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
-                <ul class='dropdown-menu pull-right' role='menu'>
-                  <li><a href='<?php echo site_url('op/memo/edit/'.$c->id)?>' >Edit</a></li>
-                  <li><a href='<?php echo site_url('op/memo/delete/'.$c->id)?>' class="delete">Delete</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-        
-      </tbody>
-    </table>
+             <?php
+             $no = 1;
+             foreach($memo->result() as $c)
+             {
+               ?>
+               <tr>
+                 <td><?php echo $no; ?></td>
+                 <td>
+                  <?php 
+                  $nomor = "";
+                  $res = $c->internal_memo_no;
+                  if($res >= 1)
+                  {
+                    $nomor = "00".$res;
+                  }
+                  if($res >= 10)
+                  {
+                    $nomor = "0".$res;
+                  }
+                  if($res >= 100)
+                  {
+                    $nomor = $res;
+                  }
+                  $kode = "/IM-OPS/BSG/";
+                  $arrDate = explode(' ',$c->date);
+                  $tahun = $arrDate[0];
+                  $bulan = $arrDate[1];
+                  $fb = $this->mddata->decrom_MMM($bulan);
+                  echo $nomor.$kode.$fb."/".$arrDate[2];
+                  ?>
+                </td>
+                <td><?php echo $c->date ?></td>
+                <td><?php echo $c->addressed_to ?></td>
+                <td><?php echo $c->subject ?></td>
+                <td><?php 
+                  if($c->file != "") 
+                  {
+                    echo anchor(base_url($c->file), "Download File");   
+                  } ?></td>
+                  <td>
+                    <div class='btn-group'>
+                      <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
+                      <ul class='dropdown-menu pull-right' role='menu'>
+                        <li><a href='<?php echo site_url('op/memo/edit/'.$c->no)?>' >Edit</a></li>
+                        <li><a href='<?php echo site_url('op/memo/delete/'.$c->no)?>' class="delete">Delete</a></li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <?php
+                $no++;
+              }
+              ?>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-</div>
 </section>
 </aside>
 <!-- right-side -->

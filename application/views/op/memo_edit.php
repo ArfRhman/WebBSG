@@ -54,7 +54,7 @@
 
 									<i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-									Edit Internal Memo
+									Add Internal Memo
 
 								</h3>
 
@@ -69,7 +69,7 @@
 							<div class="panel-body">
 
 								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/memo/update');?>" method="post">
-
+								<input type="hidden" name="no" value="<?=$memo->no?>">
 									<fieldset>
 
 										<div class="form-group">
@@ -78,13 +78,13 @@
 
 											<div class="col-md-3">
 
-												<input id="name" name="memo_date" placeholder="Date" class="form-control datepicker" type="text"></div>
+												<input id="name" value="<?=$memo->date?>" name="memo_date" placeholder="Date" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="name">Address To</label>
 
 												<div class="col-md-3">
 
-													<input id="name" name="memo_address" placeholder="Address To" class="form-control" type="text"></div>
+													<input id="name" value="<?=$memo->addressed_to?>" name="memo_address" placeholder="Address To" class="form-control" type="text"></div>
 
 												</div>
 
@@ -94,7 +94,7 @@
 
 													<div class="col-md-3">
 
-														<input id="email" name="incoming_subject" placeholder="Subject" class="form-control" type="text"></div>
+														<input id="email" value="<?=$memo->subject?>" name="memo_subject" placeholder="Subject" class="form-control" type="text"></div>
 
 														<label class="col-md-2 control-label" for="email">File</label>
 
@@ -106,8 +106,8 @@
 
 														
 
-														
-														
+
+
 
 														<div class="form-group">
 
@@ -183,18 +183,18 @@
 					<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
 
 					<!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-					
+
 					<script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
 
 					<!-- end of page level js -->
-					
+
 					<script>
 						$(document).ready(function(){
 							$('.datepicker').datepicker({
 								format:'dd M yyyy'
 							});
 						});
-						
+
 					</script>
 
 				</body>
@@ -205,4 +205,3 @@
 			}
 
 			?>
-			

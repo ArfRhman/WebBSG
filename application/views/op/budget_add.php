@@ -29,12 +29,13 @@
                                 </span>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/budget/save');?>" method="post">
                                     <fieldset>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="code">Budget Code</label>
                                             <div class="col-md-7">
                                             <select name="code" id="code" class="form-control">
+                                                <option value="">-- Pilih Budget Code --</option>
                                                     <?php 
                                                         foreach($this->mddata->getAllDataTbl('tbl_dm_budget')->result() as $c)
                                                         {
@@ -49,17 +50,17 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="main">Main Budget</label>
 											<div class="col-md-7">
-                                                <input id="main" disabled="true" name="main" placeholder="Main Budget" class="form-control" type="text"></div>
+                                                <input id="main" readonly="true" name="main" placeholder="Main Budget" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-3 control-label" for="budget_1">Sub Budget Level 1</label>
                                             <div class="col-md-7">
-                                                <input id="budget_1" disabled="true" name="budget_1" placeholder="Sub Budget Level 1" class="form-control" type="text"></div>
+                                                <input id="budget_1" readonly="true" name="budget_1" placeholder="Sub Budget Level 1" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-3 control-label" for="budget_2">Sub Budget Level 2</label>
                                             <div class="col-md-7">
-                                                <input id="budget_2" disabled="true" name="budget_2" placeholder="Sub Budget Level 2" class="form-control" type="text"></div>
+                                                <input id="budget_2" readonly="true" name="budget_2" placeholder="Sub Budget Level 2" class="form-control" type="text"></div>
 											
                                         </div>
 										<div class="form-group">
@@ -70,7 +71,7 @@
 										<div class="form-group">
                                             <label class="col-md-3 control-label" for="amount">Amount</label>
                                             <div class="col-md-7">
-                                                <input id="amount" name="amount" placeholder="Jenis Barang" class="form-control" type="text"></div>
+                                                <input id="amount" name="amount" placeholder="Amount" class="form-control" type="text"></div>
                                         </div>
 										
 										<div class="form-group">

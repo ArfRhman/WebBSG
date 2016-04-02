@@ -82,12 +82,12 @@ class Op extends CI_Controller {
 		{
 			case 'view':
 				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
-				$this->load->view('top', $data);
-				$this->load->view('op/stock_view', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/stock_view', $data);
 			break;
 			case 'add':								
-				$this->load->view('top', $data);				
-				$this->load->view('op/stock_add', $data);								
+			$this->load->view('top', $data);				
+			$this->load->view('op/stock_add', $data);								
 			break;
 		}
 	}
@@ -98,102 +98,78 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			$data['memo'] = $this->mddata->getAllDataTbl('tbl_op_internal_memo');
+			$data['memo'] = $this->mddata->getAllDataTbl('tbl_op_internal_memoo');
 			$this->load->view('top', $data);
 			$this->load->view('op/memo_view', $data);
-			break;
-			case 'view_subfield':
-			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_op_internal_memo_subfield', 'id_memo', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/memo_view_subfield', $data);
 			break;
 			case 'add':
 			$this->load->view('top', $data);
 			$this->load->view('op/memo_add', $data);
 			break;
 			case 'edit':
-			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_op_internal_memo', 'id', $this->uri->segment(4));
+			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_op_internal_memoo', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/memo_edit', $data);
 			break;
-			case 'edit_subfield':
-			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_op_internal_memo_subfield', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/memo_edit_subfield', $data);
-			break;
 			case 'save':
+			$nomor = $this->db->query("SELECT * FROM tbl_op_internal_memoo ORDER BY no DESC");
+			$tahun = date('Y');
+			$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
+			$fn = 0;
+			if($tahun == $sy)
+			{
+				if($nomor->num_rows() == 0)
+				{
+					$fn = 1;
+				} else {
+					$n = $nomor->row()->internal_memo_no;
+					$fn = $n + 1;
+				}
+			} else {
+					//update tahun 
+				$data = array(
+					'tahun' => $tahun,
+					);
+				$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
+				$fn = 1;
+			}
+			$dir = "image/op_memo/";
+			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'memo_id' => $this->input->post('memo_id'),
-				'ref' => $this->input->post('ref'), 
-				'kepada' => $this->input->post('kepada'), 
-				'devisi' => $this->input->post('devisi'), 
-				'tembusan' => $this->input->post('tembusan'), 
-				'tempo' => $this->input->post('tempo'), 
-				'pembayaran' => $this->input->post('pembayaran'), 
-				'diajukan' => $this->input->post('diajukan'),
-				'diketahui' => $this->input->post('diketahui'), 
-				'diverifikasi' => $this->input->post('diverifikasi'),
+				'internal_memo_no' => $fn,
+				'date' => $p['memo_date'],
+				'addressed_to' => $p['memo_address'],
+				'subject' => $p['memo_subject']
 				);
-			$this->mddata->insertIntoTbl('tbl_op_internal_memo', $data);
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['file'] = $file;
+			}
+			$this->mddata->insertIntoTbl('tbl_op_internal_memoo', $data);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
-			redirect($_SERVER['HTTP_REFERER']);
-			break;
-			case 'save_subfield':
-			$data = array(
-				'id_memo' => $this->uri->segment(4),
-				'cost_id' => $this->input->post('cost_id'), 
-				'vendor' => $this->input->post('vendor'), 
-				'rate' => $this->input->post('rate'), 
-				'amount' => $this->input->post('amount'), 
-				'uraian' => $this->input->post('uraian'), 
-				'invoice' => $this->input->post('invoice'),
-				);
-			$this->mddata->insertIntoTbl('tbl_op_internal_memo_subfield', $data);
-			$this->session->set_flashdata('data','Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'update':
+			$dir = "image/op_memo/";
+			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'memo_id' => $this->input->post('memo_id'),
-				'ref' => $this->input->post('ref'), 
-				'kepada' => $this->input->post('kepada'), 
-				'devisi' => $this->input->post('devisi'), 
-				'tembusan' => $this->input->post('tembusan'), 
-				'tempo' => $this->input->post('tempo'), 
-				'pembayaran' => $this->input->post('pembayaran'), 
-				'diajukan' => $this->input->post('diajukan'),
-				'diketahui' => $this->input->post('diketahui'), 
-				'diverifikasi' => $this->input->post('diverifikasi'),
+				'date' => $p['memo_date'],
+				'addressed_to' => $p['memo_address'],
+				'subject' => $p['memo_subject']
 				);
-			$this->mddata->updateDataTbl('tbl_op_internal_memo', $data, 'id', $this->uri->segment(4));
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['file'] = $file;
+			}
+			$this->mddata->updateDataTbl('tbl_op_internal_memoo', $data, 'no', $p['no']);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
-			case 'update_subfield':
-			$data = array(
-				'cost_id' => $this->input->post('cost_id'), 
-				'vendor' => $this->input->post('vendor'), 
-				'rate' => $this->input->post('rate'), 
-				'amount' => $this->input->post('amount'), 
-				'uraian' => $this->input->post('uraian'), 
-				'invoice' => $this->input->post('invoice'),
-				);
-			$this->mddata->updateDataTbl('tbl_op_internal_memo_subfield', $data, 'id', $this->uri->segment(4));
-			$this->session->set_flashdata('data','Data Has Been Saved');
-			redirect($_SERVER['HTTP_REFERER']);
-			break;
 			case 'delete':
-			$this->mddata->deleteTblData('tbl_op_internal_memo', $this->uri->segment(4));
+			$this->mddata->deleteGeneral('tbl_op_internal_memoo','no', $this->uri->segment(4));
 			redirect($_SERVER['HTTP_REFERER']);
-			break;
-			case 'delete_subfield':
-			$this->mddata->deleteTblData('tbl_op_internal_memo_subfield', $this->uri->segment(4));
-			redirect($_SERVER['HTTP_REFERER']);
-			break;
-			case 'preview':
-			$data['memo'] = $this->mddata->getDataFromTblWhere('tbl_op_internal_memo', 'id', $this->uri->segment(4));
-			$data['sub'] = $this->mddata->getDataFromTblWhere('tbl_op_internal_memo_subfield', 'id_memo', $this->uri->segment(4));
-			$this->load->view('op/memo_preview', $data);
 			break;
 		}
 	}
@@ -294,7 +270,7 @@ class Op extends CI_Controller {
 				{
 					$fn = 1;
 				} else {
-					$n = $nomor->row()->nomer;
+					$n = $nomor->row()->ol_no;
 					$fn = $n + 1;
 				}
 			} else {
@@ -305,17 +281,17 @@ class Op extends CI_Controller {
 				$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'no', '1');
 				$fn = 1;
 			}
-			$dir = "image/outgoing/";
+			$dir = "image/op_outgoing/";
 			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'nomer' => $fn,
-				'tanggal' => $this->input->post('tanggal'), 
-				'tujuan' => $this->input->post('tujuan'), 
-				'perihal' => $this->input->post('perihal'), 
-				'terima' => $this->input->post('terima'), 
-				'pembuat' => $this->input->post('pembuat'), 
-				'jawab' => $this->input->post('jawab'), 
-				'letak' => $this->input->post('letak'),
+				'ol_no'=>$fn,
+				'ol_date'=>$p['outgoing_date'],
+				'subject'=>$p['outgoing_subject'],
+				'addressed_to'=>$p['outgoing_addressed_to'],
+				'description'=>$p['desc'],
+				'signer_by'=>$p['outgoing_signer_by'],
+				'archive_code'=>$p['outgoing_archive_code']
 				);
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 			{
@@ -326,27 +302,27 @@ class Op extends CI_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'edit':
-			$data['out'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing_letter_registration', 'no', $this->uri->segment(4));
+			$data['out'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing_letter_registration', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/outgoing_edit', $data);
 			break;
 			case 'update':
-			$dir = "image/outgoing/";
+			$dir = "image/op_outgoing/";
 			$file = $dir . $_FILES['file']['name'];
+			$p=$this->input->post();
 			$data = array(
-				'tanggal' => $this->input->post('tanggal'), 
-				'tujuan' => $this->input->post('tujuan'), 
-				'perihal' => $this->input->post('perihal'), 
-				'terima' => $this->input->post('terima'), 
-				'pembuat' => $this->input->post('pembuat'), 
-				'jawab' => $this->input->post('jawab'), 
-				'letak' => $this->input->post('letak'),
+				'ol_date'=>$p['outgoing_date'],
+				'subject'=>$p['outgoing_subject'],
+				'addressed_to'=>$p['outgoing_addressed_to'],
+				'description'=>$p['desc'],
+				'signer_by'=>$p['outgoing_signer_by'],
+				'archive_code'=>$p['outgoing_archive_code']
 				);
 			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
 			{
 				$data['file'] = $file;
 			}
-			$this->mddata->updateDataTbl('tbl_op_outgoing_letter_registration', $data, 'no', $this->uri->segment(4));
+			$this->mddata->updateDataTbl('tbl_op_outgoing_letter_registration', $data, 'no', $p['no']);
 			$this->session->set_flashdata('data', 'Data Has Been Saved');
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
@@ -425,7 +401,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['data'] = $this->mddata->getAllDataTbl('tbl_sale_so');
 			$this->load->view('top', $data);
 			$this->load->view('op/transport_cost_view', $data);
 			break;
@@ -495,38 +471,38 @@ class Op extends CI_Controller {
 			break;
 			case"edit":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_edit', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_edit', $data);
 			break;
 			case"payment":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_payment_view', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_payment_view', $data);
 			break;
 			case"payment_add":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_payment_add', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_payment_add', $data);
 			break;
 			case"payment_edit":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_payment_edit', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_payment_edit', $data);
 			break;
 			case"report":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_report_view', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_report_view', $data);
 			break;
 			case"report_add":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_report_add', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_report_add', $data);
 			break;
 			case"report_edit":
 				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-				$this->load->view('top', $data);
-				$this->load->view('op/po_report_edit', $data);
+			$this->load->view('top', $data);
+			$this->load->view('op/po_report_edit', $data);
 			break;
 		}
 	}
@@ -573,18 +549,57 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['budget'] = $this->mddata->getAllDataTbl('tbl_op_budget');
 			$this->load->view('top', $data);
 			$this->load->view('op/budget_view', $data);
 			break;
-			case 'add':								
-			$this->load->view('top', $data);				
-			$this->load->view('op/budget_add', $data);								
+			case 'add':
+			$this->load->view('top', $data);
+			$this->load->view('op/budget_add', $data);
 			break;
-			case"edit":
-				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+			case 'edit':
+			$data['budget'] = $this->mddata->getDataFromTblWhere('tbl_op_budget', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/budget_edit', $data);
+			break;
+			case 'getDataBudget':
+			$id = $_POST['id'];
+			$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
+			$json = json_encode($data);
+			echo $json;
+			break;
+			case 'save':
+			$p = $this->input->post();
+			$data = array(
+				'budget_code' => $p['code'],
+				'main_budget' => $p['main'],
+				'sub_budget_level1' => $p['budget_1'],
+				'sub_budget_level2' => $p['budget_2'],
+				'periode' => $p['periode'],
+				'amount' => $p['amount']
+				);
+			$this->mddata->insertIntoTbl('tbl_op_budget',$data);
+			$this->session->set_flashdata('data','Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'update':
+			$p = $this->input->post();
+			$data = array(
+				'budget_code' => $p['code'],
+				'main_budget' => $p['main'],
+				'sub_budget_level1' => $p['budget_1'],
+				'sub_budget_level2' => $p['budget_2'],
+				'periode' => $p['periode'],
+				'amount' => $p['amount']
+				);
+
+			$this->mddata->updateDataTbl('tbl_op_budget',$data,'no',$p['no']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_op_budget','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}
@@ -594,18 +609,59 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['budget'] = $this->mddata->getAllDataTbl('tbl_op_realisasi');
 			$this->load->view('top', $data);
 			$this->load->view('op/realisasi_view', $data);
 			break;
-			case 'add':								
-			$this->load->view('top', $data);				
-			$this->load->view('op/realisasi_add', $data);								
+			case 'add':
+			$this->load->view('top', $data);
+			$this->load->view('op/realisasi_add', $data);
 			break;
-			case"edit":
-				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+			case 'edit':
+			$data['re'] = $this->mddata->getDataFromTblWhere('tbl_op_realisasi', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/realisasi_edit', $data);
+			break;
+			case 'getDataBudget':
+			$id = $_POST['id'];
+			$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
+			$json = json_encode($data);
+			echo $json;
+			break;
+			case 'save':
+			$p = $this->input->post();
+			$data = array(
+				'budget_code' => $p['code'],
+				'main_budget' => $p['main'],
+				'sub_budget_level1' => $p['budget_1'],
+				'sub_budget_level2' => $p['budget_2'],
+				'date' => $p['date'],
+				'transaction_description' => $p['desc'],
+				'amount' => $p['amount']
+				);
+			$this->mddata->insertIntoTbl('tbl_op_realisasi',$data);
+			$this->session->set_flashdata('data','Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'update':
+			$p = $this->input->post();
+			$data = array(
+				'budget_code' => $p['code'],
+				'main_budget' => $p['main'],
+				'sub_budget_level1' => $p['budget_1'],
+				'sub_budget_level2' => $p['budget_2'],
+				'date' => $p['date'],
+				'transaction_description' => $p['desc'],
+				'amount' => $p['amount']
+				);
+
+			$this->mddata->updateDataTbl('tbl_op_realisasi',$data,'no',$p['no']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_op_realisasi1','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}
