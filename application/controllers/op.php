@@ -463,9 +463,53 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['cs'] = $this->mddata->getAllDataTbl('tbl_op_cases');
 			$this->load->view('top', $data);
 			$this->load->view('op/cases_view', $data);
+			break;
+			case 'add':	
+			$this->load->view('top', $data);
+			$this->load->view('op/cases_add', $data);
+			break;
+			case 'edit':	
+			$data['cs'] = $this->mddata->getDataFromTblWhere('tbl_op_cases', 'no', $this->uri->segment(4))->row();							
+			$this->load->view('top', $data);
+			$this->load->view('op/cases_edit', $data);
+			break;
+			case 'save':
+			$data = array(
+				'date' => date('d-M-Y'),
+				'date_of_case' => $this->input->post('date_case'), 
+				'subject_of_case' => $this->input->post('subject'), 
+				'detail_case' => $this->input->post('detail'), 
+				'personels_involved' => $this->input->post('personels'), 
+				'date_of_solving' => $this->input->post('date_solving'), 
+				'solving' => $this->input->post('solving'), 
+				'final_action' => $this->input->post('final'),
+				'conclusion' => $this->input->post('conclusion'),
+				);
+			$this->mddata->insertIntoTbl('tbl_op_cases', $data);
+			$this->session->set_flashdata('data','Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'update':
+			$data = array(
+				'date_of_case' => $this->input->post('date_cases'), 
+				'subject_of_case' => $this->input->post('subject'), 
+				'detail_case' => $this->input->post('detail'), 
+				'personels_involved' => $this->input->post('personels'), 
+				'date_of_solving' => $this->input->post('date_solving'), 
+				'solving' => $this->input->post('solving'), 
+				'final_action' => $this->input->post('final'),
+				'conclusion' => $this->input->post('conclusion'),
+				);
+			$this->mddata->updateDataTbl('tbl_op_cases', $data, 'no', $this->input->post('no'));
+			$this->session->set_flashdata('data','Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_op_cases','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}
@@ -572,95 +616,95 @@ class Op extends CI_Controller {
 				'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen'],
 				'no_po'=>$id
 				);
-				$this->mddata->insertIntoTbl('tbl_op_po_documentation', $doc);
+$this->mddata->insertIntoTbl('tbl_op_po_documentation', $doc);
 
 
-				$costing=array(
-					'currency' => $p['currency'],
-					'po_amount' => $p['amount'],
-					'freight_bc' => $p['freight'],
-					'insurance_bc' => $p['insurance'],
-					'cif_bc' => $p['cif'],
-					'bc_rate' => $p['bc_rate'],
-					'cif_bc_idr' => $p['cif_idr'],
-					'import_tax' => $p['import_tax'],
-					'vat_import' => $p['vat'],
-					'wht_import' => $p['wht'],
-					'total_tax' => $p['total_tax'],
-					'adm_cost' => $p['adm'],
-					'notul' => $p['notul'],
-					'notul_desc' => $p['notul_desc'],
-					'total_duty_taxes' => $p['duty_tax'],
-					'percentage_duty_taxes' => $p['duty'],
-					'freight_cost' => $p['freight_cost'],
-					'yellow_handling' => $p['yellow_handling'],
-					'red_handling' => $p['red_handing'],
-					'do' => $p['do'],
-					'storage' => $p['storage'],
-					'demurrage' => $p['demurrage'],
-					'lift_on_lift_off' => $p['lift'],
-					'mechanic' => $p['mechanic'],
-					'undertable' => $p['undertable'],
-					'trucking' => $p['trucking'],
-					'other_cost' => $p['other_cost'],
-					'other_cost_desc' => $p['cost_desc'],
-					'total_clearance' => $p['total_clearance'],
-					'percentage_clearance' => $p['percen_clearance'],
-					'total_cost'=> $p['total_cost'],
-					'percentage_total_cost' => $p['percen_total'],
-					'total_cost_without_vat' => $p['total_without_vat'],
-					'percentage_cost_without_vat' => $p['percen_without_vat'],
-					'no_po'=>$id
-					);
-				$this->mddata->insertIntoTbl('tbl_op_po_costing', $costing);
-				$this->session->set_flashdata('data','Data Has Been Saved');
-				redirect($_SERVER['HTTP_REFERER']);
-			break;
-			case"edit":
-			$etf=$this->mddata->getDataFromTblWhere('tbl_op_po_lead_time', 'no_po', $this->uri->segment(4))->row_array();
-            $cost=$this->mddata->getDataFromTblWhere('tbl_op_po_costing', 'no_po', $this->uri->segment(4))->row_array();
-            $tabel=$this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $this->uri->segment(4))->row_array();
-            $doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $this->uri->segment(4))->row_array();
-            $head = $this->mddata->getDataFromTblWhere('tbl_op_po_header', 'no', $this->uri->segment(4))->row_array();
-            $d=array_merge($etf, $cost);
-            $d=array_merge($d,$tabel);
-            $d=array_merge($d,$doc);
-            $d=array_merge($d,$head);
-			$data['d'] = (object)$d;
-			$this->load->view('top', $data);
-			$this->load->view('op/po_edit', $data);
-			break;
-			case"payment":
+$costing=array(
+	'currency' => $p['currency'],
+	'po_amount' => $p['amount'],
+	'freight_bc' => $p['freight'],
+	'insurance_bc' => $p['insurance'],
+	'cif_bc' => $p['cif'],
+	'bc_rate' => $p['bc_rate'],
+	'cif_bc_idr' => $p['cif_idr'],
+	'import_tax' => $p['import_tax'],
+	'vat_import' => $p['vat'],
+	'wht_import' => $p['wht'],
+	'total_tax' => $p['total_tax'],
+	'adm_cost' => $p['adm'],
+	'notul' => $p['notul'],
+	'notul_desc' => $p['notul_desc'],
+	'total_duty_taxes' => $p['duty_tax'],
+	'percentage_duty_taxes' => $p['duty'],
+	'freight_cost' => $p['freight_cost'],
+	'yellow_handling' => $p['yellow_handling'],
+	'red_handling' => $p['red_handing'],
+	'do' => $p['do'],
+	'storage' => $p['storage'],
+	'demurrage' => $p['demurrage'],
+	'lift_on_lift_off' => $p['lift'],
+	'mechanic' => $p['mechanic'],
+	'undertable' => $p['undertable'],
+	'trucking' => $p['trucking'],
+	'other_cost' => $p['other_cost'],
+	'other_cost_desc' => $p['cost_desc'],
+	'total_clearance' => $p['total_clearance'],
+	'percentage_clearance' => $p['percen_clearance'],
+	'total_cost'=> $p['total_cost'],
+	'percentage_total_cost' => $p['percen_total'],
+	'total_cost_without_vat' => $p['total_without_vat'],
+	'percentage_cost_without_vat' => $p['percen_without_vat'],
+	'no_po'=>$id
+	);
+$this->mddata->insertIntoTbl('tbl_op_po_costing', $costing);
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case"edit":
+$etf=$this->mddata->getDataFromTblWhere('tbl_op_po_lead_time', 'no_po', $this->uri->segment(4))->row_array();
+$cost=$this->mddata->getDataFromTblWhere('tbl_op_po_costing', 'no_po', $this->uri->segment(4))->row_array();
+$tabel=$this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $this->uri->segment(4))->row_array();
+$doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $this->uri->segment(4))->row_array();
+$head = $this->mddata->getDataFromTblWhere('tbl_op_po_header', 'no', $this->uri->segment(4))->row_array();
+$d=array_merge($etf, $cost);
+$d=array_merge($d,$tabel);
+$d=array_merge($d,$doc);
+$d=array_merge($d,$head);
+$data['d'] = (object)$d;
+$this->load->view('top', $data);
+$this->load->view('op/po_edit', $data);
+break;
+case"payment":
 							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/po_payment_view', $data);
-			break;
-			case"payment_add":
+$this->load->view('top', $data);
+$this->load->view('op/po_payment_view', $data);
+break;
+case"payment_add":
 							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/po_payment_add', $data);
-			break;
-			case"payment_edit":
+$this->load->view('top', $data);
+$this->load->view('op/po_payment_add', $data);
+break;
+case"payment_edit":
 							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/po_payment_edit', $data);
-			break;
-			case"report":
+$this->load->view('top', $data);
+$this->load->view('op/po_payment_edit', $data);
+break;
+case"report":
 							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/po_report_view', $data);
-			break;
-			case"report_add":
+$this->load->view('top', $data);
+$this->load->view('op/po_report_view', $data);
+break;
+case"report_add":
 							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/po_report_add', $data);
-			break;
-			case"report_edit":
+$this->load->view('top', $data);
+$this->load->view('op/po_report_add', $data);
+break;
+case"report_edit":
 							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/po_report_edit', $data);
-			break;
-			}
+$this->load->view('top', $data);
+$this->load->view('op/po_report_edit', $data);
+break;
+}
 }
 function price()
 {
@@ -1197,83 +1241,83 @@ function bussiness()
 }
 //START PROFILE
 function brief()
+{
+	$data['ac'] = "op_brief";
+	switch($this->uri->segment(3))
 	{
-		$data['ac'] = "op_brief";
-		switch($this->uri->segment(3))
-		{
-			case 'view':
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
-			$this->load->view('top', $data);
-			$this->load->view('op/brief_view', $data);
-			break;
-		}
+		case 'view':
+		$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+		$this->load->view('top', $data);
+		$this->load->view('op/brief_view', $data);
+		break;
 	}
-	function jobdesc()
+}
+function jobdesc()
+{
+	$data['ac'] = "op_jobdesc";
+	switch($this->uri->segment(3))
 	{
-		$data['ac'] = "op_jobdesc";
-		switch($this->uri->segment(3))
+		case 'view':
+		$data['jd'] = $this->mddata->getAllDataTbl('tbl_op_jobdesc_kpi');
+		$this->load->view('top', $data);
+		$this->load->view('op/jobdesc_view', $data);
+		break;
+		case 'add':
+		$this->load->view('top', $data);
+		$this->load->view('op/jobdesc_add', $data);
+		break;
+		case 'save':
+		$dir = "image/op_jobdesc/";
+		$dir2 = "image/op_kpi/";
+		$file1 = $dir . $_FILES['file1']['name'];
+		$file2 = $dir2 . $_FILES['file2']['name'];
+		$data = array(
+			'am' => $this->input->post('jd_am'),
+			'fungsi_posisi' => $this->input->post('jd_fungsi'),
+			);
+		if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
 		{
-			case 'view':
-			$data['jd'] = $this->mddata->getAllDataTbl('tbl_op_jobdesc_kpi');
-			$this->load->view('top', $data);
-			$this->load->view('op/jobdesc_view', $data);
-			break;
-			case 'add':
-			$this->load->view('top', $data);
-			$this->load->view('op/jobdesc_add', $data);
-			break;
-			case 'save':
-			$dir = "image/op_jobdesc/";
-			$dir2 = "image/op_kpi/";
-			$file1 = $dir . $_FILES['file1']['name'];
-			$file2 = $dir2 . $_FILES['file2']['name'];
-			$data = array(
-				'am' => $this->input->post('jd_am'),
-				'fungsi_posisi' => $this->input->post('jd_fungsi'),
-				);
-			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
-			{
-				$data['jobdesc'] = $file1;
-			}
-			if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
-			{
-				$data['kpi'] = $file2;
-			}
-			$this->mddata->insertIntoTbl('tbl_op_jobdesc_kpi', $data);
-			$this->session->set_flashdata('data', 'Data Has Been Saved');
-			redirect($_SERVER['HTTP_REFERER']);
-			break;
-			case 'edit':
-			$data['jd'] = $this->mddata->getDataFromTblWhere('tbl_op_jobdesc_kpi', 'no', $this->uri->segment(4));
-			$this->load->view('top', $data);
-			$this->load->view('op/jobdesc_edit', $data);
-			break;
-			case 'update':
-			$dir = "image/op_jobdesc/";
-			$dir2 = "image/op_kpi/";
-			$file1 = $dir . $_FILES['file1']['name'];
-			$file2 = $dir2 . $_FILES['file2']['name'];
-			$data = array(
-				'am' => $this->input->post('jd_am'),
-				'fungsi_posisi' => $this->input->post('jd_fungsi'),
-				);
-			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
-			{
-				$data['jobdesc'] = $file1;
-			}
-			if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
-			{
-				$data['kpi'] = $file2;
-			}
-			$this->mddata->updateDataTbl('tbl_op_jobdesc_kpi',$data,'no',$this->input->post('no'));
-			$this->session->set_flashdata('data', 'Data Has Been Saved');
-			redirect($_SERVER['HTTP_REFERER']);
-			break;
-			case 'delete':
-			$this->mddata->deleteGeneral('tbl_op_jobdesc_kpi','no', $this->uri->segment(4));
-			redirect($_SERVER['HTTP_REFERER']);
-			break;
+			$data['jobdesc'] = $file1;
 		}
-	}	
+		if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
+		{
+			$data['kpi'] = $file2;
+		}
+		$this->mddata->insertIntoTbl('tbl_op_jobdesc_kpi', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'edit':
+		$data['jd'] = $this->mddata->getDataFromTblWhere('tbl_op_jobdesc_kpi', 'no', $this->uri->segment(4));
+		$this->load->view('top', $data);
+		$this->load->view('op/jobdesc_edit', $data);
+		break;
+		case 'update':
+		$dir = "image/op_jobdesc/";
+		$dir2 = "image/op_kpi/";
+		$file1 = $dir . $_FILES['file1']['name'];
+		$file2 = $dir2 . $_FILES['file2']['name'];
+		$data = array(
+			'am' => $this->input->post('jd_am'),
+			'fungsi_posisi' => $this->input->post('jd_fungsi'),
+			);
+		if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
+		{
+			$data['jobdesc'] = $file1;
+		}
+		if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
+		{
+			$data['kpi'] = $file2;
+		}
+		$this->mddata->updateDataTbl('tbl_op_jobdesc_kpi',$data,'no',$this->input->post('no'));
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_op_jobdesc_kpi','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+	}
+}	
 //END PROFILE
 }
