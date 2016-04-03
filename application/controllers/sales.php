@@ -16,7 +16,138 @@ class Sales extends CI_Controller {
 		$this->load->model('model_data', 'mddata');
 		$data = array();
 	}
-	
+	function dashboard()
+	{
+		$data['ac'] = "s_dashboard";
+		switch($this->uri->segment(3))
+		{
+			case 'forecast':
+			$data['ac'] = "s_ds_forecast";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_forecast_view', $data);
+			break;
+			case 'period':
+			$data['ac'] = "s_ds_period";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_period_view', $data);
+			break;
+			case 'product':
+			$data['ac'] = "s_ds_product";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_product_view', $data);
+			break;
+			case 'am':
+			$data['ac'] = "s_ds_am";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_am_view', $data);
+			break;
+			case 'customer':
+			$data['ac'] = "s_customer_am";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_customer_view', $data);
+			break;
+			case 'profit':
+			$data['ac'] = "s_profit_am";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_profit_view', $data);
+			break;
+			case 'ar':
+			$data['ac'] = "s_ar_am";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_ar_view', $data);
+			break;
+			case 'stock':
+			$data['ac'] = "s_stock_am";
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_stock_view', $data);
+			break;
+		}
+	}
+	function brief()
+	{
+		$data['ac'] = "s_brief";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('sales/brief_view', $data);
+			break;
+		}
+	}
+	function jobdesc()
+	{
+		$data['ac'] = "s_jobdesc";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+			$data['jd'] = $this->mddata->getAllDataTbl('tbl_sale_jobdesc');
+			$this->load->view('top', $data);
+			$this->load->view('sales/jobdesc_view', $data);
+			break;
+			case 'add':
+			$this->load->view('top', $data);
+			$this->load->view('sales/jobdesc_add', $data);
+			break;
+			case 'save':
+			$dir = "image/s_jobdesc/";
+			$file1 = $dir . $_FILES['file1']['name'];
+			$file2 = $dir . $_FILES['file2']['name'];
+			$data = array(
+				'am' => $this->input->post('jd_am'),
+				'fungsi' => $this->input->post('jd_fungsi'),
+				);
+			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
+			{
+				$data['jobdesc'] = $file1;
+			}
+			if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
+			{
+				$data['kpi'] = $file2;
+			}
+			$this->mddata->insertIntoTbl('tbl_sale_jobdesc', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'edit':
+			$data['jd'] = $this->mddata->getDataFromTblWhere('tbl_sale_jobdesc', 'no', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('sales/jobdesc_edit', $data);
+			break;
+			case 'update':
+			$dir = "image/s_jobdesc/";
+			$file1 = $dir . $_FILES['file1']['name'];
+			$file2 = $dir . $_FILES['file2']['name'];
+			$data = array(
+				'am' => $this->input->post('jd_am'),
+				'fungsi' => $this->input->post('jd_fungsi'),
+				);
+			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
+			{
+				$data['jobdesc'] = $file1;
+			}
+			if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
+			{
+				$data['kpi'] = $file2;
+			}
+			$this->mddata->updateDataTbl('tbl_sale_jobdesc',$data,'no',$this->input->post('no'));
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_sale_jobdesc','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+		}
+	}	
 	function memo()
 	{
 		$data['ac'] = "s_memo";
