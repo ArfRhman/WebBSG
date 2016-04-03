@@ -43,11 +43,14 @@
                             <div class="panel-body">
                                 <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/brief/save');?>" method="post">
                                     <fieldset>
+                                        <div class="form-group"> 
+                                        <label class="col-md-6 col-md-offset-3 control-label" for="effective" style="text-align:center;">Short Brief</label>
 
+                                        </div>
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label" for="effective">Short Brief</label>
-                                            <div class="col-md-3">
-                                              <textarea class="form-control"></textarea>
+
+                                            <div class="col-md-8 col-md-offset-2">
+                                              <textarea class="form-control" rows="10"></textarea>
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -102,35 +105,21 @@
 
 <!-- Back to Top-->
 
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
 
-<!--   maps -->
-
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
-
-<!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-
-<script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/tinymce/tinymce.min.js"></script>
 
 <!-- end of page level js -->
-
-<script>
-    $(document).ready(function(){
-        $('.datepicker').datepicker({
-            format:'dd M yyyy'
+<script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
-    });
-
-</script>
-
+        </script>
 </body>
 
 </html>

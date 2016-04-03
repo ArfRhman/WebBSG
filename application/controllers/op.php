@@ -1195,4 +1195,85 @@ function bussiness()
 		break;
 	}
 }
+//START PROFILE
+function brief()
+	{
+		$data['ac'] = "op_brief";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$this->load->view('top', $data);
+			$this->load->view('op/brief_view', $data);
+			break;
+		}
+	}
+	function jobdesc()
+	{
+		$data['ac'] = "op_jobdesc";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+			$data['jd'] = $this->mddata->getAllDataTbl('tbl_op_jobdesc_kpi');
+			$this->load->view('top', $data);
+			$this->load->view('op/jobdesc_view', $data);
+			break;
+			case 'add':
+			$this->load->view('top', $data);
+			$this->load->view('op/jobdesc_add', $data);
+			break;
+			case 'save':
+			$dir = "image/op_jobdesc/";
+			$dir2 = "image/op_kpi/";
+			$file1 = $dir . $_FILES['file1']['name'];
+			$file2 = $dir2 . $_FILES['file2']['name'];
+			$data = array(
+				'am' => $this->input->post('jd_am'),
+				'fungsi_posisi' => $this->input->post('jd_fungsi'),
+				);
+			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
+			{
+				$data['jobdesc'] = $file1;
+			}
+			if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
+			{
+				$data['kpi'] = $file2;
+			}
+			$this->mddata->insertIntoTbl('tbl_op_jobdesc_kpi', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'edit':
+			$data['jd'] = $this->mddata->getDataFromTblWhere('tbl_op_jobdesc_kpi', 'no', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('op/jobdesc_edit', $data);
+			break;
+			case 'update':
+			$dir = "image/op_jobdesc/";
+			$dir2 = "image/op_kpi/";
+			$file1 = $dir . $_FILES['file1']['name'];
+			$file2 = $dir2 . $_FILES['file2']['name'];
+			$data = array(
+				'am' => $this->input->post('jd_am'),
+				'fungsi_posisi' => $this->input->post('jd_fungsi'),
+				);
+			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
+			{
+				$data['jobdesc'] = $file1;
+			}
+			if(move_uploaded_file($_FILES['file2']['tmp_name'], $file2))
+			{
+				$data['kpi'] = $file2;
+			}
+			$this->mddata->updateDataTbl('tbl_op_jobdesc_kpi',$data,'no',$this->input->post('no'));
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_op_jobdesc_kpi','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+		}
+	}	
+//END PROFILE
 }

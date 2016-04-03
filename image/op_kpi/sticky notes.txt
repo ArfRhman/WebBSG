@@ -1,0 +1,113 @@
+username: k2564674
+password: rogovo6508
+
+-admTryOut
+-k2564674s
+
+-TO-ADM
+-k3512321t
+
+-hdgxsbfg
+-himaspolban098
+1cqbfhx4
+
+2,19,20,23
+
+
+netsh wlan show drivers
+
+netsh wlan set hostednetwork mode=allow ssid=jejen key=12345678
+
+netsh wlan start hostednetwork
+netsh wlan stop
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E965-E325-11CE-BFC1-08002BE10318}
+
+Batb-gn5c-yep7-7yef-brld
+2hrr-yjdm-wd6g-xwdj-krld
+NRLC-DKFW-MCDK-XMCB-PRLD
+Key: YQCU-UVJP-XTDL-HTZD-23J2
+
+======================================
+1513684129787972
+K65WZL
+
+
+========================================
+
+ https://corporate-e.dnet.net.id:2083/
+user id : agella password : Agella2012
+
+
+
+ http://garduprabowo.org:2082/cpsess7872783921/3rdparty/phpMyAdmin/index.phphttp://216.155.129.196/flashfiles/flash/
+
+http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-modals.php
+
+http://red-team-design.com/wp-content/uploads/2011/09/slick-login-form-with-html5-css3-demo.html
+
+http://www.elegantthemes.com/preview/Nova/blog-feed/
+
+http://www.fastssh.com/
+semua-tinggal-download.blogspot.
+
+ohttp://tympanus.net/Tutorials/CircularNavigation/interactivedemo/index.html
+Berikut cara Menghilangkan Pop-up Notifikasi "Fake Serial Number" IDM :
+
+    1. Keluar/Tutuplah Terlebih dahulu IDM, dan tutup juga IDM yang berada Tray Icon.
+    2. Lalu buka directory software IDM yang biasanya berada di (C:\Program Files\Internet Download Manager) dan cari File yang bernama "IDMGrHlp.exe" lalu rubah/ubahlan nama dan ekstensinya jika belum tahu cara merubah ekstensi bisa di baca di "Cara Mengubah Ekstensi Files" Menjadi "idmhelp_old.exe"
+    3. Tekan "Enter" atau oke setelah selesai merename Filenya. Notifikasi Fake Serial Number Internet Download Manager yang biasanya menggangu Tidak akan muncul lagi.
+
+
+Dan setelah anda merestart PC anda, pasti akan ada keluhan satu lagi yaitu akan muncul suatu peringatan baru dari IDM. Sebenarnya peringatan yang muncul itu tidak mempengaruhi kinerja IDM tapi disini akan tetap saya beritahukan bagaimana Cara Menhilangkan Notifikasi Reinstall IDM :
+
+    1. Hampir sama dengan cara diatas namun kali ini langsung loncat ke step-2 ,Buka directory software IDM yang biasanya berada di (C:\Program Files\Internet Download Manager) dan cari File yang bernama "idmBroker.exe" lalu rubah/ubahlan nama dan ekstensinya jika belum tahu cara merubah ekstensi bisa di baca di "Cara Mengubah Ekstensi Files" Menjadi "IDMGrHlp.exe"
+    2. Selesai, silahkan gunakan IDM anda untuk mendownload tanpa batas (dibatasi kuota dan waktu) dan tanpa ada gangguan seperti Fake Serial Number atau ada Files yang Hilang.
+
+
+	=======================================
+	
+	http://sravi-kiran.blogspot.com/2013/02/FilteringAndSortingDataUsingAngularJS.html
+
+http://lorenzofox3.github.io/smart-table-website/
+
+========================================================
+
+1laWORDPRESS
+http://themeforest.net/item/neeqah-responsive-wedding-wordpress-theme/full_screen_preview/10365811
+http://themeforest.net/item/xoxo-beautifully-elegant-wedding-wordpress-theme/9404366
+http://themeforest.net/item/marriage-responsive-wedding-wordpress-theme/full_screen_preview/2425068
+http://themeforest.net/item/perfect-couple-wedding-wordpress-theme/9149465
+http://themeforest.net/item/monument-responsive-wordpress-wedding-theme/7998985
+
+=============================================================================
+
+	br- 01 (SEKDA)
+	01xx (Asisten --)
+- 03 BPMPKB 
+	030102 (kasubag --)
+	030103 (kasubag --)
+-04 Dinas Hutan 
+	(04) Data Polar
+	(040403 Kasek --)
+-07 Dinas Pendapatan
+	(0702 Kabid --)
+- 08 (Dinas Pendidikan)
+	(08 Kadin --)
+	(0801 Sekdin --)
+-10 (Dinas Pertanian)
+	(1001 Sekdin--)
+-11xxxxx (Dinas PU --)
+-12 (dinas Sosial)
+	(120303 Kasek--)
+-13 (inspektorat)
+	(1301xx Kasubag--)
+-14xxxx (Setda--)
+-16 Polisi PP
+	(16 Kepala kantor--)
+-19xxxxx (Kominfo--)
+-22xxxx - 28xxxx (--)
+ 
+	
+	
+
