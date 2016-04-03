@@ -69,7 +69,7 @@
 								<div class="panel-body">
 								
 									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/po/save');?>" method="post">
-
+									<input type="hidden" name="no" value="<?=$d->po_no?>">
 										<fieldset>
 											<h3>Header</h3>
 											<div class="form-group">
@@ -77,11 +77,11 @@
 
 												<div class="col-md-3">
 
-													<input id="po_no" name="po_no" placeholder="PO No" class="form-control" type="text"></div>
+													<input id="po_no" value="<?=$d->po_no?>" name="po_no" placeholder="PO No" class="form-control" type="text"></div>
 												<label class="col-md-2 control-label" for="curr">Currency</label>
 
 												<div class="col-md-3">
-												<input type="text" class="form-control" placeholder="Currency" name="curr" list="currList">
+												<input value="<?=$d->currency?>" type="text" class="form-control" placeholder="Currency" name="curr" list="currList">
                                           			<datalist id="currList">
 	                                                	<option value="IDR">
 	                                                 	<option value="USD">
@@ -97,12 +97,12 @@
 
 												<div class="col-md-3">
 
-													<input id="po_date" name="po_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->po_date?>" id="po_date" name="po_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 												<label class="col-md-2 control-label" for="convertion">Convertion</label>
 
 												<div class="col-md-3">
 
-													<input id="convertion" name="convertion" placeholder="Convertion" class="form-control" type="text"></div>										
+													<input value="<?=$d->convertion?>" id="convertion" name="convertion" placeholder="Convertion" class="form-control" type="text"></div>										
 												
 											</div>
 
@@ -113,12 +113,12 @@
 
 												<div class="col-md-3">
 
-													<input id="pureq_no" name="pureq_no" placeholder="Pureq No" class="form-control" type="text"></div>
+													<input value="<?=$d->pureq_no?>" id="pureq_no" name="pureq_no" placeholder="Pureq No" class="form-control" type="text"></div>
 												<label class="col-md-2 control-label" for="desc">Description</label>
 
 												<div class="col-md-3">
 
-													<input id="desc" name="desc" placeholder="Description" class="form-control" type="text"></div>
+													<input id="desc" value="<?=$d->description?>" name="desc" placeholder="Description" class="form-control" type="text"></div>
 
 												
 											</div>
@@ -130,13 +130,13 @@
 
 												<div class="col-md-3">
 
-													<input id="pureq_date" name="pureq_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->pureq_date?>" id="pureq_date" name="pureq_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="purpose">Purpose Of</label>
 
 												<div class="col-md-3">
 
-													<input id="purpose" name="purpose" placeholder="Purpose Of" class="form-control" type="text"></div>
+													<input value="<?=$d->purpose_of?>" id="purpose" name="purpose" placeholder="Purpose Of" class="form-control" type="text"></div>
 
 												
 												
@@ -152,7 +152,7 @@
 														foreach($this->mddata->getAllDataTbl('tbl_dm_supplier')->result() as $c)
 														{
 														?>
-														<option value="<?php echo $c->id; ?>"><?php echo $c->supplier; ?></option>	
+														<option value="<?php echo $c->id; ?>" <?=$c->id==$d->supplier ? 'selected' : ''?>><?php echo $c->supplier; ?></option>	
 														<?php
 														}
 													?>
@@ -163,7 +163,7 @@
 
 												<div class="col-md-3">
 
-													<input id="type" name="type" placeholder="Payment Type" class="form-control" type="text"></div>
+													<input value="<?=$d->payment_type?>" id="type" name="type" placeholder="Payment Type" class="form-control" type="text"></div>
 
 												
 											</div>
@@ -177,7 +177,7 @@
 														foreach($this->mddata->getAllDataTbl('tbl_dm_forwarder')->result() as $c)
 														{
 														?>
-														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
+														<option value="<?php echo $c->id; ?>" <?=$c->id==$d->forwarder ? 'selected' : ''?>><?php echo $c->name; ?></option>	
 														<?php
 														}
 													?>
@@ -188,7 +188,7 @@
 
 												<div class="col-md-3">
 
-													<input id="delivery" name="delivery" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->delivery_date?>" id="delivery" name="delivery" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 
 												
 											</div>
@@ -197,7 +197,7 @@
 												<label class="col-md-2 control-label" for="name">Moda</label>
 
 												<div class="col-md-3">
-													<input type="text" class="form-control" placeholder="Moda" name="moda" list="modaList">
+													<input value="<?=$d->moda?>" type="text" class="form-control" placeholder="Moda" name="moda" list="modaList">
                                           			<datalist id="modaList">
 	                                                 <option value="Air">
 	                                                  <option value="Sea">
@@ -207,7 +207,7 @@
 
 												<div class="col-md-3">
 
-													<input id="terms" name="terms" placeholder="Other Terms" class="form-control" type="text"></div>
+													<input value="<?=$d->other_terms?>" id="terms" name="terms" placeholder="Other Terms" class="form-control" type="text"></div>
 
 												
 											</div>
@@ -227,7 +227,7 @@
 														foreach($this->mddata->getAllDataTbl('tbl_dm_item')->result() as $c)
 														{
 														?>
-														<option value="<?php echo $c->id; ?>"><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>	
+														<option value="<?php echo $c->id; ?>" <?=$c->id==$d->item_code ? 'selected' : ''?>><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>	
 														<?php
 														}
 													?>
@@ -238,7 +238,7 @@
 
 												<div class="col-md-3">
 
-													<input id="currency" name="currency" placeholder="Currency" class="form-control" type="text"></div>
+													<input value="<?=$d->currency?>" id="currency" name="currency" placeholder="Currency" class="form-control" type="text"></div>
 
 											</div>
 
@@ -248,12 +248,12 @@
 
 												<div class="col-md-3">
 
-													<input id="item" disabled="true" name="item" placeholder="Item" class="form-control" type="text"></div>
+													<input value="<?=$d->item?>" id="item" readonly="true" name="item" placeholder="Item" class="form-control" type="text"></div>
 												<label class="col-md-2 control-label" for="unit">Unit Price</label>
 
 												<div class="col-md-3">
 
-													<input id="unit" name="unit" placeholder="Unit Price" class="form-control" type="text"></div>
+													<input value="<?=$d->unit_price?>" id="unit" name="unit" placeholder="Unit Price" class="form-control" type="text"></div>
 
 												
 											</div>
@@ -265,12 +265,12 @@
 
 												<div class="col-md-3">
 
-													<input id="mou" name="mou" placeholder="MoU" class="form-control" type="text"></div>
+													<input value="<?=$d->mou?>" id="mou" name="mou" placeholder="MoU" class="form-control" type="text"></div>
 												<label class="col-md-2 control-label" for="total">Total Price</label>
 
 												<div class="col-md-3">
 
-													<input id="total" name="total" placeholder="Total Price" class="form-control" type="text"></div>
+													<input value="<?=$d->total_price?>" id="total" name="total" placeholder="Total Price" class="form-control" type="text"></div>
 
 												
 											</div>
@@ -281,7 +281,7 @@
 
 												<div class="col-md-3">
 
-													<input id="qty" name="qty" placeholder="Qty" class="form-control" type="text"></div>
+													<input value="<?=$d->qty?>" id="qty" name="qty" placeholder="Qty" class="form-control" type="text"></div>
 
 												
 												
@@ -295,13 +295,13 @@
 
 												<div class="col-md-3">
 
-													<input id="lc" name="lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_lc?>" id="lc" name="lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_prod">ATF Production</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_prod" name="atf_prod" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_production?>" id="atf_prod" name="atf_prod" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -311,13 +311,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_prod" name="etf_prod" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_production?>" id="etf_prod" name="etf_prod" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_depart">ATF Vessel Depart</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_depart" name="atf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_vessel_depart?>" id="atf_depart" name="atf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -328,13 +328,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_depart" name="etf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_vessel_depart?>" id="etf_depart" name="etf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_arrival">ATF Vessel Arrival</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_arrival" name="atf_arrival" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_vessel_arrival?>" id="atf_arrival" name="atf_arrival" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -345,13 +345,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_arrival" name="etf_arrival" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_vessel_arrival?>" id="etf_arrival" name="etf_arrival" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_clearance">ATF Clearance</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_clearance" name="atf_clearance" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_clearance?>" id="atf_clearance" name="atf_clearance" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -361,13 +361,13 @@
 
 												<div class="col-md-3">
 
-													<input id="no" name="no" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_clearance?>" id="no" name="etf_clearance" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_wh">ATF WH Arrival</label>
 
 												<div class="col-md-3">
 
-													<input id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_wh_arrival?>" id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 
@@ -377,13 +377,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_wh_arrival?>" id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="actual">Actual Lead Time (days)</label>
 
 												<div class="col-md-3">
 
-													<input id="actual" name="actual" placeholder="Actual Lead Time (days)" class="form-control" type="text"></div>
+													<input value="<?=$d->actual_lead_time?>" id="actual" name="actual" placeholder="Actual Lead Time (days)" class="form-control" type="text"></div>
 
 											</div>
 
@@ -394,13 +394,13 @@
 
 												<div class="col-md-3">
 
-													<input id="estimated" name="estimated" placeholder="Estimated Lead Time (days)" class="form-control" type="text"></div>
+													<input value="<?=$d->estimated_lead_time?>" id="estimated" name="estimated" placeholder="Estimated Lead Time (days)" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="deviation">Deviation (days)</label>
 
 												<div class="col-md-3">
 
-													<input id="deviation" name="deviation" placeholder="Deviation (days)" class="form-control" type="text"></div>
+													<input value="<?=$d->deviation?>" id="deviation" name="deviation" placeholder="Deviation (days)" class="form-control" type="text"></div>
 
 											</div>
 
@@ -411,13 +411,13 @@
 
 												<div class="col-md-3">
 
-													<input id="atf_lc" name="atf_lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_lc?>" id="atf_lc" name="atf_lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="forecast">Forecast Level</label>
 
 												<div class="col-md-3">
 
-													<input id="forecast" name="forecast" placeholder="Forecast Level" class="form-control" type="text"></div>
+													<input value="<?=$d->forecast_level?>" id="forecast" name="forecast" placeholder="Forecast Level" class="form-control" type="text"></div>
 
 											</div>
 
@@ -430,13 +430,13 @@
 
 												<div class="col-md-3">
 
-													<input id="po" name="po" placeholder="Purchase Order" class="form-control" type="text"></div>
+													<input value="<?=$d->purchase_order?>" id="po" name="po" placeholder="Purchase Order" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="form_no">Form E/AK/etc No</label>
 
 												<div class="col-md-3">
 
-													<input id="form_no" name="form_no" placeholder="Form E/AK/etc No" class="form-control" type="text"></div>
+													<input value="<?=$d->form_e_ak_etc_no?>" id="form_no" name="form_no" placeholder="Form E/AK/etc No" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -445,13 +445,13 @@
 
 												<div class="col-md-3">
 
-													<input id="request" name="request" placeholder="Purchase Request" class="form-control" type="text"></div>
+													<input value="<?=$d->purchase_request?>" id="request" name="request" placeholder="Purchase Request" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="form_date">Form E/AK/etc Date</label>
 
 												<div class="col-md-3">
 
-													<input id="form_date" name="form_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->form_e_ak_etc_date?>" id="form_date" name="form_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -460,13 +460,13 @@
 
 												<div class="col-md-3">
 
-													<input id="csd" name="csd" placeholder="CSD" class="form-control" type="text"></div>
+													<input value="<?=$d->csd?>" id="csd" name="csd" placeholder="CSD" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="form">Form E/AK/etc</label>
 
 												<div class="col-md-3">
 
-													<input id="form" name="form" placeholder="Form E/AK/etc" class="form-control" type="text"></div>
+													<input value="<?=$d->form_e_ak_etc?>" id="form" name="form" placeholder="Form E/AK/etc" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -475,13 +475,13 @@
 
 												<div class="col-md-3">
 
-													<input id="awb_no" name="awb_no" placeholder="AWB/BL No" class="form-control" type="text"></div>
+													<input value="<?=$d->awb_bl_no?>" id="awb_no" name="awb_no" placeholder="AWB/BL No" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="dnp">DNP Request</label>
 
 												<div class="col-md-3">
 
-													<input id="dnp" name="dnp" placeholder="DNP Request" class="form-control" type="text"></div>
+													<input value="<?=$d->dnp_request?>" id="dnp" name="dnp" placeholder="DNP Request" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -490,13 +490,13 @@
 
 												<div class="col-md-3">
 
-													<input id="awb_date" name="awb_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->awb_bl_date?>" id="awb_date" name="awb_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="spjk">SPJK/SPJM</label>
 
 												<div class="col-md-3">
 
-													<input id="spjk" name="spjk" placeholder="SPJK/SPJM" class="form-control" type="text"></div>
+													<input value="<?=$d->spjk_spjm?>" id="spjk" name="spjk" placeholder="SPJK/SPJM" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -505,13 +505,13 @@
 
 												<div class="col-md-3">
 
-													<input id="awb" name="awb" placeholder="AWB/BL" class="form-control" type="text"></div>
+													<input value="<?=$d->awb_bl?>" id="awb" name="awb" placeholder="AWB/BL" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="sppb">SPPB</label>
 
 												<div class="col-md-3">
 
-													<input id="sppb" name="sppb" placeholder="SPPB" class="form-control" type="text"></div>
+													<input value="<?=$d->sppb?>" id="sppb" name="sppb" placeholder="SPPB" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -520,13 +520,13 @@
 
 												<div class="col-md-3">
 
-													<input id="invoice_no" name="invoice_no" placeholder="Invoice No" class="form-control" type="text"></div>
+													<input value="<?=$d->invoice_no?>" id="invoice_no" name="invoice_no" placeholder="Invoice No" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="gr_no">GR No</label>
 
 												<div class="col-md-3">
 
-													<input id="gr_no" name="gr_no" placeholder="GR No" class="form-control" type="text"></div>
+													<input value="<?=$d->gr_no?>" id="gr_no" name="gr_no" placeholder="GR No" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -535,13 +535,13 @@
 
 												<div class="col-md-3">
 
-													<input id="invoice_date" name="invoice_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->invoice_date?>" id="invoice_date" name="invoice_date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="gr_date">GR Date</label>
 
 												<div class="col-md-3">
 
-													<input id="gr_date" name="gr_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->gr_date?>" id="gr_date" name="gr_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -550,13 +550,13 @@
 
 												<div class="col-md-3">
 
-													<input id="invoice" name="invoice" placeholder="Invoice" class="form-control" type="text"></div>
+													<input value="<?=$d->invoice?>" id="invoice" name="invoice" placeholder="Invoice" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="gr">GR </label>
 
 												<div class="col-md-3">
 
-													<input id="gr" name="gr" placeholder="GR " class="form-control" type="text"></div>
+													<input value="<?=$d->gr?>" id="gr" name="gr" placeholder="GR " class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -565,13 +565,13 @@
 
 												<div class="col-md-3">
 
-													<input id="packing_no" name="packing_no" placeholder="Packing List No" class="form-control" type="text"></div>
+													<input value="<?=$d->packing_list_no?>" id="packing_no" name="packing_no" placeholder="Packing List No" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="kuasa_inklaring">Kuasa Inklaring</label>
 
 												<div class="col-md-3">
 
-													<input id="kuasa_inklaring" name="kuasa_inklaring" placeholder="Kuasa Inklaring" class="form-control" type="text"></div>
+													<input value="<?=$d->kuasa_inklaring?>" id="kuasa_inklaring" name="kuasa_inklaring" placeholder="Kuasa Inklaring" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -580,13 +580,13 @@
 
 												<div class="col-md-3">
 
-													<input id="packing_date" name="packing_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->packing_list_date?>" id="packing_date" name="packing_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="kuasa_do">Kuasa DO</label>
 
 												<div class="col-md-3">
 
-													<input id="kuasa_do" name="kuasa_do" placeholder="Kuasa DO" class="form-control" type="text"></div>
+													<input value="<?=$d->kuasa_do?>" id="kuasa_do" name="kuasa_do" placeholder="Kuasa DO" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -595,13 +595,13 @@
 
 												<div class="col-md-3">
 
-													<input id="packing" name="packing" placeholder="Packing List" class="form-control" type="text"></div>
+													<input value="<?=$d->packing_list?>" id="packing" name="packing" placeholder="Packing List" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="peminjaman">Peminjaman Container</label>
 
 												<div class="col-md-3">
 
-													<input id="peminjaman" name="peminjaman" placeholder="Peminjaman Container" class="form-control" type="text"></div>
+													<input value="<?=$d->peminjaman_container?>" id="peminjaman" name="peminjaman" placeholder="Peminjaman Container" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -610,13 +610,13 @@
 
 												<div class="col-md-3">
 
-													<input id="lc_no" name="lc_no" placeholder="LC No" class="form-control" type="text"></div>
+													<input value="<?=$d->lc_no?>" id="lc_no" name="lc_no" placeholder="LC No" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="pengembalian">Pengembalian Container</label>
 
 												<div class="col-md-3">
 
-													<input id="pengembalian" name="pengembalian" placeholder="Pengembalian Container" class="form-control" type="text"></div>
+													<input value="<?=$d->pengembalian_container?>" id="pengembalian" name="pengembalian" placeholder="Pengembalian Container" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -625,13 +625,13 @@
 
 												<div class="col-md-3">
 
-													<input id="lc_date" name="lc_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->lc_date?>" id="lc_date" name="lc_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="fungsi_guna">Pernyataan Fungsi Guna Barang</label>
 
 												<div class="col-md-3">
 
-													<input id="fungsi_guna" name="fungsi_guna" placeholder="Pernyataan Fungsi Guna Barang" class="form-control" type="text"></div>
+													<input value="<?=$d->pernyataan_fungsi_guna_barang?>" id="fungsi_guna" name="fungsi_guna" placeholder="Pernyataan Fungsi Guna Barang" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -640,13 +640,13 @@
 
 												<div class="col-md-3">
 
-													<input id="lc" name="lc" placeholder="LC" class="form-control" type="text"></div>
+													<input value="<?=$d->lc?>" id="lc" name="lc" placeholder="LC" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="keaslian_dokumen">Pernyataan Keaslian Dokumen</label>
 
 												<div class="col-md-3">
 
-													<input id="keaslian_dokumen" name="keaslian_dokumen" placeholder="Pernyataan Keaslian Dokumen" class="form-control" type="text"></div>
+													<input value="<?=$d->pernyataan_keaslian_dokumen?>" id="keaslian_dokumen" name="keaslian_dokumen" placeholder="Pernyataan Keaslian Dokumen" class="form-control" type="text"></div>
 
 											</div>
 
@@ -658,7 +658,7 @@
 												<label class="col-md-2 control-label" for="curr">Currency</label>
 
 												<div class="col-md-3">
-													<input type="text" class="form-control" placeholder="Currency" name="currency" list="currencyList">
+													<input value="<?=$d->currency?>" type="text" class="form-control" placeholder="Currency" name="currency" list="currencyList">
                                           			<datalist id="currencyList">
 	                                                	<option value="IDR">
 	                                                 	<option value="USD">
@@ -672,7 +672,7 @@
 
 												<div class="col-md-3">
 
-													<input id="cif" name="cif" placeholder="CIF BC" class="form-control" type="text"></div>
+													<input value="<?=$d->cif_bc?>" id="cif" name="cif" placeholder="CIF BC" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -681,13 +681,13 @@
 
 												<div class="col-md-3">
 
-													<input id="amount" name="amount" placeholder="PO Amount " class="form-control" type="text"></div>
+													<input value="<?=$d->po_amount?>" id="amount" name="amount" placeholder="PO Amount " class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="bc_rate">BC Rate</label>
 
 												<div class="col-md-3">
 
-													<input id="bc_rate" name="bc_rate" placeholder="BC Rate" class="form-control" type="text"></div>
+													<input value="<?=$d->bc_rate?>" id="bc_rate" name="bc_rate" placeholder="BC Rate" class="form-control" type="text"></div>
 
 											</div>
 
@@ -697,13 +697,13 @@
 
 												<div class="col-md-3">
 
-													<input id="freight" name="freight" placeholder=" =Freight BC" class="form-control" type="text"></div>
+													<input value="<?=$d->freight_bc?>" id="freight" name="freight" placeholder="Freight BC" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="cif_idr">CIF BC IDR</label>
 
 												<div class="col-md-3">
 
-													<input id="cif_idr" name="cif_idr" placeholder="CIF BC IDR" class="form-control" type="text"></div>
+													<input value="<?=$d->cif_bc_idr?>" id="cif_idr" name="cif_idr" placeholder="CIF BC IDR" class="form-control" type="text"></div>
 
 											</div>
 
@@ -713,7 +713,7 @@
 
 												<div class="col-md-3">
 
-													<input id="insurance" name="insurance" placeholder="Insurance BC" class="form-control" type="text"></div>
+													<input value="<?=$d->insurance_bc?>" id="insurance" name="insurance" placeholder="Insurance BC" class="form-control" type="text"></div>
 
 											</div>
 
@@ -724,13 +724,13 @@
 
 												<div class="col-md-3">
 
-													<input id="import_tax" name="import_tax" placeholder="Import Tax" class="form-control" type="text"></div>
+													<input value="<?=$d->import_tax?>" id="import_tax" name="import_tax" placeholder="Import Tax" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="notul">Notul</label>
 
 												<div class="col-md-3">
 
-													<input id="notul" name="notul" placeholder="Notul" class="form-control" type="text"></div>
+													<input value="<?=$d->notul?>" id="notul" name="notul" placeholder="Notul" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -739,13 +739,13 @@
 
 												<div class="col-md-3">
 
-													<input id="vat" name="vat" placeholder="VAT Import" class="form-control" type="text"></div>
+													<input value="<?=$d->vat_import?>" id="vat" name="vat" placeholder="VAT Import" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="notul_desc">Notul Desc</label>
 
 												<div class="col-md-3">
 
-													<input id="notul_desc" name="notul_desc" placeholder="Notul Desc" class="form-control" type="text"></div>
+													<input value="<?=$d->notul_desc?>" id="notul_desc" name="notul_desc" placeholder="Notul Desc" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -754,13 +754,13 @@
 
 												<div class="col-md-3">
 
-													<input id="wht" name="wht" placeholder="WHT Import" class="form-control" type="text"></div>
+													<input value="<?=$d->wht_import?>" id="wht" name="wht" placeholder="WHT Import" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="duty_tax">Total Duty & Taxes</label>
 
 												<div class="col-md-3">
 
-													<input id="duty_tax" name="duty_tax" placeholder="Total Duty & Taxes" class="form-control" type="text"></div>
+													<input value="<?=$d->total_duty_taxes?>" id="duty_tax" name="duty_tax" placeholder="Total Duty & Taxes" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -769,13 +769,13 @@
 
 												<div class="col-md-3">
 
-													<input id="total_tax" name="total_tax" placeholder="Total Tax" class="form-control" type="text"></div>
+													<input value="<?=$d->total_tax?>" id="total_tax" name="total_tax" placeholder="Total Tax" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="duty">% Duty & Taxes</label>
 
 												<div class="col-md-3">
 
-													<input id="duty" name="duty" placeholder="% Duty & Taxes" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_duty_taxes?>" id="duty" name="duty" placeholder="% Duty & Taxes" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -784,7 +784,7 @@
 
 												<div class="col-md-3">
 
-													<input id="adm" name="adm" placeholder="Adm Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->adm_cost?>" id="adm" name="adm" placeholder="Adm Cost" class="form-control" type="text"></div>
 
 											</div>
 
@@ -795,13 +795,13 @@
 
 												<div class="col-md-3">
 
-													<input id="freight_cost" name="freight_cost" placeholder="Freight Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->freight_cost?>" id="freight_cost" name="freight_cost" placeholder="Freight Cost" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="mechanic">Mechanic</label>
 
 												<div class="col-md-3">
 
-													<input id="mechanic" name="mechanic" placeholder="Mechanic" class="form-control" type="text"></div>
+													<input value="<?=$d->mechanic?>" id="mechanic" name="mechanic" placeholder="Mechanic" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -810,13 +810,13 @@
 
 												<div class="col-md-3">
 
-													<input id="yellow_handling" name="yellow_handling" placeholder="Yellow Handling" class="form-control" type="text"></div>
+													<input value="<?=$d->yellow_handling?>" id="yellow_handling" name="yellow_handling" placeholder="Yellow Handling" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="undertable">Undertable</label>
 
 												<div class="col-md-3">
 
-													<input id="undertable" name="undertable" placeholder="Undertable" class="form-control" type="text"></div>
+													<input value="<?=$d->undertable?>" id="undertable" name="undertable" placeholder="Undertable" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -825,13 +825,13 @@
 
 												<div class="col-md-3">
 
-													<input id="red_handing" name="red_handing" placeholder="Red Handing" class="form-control" type="text"></div>
+													<input value="<?=$d->red_handling?>" id="red_handing" name="red_handing" placeholder="Red Handing" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="trucking">Trucking</label>
 
 												<div class="col-md-3">
 
-													<input id="trucking" name="trucking" placeholder="Trucking" class="form-control" type="text"></div>
+													<input value="<?=$d->trucking?>" id="trucking" name="trucking" placeholder="Trucking" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -840,13 +840,13 @@
 
 												<div class="col-md-3">
 
-													<input id="do" name="do" placeholder="DO" class="form-control" type="text"></div>
+													<input value="<?=$d->do?>" id="do" name="do" placeholder="DO" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="other_cost">Other Cost</label>
 
 												<div class="col-md-3">
 
-													<input id="other_cost" name="other_cost" placeholder="Other Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->other_cost?>" id="other_cost" name="other_cost" placeholder="Other Cost" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -855,13 +855,13 @@
 
 												<div class="col-md-3">
 
-													<input id="storage" name="storage" placeholder="Storage" class="form-control" type="text"></div>
+													<input value="<?=$d->storage?>" id="storage" name="storage" placeholder="Storage" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="cost_desc">Other Cost Desc.</label>
 
 												<div class="col-md-3">
 
-													<input id="cost_desc" name="cost_desc" placeholder="Other Cost Desc." class="form-control" type="text"></div>
+													<input value="<?=$d->other_cost_desc?>" id="cost_desc" name="cost_desc" placeholder="Other Cost Desc." class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -870,13 +870,13 @@
 
 												<div class="col-md-3">
 
-													<input id="demurrage" name="demurrage" placeholder="Demurrage" class="form-control" type="text"></div>
+													<input value="<?=$d->demurrage?>" id="demurrage" name="demurrage" placeholder="Demurrage" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="total_clearance">Total Clearance</label>
 
 												<div class="col-md-3">
 
-													<input id="total_clearance" name="total_clearance" placeholder="Total Clearance" class="form-control" type="text"></div>
+													<input value="<?=$d->total_clearance?>" id="total_clearance" name="total_clearance" placeholder="Total Clearance" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -885,13 +885,13 @@
 
 												<div class="col-md-3">
 
-													<input id="lift" name="lift" placeholder="Lift On Lift Of" class="form-control" type="text"></div>
+													<input value="<?=$d->lift_on_lift_off?>" id="lift" name="lift" placeholder="Lift On Lift Of" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="percen_clearance">% Clearance</label>
 
 												<div class="col-md-3">
 
-													<input id="percen_clearance" name="percen_clearance" placeholder="% Clearance" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_clearance?>" id="percen_clearance" name="percen_clearance" placeholder="% Clearance" class="form-control" type="text"></div>
 
 											</div>
 
@@ -903,13 +903,13 @@
 
 												<div class="col-md-3">
 
-													<input id="total_cost" name="total_cost" placeholder="Total Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->total_cost?>" id="total_cost" name="total_cost" placeholder="Total Cost" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="total_without_vat">Total Cost without VAT</label>
 
 												<div class="col-md-3">
 
-													<input id="total_without_vat" name="total_without_vat" placeholder="Total Cost without VAT" class="form-control" type="text"></div>
+													<input value="<?=$d->total_cost_without_vat?>" id="total_without_vat" name="total_without_vat" placeholder="Total Cost without VAT" class="form-control" type="text"></div>
 
 											</div>
 											<div class="form-group">
@@ -918,13 +918,13 @@
 
 												<div class="col-md-3">
 
-													<input id="percen_total" name="percen_total" placeholder="% Total Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_total_cost?>" id="percen_total" name="percen_total" placeholder="% Total Cost" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="percen_without_vat">% Cost without VAT</label>
 
 												<div class="col-md-3">
 
-													<input id="percen_without_vat" name="percen_without_vat" placeholder="% Cost without VAT" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_cost_without_vat?>" id="percen_without_vat" name="percen_without_vat" placeholder="% Cost without VAT" class="form-control" type="text"></div>
 
 											</div>
 

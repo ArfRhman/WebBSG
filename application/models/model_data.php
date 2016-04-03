@@ -46,6 +46,14 @@ class model_data extends CI_Model {
 	{
 		$this->db->insert($tbl, $data);
 	}
+
+	function insertIntoTblWithReturn($tbl, $data)
+	{
+		$this->db->insert($tbl, $data);
+		$insert_id = $this->db->insert_id();
+
+   		return  $insert_id;
+	}	
 	
 	function deleteTblData($tbl, $id)
 	{

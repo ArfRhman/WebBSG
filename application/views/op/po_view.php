@@ -61,51 +61,53 @@
                 </thead>
                 <tbody>
                    <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-                   ?>
-                   <tr>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>                                                                                                       
-                        <div class='btn-group'>                                                     
-                            <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                            <ul class='dropdown-menu pull-right' role='menu'>       
-                            <li><a href='<?php echo site_url('op/po/edit/')?>' >Edit</a></li>         
-                                <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                            </ul>                                                 
-                        </div>
-                    </td>
-                </tr>
-                <?php
-											//}
+                   $no = 1;
+                   foreach($data->result() as $c)
+                   {
+                    $etf=$this->mddata->getDataFromTblWhere('tbl_op_po_lead_time', 'no_po', $c->no)->row();
+                    $cost=$this->mddata->getDataFromTblWhere('tbl_op_po_costing', 'no_po', $c->no)->row();
+                    ?>
+                    <tr>
+                        <td><?=$no?></td>
+                        <td><?=$c->po_no?></td>
+                        <td><?=$c->po_date?></td>
+                        <td><?=$c->pureq_no?></td>
+                        <td><?=$c->pureq_date?></td>
+                        <td><?=$c->supplier?></td>
+                        <td><?=$c->description?></td>
+                        <td><?=$c->purpose_of?></td>
+                        <td><?=$c->currency?></td>
+                        <td><?=$cost->po_amount?></td>
+                        <td><?=$c->forwarder?></td>
+                        <td><?=$c->payment_type?></td>
+                        <td><?=$etf->etf_lc?></td>
+                        <td><?=$etf->etf_production?></td>
+                        <td><?=$etf->etf_vessel_depart?></td>
+                        <td><?=$etf->etf_vessel_arrival?></td>
+                        <td><?=$etf->etf_clearance?></td>
+                        <td><?=$etf->etf_wh_arrival?></td>
+                        <td><?=$etf->estimated_lead_time?></td>
+                        <td><?=$etf->atf_lc?></td>
+                        <td><?=$etf->atf_production?></td>
+                        <td><?=$etf->atf_vessel_depart?></td>
+                        <td><?=$etf->atf_vessel_arrival?></td>
+                        <td><?=$etf->atf_clearance?></td>
+                        <td><?=$etf->atf_wh_arrival?></td>
+                        <td><?=$etf->actual_lead_time?></td>
+                        <td><?=$etf->deviation?></td>
+                        <td><?=$etf->forecast_level?></td>
+                        <td>                                                                                                       
+                            <div class='btn-group'>
+                                <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
+                                <ul class='dropdown-menu pull-right' role='menu'>
+                                    <li><a href='<?php echo site_url('op/po/edit/'.$c->no)?>' >Edit</a></li>
+                                    <li><a href='<?php echo site_url('op/po/delete/'.$c->no)?>' class="delete">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                }
                 ?>
             </tbody>
         </table>

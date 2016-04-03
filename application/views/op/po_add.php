@@ -248,7 +248,7 @@
 
 												<div class="col-md-3">
 
-													<input id="item" disabled="true" name="item" placeholder="Item" class="form-control" type="text"></div>
+													<input id="item" readonly="true" name="item" placeholder="Item" class="form-control" type="text"></div>
 												<label class="col-md-2 control-label" for="unit">Unit Price</label>
 
 												<div class="col-md-3">
@@ -361,7 +361,7 @@
 
 												<div class="col-md-3">
 
-													<input id="no" name="no" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="no" name="etf_clearance" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_wh">ATF WH Arrival</label>
 
@@ -697,7 +697,7 @@
 
 												<div class="col-md-3">
 
-													<input id="freight" name="freight" placeholder=" =Freight BC" class="form-control" type="text"></div>
+													<input id="freight" name="freight" placeholder="Freight BC" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="cif_idr">CIF BC IDR</label>
 
