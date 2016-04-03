@@ -101,57 +101,57 @@ if($this->session->userdata('active') == FALSE)
 								if($this->mddata->access($this->session->userdata('group'), 'd1')->d1 >= 1)
 								{
 									?>
-									<li>
+									<li <?php if($this->uri->segment(2) == 'dashboard') echo "class='active'"; ?>>
 										<a href="#">
 											<i class="livicon" data-name="home" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
 											<span class="title">Dashboard</span>
 											<span class="fa arrow"></span>
 										</a>
 										<ul class="sub-menu">
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_ds_forecast") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/forecast');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Forecast Vs Sale
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_ds_period") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/period');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Sales By Period
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_ds_product") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/product');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Sales By Product
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_ds_am") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/am');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Sales By Account Manager
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_customer_am") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/customer');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Sales By Customer
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_profit_am") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/profit');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Sales Profit & Loss Summary
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_ar_am") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/ar');?>">
 													<i class="fa fa-angle-double-right"></i>
 													A/R Performance
 												</a>
 											</li>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "s_stock_am") echo "class='active'"; ?>>
+												<a href="<?php echo site_url('sales/dashboard/stock');?>">
 													<i class="fa fa-angle-double-right"></i>
 													Stock Performance
 												</a>
@@ -342,15 +342,15 @@ if($this->session->userdata('active') == FALSE)
 											if($this->mddata->access($this->session->userdata('group'), 'd5')->d5 >= 1)
 											{
 												?>
-												<li>
+												<li <?php if($ac == "s_jobdesc" || $ac == "s_brief") echo "class='active'";?>>
 													<a href="#">
 														<i class="livicon" data-name="users" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
 														<span class="title">Profile</span>
 														<span class="fa arrow"></span>
 													</a>
 													<ul class="sub-menu">
-														<li>
-															<a href="#">
+														<li <?php if($ac == "s_brief") echo "class='active'; "?>>
+															<a href="<?php echo site_url('sales/brief/view'); ?>">
 																<i class="fa fa-angle-double-right"></i>
 																Short Brief
 															</a>
@@ -361,8 +361,8 @@ if($this->session->userdata('active') == FALSE)
 																Organization Structure
 															</a>
 														</li>
-														<li>
-															<a href="#">
+														<li <?php if($ac == "s_jobdesc") echo "class='active'; "?>>
+															<a href="<?php echo site_url('sales/jobdesc/view'); ?>">
 																<i class="fa fa-angle-double-right"></i>
 																Jobdesc And KPI
 															</a>

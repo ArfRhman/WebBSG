@@ -25,6 +25,7 @@
             </div>
         </div>
         <div class="panel-body">
+            <div style="overflow-x:scroll">
             <table class="table table-striped table-responsive" id="table1">
                 <thead>
                     <tr>
@@ -109,6 +110,7 @@
                 ?>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 </div>
