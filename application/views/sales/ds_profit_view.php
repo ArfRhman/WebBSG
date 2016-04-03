@@ -16,6 +16,15 @@
           </div>
         </div>
         <div class="panel-body">
+          <div class="form-group">
+              <div class="col-md-3">
+                <select class="form-control" id="categories">
+                    <option value="1">Year to Date</option>
+                    <option value="2">Quarterly</option>
+                    <option value="3">Monthly</option>
+                </select>
+            </div>
+        </div>
           <div id="containers" style="width:100%; height:400px;"></div>
         </div>
       </div>
@@ -44,31 +53,53 @@
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-  $(function () { 
-    $('#containers').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: ' Sales Profit & Loss Summary'
-        },
-        xAxis: {
-            categories: ['1', '2', '3']
-        },
-        yAxis: {
-            title: {
-                text: ' Forecast vs Sale'
+  $(document).ready(function () {
+        var data1 = [49.9, 71.5, 106.4, 129.2];
+        var data2 = [7.0, 6.9, 9.5, 14.5];
+        var title = ' Sales Profit and Loss Summary';
+        var categories = ['Jan', 'Feb', 'Mar', 'Apr'];
+        graphic(data1,data2,title,categories);
+        $("#categories").change(function(){
+            var cat = $("#categories").val();
+            if(cat == "1"){
+                title = ' Sales Profit and Loss Summary (Year to Date)';
+                
+            }else if(cat == "2"){
+                title = ' Sales Profit and Loss Summary (Quarterly)';
+            }else{
+              title = ' Sales Profit and Loss Summary (Monthly)';
             }
-        },
-        series: [{
-            name: '2',
-            data: [1, 0, 4]
-        }, {
-            name: '3',
-            data: [5, 7, 3]
-        }]
+            categories = ['Jan', 'Feb', 'Mar'];
+            data1 = [100, 100, 100,];
+            data2 = [7.0, 6.9, 9.5];
+            graphic(data1,data2,title,categories);
+        });
     });
-});
+  function graphic(data1,data2,title,categ) { 
+    $('#containers').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: title
+      },
+      xAxis: {
+        categories: categ
+      },
+      yAxis: {
+        title: {
+          text: ' Profit & Loss'
+        }
+      },
+      series: [{
+        name: '2',
+        data: data1
+      }, {
+        name: '3',
+        data: data2
+      }]
+    });
+  }
 </script>
 </body>
 </html>
