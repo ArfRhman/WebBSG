@@ -1,54 +1,132 @@
-	<aside class="right-side">
-	<!-- Main content -->
-    <section class="content-header">
-		<h1>Welcome to Dashboard</h1>
-    </section>
-    <section class="content">
-				<div class="row">
-                    <div class="col-lg-12">
-						
-                        <div class="panel panel-primary filterable">
-                            <div class="panel-heading clearfix  ">
-                                <div class="panel-title pull-left">
-                                       <div class="caption">
-                                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                   Graphic Transport Cost: (1) Year to date
-                                </div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                   
-                            </div>
-                        </div>
-					</div>
-				</div>
-    </section>
-		</aside>
-        <!-- right-side -->
+    <aside class="right-side">
+       <!-- Main content -->
+       <section class="content-header">
+          <h1>Welcome to Dashboard</h1>
+      </section>
+      <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
+
+              <div class="panel panel-primary filterable">
+                <div class="panel-heading clearfix  ">
+                    <div class="panel-title pull-left">
+                     <div class="caption">
+                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                        Graphic Transport Cost
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-5">
+                    <div id="pie"></div>
+                </div>
+                <div class="col-md-7">
+                <div id="bar"></div>
+                </div>  
+
+            </div>
+        </div>
     </div>
-    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
-        <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
-    </a>
-    <!-- global js -->
-    <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-    <!--livicons-->
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-    <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-    <!-- end of global js -->
-    <!-- begining of page level js -->
-    <!-- Back to Top-->
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-    <!--   maps -->
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-    <!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+</div>
+</section>
+</aside>
+<!-- right-side -->
+</div>
+<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
+    <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
+</a>
+<!-- global js -->
+<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
+<!--livicons-->
+<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+<!-- end of global js -->
+<!-- begining of page level js -->
+<!-- Back to Top-->
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+<script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
+<!-- end of page level js -->
+<script type="text/javascript">
+<!-- end of page level js -->       
+
+$(document).ready(function () {
+        $('#pie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Transport Cost'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Microsoft Internet Explorer',
+                    y: 56.33
+                }, {
+                    name: 'Chrome',
+                    y: 24.03,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Firefox',
+                    y: 10.38
+                }, {
+                    name: 'Safari',
+                    y: 4.77
+                }, {
+                    name: 'Opera',
+                    y: 0.91
+                }, {
+                    name: 'Proprietary or Undetectable',
+                    y: 0.2
+                }]
+            }]
+        });
+    $('#bar').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Transport Cost'
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar']
+      },
+      yAxis: {
+        title: {
+          text: ' Sales By Product'
+        }
+      },
+      series: [{
+        name: '2',
+        data: [100, 100, 100,]
+      }, {
+        name: '3',
+        data: [100, 100, 100,]
+      }]
+    });
+});
+</script>
 </body>
 </html>

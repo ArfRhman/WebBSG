@@ -17,7 +17,7 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                   
+                                <div id="bar"></div>
                             </div>
                         </div>
 					</div>
@@ -29,26 +29,51 @@
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
         <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
     </a>
-    <!-- global js -->
-    <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-    <!--livicons-->
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-    <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-    <!-- end of global js -->
-    <!-- begining of page level js -->
-    <!-- Back to Top-->
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-    <!--   maps -->
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-    <!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+<!-- global js -->
+<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
+<!--livicons-->
+<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+<!-- end of global js -->
+<!-- begining of page level js -->
+<!-- Back to Top-->
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+    <!-- end of page level js -->		
+    <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
+<!-- end of page level js -->
+<script type="text/javascript">
+<!-- end of page level js -->       
+
+$(document).ready(function () {
+        
+    $('#bar').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: 'Import Lead Time Performance'
+      },
+      xAxis: {
+        categories: ['Jan', 'Feb', 'Mar']
+      },
+      yAxis: {
+        title: {
+          text: 'Import Lead Time'
+        }
+      },
+      series: [{
+        name: '2',
+        data: [100, 100, 100,]
+      }, {
+        name: '3',
+        data: [100, 100, 100,]
+      }]
+    });
+});
+</script>
 </body>
 </html>
