@@ -30,25 +30,26 @@
                             </div>
                             <div class="panel-body">
                                 <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/sop/update');?>" method="post">
+                                <input type="hidden" name="no" value="<?=$sop->no?>">
                                     <fieldset>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="name">SOP No.</label>
                                             <div class="col-md-3">
-                                                <input id="name" name="sop_no" placeholder="SOP No" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">SOP Date</label>                                          <div class="col-md-3">                                                <input id="name" name="sop_date" placeholder="SOP Date" class="form-control datepicker" type="text"></div>
+                                                <input id="name" value="<?=$sop->sop_no?>" name="sop_no" placeholder="SOP No" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">SOP Date</label>                                          <div class="col-md-3">                                                <input id="name" value="<?=$sop->sop_date?>" name="sop_date" placeholder="SOP Date" class="form-control datepicker" type="text"></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Desciption</label>
                                             <div class="col-md-3">
-                                                 <input id="email" name="policies_desc" placeholder="Desciption" class="form-control" type="text"></div>                                                                                    <label class="col-md-2 control-label" for="email">File</label>                                            <div class="col-md-3">                                                <input name="file" type="file"></div> 
+                                                 <input id="email" value="<?=$sop->description?>" name="desc" placeholder="Desciption" class="form-control" type="text"></div>                                                                                    <label class="col-md-2 control-label" for="email">File</label>                                            <div class="col-md-3">                                                <input name="file" type="file"></div> 
                                         </div>
                                         <div class="form-group">
                                           
-                                           <label class="col-md-2 control-label" for="email">Date of Issued</label>                                          <div class="col-md-3">                                                <input id="name" name="policies_date_issued" placeholder="Date of Issued" class="form-control datepicker" type="text"></div>
-                                            <label class="col-md-2 control-label" for="email">Date of Expired</label>                                          <div class="col-md-3">                                                <input id="name" name="policies_date_expired" placeholder="Date of Expired" class="form-control datepicker" type="text"></div>                                                                              
+                                           <label class="col-md-2 control-label" for="email">Date of Issued</label>                                          <div class="col-md-3">                                                <input id="name" value="<?=$sop->date_of_issued?>" name="date_issued" placeholder="Date of Issued" class="form-control datepicker" type="text"></div>
+                                            <label class="col-md-2 control-label" for="email">Date of Expired</label>                                          <div class="col-md-3">                                                <input id="name" value="<?=$sop->date_of_expired?>" name="date_expired" placeholder="Date of Expired" class="form-control datepicker" type="text"></div>                                                                              
                                         </div>
                                          <div class="form-group">
                                           
-                                           <label class="col-md-2 control-label" for="email">Remark</label>                                          <div class="col-md-3">                                                <input id="name" name="policies_remark" placeholder="Remark" class="form-control datepicker" type="text"></div>                                                                              
+                                           <label class="col-md-2 control-label" for="email">Remark</label>                                          <div class="col-md-3">                                                <input value="<?=$sop->remark?>" id="name" name="remark" placeholder="Remark" class="form-control" type="text"></div>                                                                              
                                         </div>
                                        
                                         <div class="form-group">

@@ -77,9 +77,15 @@ class Sales extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_short_brief')->row();
 			$this->load->view('top', $data);
 			$this->load->view('sales/brief_view', $data);
+			break;
+			case 'update':
+			$p = $this->input->post();
+			$this->mddata->updateDataBrief($p['brief']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}
@@ -1083,7 +1089,45 @@ function visit()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_customer_visit');
+		$dat=array();	
+
+		if($_POST){
+			$p=$this->input->post();
+			$from = date('Y-m-d',strtotime($p['from_date']));
+			$to = date('Y-m-d',strtotime($p['to_date']));
+			$query = $this->mddata->getVisit($p['visit_am'],$from,$to);
+			foreach ($query as $k) {
+				if(!array_key_exists($k['company_to_visit'], $dat)){
+					$dat[$k['company_to_visit']]=$k;
+					$dat[$k['company_to_visit']]['total']=1;
+					$dat[$k['company_to_visit']]['from']=$p['from_date'];
+					$dat[$k['company_to_visit']]['to']=$p['to_date'];
+				}else{
+					$dat[$k['company_to_visit']]['total']+=1;
+				}
+			}
+		}
+
+		$g = $this->mddata->getVisitBar();
+		$am = array();
+		$val= array();
+		foreach ($g as $m) {
+			$data_am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $m['am'])->row();
+			if(!array_key_exists($m['am'], $am)){
+				$am[$m['am']]=$data_am->name;
+			}
+		}
+		foreach ($g as $m) {
+			if(!array_key_exists($m['am'], $val)){
+				$val[$m['am']]=1;
+			}else{
+				$val[$m['am']]+=1;
+			}
+		}
+		$data['res']=$dat;
+		$data['am']=$am;
+		$data['val']=$val;
+		
 		$this->load->view('top', $data);
 		$this->load->view('sales/visit_view', $data);
 		break;	
@@ -1096,11 +1140,25 @@ function visit()
 		$this->load->view('top', $data);				
 		$this->load->view('sales/visit_add', $data);								
 		break;
+		case 'save':
+		$p=$this->input->post();
+		$data=array(
+			'visit_date' => $p['visit_date'],
+			'am' => $p['visit_am'],
+			'accompanied_by' => $p['visit_accompanied_by'],
+			'company_to_visit' => $p['visit_company'],
+			'person_to_visit' => $p['visit_person'],
+			'people_of_PTV' => $p['visit_people'],
+			'purpose_of_visit' => $p['visit_purpose'],
+			'result_of_visit' => $p['visit_result']
+			);
+		$this->mddata->insertIntoTbl('tbl_sale_customer_visit', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
 		case 'edit':								
 		$this->load->view('top', $data);				
 		$this->load->view('sales/visit_edit', $data);								
-		break;
-		case 'save':
 		break;
 	}
 }
@@ -1110,7 +1168,7 @@ function policies()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_policies');
+		$data['sale'] = $this->mddata->getAllDataTbl('tbl_sale_policies');
 		$this->load->view('top', $data);
 		$this->load->view('sales/policies_view', $data);
 		break;			
@@ -1118,11 +1176,56 @@ function policies()
 		$this->load->view('top', $data);				
 		$this->load->view('sales/policies_add', $data);								
 		break;
-		case 'edit':								
+		case 'edit':
+		$data['poli'] = $this->mddata->getDataFromTblWhere('tbl_sale_policies', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);				
 		$this->load->view('sales/policies_edit', $data);								
 		break;
 		case 'save':
+		$dir = "image/s_policies/";
+		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
+		$data = array(
+			'policy_no' => $p['policies_no'],
+			'policy_date' => $p['policies_date'],
+			'policy_type' => $p['policies_type'],
+			'description' => $p['policies_desc'],
+			'date_of_issued' => $p['policies_date_issued'],
+			'date_of_expired' => $p['policies_date_expired'],
+			'remark' => $p['policies_remark']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['file'] = $file;
+		}
+		$this->mddata->insertIntoTbl('tbl_sale_policies', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$dir = "image/s_policies/";
+		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
+		$data = array(
+			'policy_no' => $p['policies_no'],
+			'policy_date' => $p['policies_date'],
+			'policy_type' => $p['policies_type'],
+			'description' => $p['policies_desc'],
+			'date_of_issued' => $p['policies_date_issued'],
+			'date_of_expired' => $p['policies_date_expired'],
+			'remark' => $p['policies_remark']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['file'] = $file;
+		}
+		$this->mddata->updateDataTbl('tbl_sale_policies', $data, 'no', $p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_policies','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }
@@ -1132,7 +1235,7 @@ function sop()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$data['sop'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
 		$this->load->view('top', $data);
 		$this->load->view('sales/sop_view', $data);
 		break;			
@@ -1141,10 +1244,53 @@ function sop()
 		$this->load->view('sales/sop_add', $data);								
 		break;
 		case 'edit':								
+		$data['sop'] = $this->mddata->getDataFromTblWhere('tbl_sale_sales_sop', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);				
 		$this->load->view('sales/sop_edit', $data);								
 		break;
 		case 'save':
+		$dir = "image/s_sop/";
+		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
+		$data = array(
+			'sop_no' => $p['sop_no'],
+			'sop_date' => $p['sop_date'],
+			'description' => $p['desc'],
+			'date_of_issued' => $p['date_issued'],
+			'date_of_expired' => $p['date_expired'],
+			'remark' => $p['remark']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['file'] = $file;
+		}
+		$this->mddata->insertIntoTbl('tbl_sale_sales_sop', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$dir = "image/s_sop/";
+		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
+		$data = array(
+			'sop_no' => $p['sop_no'],
+			'sop_date' => $p['sop_date'],
+			'description' => $p['desc'],
+			'date_of_issued' => $p['date_issued'],
+			'date_of_expired' => $p['date_expired'],
+			'remark' => $p['remark']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['file'] = $file;
+		}
+		$this->mddata->updateDataTbl('tbl_sale_sales_sop', $data, 'no', $p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_sales_sop','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }

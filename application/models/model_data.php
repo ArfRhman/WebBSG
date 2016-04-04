@@ -77,6 +77,22 @@ class model_data extends CI_Model {
 		$this->db->where($field, $fielddata);
 		$this->db->update($tbl, $data);
 	}
+
+	function getVisit($am,$from,$to){
+		$query = $this->db->query("SELECT * from tbl_sale_customer_visit where am = '$am' AND str_to_date(visit_date,'%d %b %Y') BETWEEN '$from' AND date'$to'")->result_array();
+		return $query;
+	}
+
+	function getVisitBar(){
+		$m=date('m');
+		$query = $this->db->query("SELECT * from tbl_sale_customer_visit where MONTH(str_to_date(visit_date,'%d' '%b' '%Y')) = '$m'")->result_array();
+		return $query;
+	}
+
+	function updateDataBrief($p){
+		$query=$this->db->query("UPDATE tbl_sale_short_brief set short_brief ='$p'");
+		return $query;
+	}
 	
 	function decrom($dec)
 	{

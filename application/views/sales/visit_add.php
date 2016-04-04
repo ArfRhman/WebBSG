@@ -67,7 +67,7 @@
                                     <div class="col-md-3">
                                        <select name="visit_person" class="form-control">
                                         <?php
-                                        $sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
+                                        $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
                                         foreach($sql->result() as $s)
                                         {
                                             ?>

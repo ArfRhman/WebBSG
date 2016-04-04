@@ -47,7 +47,7 @@
                                         </div>
                                          <div class="form-group">
                                            <label class="col-md-2 control-label" for="email">Date of Expired</label>                                          <div class="col-md-3">                                                <input id="name" name="policies_date_expired" placeholder="Date of Expired" class="form-control datepicker" type="text"></div>
-                                           <label class="col-md-2 control-label" for="email">Remark</label>                                          <div class="col-md-3">                                                <input id="name" name="policies_remark" placeholder="Remark" class="form-control datepicker" type="text"></div>                                                                              
+                                           <label class="col-md-2 control-label" for="email">Remark</label>                                          <div class="col-md-3">                                                <input id="name" name="policies_remark" placeholder="Remark" class="form-control" type="text"></div>                                                                              
                                         </div>
                                        
                                         <div class="form-group">
