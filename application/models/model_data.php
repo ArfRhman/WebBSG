@@ -79,7 +79,7 @@ class model_data extends CI_Model {
 	}
 
 	function getVisit($am,$from,$to){
-		$query = $this->db->query("SELECT * from tbl_sale_customer_visit where am = '$am' AND str_to_date(visit_date,'%d %b %Y') BETWEEN '$from' AND date'$to'")->result_array();
+		$query = $this->db->query("SELECT * from tbl_sale_customer_visit where am = '$am' AND str_to_date(visit_date,'%d %b %Y') BETWEEN '$from' AND '$to'")->result_array();
 		return $query;
 	}
 

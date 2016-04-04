@@ -1093,21 +1093,23 @@ function visit()
 
 		if($_POST){
 			$p=$this->input->post();
-			$from = date('Y-m-d',strtotime($p['from_date']));
-			$to = date('Y-m-d',strtotime($p['to_date']));
-			$query = $this->mddata->getVisit($p['visit_am'],$from,$to);
+			$from = str_replace("/", "-", $p['from']);
+			$d_from = date('Y-m-d',strtotime($from));
+			$to = str_replace("/", "-", $p['to']);
+			$d_to = date('Y-m-d',strtotime($to));
+
+			$query = $this->mddata->getVisit($p['visit_am'],$d_from,$d_to);
 			foreach ($query as $k) {
 				if(!array_key_exists($k['company_to_visit'], $dat)){
 					$dat[$k['company_to_visit']]=$k;
 					$dat[$k['company_to_visit']]['total']=1;
-					$dat[$k['company_to_visit']]['from']=$p['from_date'];
-					$dat[$k['company_to_visit']]['to']=$p['to_date'];
+					$dat[$k['company_to_visit']]['from']=$p['from'];
+					$dat[$k['company_to_visit']]['to']=$p['to'];
 				}else{
 					$dat[$k['company_to_visit']]['total']+=1;
 				}
 			}
 		}
-
 		$g = $this->mddata->getVisitBar();
 		$am = array();
 		$val= array();

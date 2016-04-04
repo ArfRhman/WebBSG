@@ -62,13 +62,13 @@
           <div class="form-group">
             <label class="col-md-2 control-label" style="text-align:left" for="name">Range Periode</label>
             <div class="col-md-2" style="text-align:left">
-              <input id="email" name="from_date" placeholder="Date" class="form-control datepicker" type="text"> 
+              <input name="from" placeholder="Date" class="form-control datepicker" type="text"> 
             </div>  
             <div class="col-md-1" style="text-align:center;margin:0 -4%">
               -
             </div>
             <div class="col-md-2" style="text-align:left">
-             <input id="email" name="to_date" placeholder="Date" class="form-control datepicker" type="text"> 
+             <input name="to" placeholder="Date" class="form-control datepicker" type="text"> 
            </div>  
            <div class="col-md-4">
             <button type="submit" class="btn btn-responsive btn-primary btn-sm">Search</button>
