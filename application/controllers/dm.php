@@ -1126,6 +1126,18 @@ function personnel()
 			$json = json_encode($data);
 			echo $json;
 			break;
+		case 'getAllPersonel':
+			$data = $this->mddata->getAllDataTbl('tbl_position')->result();
+			$json = json_encode($data);
+			echo $json;
+			break;
+
+		case 'getAllPersonels':
+		$data = array('code' => $_POST['ad'],);
+		$this->mddata->insertIntoTbl('tbl_dm_budget', $data);
+
+			echo '1';
+			break;
 	}
 }
 

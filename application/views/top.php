@@ -636,7 +636,7 @@ if($this->session->userdata('active') == FALSE)
 										?>
 									</ul>
 								</li>
-								<li <?php if($ac == "op_brief" || $ac =="op_jobdesc") echo "class='active'"; ?>>
+								<li <?php if($ac == "op_brief" || $ac =="op_jobdesc" || $ac == "op_structure") echo "class='active'"; ?>>
 									<a href="#">
 										<i class="livicon" data-name="users" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
 										<span class="title">Profile</span>
@@ -658,8 +658,8 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd19')->d19 >= 1)
 										{
 											?>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "op_structure") echo "class='active'; "?>>
+												<a href="<?php echo site_url('op/structure/view'); ?>">
 													<i class="fa fa-angle-double-right"></i>
 													Organization Structure
 												</a>

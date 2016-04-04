@@ -1252,6 +1252,17 @@ function brief()
 		break;
 	}
 }
+function structure(){
+		$data['ac'] = "op_structure";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+			$data['st'] = $this->mddata->getDataStructure();
+			$this->load->view('top', $data);
+			$this->load->view('op/structure_view', $data);
+			break;
+		}
+	}
 function jobdesc()
 {
 	$data['ac'] = "op_jobdesc";
