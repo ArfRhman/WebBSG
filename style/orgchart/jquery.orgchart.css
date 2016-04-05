@@ -81,7 +81,7 @@ div.orgChart div.node {
   bottom: 3px;
   left: 5px;
   padding-left: 13px;
-  background: url(./add.png) no-repeat 0 3px;
+  background: url(./add.png) no-repeat;
 }
 
 .org-add-button:hover,

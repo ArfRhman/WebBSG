@@ -27,6 +27,17 @@
     .org-input{
       width: auto;
     }
+    div.orgChart p:hover {
+    background: #fcfaca;
+    cursor: text;
+}
+.org-add-button {
+    /*background: url(..//add.png) no-repeat;*/
+    width: 12px;
+    height: 12px;
+    bottom: 7px;
+    left: 5px;
+}
   </style>
 
   <aside class="right-side">
@@ -55,10 +66,11 @@
           </div>
         </div>
         <div class="panel-body">
-        <?php $s = json_encode($st);?> 
+        <?php  $s = json_encode($st);?> 
          <div id="orgChartContainer">
           <div id="orgChart"></div>
         </div>
+      
       </div>
     </div>
   </div>
