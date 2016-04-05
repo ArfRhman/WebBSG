@@ -55,12 +55,10 @@
           </div>
         </div>
         <div class="panel-body">
-        <?php  $s = json_encode($st);?> 
+        <?php $s = json_encode($st);?> 
          <div id="orgChartContainer">
           <div id="orgChart"></div>
         </div>
-       
-        ?>
       </div>
     </div>
   </div>
@@ -84,7 +82,6 @@
 <script src="<?php echo base_url();?>style/orgchart/jquery.orgchart.js" type="text/javascript"></script>
 <script>
   $(function(){
-    aa();
     org_chart = $('#orgChart').orgChart({
       data: <?php echo $s ?>,
       showControls: true,
@@ -104,16 +101,6 @@
     });
   });
       // just for example purpose
-      function aa(){
-        $.ajax({
-                type:'GET',
-                url: '<?=base_url()?>index.php/dm/personnel/getAllPersonel',
-                data: '',
-                success: function(daddta){
-                   alert(daddta);
-               }
-           });
-      }
       function log(text){
         $('#consoleOutput').append('<p>'+text+'</p>')
       }

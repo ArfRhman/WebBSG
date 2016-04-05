@@ -65,17 +65,18 @@
         }
 
         this.startEdit = function(id){
-            var asd = 22;
+            var getUrl = window.location;
+            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
             $.ajax({
                 type:'POST',
-                url: '<?=base_url()?>index.php/dm/personnel/getAllPersonels',
-                data: 'ad=' + asd,
+                url: baseUrl+'/index.php/dm/personnel/getAllPersonel',
+                data: '',
                 success: function(daddta){
-                   alert(daddta);
-                   console.log('aaa '+daddta);
-               }
-           });
-            var inputElement = '<input class="org-input form-control" type="text" value="'+nodes[id].data.name+'"/>';
+                 alert(daddta);
+             }
+         });
+            
+            var inputElement = $('<input class="org-input form-control" type="text" value="'+nodes[id].data.name+'"/>');
             $container.find('div[node-id='+id+'] h2').replaceWith(inputElement);
             var commitChange = function(){
                 var h2Element = $('<h2>'+nodes[id].data.name+'</h2>');
@@ -176,7 +177,7 @@
 
         this.render = function(opts){
             var childLength = self.children.length,
-            mainTable;
+                mainTable;
 
             mainTable = "<table cellpadding='0' cellspacing='0' border='0'>";
             var nodeColspan = childLength>0?2*childLength:2;
@@ -222,7 +223,7 @@
 
         this.formatNode = function(opts){
             var nameString = '',
-            descString = '';
+                descString = '';
             if(typeof data.name !== 'undefined'){
                 nameString = '<h2><b>'+self.data.name+'</b></h2>';
             }

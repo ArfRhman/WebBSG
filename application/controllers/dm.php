@@ -1121,23 +1121,16 @@ function personnel()
 		redirect('dm/personnel/view');
 		break;
 		case 'getDataPersonel':
-			$id = $_POST['id'];
-			$data = $this->mddata->getDataFromTblWhere('tbl_position', 'id', $id)->row();
-			$json = json_encode($data);
-			echo $json;
-			break;
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_position', 'id', $id)->row();
+		$json = json_encode($data);
+		echo $json;
+		break;
 		case 'getAllPersonel':
-			$data = $this->mddata->getAllDataTbl('tbl_position')->result();
-			$json = json_encode($data);
-			echo $json;
-			break;
-
-		case 'getAllPersonels':
-		$data = array('code' => $_POST['ad'],);
-		$this->mddata->insertIntoTbl('tbl_dm_budget', $data);
-
-			echo '1';
-			break;
+		$data = $this->mddata->getAllDataTbl('tbl_dm_personnel')->result();
+		$json = json_encode($data);
+		echo $json;
+		break;
 	}
 }
 
@@ -1261,10 +1254,10 @@ function item()
 		$this->load->view('dm/item_view_subfield', $data);
 		break;
 		case'get_field':
-			$id = $_POST['id'];
-			$data = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $id)->row();
-			$json = json_encode($data);
-			echo $json;
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $id)->row();
+		$json = json_encode($data);
+		echo $json;
 		break;
 	}
 }
@@ -1317,10 +1310,10 @@ function budget()
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case'get_field':
-			$id = $_POST['id'];
-			$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
-			$json = json_encode($data);
-			echo $json;
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_dm_budget', 'id', $id)->row();
+		$json = json_encode($data);
+		echo $json;
 		break;
 	}
 }
