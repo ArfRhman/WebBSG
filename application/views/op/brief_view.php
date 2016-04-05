@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/brief/save');?>" method="post">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/brief/update');?>" method="post">
                                     <fieldset>
                                         <div class="form-group"> 
                                         <label class="col-md-6 col-md-offset-3 control-label" for="effective" style="text-align:center;">Short Brief</label>
@@ -50,7 +50,7 @@
                                         <div class="form-group">
 
                                             <div class="col-md-8 col-md-offset-2">
-                                              <textarea class="form-control" rows="10"></textarea>
+                                              <textarea name="brief" class="form-control" rows="10"><?=$ds->content?></textarea>
                                           </div>
                                       </div>
                                       <div class="form-group">

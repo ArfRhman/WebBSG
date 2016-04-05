@@ -295,7 +295,7 @@
 
 												<div class="col-md-3">
 
-													<input id="lc" name="lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="lc" name="etf_lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_prod">ATF Production</label>
 

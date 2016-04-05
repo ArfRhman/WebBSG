@@ -68,8 +68,8 @@
 
 								<div class="panel-body">
 								
-									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/po/save');?>" method="post">
-									<input type="hidden" name="no" value="<?=$d->po_no?>">
+									<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/po/update');?>" method="post">
+									<input type="hidden" name="no" value="<?=$d->no?>">
 										<fieldset>
 											<h3>Header</h3>
 											<div class="form-group">
@@ -295,7 +295,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->etf_lc?>" id="lc" name="lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_lc?>" id="lc" name="etf_lc" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
 
 												<label class="col-md-2 control-label" for="atf_prod">ATF Production</label>
 

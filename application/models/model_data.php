@@ -93,6 +93,11 @@ class model_data extends CI_Model {
 		$query=$this->db->query("UPDATE tbl_sale_short_brief set short_brief ='$p'");
 		return $query;
 	}
+
+	function updateDataBriefOp($p){
+		$query=$this->db->query("UPDATE tbl_op_short_brief set content ='$p'");
+		return $query;
+	}
 	
 	function decrom($dec)
 	{

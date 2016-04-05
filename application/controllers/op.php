@@ -562,7 +562,7 @@ class Op extends CI_Controller {
 			$this->mddata->insertIntoTbl('tbl_op_po_tabel', $tabel);
 			
 			$leadtime=array(
-				'etf_lc' => $p['lc'],
+				'etf_lc' => $p['etf_lc'],
 				'etf_production' => $p['etf_prod'],
 				'etf_vessel_depart' => $p['etf_depart'],
 				'etf_vessel_arrival' => $p['etf_arrival'],
@@ -674,8 +674,147 @@ $data['d'] = (object)$d;
 $this->load->view('top', $data);
 $this->load->view('op/po_edit', $data);
 break;
+case 'update':
+			$p=$this->input->post();
+			$header=array(
+				'po_no' => $p['po_no'],
+				'po_date' => $p['po_date'],
+				'pureq_no' => $p['pureq_no'],
+				'pureq_date' => $p['pureq_date'],
+				'supplier' => $p['suplier'],
+				'forwarder' => $p['forwarder'],
+				'moda' => $p['moda'],
+				'currency' => $p['curr'],
+				'convertion' => $p['convertion'],
+				'description' => $p['desc'],
+				'purpose_of' => $p['purpose'],
+				'payment_type' => $p['type'],
+				'delivery_date' => $p['delivery'],
+				'other_terms' => $p['terms']
+				);
+			
+			$this->mddata->updateDataTbl('tbl_op_po_header',$header,'no',$this->input->post('no'));
+
+			$tabel=array(
+				'item_code' => $p['item_code'],
+				'item' => $p['item'],
+				'mou' => $p['mou'],
+				'qty' => $p['qty'],
+				'currency' => $p['currency'],
+				'unit_price' => $p['unit'],
+				'total_price' => $p['total']
+				);
+
+			$this->mddata->updateDataTbl('tbl_op_po_tabel',$tabel,'no_po',$this->input->post('no'));
+			
+			$leadtime=array(
+				'etf_lc' => $p['etf_lc'],
+				'etf_production' => $p['etf_prod'],
+				'etf_vessel_depart' => $p['etf_depart'],
+				'etf_vessel_arrival' => $p['etf_arrival'],
+				'etf_clearance' => $p['etf_clearance'],
+				'etf_wh_arrival' => $p['etf_wh'],
+				'estimated_lead_time' => $p['estimated'],
+				'atf_lc' => $p['atf_lc'],
+				'atf_production' => $p['atf_prod'],
+				'atf_vessel_depart' => $p['atf_depart'],
+				'atf_vessel_arrival' => $p['atf_arrival'],
+				'atf_clearance' => $p['atf_clearance'],
+				'atf_wh_arrival' => $p['atf_wh'],
+				'actual_lead_time' => $p['actual'],
+				'deviation' => $p['deviation'],
+				'forecast_level' => $p['forecast']
+				);
+
+			$this->mddata->updateDataTbl('tbl_op_po_lead_time',$leadtime,'no_po',$this->input->post('no'));
+			
+			$doc=array(
+				'purchase_order' => $p['po'],
+				'purchase_request' => $p['request'],
+				'csd' => $p['csd'],
+				'awb_bl_no' => $p['awb_no'],
+				'awb_bl_date' => $p['awb_date'],
+				'awb_bl' => $p['awb'],
+				'invoice_no' => $p['invoice_no'],
+				'invoice_date' => $p['invoice_date'],
+				'invoice' => $p['invoice'],
+				'packing_list_no' => $p['packing_no'],
+				'packing_list_date' => $p['packing_date'],
+				'packing_list' => $p['packing'],
+				'lc_no' => $p['lc_no'],
+				'lc_date' => $p['lc_date'],
+				'lc' => $p['lc'],
+				'form_e_ak_etc_no' => $p['form_no'],
+				'form_e_ak_etc_date' => $p['form_date'],
+				'form_e_ak_etc' => $p['form'],
+				'dnp_request' => $p['dnp'],
+				'spjk_spjm' => $p['spjk'],
+				'sppb' => $p['sppb'],
+				'gr_no' => $p['gr_no'],
+				'gr_date' => $p['gr_date'],
+				'gr' => $p['gr'],
+				'kuasa_inklaring' => $p['kuasa_inklaring'],
+				'kuasa_do' => $p['kuasa_do'],
+				'peminjaman_container' => $p['peminjaman'],
+				'pengembalian_container' => $p['pengembalian'],
+				'pernyataan_fungsi_guna_barang' => $p['fungsi_guna'],
+				'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen']
+				);
+
+$this->mddata->updateDataTbl('tbl_op_po_documentation',$doc,'no_po',$this->input->post('no'));
+
+$costing=array(
+	'currency' => $p['currency'],
+	'po_amount' => $p['amount'],
+	'freight_bc' => $p['freight'],
+	'insurance_bc' => $p['insurance'],
+	'cif_bc' => $p['cif'],
+	'bc_rate' => $p['bc_rate'],
+	'cif_bc_idr' => $p['cif_idr'],
+	'import_tax' => $p['import_tax'],
+	'vat_import' => $p['vat'],
+	'wht_import' => $p['wht'],
+	'total_tax' => $p['total_tax'],
+	'adm_cost' => $p['adm'],
+	'notul' => $p['notul'],
+	'notul_desc' => $p['notul_desc'],
+	'total_duty_taxes' => $p['duty_tax'],
+	'percentage_duty_taxes' => $p['duty'],
+	'freight_cost' => $p['freight_cost'],
+	'yellow_handling' => $p['yellow_handling'],
+	'red_handling' => $p['red_handing'],
+	'do' => $p['do'],
+	'storage' => $p['storage'],
+	'demurrage' => $p['demurrage'],
+	'lift_on_lift_off' => $p['lift'],
+	'mechanic' => $p['mechanic'],
+	'undertable' => $p['undertable'],
+	'trucking' => $p['trucking'],
+	'other_cost' => $p['other_cost'],
+	'other_cost_desc' => $p['cost_desc'],
+	'total_clearance' => $p['total_clearance'],
+	'percentage_clearance' => $p['percen_clearance'],
+	'total_cost'=> $p['total_cost'],
+	'percentage_total_cost' => $p['percen_total'],
+	'total_cost_without_vat' => $p['total_without_vat'],
+	'percentage_cost_without_vat' => $p['percen_without_vat']
+	);
+
+$this->mddata->updateDataTbl('tbl_op_po_costing',$costing,'no_po',$this->input->post('no'));
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'delete':
+	$this->mddata->deleteGeneral('tbl_op_po_header','no', $this->uri->segment(4));
+	$this->mddata->deleteGeneral('tbl_op_po_tabel','no_po', $this->uri->segment(4));
+	$this->mddata->deleteGeneral('tbl_op_po_lead_time','no_po', $this->uri->segment(4));
+	$this->mddata->deleteGeneral('tbl_op_po_documentation','no_po', $this->uri->segment(4));
+	$this->mddata->deleteGeneral('tbl_op_po_costing','no_po', $this->uri->segment(4));
+	redirect($_SERVER['HTTP_REFERER']);
+break;
+
 case"payment":
-							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
 $this->load->view('top', $data);
 $this->load->view('op/po_payment_view', $data);
 break;
@@ -1246,23 +1385,29 @@ function brief()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+		$data['ds'] = $this->mddata->getAllDataTbl('tbl_op_short_brief')->row();
 		$this->load->view('top', $data);
 		$this->load->view('op/brief_view', $data);
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$this->mddata->updateDataBriefOp($p['brief']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }
 function structure(){
-		$data['ac'] = "op_structure";
-		switch($this->uri->segment(3))
-		{
-			case 'view':
-			$data['st'] = $this->mddata->getDataStructure();
-			$this->load->view('top', $data);
-			$this->load->view('op/structure_view', $data);
-			break;
-		}
+	$data['ac'] = "op_structure";
+	switch($this->uri->segment(3))
+	{
+		case 'view':
+		$data['st'] = $this->mddata->getDataStructure();
+		$this->load->view('top', $data);
+		$this->load->view('op/structure_view', $data);
+		break;
 	}
+}
 function jobdesc()
 {
 	$data['ac'] = "op_jobdesc";
