@@ -1,4 +1,6 @@
-	<style type="text/css">
+  <link href="<?php echo base_url();?>style/orgchart/jquery.orgchart.css" media="all" rel="stylesheet" type="text/css" />
+	
+  <style type="text/css">
     #orgChart{
       width: auto;
       height: auto;
@@ -8,10 +10,46 @@
       width: 1000px;
       height: 500px;
       overflow: auto;
-      background: #eeeeee;
+      background: rgba(238, 238, 238, 0.2);
     }
-
+   div.orgChart div.node{
+      min-height: 75px;
+      height: auto; 
+         min-width: 100px;
+    width: auto;
+    }
+    div.orgChart div.node h2{
+      margin: 7px;
+    } 
+     div.orgChart div.node p{
+      margin-bottom: 15%;
+    }
+    .org-input{
+      width: auto;
+    }
+    div.orgChart p:hover {
+    background: #fcfaca;
+    cursor: text;
+}
+.org-add-button {
+    width: 12px;
+    height: 12px;
+    float: left;
+    /*bottom: 7px;*/
+    /*left: 5px;*/
+}
+.org-del-button {
+    width: 12px;
+    height: 12px;
+    float: right;
+    /*bottom: 7px;*/
+    /*left: 5px;*/
+}
+.org-add-button, .org-del-button{
+     position: static; 
+    }
   </style>
+
   <aside class="right-side">
    <!-- Main content -->
    <section class="content-header">
@@ -38,11 +76,15 @@
           </div>
         </div>
         <div class="panel-body">
-          
+        <?php  $s = json_encode($st);?> 
+         <div id="orgChartContainer">
+          <div id="orgChart"></div>
         </div>
+      
       </div>
     </div>
   </div>
+</div>
 </section>
 </aside>
 <!-- right-side -->
@@ -59,17 +101,34 @@
 <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
 <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-<!-- end of global js -->
-<!-- begining of page level js -->
-<!-- Back to Top-->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-<!--   maps -->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
-</body>
-</html>
+<script src="<?php echo base_url();?>style/orgchart/jquery.orgchart-sales.js" type="text/javascript"></script>
+<script>
+  $(function(){
+    org_chart = $('#orgChart').orgChart({
+      data: <?php echo $s ?>,
+      showControls: true,
+      allowEdit: false,
+      onAddNode: function(node){ 
+        log('Created new node on node '+node.data.id);
+        org_chart.newNode(node.data.id); 
+      },
+      onDeleteNode: function(node){
+        log('Deleted node '+node.data.id);
+        org_chart.deleteNode(node.data.id); 
+      },
+      onClickNode: function(node){
+        log('Clicked node '+node.data.id);
+      }
+
+    });
+  });
+      // just for example purpose
+      function log(text){
+        $('#consoleOutput').append('<p>'+text+'</p>')
+      }
+    </script>
+    <script type="text/javascript"></script>
+    <!-- end of global js -->
+    <!-- end of page level js -->
+  </body>
+  </html>

@@ -89,6 +89,17 @@ class Sales extends CI_Controller {
 			break;
 		}
 	}
+	function structure(){
+		$data['ac'] = "s_structure";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+			$data['st'] = $this->mddata->getDataStructureSales();
+			$this->load->view('top', $data);
+			$this->load->view('sales/structure_view', $data);
+			break;
+		}
+	}
 	function jobdesc()
 	{
 		$data['ac'] = "s_jobdesc";
@@ -110,6 +121,7 @@ class Sales extends CI_Controller {
 			$data = array(
 				'am' => $this->input->post('jd_am'),
 				'fungsi' => $this->input->post('jd_fungsi'),
+				'parent'=>'00',
 				);
 			if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
 			{
@@ -151,6 +163,23 @@ class Sales extends CI_Controller {
 			case 'delete':
 			$this->mddata->deleteGeneral('tbl_sale_jobdesc','no', $this->uri->segment(4));
 			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'addPosition':
+			$am = $_POST['id'];
+			$pos = $_POST['pos'];
+			$par = $_POST['par'];
+			$data = array(
+				'am' => $am,
+				'fungsi' => $pos,
+				'parent' => $par,
+				);
+			$this->mddata->insertIntoTbl('tbl_sale_jobdesc', $data);
+			echo "1";
+			break;
+			case 'deletePosition':
+			
+			$this->mddata->deleteGeneral('tbl_sale_jobdesc','no', $_POST['id']);
+			echo "1";
 			break;
 		}
 	}	

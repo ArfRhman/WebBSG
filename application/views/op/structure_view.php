@@ -32,12 +32,22 @@
     cursor: text;
 }
 .org-add-button {
-    /*background: url(..//add.png) no-repeat;*/
     width: 12px;
     height: 12px;
-    bottom: 7px;
-    left: 5px;
+    float: left;
+    /*bottom: 7px;*/
+    /*left: 5px;*/
 }
+.org-del-button {
+    width: 12px;
+    height: 12px;
+    float: right;
+    /*bottom: 7px;*/
+    /*left: 5px;*/
+}
+.org-add-button, .org-del-button{
+     position: static; 
+    }
   </style>
 
   <aside class="right-side">
@@ -97,7 +107,7 @@
     org_chart = $('#orgChart').orgChart({
       data: <?php echo $s ?>,
       showControls: true,
-      allowEdit: true,
+      allowEdit: false,
       onAddNode: function(node){ 
         log('Created new node on node '+node.data.id);
         org_chart.newNode(node.data.id); 

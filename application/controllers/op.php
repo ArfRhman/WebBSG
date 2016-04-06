@@ -1430,6 +1430,7 @@ function jobdesc()
 		$data = array(
 			'am' => $this->input->post('jd_am'),
 			'fungsi_posisi' => $this->input->post('jd_fungsi'),
+			'parent'=>'00',
 			);
 		if(move_uploaded_file($_FILES['file1']['tmp_name'], $file1))
 		{
@@ -1472,6 +1473,23 @@ function jobdesc()
 		case 'delete':
 		$this->mddata->deleteGeneral('tbl_op_jobdesc_kpi','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'addPosition':
+		$am = $_POST['id'];
+		$pos = $_POST['pos'];
+		$par = $_POST['par'];
+		$data = array(
+			'am' => $am,
+			'fungsi_posisi' => $pos,
+			'parent' => $par,
+			);
+		$this->mddata->insertIntoTbl('tbl_op_jobdesc_kpi', $data);
+		echo "1";
+		break;
+			case 'deletePosition':
+			
+		$this->mddata->deleteGeneral('tbl_op_jobdesc_kpi','no', $_POST['id']);
+			echo "1";
 		break;
 	}
 }	

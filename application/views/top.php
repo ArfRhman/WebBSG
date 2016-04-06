@@ -342,7 +342,7 @@ if($this->session->userdata('active') == FALSE)
 											if($this->mddata->access($this->session->userdata('group'), 'd5')->d5 >= 1)
 											{
 												?>
-												<li <?php if($ac == "s_jobdesc" || $ac == "s_brief") echo "class='active'";?>>
+												<li <?php if($ac == "s_jobdesc" || $ac == "s_brief" || $ac == "s_structure") echo "class='active'";?>>
 													<a href="#">
 														<i class="livicon" data-name="users" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
 														<span class="title">Profile</span>
@@ -355,8 +355,8 @@ if($this->session->userdata('active') == FALSE)
 																Short Brief
 															</a>
 														</li>
-														<li>
-															<a href="#">
+														<li <?php if($ac == "s_structure") echo "class='active'; "?>>
+															<a href="<?php echo site_url('sales/structure/view'); ?>">
 																<i class="fa fa-angle-double-right"></i>
 																Organization Structure
 															</a>
