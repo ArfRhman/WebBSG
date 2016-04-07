@@ -33,23 +33,29 @@
                 </thead>
                 <tbody>
                    <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
+											$no = 1;
+											foreach($in->result() as $c)
+											{
+                        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
+                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
+                        $opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
+                        $so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$c->customer,'operator'=>$c->operator))->row();
+                        $inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',$so->id)->row();
+                      
                    ?>
                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo $no; $no++;?></td>
+                    <td><?php echo $opr->name?></td>
+                    <td><?php echo $cust->name?></td>
+                    <td><?php echo $am->name?></td>
+                    <td><?php echo $so->so_no?></td>
+                    <td><?php echo $so->so_date?></td>
+                    <td><?php echo $inv->no?></td>
+                    <td><?php echo $inv->amount?></td>
                     
                 </tr>
                 <?php
-											//}
+											}
                 ?>
             </tbody>
         </table>

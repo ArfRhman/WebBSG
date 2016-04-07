@@ -1498,7 +1498,7 @@ function forecast()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_target');
 		$this->load->view('top', $data);
 		$this->load->view('sales/forecast_view', $data);
 		break;			
