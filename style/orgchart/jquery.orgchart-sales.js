@@ -131,7 +131,7 @@
         var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
         $.ajax({
             type:'POST',
-            url: baseUrl+'/index.php/op/jobdesc/addPosition',
+            url: baseUrl+'/index.php/sales/jobdesc/addPosition',
             data: 'id='+idStrs2[0]+'&pos='+inputElements.val()+'&par='+parent,
             success: function(ds){
                 alert('Data di Tambah');
@@ -248,7 +248,7 @@ this.getData = function(){
         var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
         $.ajax({
             type:'POST',
-            url: baseUrl+'/index.php/op/jobdesc/deletePosition',
+            url: baseUrl+'/index.php/sales/jobdesc/deletePosition',
             data: 'id='+id,
             success: function(ds){
                 // alert(ds);

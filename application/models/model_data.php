@@ -151,5 +151,8 @@ class model_data extends CI_Model {
 		$sql = $this->db->query("SELECT jd.no AS id,op.name,jd.fungsi_posisi AS position,jd.parent FROM tbl_op_jobdesc_kpi AS jd,tbl_dm_personnel AS op WHERE jd.am = op.id")->result();
 		return $sql;
 	}
-
+	function getDataStructureSales(){
+		$sql = $this->db->query("SELECT jd.no AS id,op.name,jd.fungsi AS position,jd.parent FROM tbl_sale_jobdesc AS jd,tbl_dm_personnel AS op WHERE jd.am = op.id")->result();
+		return $sql;
+	}
 }

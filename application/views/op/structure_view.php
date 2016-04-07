@@ -27,6 +27,27 @@
     .org-input{
       width: auto;
     }
+    div.orgChart p:hover {
+    background: #fcfaca;
+    cursor: text;
+}
+.org-add-button {
+    width: 12px;
+    height: 12px;
+    float: left;
+    /*bottom: 7px;*/
+    /*left: 5px;*/
+}
+.org-del-button {
+    width: 12px;
+    height: 12px;
+    float: right;
+    /*bottom: 7px;*/
+    /*left: 5px;*/
+}
+.org-add-button, .org-del-button{
+     position: static; 
+    }
   </style>
 
   <aside class="right-side">
@@ -55,10 +76,11 @@
           </div>
         </div>
         <div class="panel-body">
-        <?php $s = json_encode($st);?> 
+        <?php  $s = json_encode($st);?> 
          <div id="orgChartContainer">
           <div id="orgChart"></div>
         </div>
+      
       </div>
     </div>
   </div>
@@ -85,7 +107,7 @@
     org_chart = $('#orgChart').orgChart({
       data: <?php echo $s ?>,
       showControls: true,
-      allowEdit: true,
+      allowEdit: false,
       onAddNode: function(node){ 
         log('Created new node on node '+node.data.id);
         org_chart.newNode(node.data.id); 
