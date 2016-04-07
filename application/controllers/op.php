@@ -403,12 +403,36 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_header');
 			$this->load->view('top', $data);
 			$this->load->view('op/import_cost_view', $data);
 			break;
+
+			case 'sum':
+			$name = str_replace("%20"," ",$this->uri->segment(4));
+			$item = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'kategori', $name)->result_array();
+			$arItem = array();
+			foreach ($item as $kat) {
+				$harga = $this->mddata->getSumAveragePO($kat['id']);				
+				if(!array_key_exists($kat['id'], $arItem)){
+					$arItem[$kat['id']]=$kat;
+					$arItem[$kat['id']]['counter']=0;
+					$arItem[$kat['id']]['cost']=0;
+				}
+			}
+
+			foreach ($harga as $ha) {
+				$arItem[$ha['item_code']]['counter']+=1;
+				$arItem[$ha['item_code']]['cost']+=$ha['adm_cost'];
+			}
+
+			$data['in']=$arItem;
+			$this->load->view('top', $data);
+			$this->load->view('op/import_cost_sum_average', $data);
+			break;
 		}
 	}
+
 	function transport_cost()
 	{
 		$data['ac'] = "op_transport_cost";
@@ -427,7 +451,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_header');
 			$this->load->view('top', $data);
 			$this->load->view('op/import_lead_view', $data);
 			break;
@@ -675,91 +699,91 @@ $this->load->view('top', $data);
 $this->load->view('op/po_edit', $data);
 break;
 case 'update':
-			$p=$this->input->post();
-			$header=array(
-				'po_no' => $p['po_no'],
-				'po_date' => $p['po_date'],
-				'pureq_no' => $p['pureq_no'],
-				'pureq_date' => $p['pureq_date'],
-				'supplier' => $p['suplier'],
-				'forwarder' => $p['forwarder'],
-				'moda' => $p['moda'],
-				'currency' => $p['curr'],
-				'convertion' => $p['convertion'],
-				'description' => $p['desc'],
-				'purpose_of' => $p['purpose'],
-				'payment_type' => $p['type'],
-				'delivery_date' => $p['delivery'],
-				'other_terms' => $p['terms']
-				);
-			
-			$this->mddata->updateDataTbl('tbl_op_po_header',$header,'no',$this->input->post('no'));
+$p=$this->input->post();
+$header=array(
+	'po_no' => $p['po_no'],
+	'po_date' => $p['po_date'],
+	'pureq_no' => $p['pureq_no'],
+	'pureq_date' => $p['pureq_date'],
+	'supplier' => $p['suplier'],
+	'forwarder' => $p['forwarder'],
+	'moda' => $p['moda'],
+	'currency' => $p['curr'],
+	'convertion' => $p['convertion'],
+	'description' => $p['desc'],
+	'purpose_of' => $p['purpose'],
+	'payment_type' => $p['type'],
+	'delivery_date' => $p['delivery'],
+	'other_terms' => $p['terms']
+	);
 
-			$tabel=array(
-				'item_code' => $p['item_code'],
-				'item' => $p['item'],
-				'mou' => $p['mou'],
-				'qty' => $p['qty'],
-				'currency' => $p['currency'],
-				'unit_price' => $p['unit'],
-				'total_price' => $p['total']
-				);
+$this->mddata->updateDataTbl('tbl_op_po_header',$header,'no',$this->input->post('no'));
 
-			$this->mddata->updateDataTbl('tbl_op_po_tabel',$tabel,'no_po',$this->input->post('no'));
-			
-			$leadtime=array(
-				'etf_lc' => $p['etf_lc'],
-				'etf_production' => $p['etf_prod'],
-				'etf_vessel_depart' => $p['etf_depart'],
-				'etf_vessel_arrival' => $p['etf_arrival'],
-				'etf_clearance' => $p['etf_clearance'],
-				'etf_wh_arrival' => $p['etf_wh'],
-				'estimated_lead_time' => $p['estimated'],
-				'atf_lc' => $p['atf_lc'],
-				'atf_production' => $p['atf_prod'],
-				'atf_vessel_depart' => $p['atf_depart'],
-				'atf_vessel_arrival' => $p['atf_arrival'],
-				'atf_clearance' => $p['atf_clearance'],
-				'atf_wh_arrival' => $p['atf_wh'],
-				'actual_lead_time' => $p['actual'],
-				'deviation' => $p['deviation'],
-				'forecast_level' => $p['forecast']
-				);
+$tabel=array(
+	'item_code' => $p['item_code'],
+	'item' => $p['item'],
+	'mou' => $p['mou'],
+	'qty' => $p['qty'],
+	'currency' => $p['currency'],
+	'unit_price' => $p['unit'],
+	'total_price' => $p['total']
+	);
 
-			$this->mddata->updateDataTbl('tbl_op_po_lead_time',$leadtime,'no_po',$this->input->post('no'));
-			
-			$doc=array(
-				'purchase_order' => $p['po'],
-				'purchase_request' => $p['request'],
-				'csd' => $p['csd'],
-				'awb_bl_no' => $p['awb_no'],
-				'awb_bl_date' => $p['awb_date'],
-				'awb_bl' => $p['awb'],
-				'invoice_no' => $p['invoice_no'],
-				'invoice_date' => $p['invoice_date'],
-				'invoice' => $p['invoice'],
-				'packing_list_no' => $p['packing_no'],
-				'packing_list_date' => $p['packing_date'],
-				'packing_list' => $p['packing'],
-				'lc_no' => $p['lc_no'],
-				'lc_date' => $p['lc_date'],
-				'lc' => $p['lc'],
-				'form_e_ak_etc_no' => $p['form_no'],
-				'form_e_ak_etc_date' => $p['form_date'],
-				'form_e_ak_etc' => $p['form'],
-				'dnp_request' => $p['dnp'],
-				'spjk_spjm' => $p['spjk'],
-				'sppb' => $p['sppb'],
-				'gr_no' => $p['gr_no'],
-				'gr_date' => $p['gr_date'],
-				'gr' => $p['gr'],
-				'kuasa_inklaring' => $p['kuasa_inklaring'],
-				'kuasa_do' => $p['kuasa_do'],
-				'peminjaman_container' => $p['peminjaman'],
-				'pengembalian_container' => $p['pengembalian'],
-				'pernyataan_fungsi_guna_barang' => $p['fungsi_guna'],
-				'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen']
-				);
+$this->mddata->updateDataTbl('tbl_op_po_tabel',$tabel,'no_po',$this->input->post('no'));
+
+$leadtime=array(
+	'etf_lc' => $p['etf_lc'],
+	'etf_production' => $p['etf_prod'],
+	'etf_vessel_depart' => $p['etf_depart'],
+	'etf_vessel_arrival' => $p['etf_arrival'],
+	'etf_clearance' => $p['etf_clearance'],
+	'etf_wh_arrival' => $p['etf_wh'],
+	'estimated_lead_time' => $p['estimated'],
+	'atf_lc' => $p['atf_lc'],
+	'atf_production' => $p['atf_prod'],
+	'atf_vessel_depart' => $p['atf_depart'],
+	'atf_vessel_arrival' => $p['atf_arrival'],
+	'atf_clearance' => $p['atf_clearance'],
+	'atf_wh_arrival' => $p['atf_wh'],
+	'actual_lead_time' => $p['actual'],
+	'deviation' => $p['deviation'],
+	'forecast_level' => $p['forecast']
+	);
+
+$this->mddata->updateDataTbl('tbl_op_po_lead_time',$leadtime,'no_po',$this->input->post('no'));
+
+$doc=array(
+	'purchase_order' => $p['po'],
+	'purchase_request' => $p['request'],
+	'csd' => $p['csd'],
+	'awb_bl_no' => $p['awb_no'],
+	'awb_bl_date' => $p['awb_date'],
+	'awb_bl' => $p['awb'],
+	'invoice_no' => $p['invoice_no'],
+	'invoice_date' => $p['invoice_date'],
+	'invoice' => $p['invoice'],
+	'packing_list_no' => $p['packing_no'],
+	'packing_list_date' => $p['packing_date'],
+	'packing_list' => $p['packing'],
+	'lc_no' => $p['lc_no'],
+	'lc_date' => $p['lc_date'],
+	'lc' => $p['lc'],
+	'form_e_ak_etc_no' => $p['form_no'],
+	'form_e_ak_etc_date' => $p['form_date'],
+	'form_e_ak_etc' => $p['form'],
+	'dnp_request' => $p['dnp'],
+	'spjk_spjm' => $p['spjk'],
+	'sppb' => $p['sppb'],
+	'gr_no' => $p['gr_no'],
+	'gr_date' => $p['gr_date'],
+	'gr' => $p['gr'],
+	'kuasa_inklaring' => $p['kuasa_inklaring'],
+	'kuasa_do' => $p['kuasa_do'],
+	'peminjaman_container' => $p['peminjaman'],
+	'pengembalian_container' => $p['pengembalian'],
+	'pernyataan_fungsi_guna_barang' => $p['fungsi_guna'],
+	'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen']
+	);
 
 $this->mddata->updateDataTbl('tbl_op_po_documentation',$doc,'no_po',$this->input->post('no'));
 
@@ -805,43 +829,116 @@ $this->session->set_flashdata('data','Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'delete':
-	$this->mddata->deleteGeneral('tbl_op_po_header','no', $this->uri->segment(4));
-	$this->mddata->deleteGeneral('tbl_op_po_tabel','no_po', $this->uri->segment(4));
-	$this->mddata->deleteGeneral('tbl_op_po_lead_time','no_po', $this->uri->segment(4));
-	$this->mddata->deleteGeneral('tbl_op_po_documentation','no_po', $this->uri->segment(4));
-	$this->mddata->deleteGeneral('tbl_op_po_costing','no_po', $this->uri->segment(4));
-	redirect($_SERVER['HTTP_REFERER']);
+$this->mddata->deleteGeneral('tbl_op_po_header','no', $this->uri->segment(4));
+$this->mddata->deleteGeneral('tbl_op_po_tabel','no_po', $this->uri->segment(4));
+$this->mddata->deleteGeneral('tbl_op_po_lead_time','no_po', $this->uri->segment(4));
+$this->mddata->deleteGeneral('tbl_op_po_documentation','no_po', $this->uri->segment(4));
+$this->mddata->deleteGeneral('tbl_op_po_costing','no_po', $this->uri->segment(4));
+redirect($_SERVER['HTTP_REFERER']);
 break;
 
 case"payment":
-$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_payment_information');
 $this->load->view('top', $data);
 $this->load->view('op/po_payment_view', $data);
 break;
 case"payment_add":
-							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
 $this->load->view('top', $data);
 $this->load->view('op/po_payment_add', $data);
 break;
 case"payment_edit":
-							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_po_payment_information', 'no', $this->uri->segment(4))->row();
 $this->load->view('top', $data);
 $this->load->view('op/po_payment_edit', $data);
 break;
+case"payment_save":
+$p=$this->input->post();
+$data=array(
+	'payment_type' => $p['type'],
+	'payment_date' => $p['date'],
+	'payment_amount' => $p['amount'],
+	'payment_proof' => $p['proof']
+	);
+$this->mddata->insertIntoTbl('tbl_op_po_payment_information', $data);
+$this->session->set_flashdata('data', 'Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case"payment_update":
+$p=$this->input->post();
+$data=array(
+	'payment_type' => $p['type'],
+	'payment_date' => $p['date'],
+	'payment_amount' => $p['amount'],
+	'payment_proof' => $p['proof']
+	);
+$this->mddata->updateDataTbl('tbl_op_po_payment_information',$data,'no',$this->input->post('no'));
+$this->session->set_flashdata('data', 'Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'delete':
+$this->mddata->deleteGeneral('tbl_op_po_payment_information','no', $this->uri->segment(4));
+redirect($_SERVER['HTTP_REFERER']);
+break;
 case"report":
-							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_report');
 $this->load->view('top', $data);
 $this->load->view('op/po_report_view', $data);
 break;
-case"report_add":
-							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+case"report_add":							
 $this->load->view('top', $data);
 $this->load->view('op/po_report_add', $data);
 break;
+case"report_save":
+$p=$this->input->post();
+$data=array(
+	'po_no' => $p['po'],
+	'po_date' => $p['date'],
+	'pureq_no' => $p['pureq'],
+	'invoice_no' => $p['invoice'],
+	'supplier' => $p['suplier'],
+	'forwarder' => $p['forwarder'],
+	'moda' => $p['moda'],
+	'currency' => $p['currency'],
+	'amount' => $p['amount'],
+	'gr_no' => $p['gr_no'],
+	'gr_date' => $p['gr_date'],
+	'payment_type' => $p['type'],
+	'payment_date' => $p['payment_date']
+	);
+$this->mddata->insertIntoTbl('tbl_op_po_report', $data);
+$this->session->set_flashdata('data', 'Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
 case"report_edit":
-							//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_po_report', 'no', $this->uri->segment(4))->row();
 $this->load->view('top', $data);
 $this->load->view('op/po_report_edit', $data);
+break;
+case"report_update":
+$p=$this->input->post();
+$data=array(
+	'po_no' => $p['po'],
+	'po_date' => $p['date'],
+	'pureq_no' => $p['pureq'],
+	'invoice_no' => $p['invoice'],
+	'supplier' => $p['suplier'],
+	'forwarder' => $p['forwarder'],
+	'moda' => $p['moda'],
+	'currency' => $p['currency'],
+	'amount' => $p['amount'],
+	'gr_no' => $p['gr_no'],
+	'gr_date' => $p['gr_date'],
+	'payment_type' => $p['type'],
+	'payment_date' => $p['payment_date']
+	);
+$this->mddata->updateDataTbl('tbl_op_po_report',$data,'no',$this->input->post('no'));
+$this->session->set_flashdata('data', 'Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case"report_delete":
+$this->mddata->deleteGeneral('tbl_op_po_report','no', $this->uri->segment(4));
+redirect($_SERVER['HTTP_REFERER']);
 break;
 }
 }

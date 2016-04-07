@@ -12,7 +12,8 @@
                         <div class="panel-title pull-left">
                          <div class="caption">
                             <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                            Import Lead Time Report
+                            <?php $title = array_values($in);?>
+                            Sum Average Import Cost for "<?=$title[0]['kategori']?>"
                         </div>
                     </div>
                 </div>
@@ -20,54 +21,26 @@
                     <table class="table table-striped table-responsive" id="table1">
                         <thead>
                             <tr>
-                                <th>Items Category</th>
-                                <th>Item Code</th>
-                                <th>Item Name</th>
-                                <th>Supplier</th>
-                                <th>PO No</th>
-                                <th>PO Date</th>
-                                <th>B/L Date</th>
-                                <th>GR Date</th>
-                                <th>Shipment Mode</th>
-                                <th>Overall Lead Time (Sea)</th>
-                                <th>Production Lead Time (Sea)</th>
-                                <th>Shipping Lead Time (Sea)</th>
-                                <th>Clearance Lead Time (Sea)</th>
-                                <th>Overall Lead Time (Air)</th>
-                                <th>Production Lead Time (Air)</th>
-                                <th>Shipping Lead Time (Air)</th>
-                                <th>Clearance Lead Time (Air)</th>
-                                <th>Forwarder Name</th>
+                                <th>No</th>
+                                <th>Item</th>
+                                <th>Average Import Cost</th>
                             </tr>
                         </thead>
                         <tbody>
                          <?php
                          $no = 1;
-                         foreach($in->result() as $c)
-                         {
-                            $tabel = $this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $c->no)->row();
-                            $doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $c->no)->row();
-                            $lead = $this->mddata->getDataFromTblWhere('tbl_op_po_lead_time', 'no_po', $c->no)->row();
-                             ?>
-                             <tr>
+                         foreach($in as $c){
+                            if($c['counter']==0){
+                                $co = 1;
+                            }else{
+                                $co = $c['counter'];
+                            }
+
+                            ?>
+                            <tr>
                                 <td><?php echo $no; $no++; ?></td>
-                                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $tabel->item_code)->row()->kategori; ?></td>
-                                <td><?php echo $tabel->item ?></td>
-                                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></td>
-                                <td><?php echo $c->po_no ?></td>
-                                <td><?php echo $c->po_date ?></td>
-                                <td><?php echo $doc->awb_bl ?></td>
-                                <td><?php echo $doc->gr_date ?></td>
-                                <td><?php echo $c->moda ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->actual_lead_time : '-' ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->atf_production : '-' ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->atf_vessel_arrival : '-' ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->atf_clearance : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->actual_lead_time : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->atf_production : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->atf_vessel_arrival : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->atf_clearance : '-' ?></td>
-                                <td><?php echo $c->forwarder?></td>
+                                <td><?php echo $c['nama'];?></td>
+                                <td><?php echo $c['cost']/$co?></td>
                             </tr>
                             <?php
                         }

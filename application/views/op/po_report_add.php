@@ -29,7 +29,7 @@
                                 </span>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/po/report_save');?>" method="post">
                                     <fieldset>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="po">PO No</label>
@@ -125,24 +125,56 @@
     </a>
     <!-- global js -->
     <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-    <!--livicons-->
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-    <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-    <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-    <!-- end of global js -->
-    <!-- begining of page level js -->
-    <!-- Back to Top-->
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-    <!--   maps -->
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-    <!-- end of page level js -->
+
+        <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!--livicons-->
+
+        <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+
+        <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+
+        <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+
+        <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+
+        <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+
+        <!-- end of global js -->
+
+        <!-- begining of page level js -->
+
+        <!-- Back to Top-->
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+
+        <!--   maps -->
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
+
+        <!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
+
+        <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+
+        <!-- end of page level js -->
+
+        <script>
+            $(document).ready(function(){
+                $('.datepicker').datepicker({
+                    format:'dd M yyyy'
+                });
+
+
+            });
+
+        </script>
 </body>
 </html>

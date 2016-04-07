@@ -89,6 +89,11 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
+	function getSumAveragePO($id){
+		$query = $this->db->query("SELECT * from tbl_op_po_tabel,tbl_op_po_costing where item_code = '$id' AND tbl_op_po_tabel.no_po = tbl_op_po_costing.no_po")->result_array();
+		return $query;
+	}
+
 	function updateDataBrief($p){
 		$query=$this->db->query("UPDATE tbl_sale_short_brief set short_brief ='$p'");
 		return $query;
@@ -146,4 +151,5 @@ class model_data extends CI_Model {
 		$sql = $this->db->query("SELECT jd.no AS id,op.name,jd.fungsi_posisi AS position,jd.parent FROM tbl_op_jobdesc_kpi AS jd,tbl_dm_personnel AS op WHERE jd.am = op.id")->result();
 		return $sql;
 	}
+
 }
