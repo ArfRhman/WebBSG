@@ -17,12 +17,7 @@
                 </div>
             </div>
             <div class="panel-body">
-                <div class="col-md-5">
-                    <div id="pie"></div>
-                </div>
-                <div class="col-md-7">
-                <div id="bar"></div>
-                </div>  
+                  <div id="containers" style="width:100%; height:auto;"></div>
 
             </div>
         </div>
@@ -51,81 +46,78 @@
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-<!-- end of page level js -->       
 
-$(document).ready(function () {
-        $('#pie').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Transport Cost'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 56.33
-                }, {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 10.38
-                }, {
-                    name: 'Safari',
-                    y: 4.77
-                }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 0.2
-                }]
-            }]
-        });
-    $('#bar').highcharts({
+
+    $(document).ready(function () {
+        var chart = new Highcharts.Chart({
       chart: {
-        type: 'column'
-      },
-      title: {
+        type: 'column',
+        renderTo: 'containers',
+    }, 
+
+    title: {
         text: 'Transport Cost'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar']
+    },
+    credits: {
+        enabled: false
+    },
+    xAxis: {
+             categories: [2016,2017,2018,2019], // json category item
+             title: {
+              text: ' Period'
+          }
       },
       yAxis: {
         title: {
-          text: ' Sales By Product'
+            text: 'Amount'
         }
-      },
-      series: [{
-        name: '2',
-        data: [100, 100, 100,]
-      }, {
-        name: '3',
-        data: [100, 100, 100,]
-      }]
-    });
+    },
+   
+    tooltip: {
+        formatter: function () {
+            return 'Total Debit Note : <b>' + this.point.myData[0] + '</b><br>Nett Transpot Cost : <b>' + this.point.myData[1] + '</b><br>Saving / Inefficiency : <b>' + this.point.myData[2] + '</b><br>KPI Result : <b>' + this.point.myData[3] + '</b><br>';
+        }
+    },
+    legend: {
+        enabled: true
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+   
+     series: [{
+        name: 'DO Amount',
+        // json data
+        data: [
+        {y: 3,myData: [20,10,20,20]},  // mydata [total debit note,nett transport ,saving,kpi]
+        {y: 7,myData: [20,10,20,40]}, 
+        {y: 1,myData: [10,10,20,20]},
+        {y: 1,myData: [10,10,20,120]},
+        ]
+    },{
+        name: 'Nett Transport Cost',
+        data: [
+        {y: 3,myData: [20,50,20,20]}, 
+        {y: 7,myData: [30,10,20,20]}, 
+        {y: 1,myData: [20,10,10,60]},
+        {y: 1,myData: [20,10,10,160]},
+        ]
+    },{
+        name: 'KPI',
+        data: [
+        {y: 3,myData: [20,50,20,20]}, 
+        {y: 1,myData: [30,10,20,20]}, 
+        {y: 1,myData: [20,10,10,60]},
+        {y: 1,myData: [20,10,10,160]},
+        ]
+    }]
+});
 });
 </script>
 </body>

@@ -1,32 +1,28 @@
 	<aside class="right-side">
-       <!-- Main content -->
-       <section class="content-header">
-          <h1>Welcome to Dashboard</h1>
-      </section>
-      <section class="content">
-        <div class="row">
-            <div class="col-lg-12">
+     <!-- Main content -->
+     <section class="content-header">
+      <h1>Welcome to Dashboard</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+        <div class="col-lg-12">
 
-              <div class="panel panel-primary filterable">
-                <div class="panel-heading clearfix  ">
-                    <div class="panel-title pull-left">
-                     <div class="caption">
-                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Graphic Import Cost
-                    </div>
+          <div class="panel panel-primary filterable">
+            <div class="panel-heading clearfix  ">
+                <div class="panel-title pull-left">
+                   <div class="caption">
+                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                    Graphic Import Cost
                 </div>
-            </div>
-            <div class="panel-body">
-                <div class="col-md-5">
-                    <div id="pie"></div>
-                </div>
-                <div class="col-md-7">
-                <div id="bar"></div>
-                </div>  
-
             </div>
         </div>
+        <div class="panel-body">
+
+            <div id="containers" style="width:100%; height:auto;"></div>
+
+        </div>
     </div>
+</div>
 </div>
 </section>
 </aside>
@@ -51,82 +47,87 @@
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-<!-- end of page level js -->		
+   	
 
-$(document).ready(function () {
-        $('#pie').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Import Cost'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 56.33
-                }, {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 10.38
-                }, {
-                    name: 'Safari',
-                    y: 4.77
-                }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 0.2
-                }]
-            }]
-        });
-    $('#bar').highcharts({
+    $(document).ready(function () {
+
+        var chart = new Highcharts.Chart({
       chart: {
-        type: 'column'
-      },
-      title: {
+        type: 'column',
+        renderTo: 'containers',
+    }, 
+
+    title: {
         text: 'Import Cost'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar']
+    },
+    credits: {
+        enabled: false
+    },
+    xAxis: {
+             categories: [2016,2017,2018,2019], // json tahun periode
+             title: {
+              text: ' Period'
+          }
       },
       yAxis: {
         title: {
-          text: ' Sales By Product'
+            text: ' Import Cost (All Import Cost)'
         }
-      },
-      series: [{
-        name: '2',
-        data: [100, 100, 100,]
-      }, {
-        name: '3',
-        data: [100, 100, 100,]
-      }]
-    });
+    },
+    tooltip: {
+        formatter: function () {
+            return 'Import Without VAT : <b>' + this.point.myData[0] + '</b><br>Import Without VAT : <b>' + this.point.myData[1] + '</b><br>Taxes & Duties : <b>' + this.point.myData[2] + '</b><br>Custom Clearance : <b>' + this.point.myData[3] + '</b><br>';
+        }
+    },
+    legend: {
+        enabled: true
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+     series: [{
+        name: 'Item1',
+        // json data
+        data: [
+        {y: 3,myData: [20,10,20,20]},  // mydata [allimport,import without VAT,taxes,custom]
+        {y: 7,myData: [20,10,20,40]}, 
+        {y: 1,myData: [10,10,20,20]},
+        {y: 1,myData: [10,10,20,120]},
+        ]
+    },{
+        name: 'Item2',
+        data: [
+        {y: 3,myData: [20,50,20,20]}, 
+        {y: 7,myData: [30,10,20,20]}, 
+        {y: 1,myData: [20,10,10,60]},
+        {y: 1,myData: [20,10,10,160]},
+        ]
+    },{
+        name: 'Item3',
+        data: [
+        {y: 3,myData: [20,50,20,20]}, 
+        {y: 1,myData: [30,10,20,20]}, 
+        {y: 1,myData: [20,10,10,60]},
+        {y: 1,myData: [20,10,10,160]},
+        ]
+    },{
+        name: 'Item4',
+        data: [
+        {y: 5,myData: [20,50,20,20]}, 
+        {y: 7,myData: [30,10,20,20]}, 
+        {y: 9,myData: [20,10,10,60]},
+        {y: 11,myData: [20,10,10,100]},
+        ]
+    }]
 });
+});
+
 </script>
 </body>
 </html>

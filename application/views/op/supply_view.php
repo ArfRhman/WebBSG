@@ -17,7 +17,7 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div id="bar"></div>
+                               <div id="containers" style="width:100%; height:auto;"></div>
                             </div>
                         </div>
                     </div>
@@ -46,33 +46,59 @@
     <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-<!-- end of page level js -->       
 
-$(document).ready(function () {
-        
-    $('#bar').highcharts({
+    $(document).ready(function () {
+        var chart = new Highcharts.Chart({
       chart: {
-        type: 'column'
-      },
-      title: {
+        type: 'column',
+        renderTo: 'containers',
+    }, 
+
+    title: {
         text: 'Supply Lead Time Performance'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar']
+    },
+    credits: {
+        enabled: false
+    },
+    xAxis: {
+             categories: ['Category 1','Category 2','Category 3','Category 4'], // json category item
+           
       },
       yAxis: {
         title: {
-          text: ' Sales By Product'
+            text: 'Lead Time (day)'
         }
-      },
-      series: [{
-        name: '2',
-        data: [100, 100, 100,]
-      }, {
-        name: '3',
-        data: [100, 100, 100,]
-      }]
-    });
+    },
+   
+    // tooltip: {
+    //     formatter: function () {
+    //         return 'Production Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[0] + '</b><br>Shipping Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[1] + '</b><br>Clearance Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[2] + '</b><br>';
+    //     }
+    // },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+   
+     series: [{
+      name:'Value',
+        data: [
+        //json data
+        {y: 2},
+        {y: 7}, 
+        {y: 1},
+        {y: 5}
+        ]
+    }]
+});
 });
 </script>
 </body>

@@ -17,7 +17,7 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <div id="bar"></div>
+                                 <div id="containers" style="width:100%; height:auto;"></div>
                             </div>
                         </div>
 					</div>
@@ -46,33 +46,67 @@
     <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-<!-- end of page level js -->       
 
-$(document).ready(function () {
-        
-    $('#bar').highcharts({
+    $(document).ready(function () {
+        var chart = new Highcharts.Chart({
       chart: {
-        type: 'column'
-      },
-      title: {
+        type: 'column',
+        renderTo: 'containers',
+    }, 
+
+    title: {
         text: 'Import Lead Time Performance'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar']
+    },
+    credits: {
+        enabled: false
+    },
+    xAxis: {
+             categories: ['Category 1','Category 2','Category 3','Category 4'], // json category item
+           
       },
       yAxis: {
         title: {
-          text: 'Import Lead Time'
+            text: 'Lead Time (days)'
         }
-      },
-      series: [{
-        name: '2',
-        data: [100, 100, 100,]
-      }, {
-        name: '3',
-        data: [100, 100, 100,]
-      }]
-    });
+    },
+   
+    tooltip: {
+        formatter: function () {
+            return 'Production Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[0] + '</b><br>Shipping Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[1] + '</b><br>Clearance Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[2] + '</b><br>';
+        }
+    },
+    legend: {
+        enabled: true
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}'
+            }
+        }
+    },
+   
+     series: [{
+        name: 'Overall Lead Time (Sea)',
+        data: [
+        //json data
+        {y: 2,myData: [20,10,20,20,'Sea']},  // mydata [total debit note,nett transport ,saving,kpi]
+        {y: 7,myData: [20,10,20,40,'Sea']}, 
+        {y: 1,myData: [10,10,20,20,'Sea']},
+        {y: 5,myData: [10,10,20,120,'Sea']},
+        ]
+    },{
+        name: 'Overall Lead Time (Air)',
+        data: [
+        {y: 3,myData: [20,50,20,20,'Air']}, 
+        {y: 5,myData: [30,10,20,20,'Air']}, 
+        {y: 2,myData: [20,10,10,60,'Air']},
+        {y: 1,myData: [20,10,10,160,'Air']},
+        ]
+    }]
+});
 });
 </script>
 </body>
