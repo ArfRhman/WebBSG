@@ -162,7 +162,7 @@ class model_data extends CI_Model {
 	}
 
 	function getForecast(){
-		$query = $this->db->query("SELECT * from tbl_sale_target where periode > 2015")->result_array();
+		$query = $this->db->query("SELECT * from tbl_sale_target where YEAR(str_to_date(periode,'%d %b %Y')) > 2015")->result_array();
 		return $query;
 	}
 
@@ -189,6 +189,10 @@ class model_data extends CI_Model {
 	function getImportLeadTimePerformance(){
 		$query = $this->db->query("SELECT * from tbl_op_po_tabel,tbl_op_po_header,tbl_dm_item,tbl_op_po_lead_time where tbl_op_po_lead_time.no_po = tbl_op_po_header.no AND tbl_dm_item.id = tbl_op_po_tabel.item_code AND tbl_op_po_tabel.no_po = tbl_op_po_header.no")->result_array();
 		return $query;
+	}
+
+	function getDsProfit(){
+		$query = $this->db->query("");
 	}
 
 }

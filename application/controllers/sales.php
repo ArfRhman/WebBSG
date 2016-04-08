@@ -30,6 +30,8 @@ class Sales extends CI_Controller {
 					$maxF=$f['periode'];
 				}
 			}
+			print_r($forecast);
+			die();
 
 			$so = $this->mddata->getQtySo();
 
@@ -126,7 +128,8 @@ class Sales extends CI_Controller {
 			break;
 			case 'profit':
 			$data['ac'] = "s_profit_am";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			
+			die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_profit_view', $data);
 			break;

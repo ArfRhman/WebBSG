@@ -168,16 +168,30 @@
 <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
 <!-- end of global js -->
 <!-- begining of page level js -->
-<!-- Back to Top-->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-<!--   maps -->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		
-<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('sales/so/delete');?>/"+btn.data('id');					}				});			});		});	</script>
-</body>
-</html>
+<!-- Back to Top--><script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>      
+<script>        
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format:'MM yyyy'
+        });
+
+    }); </script>
+    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+    <!--   maps -->
+    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
+    <!-- end of page level js -->
+    <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>		
+    <script>        
+        $(document).ready(function(){
+            $('.datepicker').datepicker({
+                format:'MM yyyy'
+            });
+
+        }); </script>
+    </body>
+    </html>
