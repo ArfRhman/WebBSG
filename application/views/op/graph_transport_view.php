@@ -75,7 +75,9 @@
    
     tooltip: {
         formatter: function () {
-            return 'Total Debit Note : <b>' + this.point.myData[0] + '</b><br>Nett Transpot Cost : <b>' + this.point.myData[1] + '</b><br>Saving / Inefficiency : <b>' + this.point.myData[2] + '</b><br>KPI Result : <b>' + this.point.myData[3] + '</b><br>';
+            var topData = ' ';
+            if(this.point.myData[4] !== undefined){  topData = 'Total: <b>' + this.point.myData[4] + '</b>'; }
+            return 'Total Debit Note : <b>' + this.point.myData[0] + '</b><br>Nett Transpot Cost : <b>' + this.point.myData[1] + '</b><br>Saving / Inefficiency : <b>' + this.point.myData[2] + '</b><br>KPI Result : <b>' + this.point.myData[3] + '</b><br>' + topData;
         }
     },
     legend: {
@@ -86,7 +88,12 @@
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{point.y}'
+                format: '{point.y} '
+                 // formatter: function () { 
+                 //    var topData;
+                    
+                 //     return this.point.y + '-' + topData;
+                 // }
             }
         }
     },
@@ -103,10 +110,10 @@
     },{
         name: 'Nett Transport Cost',
         data: [
-        {y: 3,myData: [20,50,20,20]}, 
-        {y: 7,myData: [30,10,20,20]}, 
-        {y: 1,myData: [20,10,10,60]},
-        {y: 1,myData: [20,10,10,160]},
+        {y: 3,myData: [20,50,20,20,30]}, 
+        {y: 7,myData: [30,10,20,20,30]}, 
+        {y: 1,myData: [20,10,10,60,20]},
+        {y: 1,myData: [20,10,10,160,10]},
         ]
     },{
         name: 'KPI',
