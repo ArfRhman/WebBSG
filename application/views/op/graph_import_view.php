@@ -1,23 +1,31 @@
 	<aside class="right-side">
-     <!-- Main content -->
-     <section class="content-header">
-      <h1>Welcome to Dashboard</h1>
-  </section>
-  <section class="content">
-    <div class="row">
-        <div class="col-lg-12">
+       <!-- Main content -->
+       <section class="content-header">
+          <h1>Welcome to Dashboard</h1>
+      </section>
+      <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
 
-          <div class="panel panel-primary filterable">
-            <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
-                   <div class="caption">
-                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Graphic Import Cost
+              <div class="panel panel-primary filterable">
+                <div class="panel-heading clearfix  ">
+                    <div class="panel-title pull-left">
+                     <div class="caption">
+                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                        Graphic Import Cost
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="panel-body">
-
+            <div class="panel-body">
+                <div class="form-group">
+                  <div class="col-md-3">
+                    <select class="form-control" id="tahun">
+                        <option>2016</option>
+                        <option>2017</option>
+                        <option>2018</option>
+                    </select>
+                </div>
+            </div>
             <div id="containers" style="width:100%; height:auto;"></div>
 
         </div>
@@ -47,24 +55,41 @@
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-   	
+
 
     $(document).ready(function () {
 
-        var chart = new Highcharts.Chart({
-      chart: {
-        type: 'column',
-        renderTo: 'containers',
-    }, 
+        var categories = [2016]; // json default period
+        var title = 'Import Cost ' + 2016 // json default title period
+        var item = [2,3,4,2]; // default json data [item1,item2,item3,dst...]
+        var myDataPerItem = [[1,1,1,1],[2,2,2,2],[3,3,3,3],[4,4,4,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
+        graphic(categories,title,item,myDataPerItem);
 
-    title: {
-        text: 'Import Cost'
-    },
-    credits: {
-        enabled: false
-    },
-    xAxis: {
-             categories: [2016,2017,2018,2019], // json tahun periode
+        $("#tahun").change(function(){ // data tahun change
+        th = $("#tahun").val();
+        categories = [th]; // json default period
+        title = 'Import Cost ' + th // json default title period
+        item = [5,2,1,3]; // default json data [item1,item2,item3,dst...]
+        myDataPerItem = [[3,1,3,1],[2,2,2,2],[2,3,2,3],[1,4,1,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
+        graphic(categories,title,item,myDataPerItem);
+    });
+});
+        function graphic(categories,title,item,myDataPerItem){
+
+            var chart = new Highcharts.Chart({
+              chart: {
+                type: 'column',
+                renderTo: 'containers',
+            }, 
+
+            title: {
+                text: title
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+             categories: categories,
              title: {
               text: ' Period'
           }
@@ -91,43 +116,26 @@
             }
         }
     },
-     series: [{
+    series: [{
         name: 'Item1',
         // json data
         data: [
-        {y: 3,myData: [20,10,20,20]},  // mydata [allimport,import without VAT,taxes,custom]
-        {y: 7,myData: [20,10,20,40]}, 
-        {y: 1,myData: [10,10,20,20]},
-        {y: 1,myData: [10,10,20,120]},
-        {y: 1,myData: [10,10,20,120]},
-        ]
+        {y:item[0],myData: myDataPerItem[0]}]  // mydata [allimport,import without VAT,taxes,custom]
     },{
         name: 'Item2',
         data: [
-        {y: 3,myData: [20,50,20,20]}, 
-        {y: 7,myData: [30,10,20,20]}, 
-        {y: 1,myData: [20,10,10,60]},
-        {y: 1,myData: [20,10,10,160]},
-        ]
+        {y: item[1],myData:myDataPerItem[1]}]
     },{
         name: 'Item3',
         data: [
-        {y: 3,myData: [20,50,20,20]}, 
-        {y: 1,myData: [30,10,20,20]}, 
-        {y: 1,myData: [20,10,10,60]},
-        {y: 1,myData: [20,10,10,160]},
-        ]
+        {y: item[2],myData: myDataPerItem[2]}]
     },{
         name: 'Item4',
         data: [
-        {y: 5,myData: [20,50,20,20]}, 
-        {y: 7,myData: [30,10,20,20]}, 
-        {y: 9,myData: [20,10,10,60]},
-        {y: 11,myData: [20,10,10,100]},
-        ]
+        {y: item[3],myData:myDataPerItem[3]}]
     }]
 });
-});
+}
 
 </script>
 </body>

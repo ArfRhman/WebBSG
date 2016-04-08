@@ -121,7 +121,12 @@
             ]
           },  
           ]*/
-          [{"name":"2016","type":"pie","id":"2016","data":[{"name":"Forecast - piko","y":"1","drilldown":"piko","color":"forcastColor"},{"name":"SO - piko","y":"1","color":"soColor"}]}
+          [{"name":"2016","type":"pie","id":"2016",
+          data:[
+            {"name":"Forecast - piko","y":"1","drilldown":"piko","color":"forcastColor"},
+            {"name":"SO - piko","y":"1","color":"soColor"}
+            ],
+        }]
        }
      });
 });
