@@ -66,7 +66,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="periode">Periode</label>
                                             <div class="col-md-7">
-                                                <input id="periode" value="<?=$budget->periode?>" name="periode" placeholder="Periode" class="form-control" type="text"></div>
+                                                <input id="periode" value="<?=$budget->periode?>" name="periode" placeholder="Periode" class="form-control datepicker" type="text"></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="amount">Amount</label>
@@ -138,6 +138,10 @@
     <script>
         $(document).ready(function(){
             
+            $('.datepicker').datepicker({
+                        format:'MM yyyy'
+                    });
+
              $("#code").change(function(){
                       if($("#code").val()!=""){
                           $.ajax({
