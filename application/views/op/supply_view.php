@@ -61,7 +61,7 @@
         enabled: false
     },
     xAxis: {
-             categories: ['Category 1','Category 2','Category 3','Category 4'], // json category item
+             categories: <?=json_encode($kat)?>
            
       },
       yAxis: {
@@ -90,13 +90,7 @@
    
      series: [{
       name:'Value',
-        data: [
-        //json data
-        {y: 2},
-        {y: 7}, 
-        {y: 1},
-        {y: 5}
-        ]
+        data: <?=json_encode($y)?>
     }]
 });
 });

@@ -180,4 +180,9 @@ class model_data extends CI_Model {
 		$query = $this->db->query("SELECT *,count(operator) as total_op,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as periode FROM tbl_sale_so,tbl_sale_so_detail where tbl_sale_so_detail.id_so = tbl_sale_so.id group by periode, operator order by total_op DESC limit 0,5")->result_array();
 		return $query;
 	}
+
+	function getSupplyDetailPerformance(){
+		$query = $this->db->query("SELECT * from tbl_sale_so_delivery,tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id AND tbl_sale_so_detail.id_so = tbl_sale_so_delivery.id_so")->result_array();
+		return $query;
+	}
 }

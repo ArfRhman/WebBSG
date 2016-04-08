@@ -354,7 +354,6 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
 			$this->load->view('top', $data);
 			$this->load->view('op/graph_import_view', $data);
 			break;
@@ -390,12 +389,42 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$all = $this->mddata->getSupplyDetailPerformance();
+			$cat = array();
+			$val = array();
+			$kat = array();
+			foreach($all as $a){
+				$date1 = new DateTime($a['received']);
+				$date2 = new DateTime($a['depart']);
+				$diff = $date1->diff($date2);
+				if(!array_key_exists($a['kategori'],$cat)){
+					$cat[$a['kategori']]['cat']=$a['kategori'];
+					$cat[$a['kategori']]['y']=$diff->days;
+				}else{
+					$cat[$a['kategori']]['y']+=$diff->days;
+				}
+			}
+
+			function cmp_by_y($a, $b) {
+				return $a["y"] + $b["y"];
+			}
+
+			usort($cat, "cmp_by_y");
+			array_slice($cat,10);
+			foreach($cat as $c){
+				$kat[]=$c['cat'];
+				$val[]['y']=$c['y'];
+			}
+			
+			$data['kat']=$kat;
+			$data['y']=array_values($val);
 			$this->load->view('top', $data);
 			$this->load->view('op/supply_view', $data);
 			break;
 		}
 	}
+	
+	
 
 	function import_cost()
 	{
@@ -1583,10 +1612,10 @@ function jobdesc()
 		$this->mddata->insertIntoTbl('tbl_op_jobdesc_kpi', $data);
 		echo "1";
 		break;
-			case 'deletePosition':
-			
+		case 'deletePosition':
+
 		$this->mddata->deleteGeneral('tbl_op_jobdesc_kpi','no', $_POST['id']);
-			echo "1";
+		echo "1";
 		break;
 	}
 }	
