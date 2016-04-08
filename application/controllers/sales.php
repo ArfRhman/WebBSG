@@ -23,7 +23,80 @@ class Sales extends CI_Controller {
 		{
 			case 'forecast':
 			$data['ac'] = "s_ds_forecast";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$forecast = $this->mddata->getForecast();
+			$maxF=2016;
+			foreach($forecast as $f){
+				if(intval($f['periode'])>$maxF){
+					$maxF=$f['periode'];
+				}
+			}
+
+			$so = $this->mddata->getQtySo();
+
+			foreach($so as $s){
+				if(intval($s['periode'])>$maxF){
+					$maxF=$s['periode'];
+				}	
+			}
+
+			$dataFo = array();
+			$dataSo = array();
+			$dataOperator = array();
+			
+			for($i=2016;$i<=$maxF;$i++){
+				$dataFo[$i]=array(
+					'name' => $i,
+					'y' => 0,
+					'drilldown' => ''.$i.''
+					);
+				
+				$opFo[$i] = array(
+					'name' => ''.$i.'',
+					'type' => 'pie',
+					'id' => ''.$i.'',
+					'data'=> array()
+					);
+			}
+			$dataSo = $dataFo;
+
+			foreach($forecast as $f){
+				$dataFo[$f['periode']]['y']+=$f['amount'];
+			}
+
+			foreach($so as $s){
+				$dataSo[$s['periode']]['y']+=$s['qty'];
+			}
+			
+			$forecastOp = $this->mddata->getForecastOp();
+			$soOp = $this->mddata->getSoOp();
+
+			foreach ($forecastOp as $f) {
+				$opFo[$f['periode']]['data'][$f['operator']]['name']='Forecast - '.$f['name'];
+				$opFo[$f['periode']]['data'][$f['operator']]['y']=$f['total'];
+				$opFo[$f['periode']]['data'][$f['operator']]['drilldown']=$f['name'];
+				$opFo[$f['periode']]['data'][$f['operator']]['color']='forcastColor';
+			}
+
+			foreach($soOp as $s){
+				$opFo[$s['periode']]['data'][$s['operator']]['name']='SO - '.$f['name'];
+				$opFo[$s['periode']]['data'][$s['operator']]['y']=$f['total'];
+				$opFo[$s['periode']]['data'][$s['operator']]['color']='soColor';	
+			}
+
+			$res = array();
+			foreach($opFo as $key => $r){
+				$res[$key]['name']=$r['name'];
+				$res[$key]['type']=$r['type'];
+				$res[$key]['id']=$r['id'];
+				$res[$key]['data']=array_values($r['data']);
+			}
+			
+			
+			$data['Fo']=array_values($dataFo);
+			$data['So']=array_values($dataSo);
+			$data['drill_op']=array_values($res);
+			//print_r(json_encode($data['drill_op']));
+			//die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_forecast_view', $data);
 			break;

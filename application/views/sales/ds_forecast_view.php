@@ -55,23 +55,12 @@
       },
       series: [{
         name: 'Forecast',
-        data: [ 
-        // json disini
-        {name: 2016,y: 5,drilldown:'2016'},
-        {name: 2015,y: 3,drilldown:'2015'}, 
-        {name: 2014,y: 2,drilldown:'2014'}
-        //sampe sini
-        ],},
+        data: <?=json_encode($Fo)?>
+        ,},
         {
           name: 'SO',
-          data: [
-          //json disini
-          {name: 2016,y: 3,drilldown:'2016'},
-          {name: 2015,y: 1,drilldown:'2015'}, 
-          {name: 2014,y: 4,drilldown:'2014'}
-          //sampe sini
-          ],
-        }],
+          data: <?=json_encode($So)?>
+          ,}],
 
         // series: [{
         //     name: 'Things',
@@ -92,7 +81,7 @@
         // }],
         drilldown: {
 
-          series: [
+          series: /*[
           {
             name: '2016',
             type: 'pie',
@@ -107,19 +96,32 @@
             {name: 'SO - Others', y: 5, drilldown: 'Others',color:soColor},
             {name: 'Forecast - Others', y: 7,color:forcastColor},
             ]
-          }, 
+          },
           {
-           name: 'Operator1',
-           type: 'pie',
-           id: 'Operator1',
-           data: [
-           ['Customer 1', 10],
-           ['Customer 2', 20],
-           ['Customer 3', 20],
-           ['Customer 4', 10],
-           ['Customer 5', 20],
-           ]
-         }]
+            name: '2020',
+            type: 'pie',
+            id: '2020',
+            data: [
+            {name: 'SO - Operator1', y: 30, drilldown: 'Operator1',color:soColor},
+            {name: 'SO - Operator2', y: 30, drilldown: 'Operator2',color:soColor},
+            {name: 'SO - Operator3', y: 10, drilldown: 'Operator3',color:soColor},
+            {name: 'SO - Others', y: 5, drilldown: 'Others',color:soColor},
+            {name: 'Forecast - Operator1', y: 25,color:forcastColor},
+            {name: 'Forecast - Operator2', y: 20,color:forcastColor},
+            {name: 'Forecast - Operator3', y: 10,color:forcastColor},
+            {name: 'Forecast - Others', y: 7,color:forcastColor},
+            ]
+          },
+          {
+            name: '2017',
+            type: 'pie',
+            id: '2017',
+            data: [
+            
+            ]
+          },  
+          ]*/
+          [{"name":"2016","type":"pie","id":"2016","data":[{"name":"Forecast - piko","y":"1","drilldown":"piko","color":"forcastColor"},{"name":"SO - piko","y":"1","color":"soColor"}]}
        }
      });
 });

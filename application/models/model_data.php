@@ -160,4 +160,24 @@ class model_data extends CI_Model {
 		$this->db->where($where);
 		return $this->db->get($tbl);
 	}
+
+	function getForecast(){
+		$query = $this->db->query("SELECT * from tbl_sale_target where periode > 2015")->result_array();
+		return $query;
+	}
+
+	function getQtySo(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as periode from tbl_sale_so,tbl_sale_so_detail where YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) > 2015 AND tbl_sale_so.id = tbl_sale_so_detail.id_so")->result_array();
+		return $query;
+	}
+
+	function getForecastOp(){
+		$query = $this->db->query("SELECT *,count(operator) as total FROM tbl_sale_target,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_target.operator group by periode, operator order by total DESC limit 0,5")->result_array();
+		return $query;
+	}
+
+	function getSoOp(){
+		$query = $this->db->query("SELECT *,count(operator) as total_op,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as periode FROM tbl_sale_so,tbl_sale_so_detail where tbl_sale_so_detail.id_so = tbl_sale_so.id group by periode, operator order by total_op DESC limit 0,5")->result_array();
+		return $query;
+	}
 }
