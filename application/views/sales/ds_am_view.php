@@ -1,6 +1,6 @@
 	<aside class="right-side">
-       <!-- Main content -->
-       <section class="content-header">
+     <!-- Main content -->
+     <section class="content-header">
         <h1>Welcome to Dashboard</h1>
     </section>
     <section class="content">
@@ -9,23 +9,37 @@
             <div class="panel panel-primary filterable">
               <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                 <div class="caption">
-                  <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                  Sales By Account Manager
+                   <div class="caption">
+                      <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                      Sales By Account Manager
+                  </div>
               </div>
           </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="col-md-3">
+                <select id="categories" class="form-control">
+                    <option>-- Pilih Grafik --</option>
+                    <option value="1">Year to date of Operator</option>
+                    <option value="2">Year to date of Mitra</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control" id="am" style="display:none;">
+                    <?php
+                    $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
+                    foreach($sql->result() as $s)
+                    {
+                      ?>
+                      <option value="<?php echo $s->id;?>-<?php echo $s->name;?>"><?php echo $s->name ?></option>
+                      <?php
+                  }
+                  ?>
+              </select>
+          </div>
       </div>
-      <div class="panel-body">
-        <div class="form-group">
-          <div class="col-md-3">
-            <select id="categories" class="form-control">
-                <option value="1">Year to date of Operator</option>
-                <option value="2">Year to date of Mitra</option>
-            </select>
-        </div>
-    </div>
-    <div id="containers" style="width:100%; height:400px;"></div>
-</div>
+      <div id="containers" style="width:100%;height:auto;margin-top:5%;"></div>
+  </div>
 </div>
 </div>
 </div>
@@ -53,63 +67,70 @@
 <!-- end of page level js -->
 <script type="text/javascript">
     $(document).ready(function () {
-        var data1 = [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 56.33
-                }, {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 10.38
-                }, {
-                    name: 'Safari',
-                    y: 4.77
-                }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 0.2
-                }];
-       
-        var title = 'Sales By Account Manager';
-        graphic(data1,title);
+        var data1;
+        var amsplit;
+        var am;
+        var title;
         $("#categories").change(function(){
             var cat = $("#categories").val();
             if(cat == "1"){
-                title = 'Sales By Account Manager (Year to Date of Operator)';
-                
+                 $("#am").show();
+                   amsplit = $("#am").val().split('-');
+                   am = amsplit[1];
+                   data1 = [
+                   {name: 'Operator 1',y: 96.33}, 
+                   {name: 'Operator 2',y: 16.33},
+                   {name: 'Operator 3',y: 36.33},
+                   {name: 'Operator 4',y: 56.33},
+                   {name: 'Operator 5',y: 16.33},
+                   {name: 'Others',y: 16.33},
+                   ];
+                   title = 'Year to Date of Operators ('+am+')';
+                title = 'Year to Date of Operator ('+am+')';
+                $("#am").change(function(){
+                   amsplit = $("#am").val().split('-');
+                   am = amsplit[1];
+                   data1 = [
+                   {name: 'Operator 1',y: 66.33}, 
+                   {name: 'Operator 2',y: 16.33},
+                   {name: 'Operator 3',y: 36.33},
+                   {name: 'Operator 4',y: 96.33},
+                   {name: 'Operator 5',y: 16.33},
+                   {name: 'Others',y: 16.33},
+                   ];
+                   title = 'Year to Date of Operators ('+am+')';
+                   graphic(data1,title);
+               });
+                 graphic(data1,title);
             }else if(cat == "2"){
-                title = 'Sales By Account Manager (Year to Date of Mitra)';
+                title = 'Year to Date of Mitra (Year to Date of Mitra)';
+                graphic(data1,title);
             }
             data1 = [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 56.33
-                }, {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 10.38
-                }, {
-                    name: 'Safari',
-                    y: 4.77
-                }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 20
-                }];
-            graphic(data1,title);
+                name: 'Microsoft Internet Explorer',
+                y: 56.33
+            }, {
+                name: 'Chrome',
+                y: 24.03,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Firefox',
+                y: 10.38
+            }, {
+                name: 'Safari',
+                y: 4.77
+            }, {
+                name: 'Opera',
+                y: 0.91
+            }, {
+                name: 'Proprietary or Undetectable',
+                y: 20
+            }];
+            // graphic(data1,title);
         });
-    });
-    
+});
+
     function graphic(data1,title,categ){
         // Build the chart
         $('#containers').highcharts({
@@ -123,25 +144,28 @@
                 text: title
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: 'Amount SO :  <b>{point.y} </b> <br> % :  <b>{point.percentage:.1f} </b>'
             },
             plotOptions: {
                 pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                    enabled: true,
+                    format: 'Amount SO :  <b> {point.y} </b> <br> % :  <b> {point.percentage:.1f}  </b>'
+                // formatter: function () {
+                //   return 'Amount SO : <b> ' + this.point.y + '</b><br> % : <b> ' + this.point.percentage + ' </b>';
+                // }
             },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: data1
-            }]
-        });
-    }
+            showInLegend: true
+        }
+    },
+    series: [{
+        colorByPoint: true,
+        data: data1
+    }]
+});
+}
 </script>
 </body>
 </html>

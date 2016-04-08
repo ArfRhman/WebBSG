@@ -23,8 +23,15 @@
                 <option value="2">Pareto: product vs profit</option>
               </select>
             </div>
+            <div class="col-md-2">
+              <select class="form-control" id="tahun" style="display:none;">
+                <option selected>2016</option>
+                <option>2017</option>
+                <option>2018</option>
+              </select>
+            </div>
           </div>
-          <div id="containers" style="width:100%; height:400px;"></div>
+          <div id="containers" style="width:100%; height:auto; margin-top:5%;"></div>
         </div>
       </div>
     </div>
@@ -53,50 +60,144 @@
 <!-- end of page level js -->
 <script type="text/javascript">
   $(document).ready(function () {
-        var data1 = [49.9, 71.5, 106.4, 129.2];
-        var data2 = [7.0, 6.9, 9.5, 14.5];
-        var title = ' Sales By Product';
-        var categories = ['Jan', 'Feb', 'Mar', 'Apr'];
-        graphic(data1,data2,title,categories);
-        $("#categories").change(function(){
-            var cat = $("#categories").val();
-            if(cat == "1"){
-                title = ' Sales By Product (Year to Date)';
-                
-            }else if(cat == "2"){
-                title = ' Sales By Product (Pareto: product vs profit)';
+    var data1 = [
+               // data JSON Pie Chart Default
+               {name: 'Item 1',y: 30,},// y = amount SO, 
+               {name: 'Item 2',y: 24.03,},
+               {name: 'Item 3',y: 10.38,},
+               {name: 'Item 4',y: 4.77,},
+               {name: 'Item 5',y: 4.91,},
+               {name: 'Others',y: 2.2,}];
+               var title = 'Sales By Product (Year to Date)';
+               graphic(data1,title);
+               $("#categories").change(function(){
+                var cat = $("#categories").val();
+                if(cat == "1"){ // year to date SO
+                 $("#tahun").hide();
+                 title = 'Sales By Product (Year to Date)';
+                 graphic(data1,title);
+                }else if(cat == "2"){ // pareto
+                  $("#tahun").show();
+                  title = 'Pareto :Product vs Profit ' + $("#tahun").val(); // default title
+                  var categories = [$("#tahun").val()]; // json default period
+                  var item = [2,3,4,2]; // default json data [item1,item2,item3,dst...]
+                  var myDataPerItem = [[1,1,1,1],[2,2,2,2],[3,3,3,3],[4,4,4,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
+                  graphicBar(categories,title,item,myDataPerItem);
+
+                  $("#tahun").change(function(){
+                 // data quartal
+                 title = ' Pareto :Product vs Profit '+ $("#tahun").val();
+
+                 myDataPerItem = [[1,3,1,1],[2,2,3,2],[3,1,3,3],[4,4,4,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
+
+                item = [4,2,1,5]; // json data from tahun [item1,item2,item3,dst...]
+                categories = [$("#tahun").val()];
+                graphicBar(categories,title,item,myDataPerItem);
+
+              });
+                }
+              });
+});
+  function graphic(data1,title,categ){
+        // Build the chart
+        $('#containers').highcharts({
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+          },
+          credits: {
+            enabled: false
+          },
+          title: {
+            text: title
+          },
+          tooltip: {
+            pointFormat: 'Amount SO :  <b>{point.y} </b> <br> % :  <b>{point.percentage:.1f} </b>'
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                format: 'Amount SO :  <b> {point.y} </b> <br> % :  <b> {point.percentage:.1f}  </b>'
+                // formatter: function () {
+                //   return 'Amount SO : <b> ' + this.point.y + '</b><br> % : <b> ' + this.point.percentage + ' </b>';
+                // }
+              },
+              showInLegend: true
             }
-            categories = ['Jan', 'Feb', 'Mar'];
-            data1 = [100, 100, 100,];
-            data2 = [7.0, 6.9, 9.5];
-            graphic(data1,data2,title,categories);
+          },
+          series: [{
+            colorByPoint: true,
+            data: data1
+          }]
         });
-    });
-  function graphic(data1,data2,title,categ) { 
-    $('#containers').highcharts({
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: title
-      },
-      xAxis: {
-        categories: categ
-      },
-      yAxis: {
-        title: {
-          text: ' Sales By Product'
-        }
-      },
-      series: [{
-        name: '2',
-        data: data1
-      }, {
-        name: '3',
-        data: data2
+}
+function graphicBar(categories,title,item,myDataPerItem){
+
+  var chart = new Highcharts.Chart({
+    chart: {
+      type: 'column',
+      renderTo: 'containers',
+    }, 
+
+    title: {
+      text: title
+    },
+    credits: {
+      enabled: false
+    },
+    xAxis: {
+     categories: categories,
+     title: {
+      text: ' Period'
+    }
+  },
+  yAxis: {
+    title: {
+      text: ' Profit Amount'
+    }
+  },
+  tooltip: {
+    formatter: function () {
+      return 'Amount SO : <b>' + this.point.myData[0] + '</b><br>Profit : <b>' + this.point.myData[1] + '</b><br>% Amount : <b>' + this.point.myData[2] + '</b><br>% Profit : <b>' + this.point.myData[3] + '</b><br>';
+    }
+  },
+  legend: {
+    enabled: true
+  },
+  plotOptions: {
+    series: {
+      borderWidth: 0,
+      dataLabels: {
+        enabled: true,
+        format: '{point.y}'
+      }
+    }
+  },
+  series: [{
+     // json data
+     name: 'Item1',
+     data: [
+        {y:item[0],myData: myDataPerItem[0]}]  // mydata [Amount SO,Profit, %amount,%profit]
+      },{
+        name: 'Item2',
+        data: [
+        {y: item[1],myData:myDataPerItem[1]}]
+      },{
+        name: 'Item3',
+        data: [
+        {y: item[2],myData: myDataPerItem[2]}]
+      },{
+        name: 'Others',
+        data: [
+        {y: item[3],myData:myDataPerItem[3]}]
       }]
     });
-  }
+}
 </script>
 </body>
 </html>
