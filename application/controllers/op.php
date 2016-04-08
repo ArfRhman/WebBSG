@@ -377,7 +377,8 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			//$all = $this->mddata->getImportLeadTimePerformance();
+			//$cat = array();
 			$this->load->view('top', $data);
 			$this->load->view('op/import_performance_view', $data);
 			break;
