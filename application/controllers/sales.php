@@ -122,14 +122,50 @@ class Sales extends CI_Controller {
 			break;
 			case 'customer':
 			$data['ac'] = "s_customer_am";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$op = $this->mddata->getCustomerOperator();
+			$dataOp = array();
+			foreach($op as $o){
+				$dataOp[$o['operator']]['name']=$o['name'];
+				$dataOp[$o['operator']]['y']=intval($o['y']);
+			}
+			$data['op']=json_encode(array_values($dataOp));
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_customer_view', $data);
 			break;
+			case 'getCustomerOp':
+			$dataOp = array();
+			$op = $this->mddata->getCustomerOperator();
+			foreach($op as $o){
+				$dataOp[$o['operator']]['name']=$o['name'];
+				$dataOp[$o['operator']]['y']=intval($o['y']);
+			}
+			$data['op']=json_encode(array_values($dataOp));
+			print(json_encode(array_values($dataOp)));
+			break;
+			case 'getCustomerCust':
+			$customer = $this->mddata->getCustomerCust();
+			$dataCust = array();
+			foreach($customer as $c){
+				$dataCust[$c['customer_id']]['name']=$c['name'];
+				$dataCust[$c['customer_id']]['y']=intval($c['y']);
+			}
+			$slice = array_slice($dataCust, 0, 8);
+			$other = array_slice($dataCust, 9, count($dataCust));
+			$new = array(
+				'name' => 'Others',
+				'y'=>0
+				);
+			foreach($other as $ot){
+				$new['y']+=$ot['y'];
+			}
+			$slice[]=$new;
+			print(json_encode(array_values($slice)));
+			break;
 			case 'profit':
 			$data['ac'] = "s_profit_am";
-			
-			die();
+			//$target = $this->mddata->getTargetByYear();
+			//print_r($target);
+			//die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_profit_view', $data);
 			break;

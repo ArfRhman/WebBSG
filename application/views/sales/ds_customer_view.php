@@ -53,64 +53,29 @@
 <!-- end of page level js -->
 <script type="text/javascript">
 $(document).ready(function () {
-        var data1 = [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 56.33
-                }, {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 10.38
-                }, {
-                    name: 'Safari',
-                    y: 4.77
-                }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 0.2
-                }];
-       
+        var data = <?=$op?>;
         var title = 'Sales By Customer';
-        graphic(data1,title);
+        graphic(data,title);
         $("#categories").change(function(){
             var cat = $("#categories").val();
             if(cat == "1"){
                 title = 'Sales By Customer (Year to Date of Operator)';
+                $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerOp',function(data){
+                    graphic(JSON.parse(data),title);
+                });
                 
             }else if(cat == "2"){
                 title = 'Sales By Customer (Year to Date of Mitra)';
+                $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerCust',function(data){
+                    graphic(JSON.parse(data),title);
+                });
             }
-            data1 = [{
-                    name: 'Microsoft Internet Explorer',
-                    y: 56.33
-                }, {
-                    name: 'Chrome',
-                    y: 24.03,
-                    sliced: true,
-                    selected: true
-                }, {
-                    name: 'Firefox',
-                    y: 10.38
-                }, {
-                    name: 'Safari',
-                    y: 4.77
-                }, {
-                    name: 'Opera',
-                    y: 0.91
-                }, {
-                    name: 'Proprietary or Undetectable',
-                    y: 20
-                }];
-            graphic(data1,title);
+            graphic(data,title);
         });
     });
     
     function graphic(data1,title,categ){
+        console.log(data1);
         // Build the chart
         $('#containers').highcharts({
             chart: {
@@ -123,7 +88,7 @@ $(document).ready(function () {
                 text: title
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{point.y} : <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -135,7 +100,7 @@ $(document).ready(function () {
                     showInLegend: true
                 }
             },
-            series: [{
+            'series': [{
                 name: 'Brands',
                 colorByPoint: true,
                 data: data1

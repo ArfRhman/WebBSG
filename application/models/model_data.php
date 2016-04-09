@@ -191,8 +191,38 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
-	function getDsProfit(){
-		$query = $this->db->query("");
+	//untuk dashboard target
+
+	function getTargetByYear($p){
+		$query = $this->db->query("SELECT *,sum(amount) as total, YEAR(str_to_date(periode,'%M %Y')) as periode from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) > 2020 group by YEAR(str_to_date(periode,'%M %Y'))")->result_array();
+		return $query;
+	}
+
+	function getTargetQuerterly($p){
+		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, QUARTER(str_to_date(periode,'%M %Y')) as quarter, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = 2020 group by QUARTER(str_to_date(periode,'%M %Y'))")->result_array();
+		return $query;
+	}
+
+	function getTargetPerMonth($p){
+		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, MONTH(str_to_date(periode,'%M %Y')) as month, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = 2020 group by MONTH(str_to_date(periode,'%M %Y'))")->result_array();
+		return $query;
+	}
+
+	function getDsProfitByYear($p){
+		$query = $this->db->query("SELECT *, sum(grand_total) as total_so, sum (tbl_sale_so_invoicing.amount) as total_invoice, YEAR(str_to_date(tbl_sale_so.so_date,'%M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_invoicing where tbl_sale_so.id = tbl_sale_so_detail.id_so AND tbl_sale_so_invoicing.id_so = tbl_sale_so.id AND YEAR(str_to_date(tbl_sale_so.so_date,'%M %Y')) = '$p'")->result_array();
+		return $query;
+	}
+
+
+	//untuk dashboard customer
+	function getCustomerOperator(){
+		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id group by operator order by qty DESC")->result_array();
+		return $query;
+	}
+
+	function getCustomerCust(){
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id order by qty DESC")->result_array();
+		return $query;	
 	}
 
 }
