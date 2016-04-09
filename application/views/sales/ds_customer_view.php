@@ -75,7 +75,6 @@ $(document).ready(function () {
     });
     
     function graphic(data1,title,categ){
-        console.log(data1);
         // Build the chart
         $('#containers').highcharts({
             chart: {
@@ -88,7 +87,7 @@ $(document).ready(function () {
                 text: title
             },
             tooltip: {
-                pointFormat: '{point.y} : <b>{point.percentage:.1f}%</b>'
+                pointFormat: 'Amount SO : {point.y} / <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {

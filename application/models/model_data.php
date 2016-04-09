@@ -225,4 +225,15 @@ class model_data extends CI_Model {
 		return $query;	
 	}
 
+	//untuk dashboard sales by AM
+	function getAmOperator($id){
+		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND am = '$id' group by operator order by qty DESC")->result_array();
+		return $query;
+	}
+
+	function getAmCust($id){
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id  AND am = '$id' group by customer_id order by qty DESC")->result_array();
+		return $query;
+	}
+
 }
