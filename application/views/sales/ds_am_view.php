@@ -1,6 +1,6 @@
 	<aside class="right-side">
-     <!-- Main content -->
-     <section class="content-header">
+       <!-- Main content -->
+       <section class="content-header">
         <h1>Welcome to Dashboard</h1>
     </section>
     <section class="content">
@@ -9,37 +9,37 @@
             <div class="panel panel-primary filterable">
               <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                   <div class="caption">
-                      <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                      Sales By Account Manager
-                  </div>
+                 <div class="caption">
+                  <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                  Sales By Account Manager
               </div>
           </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <div class="col-md-3">
-                <select id="categories" class="form-control">
-                    <option>-- Pilih Grafik --</option>
-                    <option value="1">Year to date of Operator</option>
-                    <option value="2">Year to date of Mitra</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select class="form-control" id="am" style="display:none;">
-                    <?php
-                    $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
-                    foreach($sql->result() as $s)
-                    {
-                      ?>
-                      <option value="<?php echo $s->id;?>-<?php echo $s->name;?>"><?php echo $s->name ?></option>
-                      <?php
-                  }
-                  ?>
-              </select>
-          </div>
       </div>
-      <div id="containers" style="width:100%;height:auto;margin-top:5%;"></div>
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-md-3">
+            <select id="categories" class="form-control">
+                <option>-- Pilih Grafik --</option>
+                <option value="1">Year to date of Operator</option>
+                <option value="2">Year to date of Customer</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="am" style="display:none;">
+                <?php
+                $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
+                foreach($sql->result() as $s)
+                {
+                  ?>
+                  <option value="<?php echo $s->id;?>-<?php echo $s->name;?>"><?php echo $s->name ?></option>
+                  <?php
+              }
+              ?>
+          </select>
+      </div>
   </div>
+  <div id="containers" style="width:100%;height:auto;margin-top:5%;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -73,61 +73,64 @@
         var title;
         $("#categories").change(function(){
             var cat = $("#categories").val();
-            if(cat == "1"){
-                 $("#am").show();
-                   amsplit = $("#am").val().split('-');
-                   am = amsplit[1];
-                   data1 = [
-                   {name: 'Operator 1',y: 96.33}, 
-                   {name: 'Operator 2',y: 16.33},
-                   {name: 'Operator 3',y: 36.33},
-                   {name: 'Operator 4',y: 56.33},
-                   {name: 'Operator 5',y: 16.33},
-                   {name: 'Others',y: 16.33},
-                   ];
-                   title = 'Year to Date of Operators ('+am+')';
-                title = 'Year to Date of Operator ('+am+')';
-                $("#am").change(function(){
-                   amsplit = $("#am").val().split('-');
-                   am = amsplit[1];
-                   data1 = [
-                   {name: 'Operator 1',y: 66.33}, 
-                   {name: 'Operator 2',y: 16.33},
-                   {name: 'Operator 3',y: 36.33},
-                   {name: 'Operator 4',y: 96.33},
-                   {name: 'Operator 5',y: 16.33},
-                   {name: 'Others',y: 16.33},
-                   ];
-                   title = 'Year to Date of Operators ('+am+')';
-                   graphic(data1,title);
-               });
-                 graphic(data1,title);
-            }else if(cat == "2"){
-                title = 'Year to Date of Mitra (Year to Date of Mitra)';
+            if(cat == "1"){ // data operator
+               $("#am").show();
+               amsplit = $("#am").val().split('-');
+               am = amsplit[1];
+               data1 = [ // data operator default
+               {name: 'Operator 1',y: 96.33}, 
+               {name: 'Operator 2',y: 16.33},
+               {name: 'Operator 3',y: 36.33},
+               {name: 'Operator 4',y: 56.33},
+               {name: 'Operator 5',y: 16.33},
+               {name: 'Others',y: 16.33},
+               ];
+               title = 'Year to Date of Operators ('+am+')';
                 graphic(data1,title);
-            }
-            data1 = [{
-                name: 'Microsoft Internet Explorer',
-                y: 56.33
-            }, {
-                name: 'Chrome',
-                y: 24.03,
-                sliced: true,
-                selected: true
-            }, {
-                name: 'Firefox',
-                y: 10.38
-            }, {
-                name: 'Safari',
-                y: 4.77
-            }, {
-                name: 'Opera',
-                y: 0.91
-            }, {
-                name: 'Proprietary or Undetectable',
-                y: 20
-            }];
-            // graphic(data1,title);
+               $("#am").change(function(){
+                 amsplit = $("#am").val().split('-');
+                 am = amsplit[1];
+                 data1 = [  // data operator by AM
+                 {name: 'Operator 1',y: 66.33}, 
+                 {name: 'Operator 2',y: 16.33},
+                 {name: 'Operator 3',y: 36.33},
+                 {name: 'Operator 4',y: 96.33},
+                 {name: 'Operator 5',y: 16.33},
+                 {name: 'Others',y: 16.33},
+                 ];
+                 title = 'Year to Date of Operators ('+am+')';
+                 graphic(data1,title);
+             });
+              
+           }else if(cat == "2"){ // data customer
+               $("#am").show();
+               amsplit = $("#am").val().split('-');
+               am = amsplit[1];
+               data1 = [ // data customer default
+               {name: 'Customer 1',y: 56.33}, 
+               {name: 'Customer 2',y: 23.33},
+               {name: 'Customer 3',y: 17.33},
+               {name: 'Customer 4',y: 51.33},
+               {name: 'Customer 5',y: 21.33},
+               {name: 'Others',y: 16.33},
+               ];
+               title = 'Year to Date of Customer ('+am+')';
+               graphic(data1,title);
+               $("#am").change(function(){
+                 amsplit = $("#am").val().split('-');
+                 am = amsplit[1];
+                 data1 = [ // data customer by operator
+                 {name: 'Customer 1',y: 16.33}, 
+               {name: 'Customer 2',y: 23.33},
+               {name: 'Customer 3',y: 37.33},
+               {name: 'Customer 4',y: 51.33},
+               {name: 'Customer 5',y: 81.33},
+               {name: 'Others',y: 6.33},
+                 ];
+                title = 'Year to Date of Customer ('+am+')';
+                 graphic(data1,title);
+             });
+           }
         });
 });
 
@@ -140,6 +143,9 @@
                 plotShadow: false,
                 type: 'pie'
             },
+             credits: {
+            enabled: false
+          },
             title: {
                 text: title
             },
