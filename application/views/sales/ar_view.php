@@ -37,77 +37,137 @@
                 </thead>
                 <tbody>
                    <?php
-                                            //$no = 1;
-                                            //foreach($in->result() as $c)
-                                            //{
-                   ?>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="font-weight:bold">
-                    <td></td>
-                    <td><b>&nbsp;&nbsp;&nbsp;&nbsp;QUARTER 1</b></td>
-                    <td>AAA</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER 1</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
+                   $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+                   $thn = date('Y');
+                   $no = 1;
+                   $total_so = 0;
+                   $total_inv = 0;
+                   $total_target = 0;
+                   $total_out = 0;
+                   $total_payment = 0;
+                   $total_avg = 0;
+                   foreach($bln as $b)
+                   {
+                    $target = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_target WHERE SUBSTR(periode,1,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(periode,5,4)=".$thn)->row();
+                    $so = $this->db->query("SELECT SUM(grand_total) as total FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                    $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                    $payment = $this->db->query("SELECT SUM(amount) as total,
+    AVG(DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y'))) AS avg_overdue FROM tbl_sale_so_payment WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                    $outstanding = $payment->total - $inv->total;
+                    if($inv->total !=0 ) {
+                        $p_inv = $payment->total/$inv->total;
+                        $p_out = $outstanding/$inv->total;
+                    }else{
+                        $p_inv = 0;
+                        $p_out = 0;
+                    } 
+                       ?>
+                       <tr>
+                        <td><?php echo $no?></td>
+                        <td><a href="<?php echo site_url('sales/ar/detail/'.$no)?>"><?php echo $b?></a></td>
+                        <?php if($no <= date('n')) {?>
+                        <td align="right"><?php echo number_format($target->total,0)?></td>
+                        <td align="right"><?php echo number_format($so->total,0)?></td>
+                        <td align="right"><?php echo number_format($inv->total,0)?></td>
+                        <td align="right"><?php echo number_format($payment->total,0)?></td>
+                        <td align="right"><?php echo number_format($p_inv,1,'.','')."%"?></td>
+                        <td align="right"><?php echo number_format($outstanding,0)?></td>
+                        <td align="right"><?php echo number_format($p_out,1,'.','')."%"?></td>
+                        <td align="right"><?php echo number_format($payment->avg_overdue,0)?></td>
+                        <?php }else{ ?>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <?php } ?>
+                    </tr>
+                    <?php
+                        $total_so +=$so->total;
+                        $total_inv +=$inv->total;
+                        $total_target +=$target->total;
+                        $total_payment +=$payment->total;
+                        $total_out +=$outstanding;
+                        $total_avg += $payment->avg_overdue;
+                    if($no  %3 == 0){
+                        if($total_inv !=0 ) {
+                            $p_inv_t = $total_payment/$total_inv;
+                            $p_out_t = $total_out/$total_inv;
+                        }else{
+                            $p_inv_t = 0;
+                            $p_out_t = 0;
+                        } 
+                        ?>
+                        <tr style="font-weight:bold">
+                            <td></td>
+                            <td><b>&nbsp;&nbsp;&nbsp;&nbsp;QUARTER <?php echo $no/3?></b></td>
+                            <?php if($no/3 <= ceil(date('n')/3)) {?>
+                            <td align="right"><?php echo number_format($total_target,0)?></td>
+                            <td align="right"><?php echo number_format($total_so,0)?></td>
+                            <td align="right"><?php echo number_format($total_inv,0)?></td>
+                            <td align="right"><?php echo number_format($total_payment,0)?></td>
+                            <td align="right"><?php echo number_format($p_inv_t,1,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_out,0)?></td>
+                            <td align="right"><?php echo number_format($p_out_t,1,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_avg,0)?></td>
+                             <?php }else{ ?>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                               <?php } ?>
+                        </tr>
+                        <?php
+                    }
+                    if($no  %6 == 0){
+                        if($total_inv !=0 ) {
+                            $p_inv_t = $total_payment/$total_inv;
+                            $p_out_t = $total_out/$total_inv;
+                        }else{
+                            $p_inv_t = 0;
+                            $p_out_t = 0;
+                        } 
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER <?php echo $no/6?></b></td>
+                           <?php if($no/6 <= ceil(date('n')/6)) {?>
+                            <td align="right"><?php echo number_format($total_target,0)?></td>
+                            <td align="right"><?php echo number_format($total_so,0)?></td>
+                            <td align="right"><?php echo number_format($total_inv,0)?></td>
+                            <td align="right"><?php echo number_format($total_payment,0)?></td>
+                            <td align="right"><?php echo number_format($p_inv_t,1,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_out,0)?></td>
+                            <td align="right"><?php echo number_format($p_out_t,1,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_avg,0)?></td>
+                             <?php }else{ ?>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                               <?php } ?>
+
+                        </tr>
+                        <?php
+                    }
+                    $no++;
+                }
+                ?>
                 <tr>
                     <td></td>
                     <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</b></td>
-                   <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                   
+                    <?php if($no/12 <= ceil(date('n')/12)) {
+                        if($total_inv !=0 ) {
+                            $p_inv_t = $total_payment/$total_inv;
+                            $p_out_t = $total_out/$total_inv;
+                        }else{
+                            $p_inv_t = 0;
+                            $p_out_t = 0;
+                        } 
+                        ?>
+                            <td align="right"><?php echo number_format($total_target,0)?></td>
+                            <td align="right"><?php echo number_format($total_so,0)?></td>
+                            <td align="right"><?php echo number_format($total_inv,0)?></td>
+                            <td align="right"><?php echo number_format($total_payment,0)?></td>
+                            <td align="right"><?php echo number_format($p_inv_t,1,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_out,0)?></td>
+                            <td align="right"><?php echo number_format($p_out_t,1,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_avg,0)?></td>
+                             <?php }else{ ?>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                               <?php } ?>
                 </tr>
-                <?php
-                                            //}
-                ?>
+
             </tbody>
         </table>
     </div>

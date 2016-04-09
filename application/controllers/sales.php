@@ -639,12 +639,7 @@ $data = array(
 	'disc' => $this->input->post('disc'), 
 	'nett' => $this->input->post('price') - $this->input->post('disc'), 
 	'total' => $this->input->post('price') * $this->input->post('qty'), 
-	'subtotal' => $this->input->post('subtotal'), 
-	'discount' => $this->input->post('discount'), 
-	'delivery' => $this->input->post('delivery'), 
-	'nett_tax' => $this->input->post('nett_tax'), 
-	'vat' => $this->input->post('vat'), 
-	'grand_total' => $this->input->post('grand_total'),
+	'delivery' => $this->input->post('delivery'),
 	);
 $this->mddata->insertIntoTbl('tbl_sale_so_detail', $data);
 $this->session->set_flashdata('data','Data Has Been Saved');
@@ -813,12 +808,9 @@ $data = array(
 	'disc' => $this->input->post('disc'), 
 	'nett' => $this->input->post('nett'), 
 	'total' => $this->input->post('total'), 
-	'subtotal' => $this->input->post('subtotal'), 
-	'discount' => $this->input->post('discount'), 
+	'nett' => $this->input->post('price') - $this->input->post('disc'), 
+	'total' => $this->input->post('price') * $this->input->post('qty'), 
 	'delivery' => $this->input->post('delivery'), 
-	'nett_tax' => $this->input->post('nett_tax'), 
-	'vat' => $this->input->post('vat'), 
-	'grand_total' => $this->input->post('grand_total'),
 	);
 $this->mddata->updateDataTbl('tbl_sale_so_detail', $data, 'id', $this->uri->segment(4));
 $this->session->set_flashdata('data','Data Has Been Saved');
@@ -1686,6 +1678,33 @@ function account()
 		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
 		$this->load->view('top', $data);
 		$this->load->view('sales/account_view', $data);
+		break;
+		case 'detail':
+		$data['detail'] = $this->db->query("SELECT
+	so_no,
+	am,
+	division,
+	so_date,
+	customer_id,
+	po_no,
+	po_date,
+	other_status,
+	inv.amount,
+	no,
+	date,
+	due,
+	received_date,
+	payment_date as payment,
+	due_date,
+	DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y')) as overdue
+FROM
+	tbl_sale_so so
+LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+LEFT JOIN tbl_sale_so_payment p ON p.id_so = so.id
+WHERE
+	am = '".$this->uri->segment(4)."'");
+		$this->load->view('top', $data);
+		$this->load->view('sales/account_detail', $data);
 		break;			
 	}
 }
@@ -1715,7 +1734,62 @@ function loss()
 		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
 		$this->load->view('top', $data);
 		$this->load->view('sales/loss_view', $data);
-		break;			
+		break;	
+		case 'detail':
+		$data['data'] = $this->db->query("SELECT
+						so_no,
+						am,
+						division,
+						so_date,
+						customer_id,
+						po_no,
+						po_date,
+						inv.amount,
+						NO,
+						date,
+						due,
+						received_date,
+						inv.date AS inv_date,
+						inv. NO AS inv_no,
+						payment_date,
+						sales,
+						extcom_pro,
+						bank,
+						transport,
+						adm,
+						other,
+						(
+							SELECT
+								SUM(grand_total)
+							FROM
+								tbl_sale_so_detail d
+							WHERE
+								d.id_so = so.id
+						) AS total_so,
+						(
+							SELECT
+								SUM(DDP_IDR)
+							FROM
+								tbl_op_price_list pl
+							WHERE
+								pl.item_id IN (
+									SELECT
+										item
+									FROM
+										tbl_sale_so_detail dt
+									WHERE
+										dt.id_so = so.id
+								)
+						) AS total_purchase
+					FROM
+						tbl_sale_so so
+					LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+					LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
+					WHERE
+	SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y'));
+		$this->load->view('top', $data);
+		$this->load->view('sales/loss_detail', $data);
+		break;		
 	}
 }
 function ar()
@@ -1727,7 +1801,34 @@ function ar()
 		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
 		$this->load->view('top', $data);
 		$this->load->view('sales/ar_view', $data);
-		break;			
+		break;	
+		case 'detail':
+		$data['detail'] = $this->db->query("SELECT
+	so_no,
+	am,
+	division,
+	so_date,
+	customer_id,
+	po_no,
+	po_date,
+	other_status,
+	inv.amount,
+	no,
+	date,
+	due,
+	received_date,
+	payment_date as payment,
+	due_date,
+	DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y')) as overdue
+FROM
+	tbl_sale_so so
+LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+LEFT JOIN tbl_sale_so_payment p ON p.id_so = so.id
+WHERE
+	SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y')." ORDER BY overdue DESC");
+		$this->load->view('top', $data);
+		$this->load->view('sales/ar_detail', $data);
+		break;		
 	}
 }
 function stock()
@@ -1765,7 +1866,29 @@ function achievement()
 		$this->load->view('sales/achievement_view', $data);
 		break;	
 		case 'detail':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$data['detail'] = $this->db->query("SELECT
+					so_no,
+					am,
+					division,
+					so_date,
+					customer_id,
+					po_no,
+					po_date,
+					other_status,
+					inv.amount,
+					no,
+					date,
+					due,
+					received_date,
+					payment_date as payment,
+					due_date,
+					DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y')) as overdue
+				FROM
+					tbl_sale_so so
+				LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+				LEFT JOIN tbl_sale_so_payment p ON p.id_so = so.id
+				WHERE
+					SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y'));
 		$this->load->view('top', $data);
 		$this->load->view('sales/achievement_detail', $data);
 		break;			
@@ -1777,7 +1900,55 @@ function profit()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$data['data'] = $this->db->query("SELECT
+						so_no,
+						am,
+						division,
+						so_date,
+						customer_id,
+						po_no,
+						po_date,
+						inv.amount,
+						NO,
+						date,
+						due,
+						received_date,
+						inv.date AS inv_date,
+						inv. NO AS inv_no,
+						payment_date,
+						sales,
+						extcom_pro,
+						bank,
+						transport,
+						adm,
+						other,
+						(
+							SELECT
+								SUM(grand_total)
+							FROM
+								tbl_sale_so_detail d
+							WHERE
+								d.id_so = so.id
+						) AS total_so,
+						(
+							SELECT
+								SUM(DDP_IDR)
+							FROM
+								tbl_op_price_list pl
+							WHERE
+								pl.item_id IN (
+									SELECT
+										item
+									FROM
+										tbl_sale_so_detail dt
+									WHERE
+										dt.id_so = so.id
+								)
+						) AS total_purchase
+					FROM
+						tbl_sale_so so
+					LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+					LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id");
 		$this->load->view('top', $data);
 		$this->load->view('sales/profit_view', $data);
 		break;			
@@ -1789,7 +1960,33 @@ function external()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+		$data['data'] = $this->db->query("SELECT
+	so_no,
+	am,
+	division,
+	so_date,
+	customer_id,
+	po_no,
+	po_date,
+	other_status,
+	inv.amount,
+	no,
+	date,
+	due,
+	received_date,
+	inv.date as inv_date,
+	inv.no as inv_no,
+	payment_date,
+	nett,
+	approved,
+	through,
+	extcom,
+	extcom_pro,
+	(SELECT SUM(grand_total) FROM tbl_sale_so_detail d WHERE d.id_so =so.id) as total_so
+FROM
+	tbl_sale_so so
+LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+LEFT JOIN tbl_sale_so_cost c ON c.id_so=so.id");
 		$this->load->view('top', $data);
 		$this->load->view('sales/external_view', $data);
 		break;			

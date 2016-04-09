@@ -6,7 +6,7 @@
   <section class="content">
     <div class="row">
         <div class="col-lg-12">
-          
+
           <div class="panel panel-primary filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
@@ -42,50 +42,102 @@
                 </thead>
                 <tbody>
                    <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-                   ?>
-                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
+                   $no = 1;
+                   $q = $this->db->query('SELECT
+                    item,
+                    nama,
+                    SUM(qty) AS total_qty,
+                    AVG(price) AS avg
+                    FROM
+                    tbl_sale_so_detail so
+                    JOIN tbl_dm_item it ON so.item = it.id
+                    GROUP BY
+                    item
+                    ORDER BY total_qty DESC LIMIT 9');
+                  
+                   $item_no = array();
+                   $total_sales = 0;
+                   $total_profit = 0;
+                   foreach ($q->result() as $h) {
+                        $profit = $this->db->query("SELECT AVG(DDP_IDR) as avg from tbl_op_price_list WHERE item_id='".$h->item."'")->row();
+                      $profit_amount = ($h->avg - $profit->avg) * $h->total_qty;
+                      $total_sales += $h->total_qty * $h->avg;
+                       $total_profit +=$profit_amount;
+                       array_push($item_no, $h->item);
+                   }
+                   $o = $this->db->query('SELECT
+                                                "REST BALANCE" as nama,
+                                                SUM(qty) AS total_qty,
+                                                AVG(price) AS avg
+                                            FROM
+                                                tbl_sale_so_detail WHERE item NOT IN('.implode(',',$item_no).')')->row();
+                   $total_sales +=$o->total_qty * $o->avg;
 
-                <?php
-											//}
-                ?>
-                <tr>
+                   foreach($q->result() as $c)
+                   {  
+                    $profit = $this->db->query("SELECT AVG(DDP_IDR) as avg from tbl_op_price_list WHERE item_id='".$c->item."'")->row();
+                       $profit_amount = ($c->avg - $profit->avg) * $c->total_qty;
+                       ?>
+                       <tr>
+                        <td align="right"><?php echo $no?></td>
+                        <td><?php echo $c->nama?></td>
+                        <td align="right"><?php echo number_format($c->total_qty,0)?></td>
+                        <td align="right"><?php echo number_format($c->avg,0)?></td>
+                        <td align="right"><?php $ts = $c->total_qty * $c->avg; echo number_format($ts,0)?></td>
+                        <td align="right"><?php echo number_format( 100*$ts/$total_sales,1)."%"?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td align="right"><?php echo number_format( $profit_amount,0)?></td>
+                        <td></td>
+                        <td align="right"><?php echo number_format( 100*$profit_amount/$total_profit,1)."%"?></td>
+                    </tr>
+
+                    <?php
+                    $no++;
+
+					}
+                    if($no==10){
+                     
+                    ?>
+
+                    <tr>
+                        <td align="right"><?php echo $no?></td>
+                        <td><?php echo $o->nama?></td>
+                        <td align="right"><?php echo number_format( $o->total_qty,0)?></td>
+                        <td align="right"><?php echo number_format( $o->avg,0)?></td>
+                        <td align="right"><?php $ts = $o->total_qty * $o->avg; echo number_format($ts,0)?></td>
+                        <td><?php echo number_format( 100*$ts/$total_sales,1)."%"?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td align="right"><?php echo number_format( $profit_amount,0)?></td>
+                        <td></td>
+                        <td align="right"><?php echo number_format( 100*$profit_amount/$total_profit,1)."%"?></td>
+                    </tr>
+                    <?php } ?>
+                    <tr>
                         <th></th>
 
                         <th class="text-right">TOTAL</th>
                         <th></th>
                         <th></th>
+                        <th class="text-right"><?php echo number_format($total_sales,0)?></th>
+                        <th class="text-right">100%</th>
                         <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
+                        <th class="text-right"><?php echo number_format($total_profit,0)?></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th class="text-right">100%</th>
                     </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 </div>
 </section>

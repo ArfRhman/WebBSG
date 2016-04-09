@@ -6,7 +6,7 @@
   <section class="content">
     <div class="row">
         <div class="col-lg-12">
-          
+
           <div class="panel panel-primary filterable">
             <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
@@ -19,7 +19,7 @@
         <div class="panel-body">
             <table class="table table-striped table-responsive">
                 <thead>
-                    
+
                     <tr>
                         <th>NO</th>
                         <th>PERIODE</th>
@@ -37,79 +37,145 @@
                 </thead>
                 <tbody>
                    <?php
-                                            //$no = 1;
-                                            //foreach($in->result() as $c)
-                                            //{
-                   ?>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="font-weight:bold">
-                    <td></td>
-                    <td><b>&nbsp;&nbsp;&nbsp;&nbsp;QUARTER 1</b></td>
-                    <td>AAA</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER 1</b></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                   $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+                   $thn = date('Y');
+                   $no = 1;
+                   $total_so = 0;
+                   $total_inv = 0;
+                   $total_target = 0;
+
+                   foreach($bln as $b)
+                   {
+                    $target = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_target WHERE SUBSTR(periode,1,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(periode,5,4)=".$thn)->row();
+                    $so = $this->db->query("SELECT SUM(grand_total) as total, SUM(qty) AS qty FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                    $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                    $cogs = $this->db->query("SELECT
+                        SUM(DDP_IDR) as ddp
+                        FROM
+                        tbl_op_price_list
+                        WHERE
+                        item_id IN (
+                            SELECT
+                            item
+                            FROM
+                            tbl_sale_so_detail
+                            WHERE
+                            id_so IN (
+                                SELECT
+                                id
+                                FROM
+                                tbl_sale_so
+                                WHERE
+                                SUBSTR(so_date, 4, 3) = 'Mar''".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn."
+                                )
+                    )")->row();
+                    $direct = $this->db->query("SELECT
+                        SUM(sales) as sales,
+                        SUM(extcom_pro) as extcom,
+                        SUM(bank) as bank,
+                        SUM(transport) as transport,
+                        SUM(adm) as adm,
+                        SUM(other) as other
+                        FROM
+                        tbl_sale_so_cost
+                        WHERE
+                        id_so IN (
+                            SELECT
+                            id
+                            FROM
+                            tbl_sale_so
+                            WHERE
+                            '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn."
+                            )")->row();
+                    $dir_cost = $direct->sales + $direct->extcom + $direct->bank +$direct->transport + $direct->adm +$direct->other;    
+                    $ddp = $cogs->ddp*$so->qty;
+                    $gross = $inv->total - $ddp;
+                    ?>
+                    <tr>
+                        <td><?php echo $no?></td>
+                        <td><a href="<?php echo site_url('sales/loss/detail/'.$no)?>"><?php echo $b?></a></td>
+                        <?php if($no <= date('n')) {?>
+                        <td align="right"><?php echo number_format($target->total,0)?></td>
+                        <td align="right"><?php echo number_format($so->total,0)?></td>
+                        <td align="right"><?php echo number_format($inv->total,0)?></td>
+                        <td><?php echo number_format($ddp,0)?></td>
+                        <td><?php echo number_format($gross,0)?></td>
+                        <td><?php echo number_format($dir_cost,0)?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <?php }else{ ?>
+                        <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                        <?php } ?>
+                    </tr>
+                    <?php
+                    $total_so +=$so->total;
+                    $total_inv +=$inv->total;
+                    $total_target +=$target->total;
+                    if($no  %3 == 0){
+                        ?>
+                        <tr style="font-weight:bold">
+                            <td></td>
+                            <td><b>&nbsp;&nbsp;&nbsp;&nbsp;QUARTER <?php echo $no/3?></b></td>
+                            <?php if($no/3 <= ceil(date('n')/3)) {?>
+                            <td align="right"><?php echo number_format($total_target,0)?></td>
+                            <td align="right"><?php echo number_format($total_so,0)?></td>
+                            <td align="right"><?php echo number_format($total_inv,0)?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php }else{ ?>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <?php } ?>
+                        </tr>
+                        <?php
+                    }
+                    if($no  %6 == 0){
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER <?php echo $no/6?></b></td>
+                            <?php if($no/6 <= ceil(date('n')/6)) {?>
+                            <td align="right"><?php echo number_format($total_target,0)?></td>
+                            <td align="right"><?php echo number_format($total_so,0)?></td>
+                            <td align="right"><?php echo number_format($total_inv,0)?></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <?php }else{ ?>
+                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <?php } ?>
+
+                        </tr>
+                        <?php
+                    }
+                    $no++;
+                }
+                ?>
                 <tr>
                     <td></td>
                     <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</b></td>
-                   <td></td>
+                    <?php if($no/12 <= ceil(date('n')/12)) {?>
+                    <td align="right"><?php echo number_format($total_target,0)?></td>
+                    <td align="right"><?php echo number_format($total_so,0)?></td>
+                    <td align="right"><?php echo number_format($total_inv,0)?></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <?php }else{ ?>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <?php } ?>
                 </tr>
-                <?php
-                                            //}
-                ?>
+
             </tbody>
         </table>
     </div>

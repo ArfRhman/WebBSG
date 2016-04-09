@@ -1,78 +1,80 @@
 	<aside class="right-side">
-     <!-- Main content -->
-     <section class="content-header">
-      <h1>Welcome to Dashboard</h1>
-  </section>
-  <section class="content">
-    <div class="row">
-        <div class="col-lg-12">
-          
-          <div class="panel panel-primary filterable">
-            <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
-                   <div class="caption">
-                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    External Commision Report
+       <!-- Main content -->
+       <section class="content-header">
+          <h1>Welcome to Dashboard</h1>
+      </section>
+      <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
+
+              <div class="panel panel-primary filterable">
+                <div class="panel-heading clearfix  ">
+                    <div class="panel-title pull-left">
+                     <div class="caption">
+                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                        External Commision Report
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped table-responsive" id="table1">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Div</th>
-                        <th>A/M</th>
-                        <th>SO Date</th>
-                        <th>SO No</th>
-                        <th>Inv No</th>
-                        <th>Customer</th>
-                        <th>Total Sales</th>
-                        <th>%Extcom Prop.</th>
-                        <th>Extcom Prop.</th>
-                        <th>Nett after Tax Prop</th>
-                        <th>Nett Approved</th>
-                        <th>Payment Date</th>
-                        <th>Payment Through</th>
-                        <th>Proposal</th>
-                        <th>Status</th>
+            <div class="panel-body">
+                <table class="table table-striped table-responsive" id="table1">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Div</th>
+                            <th>A/M</th>
+                            <th>SO Date</th>
+                            <th>SO No</th>
+                            <th>Inv No</th>
+                            <th>Customer</th>
+                            <th>Total Sales</th>
+                            <th>%Extcom Prop.</th>
+                            <th>Extcom Prop.</th>
+                            <th>Nett after Tax Prop</th>
+                            <th>Nett Approved</th>
+                            <th>Payment Date</th>
+                            <th>Payment Through</th>
+                            <th>Proposal</th>
+                            <th>Status</th>
 
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-                   ?>
-                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-                <?php
-											//}
-                ?>
-            </tbody>
-        </table>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                     <?php
+                     $no = 1;
+                     foreach($data->result() as $c)
+                     {
+                        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
+                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer_id)->row();
+                         ?>
+                         <tr>
+                            <td><?php echo $no; $no++;?></td>
+                            <td><?php echo $c->division?></td>
+                            <td><?php echo $am->name?></td>
+                            <td><?php echo $c->so_date?></td>
+                            <td><?php echo $c->so_no?></td>
+                            <td><?php echo $c->inv_no?></td>
+                            <td><?php echo isset($cust->name)?$cust->name:'-'?></td>
+                            <td><?php echo $c->total_so?></td>
+                            <td><?php echo $c->extcom?></td>
+                            <td><?php echo $c->extcom_pro?></td>
+                            <td><?php echo $c->nett?></td>
+                            <td><?php echo $c->approved?></td>
+                            <td><?php echo $c->payment_date?></td>
+                            <td><?php echo $c->through?></td>
+                            <td></td>
+                            <td><?php echo $c->other_status?></td>
+
+                        </tr>
+                        <?php
+						}
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>
 </section>
 </aside>

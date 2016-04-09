@@ -1,4 +1,4 @@
-	<aside class="right-side">
+    <aside class="right-side">
      <!-- Main content -->
      <section class="content-header">
       <h1>Welcome to Dashboard</h1>
@@ -12,15 +12,16 @@
                 <div class="panel-title pull-left">
                    <div class="caption">
                     <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Achievement Detail
+                    A/R Performance - <?php echo date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))?>
                 </div>
             </div>
         </div>
-        <div class="panel-body" style="width:99%;overflow-x:scroll">
+        <div class="panel-body">
             <table class="table table-striped table-responsive" id="table1">
                 <thead>
+                    
                     <tr>
-                       <th>No</th>
+                        <th>No</th>
                         <th>Div</th>
                         <th>A/M</th>
                         <th>SO Date</th>
@@ -35,11 +36,9 @@
                         <th>Due Date</th>
                         <th>Payment Date</th>
                         <th>Overdue</th>
-                        <th>Penalty </th>
-                        <th>Penalty Amount</th>
-                        <th>Net Sales to Claim</th>
 
                     </tr>
+
                 </thead>
                 <tbody>
                    <?php
@@ -49,7 +48,7 @@
                     $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id', $d->am)->row();
                     $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id', $d->customer_id)->row();
                    ?>
-                   <tr>
+                <tr>
                     <td><?php echo $no; $no++;?></td>
                     <td><?php echo $d->division?></td>
                     <td><?php echo isset($am->name)?$am->name:''?></td>
@@ -69,16 +68,10 @@
                     <td><?php echo $d->due_date?></td>
                     <td><?php echo $d->payment?></td>
                     <td><?php echo $d->overdue?></td>
-                    <td><?php if($d->overdue<=0) $penalty =  "YES"; else $penalty = "NO";
-                    echo $penalty;
-                    ?></td>
-                    <td><?php if($penalty=="YES") $pen_amount = ($d->overdue/180) * $net; 
-                    else $pen_amount = 0;
-                    echo $pen_amount?></td>
-                    <td><?php echo $net - $pen_amount?></td>
                 </tr>
+               
                 <?php
-				}
+                }
                 ?>
             </tbody>
         </table>
@@ -111,8 +104,19 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>     <script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+<!-- end of page level js -->       <script>
+        $(document).ready(function(){           $('.delete').on('click',function(){             var btn = $(this);    
+                  bootbox.confirm('Are you sure to delete this record?', function(result){               
+                       if(result ==true){                  
+                          window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');   
+                                          }               });         });     }); 
+        $(document).ready(function() {
+    $('#table1').DataTable( {
+        "order": [[ 14, "asc" ]]
+    } );
+} );
+        </script>
 </body>
 </html>

@@ -12,7 +12,7 @@
                 <div class="panel-title pull-left">
                    <div class="caption">
                     <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Achievement Detail
+                    Sales Profit & Loss Summary - <?php echo date('M',strtotime($this->uri->segment(4)."/1/".date('Y'))) ?>
                 </div>
             </div>
         </div>
@@ -20,66 +20,67 @@
             <table class="table table-striped table-responsive" id="table1">
                 <thead>
                     <tr>
-                       <th>No</th>
+                        <th>No</th>
                         <th>Div</th>
                         <th>A/M</th>
                         <th>SO Date</th>
                         <th>SO No</th>
-                        <th>PO No</th>
-                        <th>Customer</th>
                         <th>Inv No</th>
-                        <th>Inv Date</th>
-                        <th>Inv Amount</th>
-                        <th>Order Status</th>
-                        <th>Net Amount</th>
-                        <th>Due Date</th>
-                        <th>Payment Date</th>
-                        <th>Overdue</th>
-                        <th>Penalty </th>
-                        <th>Penalty Amount</th>
-                        <th>Net Sales to Claim</th>
+                        <th>Customer</th>
+                        <th>Total Sales</th>
+                        <th>Total Purchase</th>
+                        <th>Gross Profit</th>
+                        <th>Salescom</th>
+                        <th>Extcom</th>
+                        <th>Interest</th>
+                        <th>Transport</th>
+                        <th>Adm </th>
+                        <th>Other</th>
+                        <th>Total Cost</th>
+                        <th>E.N.P 1</th>
+                        <th>Adjustment</th>
+                        <th>E.N.P 2</th>
+                        <th>% E.N.P</th>
 
+                        
                     </tr>
                 </thead>
                 <tbody>
-                   <?php
-                   $no = 1;
-                   foreach($detail->result() as $d)
-                   {
-                    $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id', $d->am)->row();
-                    $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id', $d->customer_id)->row();
-                   ?>
+                  <?php
+                     $no = 1;
+                     foreach($data->result() as $c)
+                     {
+                        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
+                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer_id)->row();
+                         ?>
                    <tr>
                     <td><?php echo $no; $no++;?></td>
-                    <td><?php echo $d->division?></td>
-                    <td><?php echo isset($am->name)?$am->name:''?></td>
-                    <td><?php echo $d->so_date?></td>
-                    <td><?php echo $d->so_no?></td>
-                    <td><?php echo $d->po_no?></td>
-                    <td><?php echo isset($cust->name)?$cust->name:''?></td>
-                    <td><?php echo $d->no?></td>
-                    <td><?php echo $d->date?></td>
-                    <td><?php echo number_format($d->amount,0)?></td>
-                    <td><?php echo $d->other_status?></td>
-                    <td><?php if($d->other_status=="Maintain") $net = $d->amount *0.5;
-                        elseif($d->other_status=="Captive") $net = $d->amount * 1;
-                            else $net = 0;
-                            echo $net;
-                    ?></td>
-                    <td><?php echo $d->due_date?></td>
-                    <td><?php echo $d->payment?></td>
-                    <td><?php echo $d->overdue?></td>
-                    <td><?php if($d->overdue<=0) $penalty =  "YES"; else $penalty = "NO";
-                    echo $penalty;
-                    ?></td>
-                    <td><?php if($penalty=="YES") $pen_amount = ($d->overdue/180) * $net; 
-                    else $pen_amount = 0;
-                    echo $pen_amount?></td>
-                    <td><?php echo $net - $pen_amount?></td>
+                    <td><?php echo $c->division?></td>
+                    <td><?php echo $am->name?></td>
+                    <td><?php echo $c->so_date?></td>
+                    <td><?php echo $c->so_no?></td>
+                    <td><?php echo $c->inv_no?></td>
+                    <td><?php echo isset($cust->name)?$cust->name:'-'?></td>
+                    <td><?php echo number_format($c->total_so,0)?></td>
+                    <td><?php echo number_format($c->total_purchase,0)?></td>
+                    <td><?php $gross = $c->total_so - $c->total_purchase; echo number_format($gross,0) ?></td>
+                    <td><?php echo $c->sales?></td>
+                    <td><?php echo $c->extcom_pro?></td>
+                    <td><?php echo $c->bank?></td>
+                    <td><?php echo $c->transport?></td>
+                    <td><?php echo $c->adm?></td>
+                    <td><?php echo $c->other?></td>
+                    <td><?php $total_cost = $c->sales + $c->extcom_pro + $c->bank + $c->transport + $c->adm + $c->other;
+                    echo number_format($total_cost,0) ?></td>
+                    <td><?php $enp1 = $gross - $total_cost; echo number_format($enp1,0);?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    
                 </tr>
-                <?php
-				}
-                ?>
+                 <?php
+                        }
+                        ?>
             </tbody>
         </table>
     </div>

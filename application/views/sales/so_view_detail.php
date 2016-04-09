@@ -44,8 +44,16 @@
                 <tbody>
                  <?php
                  $no = 1;
+                 $subtotal = 0;
+                 $disc = 0;
+                 $deliv = 0;
+
                  foreach($so->result() as $c)
                  {
+                     $subtotal = $subtotal + $c->total;
+                     $disc = $disc + $c->disc;
+                     $deliv = $deliv + $c->delivery;
+
                      ?>
                      <tr>
                        <td><?php echo $no;$no++; ?></td>
@@ -54,10 +62,10 @@
                        <td><?php echo $c->brand; ?></td>
                        <td><?php echo $c->mou; ?></td>
                        <td><?php echo $c->qty; ?></td>
-                       <td><?php echo $c->price; ?></td>
-                       <td><?php echo $c->disc; ?></td>
-                       <td><?php echo $c->nett; ?></td>
-                       <td><?php echo $c->total; ?></td>
+                       <td><?php echo number_format($c->price,0); ?></td>
+                       <td><?php echo number_format($c->disc,0); ?></td>
+                       <td><?php echo number_format($c->nett,0); ?></td>
+                       <td><?php echo number_format($c->total,0); ?></td>
                        <td>
                         <div class='btn-group'>
                          <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
@@ -70,32 +78,35 @@
            </tr>
            <?php
        }
+         $nbtax = $subtotal - $disc + $deliv;
+         $vat = (10/100) * $nbtax;
+         $gran = $nbtax + $vat;
        ?>
        <tr>
            <table class="table table-responsive" style="width: 45%;" align="right">
            <tr>
                <th class="text-right">Subtotal</th>
-                <th class="text-left">123123</th>
+                <th class="text-left"><?php echo number_format($subtotal,0); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Discount</th>
-                <th class="text-left">123123</th>
+                <th class="text-left"><?php echo number_format($disc,0); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Delv. Cost</th>
-                <th class="text-left">123123</th>
+                <th class="text-left"><?php echo number_format($deliv,0); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Nett Before Tax</th>
-                <th class="text-left">123123</th>
+                <th class="text-left"><?php echo number_format($nbtax,0); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Vat 10%</th>
-                <th class="text-left">123123</th>
+                <th class="text-left"><?php echo number_format($vat,0); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Grand Total</th>
-                <th class="text-left">123123</th>
+                <th class="text-left"><?php echo number_format($gran,0); ?></th>
            </tr>
            </table>
        </tr>
