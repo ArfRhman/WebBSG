@@ -158,7 +158,7 @@ if($this->session->userdata('active') == FALSE)
 											</li>
 										</ul>
 									</li>
-									<li <?php if($this->uri->segment(2) == "so" || $ac == "s_forecast" || $ac == "s_achievement" || $ac == "s_profit" || $ac == "s_external" || $ac == "s_period" || $ac == "s_product"  || $ac == "s_account"   || $ac == "s_customer"  || $ac == "s_loss"  || $ac == "s_ar"   || $ac == "s_stock" || $ac == "s_division") echo "class='active'"; ?>>
+									<li <?php if($ac == "s_forecast" || $ac == "s_achievement" || $ac == "s_profit" || $ac == "s_external" || $ac == "s_period" || $ac == "s_product"  || $ac == "s_account"   || $ac == "s_customer"  || $ac == "s_loss"  || $ac == "s_ar"   || $ac == "s_stock" || $ac == "s_division") echo "class='active'"; ?>>
 										<a href="#">
 											<i class="livicon" data-name="barchart" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i>
 											<span class="title">Sales Report</span>

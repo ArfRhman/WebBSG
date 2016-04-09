@@ -1259,6 +1259,12 @@ function item()
 		$json = json_encode($data);
 		echo $json;
 		break;
+		case 'get_item':
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $id)->row();
+		$json = json_encode($data);
+		echo $json;
+		break;
 	}
 }
 
