@@ -50,7 +50,7 @@
                                 </select> 
                             </td>
                             <td>
-                                <input type="text" name="periode" class="form-control datepicker" placeholder="Periode" />
+                                <input type="text" name="periode" class="form-control" placeholder="Periode" />
                             </td>
                             <td>
                                <select name="operator" class="form-control">
