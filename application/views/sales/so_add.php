@@ -57,18 +57,18 @@
                                             ?>
                                         </select> </div>																						<label class="col-md-2 control-label" for="email">Customer Name</label>   
                                         <div class="col-md-3">												
-                                            <input id="custName" name="customer_name" placeholder="Address" class="form-control" type="text">
+                                            <input id="custName" name="customer_name" placeholder="Address" class="form-control" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="email">Address</label>
                                         <div class="col-md-3">
-                                            <input id="custAddr" name="address" placeholder="Address" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Phone</label>                                            <div class="col-md-3">                                                <input id="custPhone" name="phone" placeholder="Phone" class="form-control" type="text"></div>
+                                            <input id="custAddr" name="address" placeholder="Address" class="form-control" type="text" readonly></div>																						<label class="col-md-2 control-label" for="email">Phone</label>                                            <div class="col-md-3">                                                <input id="custPhone" name="phone" placeholder="Phone" class="form-control" type="text" readonly></div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Fax</label>
                                             <div class="col-md-3">
-                                                <input id="custFax" name="fax" placeholder="Fax" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Account Manager</label>                                            <div class="col-md-3">
+                                                <input id="custFax" name="fax" placeholder="Fax" class="form-control" type="text" readonly></div>																						<label class="col-md-2 control-label" for="email">Account Manager</label>                                            <div class="col-md-3">
 
                                                 <select name="am" class="form-control">
                                                     <?php

@@ -1,6 +1,6 @@
 	<aside class="right-side">
-     <!-- Main content -->
-     <section class="content-header">
+       <!-- Main content -->
+       <section class="content-header">
         <h1>Welcome to Dashboard</h1>
     </section>
     <section class="content">
@@ -9,23 +9,23 @@
             <div class="panel panel-primary filterable">
               <div class="panel-heading clearfix  ">
                 <div class="panel-title pull-left">
-                   <div class="caption">
-                      <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                      Sales By Customer
-                  </div>
+                 <div class="caption">
+                  <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                  Sales By Customer
               </div>
           </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <div class="col-md-3">
-                <select id="categories" class="form-control">
-                    <option value="1">Year to date of Operator</option>
-                    <option value="2">Year to date of Mitra</option>
-                </select>
-            </div>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-md-3">
+            <select id="categories" class="form-control">
+                <option value="1">Year to date of Operator</option>
+                <option value="2">Year to date of Mitra</option>
+            </select>
         </div>
-        <div id="containers" style="width:100%; height:400px;"></div>
     </div>
+    <div id="containers" style="width:100%; height:400px;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -52,7 +52,7 @@
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-$(document).ready(function () {
+    $(document).ready(function () {
         var data = <?=$op?>;
         var title = 'Sales By Customer';
         graphic(data,title);
@@ -87,25 +87,35 @@ $(document).ready(function () {
                 text: title
             },
             tooltip: {
+<<<<<<< 35d875a6fafae57f32f20ecd3dde7cde112ea31c
                 pointFormat: 'Amount SO : {point.y} / <b>{point.percentage:.1f}%</b>'
+=======
+                pointFormat: 'Amount SO :  <b>{point.y} </b> <br> % :  <b>{point.percentage:.1f} </b>'
+>>>>>>> 6b13cc1bbc57cee4f41cda12dc2a1913b2b4e5b5
             },
             plotOptions: {
                 pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                    enabled: true,
+                    format: 'Amount SO :  <b> {point.y} </b> <br> % :  <b> {point.percentage:.1f}  </b>'
+                // formatter: function () {
+                //   return 'Amount SO : <b> ' + this.point.y + '</b><br> % : <b> ' + this.point.percentage + ' </b>';
+                // }
             },
-            'series': [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: data1
-            }]
-        });
-    }
+            showInLegend: true
+        }
+    },
+
+    
+    'series': [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: data1
+    }]
+});
+}
 
 </script>
 </body>
