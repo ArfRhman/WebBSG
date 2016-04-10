@@ -122,6 +122,21 @@
           },  
           ]*/
           <?=json_encode($drill_op)?>
+
+          /* contoh data pie op */
+         //   {
+         //   name: 'Operator1', // diisi nama operator
+         //   type: 'pie',
+         //   id: 'Operator1', // diisi nama operator ato id operator gimana drilldown nya
+         //   data: [
+         //   ['Customer 1', 10],
+         //   ['Customer 2', 20],
+         //   ['Customer 3', 20],
+         //   ['Customer 4', 10],
+         //   ['Customer 5', 20],
+         //   ]
+         // }
+         /*end contoh data pie op */
        }
      });
 });
