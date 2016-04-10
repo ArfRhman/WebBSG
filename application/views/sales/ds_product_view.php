@@ -60,18 +60,11 @@
 <!-- end of page level js -->
 <script type="text/javascript">
   $(document).ready(function () {
-    var data1 = [
-               // data JSON Pie Chart Default
-               {name: 'Item 1',y: 30,},// y = amount SO, 
-               {name: 'Item 2',y: 24.03,},
-               {name: 'Item 3',y: 10.38,},
-               {name: 'Item 4',y: 4.77,},
-               {name: 'Item 5',y: 4.91,},
-               {name: 'Others',y: 2.2,}];
-               var title = 'Sales By Product (Year to Date)';
-               graphic(data1,title);
-               $("#categories").change(function(){
-                var cat = $("#categories").val();
+    var data1 = <?=$data?>;
+    var title = 'Sales By Product (Year to Date)';
+    graphic(data1,title);
+    $("#categories").change(function(){
+      var cat = $("#categories").val();
                 if(cat == "1"){ // year to date SO
                  $("#tahun").hide();
                  title = 'Sales By Product (Year to Date)';

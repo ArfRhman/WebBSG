@@ -110,7 +110,23 @@ class Sales extends CI_Controller {
 			break;
 			case 'product':
 			$data['ac'] = "s_ds_product";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$pro = $this->mddata->getDsProduct();
+			$dataPro=array();
+			foreach($pro as $p){
+				$dataPro[$p['kategori']]['name']=$p['kategori'];
+				$dataPro[$p['kategori']]['y']=intval($p['y']);
+			}
+			$slice = array_slice($dataPro, 0, 4);
+			$other = array_slice($dataPro, 5, count($dataPro));
+			$new = array(
+				'name' => 'Others',
+				'y'=>0
+				);
+			foreach($other as $ot){
+				$new['y']+=$ot['y'];
+			}
+			$slice[]=$new;
+			$data['data']=json_encode(array_values($slice));
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_product_view', $data);
 			break;
