@@ -162,22 +162,22 @@ class model_data extends CI_Model {
 	}
 
 	function getForecast(){
-		$query = $this->db->query("SELECT * from tbl_sale_target where YEAR(str_to_date(periode,'%d %b %Y')) > 2015")->result_array();
+		$query = $this->db->query("SELECT *,sum(amount) as y, YEAR(str_to_date(periode,'%M %Y')) as period FROM tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) > 2015 group by period order by y DESC")->result_array();
 		return $query;
 	}
 
 	function getQtySo(){
-		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as periode from tbl_sale_so,tbl_sale_so_detail where YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) > 2015 AND tbl_sale_so.id = tbl_sale_so_detail.id_so")->result_array();
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period from tbl_sale_so,tbl_sale_so_detail where YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) > 2015 AND tbl_sale_so.id = tbl_sale_so_detail.id_so")->result_array();
 		return $query;
 	}
 
 	function getForecastOp(){
-		$query = $this->db->query("SELECT *,count(operator) as total FROM tbl_sale_target,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_target.operator group by periode, operator order by total DESC limit 0,5")->result_array();
+		$query = $this->db->query("SELECT *,sum(amount) as y,YEAR(str_to_date(periode,'%M %Y')) as period FROM tbl_sale_target,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_target.operator group by period, operator order by y DESC")->result_array();
 		return $query;
 	}
 
 	function getSoOp(){
-		$query = $this->db->query("SELECT *,count(operator) as total_op,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as periode FROM tbl_sale_so,tbl_sale_so_detail where tbl_sale_so_detail.id_so = tbl_sale_so.id group by periode, operator order by total_op DESC limit 0,5")->result_array();
+		$query = $this->db->query("SELECT *,sum(qty) as y,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period FROM tbl_sale_so,tbl_sale_so_detail,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_so.operator AND tbl_sale_so_detail.id_so = tbl_sale_so.id group by period, operator order by y DESC")->result_array();
 		return $query;
 	}
 
@@ -215,12 +215,12 @@ class model_data extends CI_Model {
 
 
 	//untuk dashboard customer
-	function getCustomerOperator(){
+	function getCustomerOperator($id){
 		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id group by operator order by y DESC")->result_array();
 		return $query;
 	}
 
-	function getCustomerCust(){
+	function getCustomerCust($id){
 		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id order by y DESC")->result_array();
 		return $query;	
 	}

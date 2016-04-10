@@ -17,14 +17,29 @@
       </div>
       <div class="panel-body">
         <div class="form-group">
-          <div class="col-md-3">
-            <select id="categories" class="form-control">
+            <div class="col-md-3">
+              <select id="categories" class="form-control">
+                <option>-- Pilih Grafik --</option>
                 <option value="1">Year to date of Operator</option>
-                <option value="2">Year to date of Mitra</option>
+                <option value="2">Year to date of Customer</option>
             </select>
         </div>
-    </div>
-    <div id="containers" style="width:100%; height:400px;"></div>
+        <div class="col-md-3">
+          <select class="form-control" id="am" style="display:none;">
+            <option value="">-- Pilih Operator --</option>
+            <?php
+            $sql = $this->mddata->getAllDataTbl('tbl_dm_operator');
+            foreach($sql->result() as $s)
+            {
+              ?>
+              <option value="<?php echo $s->id;?>-<?php echo $s->name;?>"><?php echo $s->name ?></option>
+              <?php
+          }
+          ?>
+      </select>
+  </div>
+</div>
+<div id="containers" style="width:100%; height:400px;"></div>
 </div>
 </div>
 </div>
@@ -52,28 +67,34 @@
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
 <script type="text/javascript">
-    $(document).ready(function () {
-        var data = <?=$op?>;
-        var title = 'Sales By Customer';
-        graphic(data,title);
-        $("#categories").change(function(){
-            var cat = $("#categories").val();
-            if(cat == "1"){
-                title = 'Sales By Customer (Year to Date of Operator)';
-                $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerOp',function(data){
-                    graphic(JSON.parse(data),title);
-                });
-                
-            }else if(cat == "2"){
-                title = 'Sales By Customer (Year to Date of Mitra)';
-                $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerCust',function(data){
-                    graphic(JSON.parse(data),title);
-                });
-            }
-            graphic(data,title);
-        });
-    });
-    
+    $(document).ready(function(){
+       var data1;
+       var amsplit;
+       var am;
+       var title;
+       $("#categories,#am").change(function(){
+          var cat = $("#categories").val();
+            if(cat == "1"){ // data operator
+             $("#am").show();
+             amsplit = $("#am").val().split('-');
+             am = amsplit[1];
+             title = 'Year to Date of Operators ('+am+')';
+             $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerOp/'+amsplit[0],function(data){
+              graphic(JSON.parse(data),title);
+          });
+
+           }else if(cat == "2"){ // data customer
+             $("#am").show();
+             amsplit = $("#am").val().split('-');
+             am = amsplit[1];
+             title = 'Year to Date of Customer ('+am+')';
+             $.get('<?=base_url()?>index.php/sales/dashboard/getCustomer/'+amsplit[0],function(data){
+              graphic(JSON.parse(data),title);
+          });
+         }
+     });
+   });
+
     function graphic(data1,title,categ){
         // Build the chart
         $('#containers').highcharts({
@@ -87,11 +108,7 @@
                 text: title
             },
             tooltip: {
-<<<<<<< 35d875a6fafae57f32f20ecd3dde7cde112ea31c
-                pointFormat: 'Amount SO : {point.y} / <b>{point.percentage:.1f}%</b>'
-=======
                 pointFormat: 'Amount SO :  <b>{point.y} </b> <br> % :  <b>{point.percentage:.1f} </b>'
->>>>>>> 6b13cc1bbc57cee4f41cda12dc2a1913b2b4e5b5
             },
             plotOptions: {
                 pie: {

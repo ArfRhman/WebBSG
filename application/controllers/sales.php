@@ -26,18 +26,16 @@ class Sales extends CI_Controller {
 			$forecast = $this->mddata->getForecast();
 			$maxF=2016;
 			foreach($forecast as $f){
-				if(intval($f['periode'])>$maxF){
-					$maxF=$f['periode'];
+				if(intval($f['period'])>$maxF){
+					$maxF=$f['period'];
 				}
 			}
-			print_r($forecast);
-			die();
 
 			$so = $this->mddata->getQtySo();
 
 			foreach($so as $s){
-				if(intval($s['periode'])>$maxF){
-					$maxF=$s['periode'];
+				if(intval($s['period'])>$maxF){
+					$maxF=$s['period'];
 				}	
 			}
 
@@ -62,30 +60,32 @@ class Sales extends CI_Controller {
 			$dataSo = $dataFo;
 
 			foreach($forecast as $f){
-				$dataFo[$f['periode']]['y']+=$f['amount'];
+				$dataFo[$f['period']]['y']+=intval($f['y']);
 			}
 
 			foreach($so as $s){
-				$dataSo[$s['periode']]['y']+=$s['qty'];
+				$dataSo[$s['period']]['y']+=intval($s['qty']);
 			}
+			
 			
 			$forecastOp = $this->mddata->getForecastOp();
 			$soOp = $this->mddata->getSoOp();
 
 			foreach ($forecastOp as $f) {
-				$opFo[$f['periode']]['data'][$f['operator']]['name']='Forecast - '.$f['name'];
-				$opFo[$f['periode']]['data'][$f['operator']]['y']=$f['total'];
-				$opFo[$f['periode']]['data'][$f['operator']]['drilldown']=$f['name'];
-				$opFo[$f['periode']]['data'][$f['operator']]['color']='forcastColor';
+				$opFo[$f['period']]['data'][$f['operator'].'f']['name']='Forecast - '.$f['name'];
+				$opFo[$f['period']]['data'][$f['operator'].'f']['y']=intval($f['y']);
+				$opFo[$f['period']]['data'][$f['operator'].'f']['drilldown']=$f['name'];
+				$opFo[$f['period']]['data'][$f['operator'].'f']['color']='#7CB5EC';
 			}
-
+			
 			foreach($soOp as $s){
-				$opFo[$s['periode']]['data'][$s['operator']]['name']='SO - '.$f['name'];
-				$opFo[$s['periode']]['data'][$s['operator']]['y']=$f['total'];
-				$opFo[$s['periode']]['data'][$s['operator']]['color']='soColor';	
+				$opFo[$s['period']]['data'][$s['operator'].'s']['name']='SO - '.$s['name'];
+				$opFo[$s['period']]['data'][$s['operator'].'s']['y']=intval($s['y']);
+				$opFo[$s['period']]['data'][$s['operator'].'s']['color']='#434348';	
 			}
 
 			$res = array();
+			
 			foreach($opFo as $key => $r){
 				$res[$key]['name']=$r['name'];
 				$res[$key]['type']=$r['type'];
@@ -93,12 +93,9 @@ class Sales extends CI_Controller {
 				$res[$key]['data']=array_values($r['data']);
 			}
 			
-			
 			$data['Fo']=array_values($dataFo);
 			$data['So']=array_values($dataSo);
 			$data['drill_op']=array_values($res);
-			//print_r(json_encode($data['drill_op']));
-			//die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_forecast_view', $data);
 			break;
@@ -175,7 +172,7 @@ class Sales extends CI_Controller {
 			break;
 			case 'customer':
 			$data['ac'] = "s_customer_am";
-			$op = $this->mddata->getCustomerOperator();
+			$op = $this->mddata->getCustomerOperator($this->uri->segment(4));
 			$dataOp = array();
 			foreach($op as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
@@ -187,7 +184,7 @@ class Sales extends CI_Controller {
 			break;
 			case 'getCustomerOp':
 			$dataOp = array();
-			$op = $this->mddata->getCustomerOperator();
+			$op = $this->mddata->getCustomerOperator($this->uri->segment(4));
 			foreach($op as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
 				$dataOp[$o['operator']]['y']=intval($o['y']);
