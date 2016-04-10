@@ -16,12 +16,10 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="width:99%;overflow-x:scroll">
             <table class="table table-striped table-responsive" id="table1">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Div</th>
                         <th>No</th>
                         <th>Div</th>
                         <th>A/M</th>
@@ -48,40 +46,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                   <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-                   ?>
+                  <?php
+                     $no = 1;
+                     foreach($data->result() as $c)
+                     {
+                        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
+                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer_id)->row();
+                         ?>
                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo $no; $no++;?></td>
+                    <td><?php echo $c->division?></td>
+                    <td><?php echo $am->name?></td>
+                    <td><?php echo $c->so_date?></td>
+                    <td><?php echo $c->so_no?></td>
+                    <td><?php echo $c->inv_no?></td>
+                    <td><?php echo isset($cust->name)?$cust->name:'-'?></td>
+                    <td><?php echo number_format($c->total_so,0)?></td>
+                    <td><?php echo number_format($c->total_purchase,0)?></td>
+                    <td><?php $gross = $c->total_so - $c->total_purchase; echo $gross ?></td>
+                    <td><?php echo $c->sales?></td>
+                    <td><?php echo $c->extcom_pro?></td>
+                    <td><?php echo $c->bank?></td>
+                    <td><?php echo $c->transport?></td>
+                    <td><?php echo $c->adm?></td>
+                    <td><?php echo $c->other?></td>
+                    <td><?php $total_cost = $c->sales + $c->extcom_pro + $c->bank + $c->transport + $c->adm + $c->other;
+                    echo number_format($total_cost,0) ?></td>
+                    <td><?php $enp1 = $gross - $total_cost; echo $enp1;?></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     
                 </tr>
-                <?php
-											//}
-                ?>
+                 <?php
+                        }
+                        ?>
             </tbody>
         </table>
     </div>

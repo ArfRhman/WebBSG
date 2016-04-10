@@ -48,7 +48,19 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="email">Expediture Name</label>
                                         <div class="col-md-3">
-                                            <input id="email" name="name" placeholder="Expediture Name" class="form-control" type="text"></div>
+                                            <input type="text" class="form-control" placeholder="Expediture Name" name="name" list="divisionList">
+                                          <datalist id="divisionList">
+                                                   <?php
+                                                    $sql = $this->mddata->getAllDataTbl('tbl_dm_forwarder');
+                                                    foreach($sql->result() as $s)
+                                                    {
+                                                      ?>
+                                                      <option value="<?php echo $s->name; ?>"></option>
+                                                      <?php
+                                                  }
+                                                  ?>
+                                                  </datalist>
+                                                  </div>
                                             <label class="col-md-2 control-label" for="email">Delivery Method</label>
                                             <div class="col-md-3">
                                                 <select name="method" class="form-control">
