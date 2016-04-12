@@ -26,13 +26,13 @@
         </div>
         <div class="col-md-3">
           <select class="form-control" id="am" style="display:none;">
-            <option value="">-- Pilih Operator --</option>
+            <option value="">-- Pilih Customer --</option>
             <?php
-            $sql = $this->mddata->getAllDataTbl('tbl_dm_operator');
+            $sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
             foreach($sql->result() as $s)
             {
               ?>
-              <option value="<?php echo $s->id;?>-<?php echo $s->name;?>"><?php echo $s->name ?></option>
+              <option value="<?php echo $s->customer_id;?>-<?php echo $s->name;?>"><?php echo $s->name ?></option>
               <?php
           }
           ?>
@@ -80,15 +80,15 @@
              am = amsplit[1];
              title = 'Year to Date of Operators ('+am+')';
              $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerOp/'+amsplit[0],function(data){
+              console.log(amsplit[0]);
+              console.log(data);
               graphic(JSON.parse(data),title);
           });
 
            }else if(cat == "2"){ // data customer
-             $("#am").show();
-             amsplit = $("#am").val().split('-');
-             am = amsplit[1];
-             title = 'Year to Date of Customer ('+am+')';
-             $.get('<?=base_url()?>index.php/sales/dashboard/getCustomer/'+amsplit[0],function(data){
+             $("#am").hide();
+             title = 'Year to Date of Customer';
+             $.get('<?=base_url()?>index.php/sales/dashboard/getCustomerCust',function(data){
               graphic(JSON.parse(data),title);
           });
          }

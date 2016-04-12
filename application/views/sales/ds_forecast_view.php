@@ -44,7 +44,7 @@
       legend: {
         enabled: true
       },
-     
+      
       plotOptions: {
         series: {
           borderWidth: 0,
@@ -61,25 +61,8 @@
           name: 'SO',
           data: <?=json_encode($So)?>
           ,}],
-
-        // series: [{
-        //     name: 'Things',
-        //     colorByPoint: true,
-        //     data: [{
-        //         "name": 'Animals',
-        //         "y": 5,
-        //         drilldown: 'animals'
-        //     }, {
-        //         name: 'Fruits',
-        //         y: 2,
-        //         drilldown: 'fruits'
-        //     }, {
-        //         name: 'Cars',
-        //         y: 4,
-        //         drilldown: 'cars'
-        //     }]
-        // }],
-        drilldown: {
+          
+          drilldown: {
 
           series: /*[
           {
