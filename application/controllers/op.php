@@ -986,6 +986,75 @@ function price()
 		$this->load->view('top', $data);				
 		$this->load->view('op/price_add', $data);								
 		break;
+		case 'save':
+		$p = $this->input->post();
+		$data=array(
+			'created_date'=>$p['created'],
+			'presented_date'=>$p['presented'],
+			'shared_date'=>$p['shared'],
+			'effective_from'=>$p['effective'],
+			'effective_fill'=>$p['til'],
+			'usd'=>$p['usd'],
+			'sgd'=>$p['sgd'],
+			'eur'=>$p['eur'],
+			'price_term'=>$p['price'],
+			'delivery_term'=>$p['delivery'],
+			'validity_term'=>$p['validity'],
+			'other_term'=>$p['other']
+			);
+		$this->mddata->insertIntoTbl('tbl_op_pl_header',$data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'tabel_view':
+		break;
+		case 'tabel_save':
+		/*
+		$data = array(
+			'no'
+			'item_id'
+			'division'
+			'category'
+			'item_name'
+			'mou'
+			'brand'
+			'source'
+			'incoterm'
+			'currency'
+			'purchase_price'
+			'percen_stc'
+			'ftc'
+			'ddp_price'
+			'ddp_idr'
+			'percen_crosscomp'
+			'crosscomp_price'
+			'percen_price_list'
+			'price_list'
+			'percen_cash'
+			'cash'
+			'percen_skbdn'
+			'skbdn_price'
+			'percen_credit_1_month'
+			'credit_1_month'
+			'percen_credit_2_month'
+			'credit_2_month'
+			'precen_credit_3_month'
+			'credit_3_month'
+			'percen_credit_4_month'
+			'credit_4_month'
+			'special_condition'
+			'khs_price'
+			'percen_pricelist_to_khs'
+			'percen_nett_cash_to_khs'
+			'competitor_1'
+			'competitor_1_name'
+			'competitor_2'
+			'competitor_2_name'
+			'competitor_3'
+			'competitor_3_name'
+			);
+			*/
+		break;
 	}
 }
 function payment()
