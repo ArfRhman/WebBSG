@@ -493,7 +493,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['sup'] = $this->mddata->getSupplyReport();
 			$this->load->view('top', $data);
 			$this->load->view('op/supply_report_view', $data);
 			break;

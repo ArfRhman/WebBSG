@@ -242,4 +242,11 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
+	//[OP] untuk Supply Report
+
+	function getSupplyReport(){
+		$query = $this->db->query("SELECT *,tbl_sale_so_delivery.delivery as deli_date from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery where  tbl_sale_so.id = tbl_sale_so_detail.id_so AND tbl_sale_so.id=tbl_sale_so_delivery.id_so");
+		return $query;
+	}
+
 }

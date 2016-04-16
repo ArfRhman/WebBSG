@@ -55,7 +55,7 @@
                                                     foreach($sql->result() as $s)
                                                     {
                                                       ?>
-                                                      <option value="<?php echo $s->name; ?>"></option>
+                                                      <option value="<?php echo $s->id; ?>"></option>
                                                       <?php
                                                   }
                                                   ?>
