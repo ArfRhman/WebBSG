@@ -34,7 +34,6 @@
                             <th>Nett Approved</th>
                             <th>Payment Date</th>
                             <th>Payment Through</th>
-                            <th>Proposal</th>
                             <th>Status</th>
 
 
@@ -47,8 +46,8 @@
                      {
                         $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
                         $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer_id)->row();
-                         ?>
-                         <tr>
+                        ?>
+                        <tr>
                             <td><?php echo $no; $no++;?></td>
                             <td><?php echo $c->division?></td>
                             <td><?php echo $am->name?></td>
@@ -63,18 +62,26 @@
                             <td><?php echo $c->approved?></td>
                             <td><?php echo $c->payment_date?></td>
                             <td><?php echo $c->through?></td>
-                            <td></td>
-                            <td><?php echo $c->other_status?></td>
+                            <td><?php 
+                            $now = time(); // or your date as well
+                            $your_date = strtotime($c->payment_date);
+                            $datediff = floor(($now - $your_date)/(60*60*24));
+                            if($datediff > 0){
+                                echo "CLOSE";
+                            }else{
+                                echo "OPEN";
+                            }
+                            ?></td>
 
                         </tr>
                         <?php
-						}
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 </div>
 </section>
 </aside>

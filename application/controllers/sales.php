@@ -1646,16 +1646,81 @@ function target()
 	}
 }
 // BEGIN REPORT
+//UBAH - UBAH
 function forecast()
 {
 	$data['ac'] = "s_forecast";
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_target');
 		$this->load->view('top', $data);
 		$this->load->view('sales/forecast_view', $data);
-		break;			
+		break;	
+		case 'getCustomer':
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_sale_target', 'operator', $id)->result();
+		foreach ($data as $d) {
+			$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $d->customer)->row();
+			echo "<option value=".$cust->id.">".$cust->name."</option>";
+		}
+		break;
+		case 'getOtherData':
+		$id = $_POST['id'];
+		$target = $this->db->query('SELECT
+			SUM(amount) as total
+			FROM
+			tbl_sale_target
+			WHERE
+			operator = '.$id
+			)->row();
+		$so = $this->db->query('SELECT
+			SUM(qty) as total
+			FROM
+			tbl_sale_so_detail
+			WHERE
+			id_so IN (
+				SELECT
+				id
+				FROM
+				tbl_sale_so
+				WHERE
+				operator ='.$id.'
+				)')->row();
+		$data = array('forecast'=>$target->total,'order'=>$so->total,'percentage'=>number_format(100*$so->total/$target->total,2,'.','').'%');
+		echo json_encode($data);
+		break;	
+		case'getDataForecast':
+		$in = $this->mddata->getDataFromTblWhere('tbl_sale_target','operator',$_POST['id']);
+		$no = 1;
+		if(count($in)>0){
+			foreach($in->result() as $c)
+			{
+				$am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
+				$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
+				$opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
+				$so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$c->customer,'operator'=>$c->operator))->row();
+				$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',$so->id)->row();
+
+				?>
+				<tr>
+					<td><?php echo $no; $no++;?></td>
+					<td><?php echo $opr->name?></td>
+					<td><?php echo $cust->name?></td>
+					<td><?php echo $am->name?></td>
+					<td><?php echo $so->so_no?></td>
+					<td><?php echo $so->so_date?></td>
+					<td><?php echo $inv->no?></td>
+					<td><?php echo $inv->amount?></td>
+
+				</tr>
+				<?php
+			}
+		}else
+		{
+			echo"<tr><td colspan=8>Tidak Ada Data</td></tr>";
+		}
+
+		break;	
 	}
 }
 function period()
@@ -1727,12 +1792,34 @@ function customer()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+			$data['data'] = $this->mddata->getAllDataTbl('tbl_dm_customer');
 		$this->load->view('top', $data);
 		$this->load->view('sales/customer_view', $data);
 		break;	
 		case 'detail':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+			$data['detail'] = $this->db->query("SELECT
+				so_no,
+				am,
+				division,
+				so_date,
+				customer_id,
+				po_no,
+				po_date,
+				other_status,
+				inv.amount,
+				no,
+				date,
+				due,
+				received_date,
+				payment_date as payment,
+				due_date,
+				DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y')) as overdue
+				FROM
+				tbl_sale_so so
+				LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+				LEFT JOIN tbl_sale_so_payment p ON p.id_so = so.id
+				WHERE
+				customer_id = '".$this->uri->segment(4)."'");
 		$this->load->view('top', $data);
 		$this->load->view('sales/customer_detail', $data);
 		break;			

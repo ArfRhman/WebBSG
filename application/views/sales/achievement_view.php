@@ -50,19 +50,41 @@
                      {
                        $target = $this->db->query('SELECT SUM(amount) as total from tbl_sale_target WHERE SUBSTR(periode,1,3)="'.SUBSTR($b,0,3).'" AND SUBSTR(periode,5,4)='.$thn)->row();
                        $payment = $this->db->query('SELECT SUM(amount) as total from tbl_sale_so_payment WHERE SUBSTR(payment_date,4,3)="'.SUBSTR($b,0,3).'" AND SUBSTR(payment_date,8,4)='.$thn)->row();
+                       $so = $this->db->query("SELECT SUM(grand_total) as total FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                       $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                       $d = $this->db->query("SELECT
+                        other_status,
+                        inv.amount,
+                        DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y')) as overdue
+                        FROM
+                        tbl_sale_so so
+                        LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+                        LEFT JOIN tbl_sale_so_payment p ON p.id_so = so.id
+                        WHERE
+                        SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".date('Y'))->result();
+                       $total_penalty = 0;
+                       $total_net_claim = 0;
+                       foreach ($d as $c) {
+                        if($c->other_status == "Maintain") $net = $c->amount * 50/100;
+                        else $net = $c->amount;
 
-                       ?>
-                       <tr>
+                        if($c->overdue < 0) $pen = ($c->overdue/180) * $net;
+                        else $pen= 0;
+                        $total_penalty +=$pen;
+                        $total_net_claim += $net - $pen;
+                    }  
+                    ?>
+                    <tr>
                         <td><?php echo $no?></td>
                         <td><?php echo $b?></td>
                         <td><?php echo number_format($target->total, 0)?></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?php echo number_format($so->total, 0)?></td>
+                        <td><?php echo ($target->total!=0)?number_format(100*$so->total/$target->total, 2,'.',''):'0'?>%</td>
+                        <td><?php echo number_format($inv->total, 0)?></td>
+                        <td><?php echo ($target->total!=0)?number_format(100*$inv->total/$target->total, 2,'.',''):'0'?>%</td>
+                        <td><?php echo number_format($inv->total-$so->total, 0)?></td>
+                        <td><?php echo number_format($total_penalty, 0)?></td>
+                        <td><?php echo number_format($total_net_claim, 0)?></td>
                         <td></td>
                         <td></td>
                         <td><?php echo number_format($payment->total, 0)?></td>
@@ -103,7 +125,7 @@
                             <td align="center"></td>
                             <?php }else{ ?>
                             <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                               <?php } ?>
+                            <?php } ?>
 
                         </tr>
                         <?php
@@ -130,7 +152,7 @@
                             <td align="center"></td>
                             <?php }else{ ?>
                             <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                               <?php } ?>
+                            <?php } ?>
 
                         </tr>
                         <?php
@@ -143,22 +165,22 @@
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</td>
                     <?php if($no/12 <= ceil(date('n')/12)) {?>
                     <td align="right"><?php echo number_format($total_target,0)?></td>
-                            <td align="right"></td>
-                            <td align="center"></td>
-                            <td align="right"></td>
-                            <td align="center"></td>
-                            <td align="center"></td>
-                            <td align="right"></td>
-                            <td align="center"></td>
-                            <td align="right"></td>
-                            <td align="center"></td>
-                            <td align="right"><?php echo number_format($total_payment,0)?></td>
-                            <td align="center"></td>
-                            <td align="center"></td>
-                            <td align="center"></td>
-                            <?php }else{ ?>
-                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                               <?php } ?>
+                    <td align="right"></td>
+                    <td align="center"></td>
+                    <td align="right"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="right"></td>
+                    <td align="center"></td>
+                    <td align="right"></td>
+                    <td align="center"></td>
+                    <td align="right"><?php echo number_format($total_payment,0)?></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <td align="center"></td>
+                    <?php }else{ ?>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <?php } ?>
 
                 </tr>
             </tbody>
