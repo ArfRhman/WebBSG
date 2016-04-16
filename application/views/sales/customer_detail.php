@@ -36,27 +36,34 @@
                 </thead>
                 <tbody>
                    <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
+                   $no = 1;
+                   foreach($detail->result() as $d)
+                   {
+                    $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id', $d->am)->row();
+                    $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id', $d->customer_id)->row();
                    ?>
-                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr>
+                    <td><?php echo $no; $no++;?></td>
+                    <td><?php echo $d->division?></td>
+                    <td><?php echo isset($am->name)?$am->name:''?></td>
+                    <td><?php echo $d->so_date?></td>
+                    <td><?php echo $d->so_no?></td>
+                    <td><?php echo $d->po_no?></td>
+                    <td><?php echo isset($cust->name)?$cust->name:''?></td>
+                    <td><?php echo $d->no?></td>
+                    <td><?php echo $d->date?></td>
+                    <td><?php echo number_format($d->amount,0)?></td>
+                    <td><?php echo $d->other_status?></td>
+                    <td><?php if($d->other_status=="Maintain") $net = $d->amount *0.5;
+                        elseif($d->other_status=="Captive") $net = $d->amount * 1;
+                            else $net = 0;
+                            echo $net;
+                    ?></td>
                     
                 </tr>
+               
                 <?php
-											//}
+                }
                 ?>
             </tbody>
         </table>

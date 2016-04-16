@@ -1076,6 +1076,26 @@ function payment()
 		$this->load->view('top', $data);
 		$this->load->view('op/payment_edit', $data);
 		break;	
+
+		case "tabel_view":
+				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+		$this->load->view('top', $data);
+		$this->load->view('op/payment_table_view', $data);
+		break;	
+
+		case "tabel_add":
+		$this->load->view('top', $data);
+		$this->load->view('op/payment_table_add', $data);
+		break;	
+
+		case "tabel_edit":
+		$this->load->view('top', $data);
+		$this->load->view('op/payment_table_edit', $data);
+		break;	
+
+		case "detail":
+		$this->load->view('op/payment_detail', $data);
+		break;
 	}
 }
 function budget()
