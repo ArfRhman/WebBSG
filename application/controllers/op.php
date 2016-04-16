@@ -978,7 +978,7 @@ function price()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+		$data['price'] = $this->mddata->getAllDataTbl('tbl_op_pl_header');
 		$this->load->view('top', $data);
 		$this->load->view('op/price_view', $data);
 		break;
