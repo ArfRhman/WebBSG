@@ -523,7 +523,7 @@ if($this->session->userdata('active') == FALSE)
 										?>
 									</ul>
 								</li>
-								<li <?php if($ac == "op_po" || $ac == "op_price" || $ac == "op_budget" || $ac== "op_realisasi" || $ac =="op_stock") echo "class='active'; "?>>
+								<li <?php if($ac == "op_po" || $ac == "op_price" || $ac == "op_budget" || $ac== "op_realisasi" || $ac =="op_stock" || $ac =="op_petty") echo "class='active'; "?>>
 									<a href="#">
 										<i class="livicon" data-name="table" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
 										<span class="title">Transaction</span>
@@ -556,8 +556,8 @@ if($this->session->userdata('active') == FALSE)
 										if($this->mddata->access($this->session->userdata('group'), 'd14')->d14 >= 1)
 										{
 											?>
-											<li>
-												<a href="#">
+											<li <?php if($ac == "op_petty") echo "class='active'";?>>
+												<a href="<?php echo site_url('op/petty/view'); ?>">
 													<i class="fa fa-angle-double-right"></i>
 													Petty Cash
 												</a>

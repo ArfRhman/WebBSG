@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>							<a href="<?php echo site_url('op/stock/add')?>" class="btn btn-success">Add New Data</a>
+          ?>							<a href="<?php echo site_url('op/petty/add')?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>
@@ -18,52 +18,81 @@
             <div class="panel-title pull-left">
              <div class="caption">
               <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Stock Transaction - Header
+              Petty Cash - Header
             </div>
           </div>
         </div>
         <div class="panel-body">
-          <table class="table table-striped table-responsive" id="table1">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Type</th>
-                <th>Document</th>
-                <th>Document No</th>
-                <th>Document Date</th>
-
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-             <?php
+          <div style="overflow-x:scroll">
+            <table class="table table-striped table-responsive" id="table1">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Kasbon ID</th>
+                  <th>Tanggal kasbon</th>
+                  <th>Divisi</th>
+                  <th>Personal ID</th>
+                  <th>Tujuan</th>
+                  <th>Jumlah kasbon</th>
+                  <th>Jumlah diapprove</th>
+                  <th>Tanggal diapprove</th>
+                  <th>Terbilang</th>
+                  <th>Tanggal Bayar Kasbon</th>
+                  <th>Tanggal Warning</th>
+                  <th>Tanggal Overdue Realisasi</th>
+                  <th>Tanggal Realisasi</th>
+                  <th>Tanggal Submit</th>
+                  <th>Jumlah Net Realisasi</th>
+                  <th>Jumlah Selisih</th>
+                  <th>Tanggal Bayar/ Kembali</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+               <?php
 											//$no = 1;
 											//foreach($in->result() as $c)
 											//{
-             ?>
-             <tr>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
+               ?>
+               <tr>
+                 <td>1 </td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
 
-              <td>                                                                                                       
-                <div class='btn-group'>                                                     
-                  <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                  <ul class='dropdown-menu pull-right' role='menu'>       
-                    <li><a href='<?php echo site_url('op/stock/edit/')?>' >Edit</a></li>         
-                    <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                    <li><a href='<?php echo site_url('op/stock/table_view/')?>' >View Tabel</a></li>         
-                  </ul>                                                 
-                </div>
-              </td>
-            </tr>
-            <?php
+                 <td>                                                                                                       
+                  <div class='btn-group'>                                                     
+                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                    <ul class='dropdown-menu pull-right' role='menu'>       
+                      <li><a href='<?php echo site_url('op/petty/edit/')?>' >Edit</a></li>         
+                      <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
+                      <li><a href='<?php echo site_url('op/petty/table_view/')?>' >View Tabel</a></li>         
+                    </ul>                                                 
+                  </div>
+                </td>
+              </tr>
+              <?php
 											//}
-            ?>
-          </tbody>
-        </table>
+              ?>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

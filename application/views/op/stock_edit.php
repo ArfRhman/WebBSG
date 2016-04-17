@@ -22,7 +22,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Add Stock Transaction - Header
+                    Edit Stock Transaction
                 </h3>
                 <span class="pull-right">
                     <i class="glyphicon glyphicon-chevron-up clickable"></i>
@@ -30,7 +30,7 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
-
+                 
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="type">Type</label>
                         <div class="col-md-3">
@@ -67,7 +67,7 @@
                                     <button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
                                 </div>
                             </div>
-
+                            
                         </form>
                     </div>
                 </div>
@@ -145,9 +145,9 @@
             $('#item').val('');
         } 
     });
-
+        
     });
-
+    
 </script>
 </body>
 </html>

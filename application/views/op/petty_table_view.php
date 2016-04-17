@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>							<a href="<?php echo site_url('op/stock/add')?>" class="btn btn-success">Add New Data</a>
+          ?>							<a href="<?php echo site_url('op/petty/table_add')?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>
@@ -18,52 +18,63 @@
             <div class="panel-title pull-left">
              <div class="caption">
               <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Stock Transaction - Header
+              Petty Cash - Table
             </div>
           </div>
         </div>
         <div class="panel-body">
-          <table class="table table-striped table-responsive" id="table1">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Type</th>
-                <th>Document</th>
-                <th>Document No</th>
-                <th>Document Date</th>
-
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-             <?php
+          <div style="overflow-x:auto">
+            <table class="table table-striped table-responsive">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Acc. ID</th>
+                  <th>Account</th>
+                  <th>Tanggal</th>
+                  <th>Realisasi No</th>
+                  <th>Kwitansi No</th>
+                  <th>Uraian Realisasi</th>
+                  <th>Realisasi</th>
+                  <th>Adjustment</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+               <?php
 											//$no = 1;
 											//foreach($in->result() as $c)
 											//{
-             ?>
-             <tr>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-
-              <td>                                                                                                       
-                <div class='btn-group'>                                                     
-                  <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                  <ul class='dropdown-menu pull-right' role='menu'>       
-                    <li><a href='<?php echo site_url('op/stock/edit/')?>' >Edit</a></li>         
-                    <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                    <li><a href='<?php echo site_url('op/stock/table_view/')?>' >View Tabel</a></li>         
-                  </ul>                                                 
-                </div>
-              </td>
-            </tr>
-            <?php
+               ?>
+               <tr>
+                 <td>1 </td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>aaa</td>
+                 <td>                                                                                                       
+                  <div class='btn-group'>                                                     
+                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                    <ul class='dropdown-menu pull-right' role='menu'>       
+                      <li><a href='<?php echo site_url('op/petty/table_edit/')?>' >Edit</a></li>         
+                      <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
+                    </ul>                                                 
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="7"> Subtotal </th>
+                <td colspan="3"> 900</td>
+              </tr>
+              <?php
 											//}
-            ?>
-          </tbody>
-        </table>
+              ?>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
