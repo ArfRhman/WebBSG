@@ -44,35 +44,35 @@
             <tbody>
              <?php
              $no = 1;
-											//foreach($in->result() as $c)
-											//{
-             ?>
-             <tr>
-              <td><?php echo $no; $no++; ?></td>
-              <td><?php //echo $no; $no++; ?></td>
-              <td><?php //echo $c->nomer ?></td>  
-              <td><?php //echo $c->tanggal ?></td>
-              <td><?php //echo $c->tujuan?></td>
-              <td><?php //echo $c->perihal ?></td>
-              <td><?php //echo $c->terima ?></td>
-              <td><?php //echo $c->pembuat ?></td>
-              <td><?php //echo $c->letak ?></td>
-              <td><?php //echo $c->tanggal ?></td>
-              <td><?php //echo $c->tujuan?></td>
-          
-              <td>                                                                                                       
-                <div class='btn-group'>                                                     
-                  <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                  <ul class='dropdown-menu pull-right' role='menu'>       
-                    <li><a href='<?php echo site_url('op/payment/tabel_edit/')?>' >Edit</a></li>         
-                    <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>
-                  </ul>                                                 
-                </div>
-              </td>
+             foreach($op->result() as $c)
+             {
+               ?>
+               <tr>
+                <td><?php echo $no; $no++; ?></td>
+                <td><?php 
+                $bud = explode('-', $c->budget_code);
+                echo $bud[1]?>
+                </td>
+                <td><?php echo $c->main_budget ?></td>  
+                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'forwarder_id', $c->vendor)->row()->name; ?></td>
+                <td><?php echo $c->currency_type?></td>
+                <td><?php echo $c->amount ?></td>
+                <td><?php echo $c->description ?></td>
+                <td><?php echo $c->invoice_no ?></td>
+                <td><?php echo $c->remark ?></td>
+                <td>                                                                                                       
+                  <div class='btn-group'>                                                     
+                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                    <ul class='dropdown-menu pull-right' role='menu'>       
+                      <li><a href='<?php echo site_url('op/payment/tabel_edit/'.$c->no)?>' >Edit</a></li>         
+                  <li><a href='<?php echo site_url('op/payment/tabel_delete/'.$c->no)?>' >Delete</a></li>
+                    </ul>                                                 
+                  </div>
+                </td>
 
-            </tr>
-            <?php
-											//}
+              </tr>
+              <?php
+            }
             ?>
           </tbody>
         </table>

@@ -68,8 +68,8 @@
 
 							<div class="panel-body">
 
-								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/incoming/save');?>" method="post">
-
+								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/payment/tabel_update');?>" method="post">
+									<input type="hidden" name="no" value="<?=$op->no?>">
 									<fieldset>
 										<div class="form-group">
 
@@ -83,7 +83,7 @@
 													foreach($sql->result() as $s)
 													{
 														?>
-														<option value="<?php echo $s->id; ?>-<?php echo $s->code; ?>"><?php echo $s->code ?></option>
+														<option value="<?php echo $s->id; ?>-<?php echo $s->code; ?>" <?=$s->id.'-'.$s->code==$op->budget_code ? 'selected' : ''?>><?php echo $s->code ?></option>
 														<?php
 													}
 													?>
@@ -92,7 +92,7 @@
 											<label class="col-md-2 control-label" for="addressed">Main Budget</label>
 
 											<div class="col-md-3">
-												<input id="mainBudget" name="main" placeholder="Main Budget" class="form-control" type="text" readonly>
+												<input value="<?=$op->main_budget?>" id="mainBudget" name="main" placeholder="Main Budget" class="form-control" type="text" readonly>
 											</div>
 
 										</div>
@@ -108,7 +108,7 @@
 													foreach($sql->result() as $s)
 													{
 														?>
-														<option value="<?php echo $s->forwarder_id; ?>"><?php echo $s->name ?></option>
+														<option value="<?php echo $s->forwarder_id; ?>" <?=$s->forwarder_id==$op->vendor ? 'selected' : ''?>><?php echo $s->name ?></option>
 														<?php
 													}
 													?>
@@ -118,10 +118,10 @@
 
 											<div class="col-md-3">
 												<select name="currency" class="form-control">
-													<option>IDR</option>
-													<option>USD</option>
-													<option>SGD</option>
-													<option>EUR</option>
+													<option <?=$op->currency_type=='IDR' ? 'selected' : ''?>>IDR</option>
+													<option <?=$op->currency_type=='USG' ? 'selected' : ''?>>USD</option>
+													<option <?=$op->currency_type=='SGD' ? 'selected' : ''?>>SGD</option>
+													<option <?=$op->currency_type=='EUR' ? 'selected' : ''?>>EUR</option>
 												</select>
 											</div>	
 
@@ -133,13 +133,13 @@
 
 											<div class="col-md-3">
 
-												<input id="payment" name="amount" placeholder="Amount" class="form-control" type="text"></div>
+												<input value="<?=$op->amount?>" id="payment" name="amount" placeholder="Amount" class="form-control" type="text"></div>
 
 												<label class="col-md-2 control-label" for="bank">Description</label>
 
 												<div class="col-md-3">
 
-													<input id="bank" name="desc" placeholder="Description" class="form-control" type="text"></div>
+													<input value="<?=$op->description?>" id="bank" name="desc" placeholder="Description" class="form-control" type="text"></div>
 												</div>
 
 												<div class="form-group">
@@ -150,13 +150,13 @@
 
 													<div class="col-md-3">
 
-														<input id="account" name="invoice" placeholder="Invoice No" class="form-control" type="text"></div>
+														<input value="<?=$op->invoice_no?>" id="account" name="invoice" placeholder="Invoice No" class="form-control" type="text"></div>
 
 														<label class="col-md-2 control-label" for="beneficiary">Remark</label>
 
 														<div class="col-md-3">
 
-															<input id="beneficiary" name="remark" placeholder="Remark" class="form-control" type="text"></div>
+															<input value="<?=$op->remark?>" id="beneficiary" name="remark" placeholder="Remark" class="form-control" type="text"></div>
 														</div>
 														<div class="form-group">
 

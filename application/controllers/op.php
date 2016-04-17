@@ -1062,6 +1062,11 @@ function price()
 		$this->load->view('top', $data);				
 		$this->load->view('op/price_add', $data);								
 		break;
+		case 'edit':
+		$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $this->uri->segment(4))->row();
+		$this->load->view('top', $data);
+		$this->load->view('op/price_edit', $data);
+		break;
 		case 'save':
 		$p = $this->input->post();
 		$data=array(
@@ -1080,6 +1085,30 @@ function price()
 			);
 		$this->mddata->insertIntoTbl('tbl_op_pl_header',$data);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$data=array(
+			'created_date'=>$p['created'],
+			'presented_date'=>$p['presented'],
+			'shared_date'=>$p['shared'],
+			'effective_from'=>$p['effective'],
+			'effective_fill'=>$p['til'],
+			'usd'=>$p['usd'],
+			'sgd'=>$p['sgd'],
+			'eur'=>$p['eur'],
+			'price_term'=>$p['price'],
+			'delivery_term'=>$p['delivery'],
+			'validity_term'=>$p['validity'],
+			'other_term'=>$p['other']
+			);
+		$this->mddata->updateDataTbl('tbl_op_pl_header',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_op_pl_header','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'tabel_view':
@@ -1130,8 +1159,8 @@ function price()
 			'competitor_3_name'
 			);
 			*/
-		break;
-	}
+break;
+}
 }
 function payment()
 {
@@ -1259,11 +1288,34 @@ function payment()
 		break;
 
 		case "tabel_edit":
+		$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pm_table', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('op/payment_table_edit', $data);
 		break;	
-
+		
+		case "tabel_update":
+		$p=$this->input->post();
+		$data=array(
+			'budget_code' => $p['code'],
+			'main_budget' => $p['main'],
+			'vendor'=>$p['vendor'],
+			'currency_type'=>$p['currency'],
+			'amount'=>$p['amount'],
+			'description'=>$p['desc'],
+			'invoice_no'=>$p['invoice'],
+			'remark'=>$p['remark']
+			);
+		$this->mddata->updateDataTbl('tbl_op_pm_table',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case "tabel_delete":
+		$this->mddata->deleteGeneral('tbl_op_pm_table','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
 		case "detail":
+		$data['head'] = $this->mddata->getDataFromTblWhere('tbl_op_pm_header', 'no', $this->uri->segment(4))->row();
+		$data['tabel'] = $this->mddata->getDataFromTblWhere('tbl_op_pm_table', 'pm_no', $this->uri->segment(4))->result();
 		$this->load->view('op/payment_detail', $data);
 		break;
 	}

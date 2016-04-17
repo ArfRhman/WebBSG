@@ -104,7 +104,7 @@
                 <ul class='dropdown-menu pull-right' role='menu'>       
                   <li><a href='<?php echo site_url('op/payment/edit/'.$c->no)?>' >Edit</a></li>         
                   <li><a href='<?php echo site_url('op/payment/delete/'.$c->no)?>' >Delete</a></li>
-                  <li><a href='<?php echo site_url('op/payment/detail/')?>' >Detail</a></li> 
+                  <li><a href='<?php echo site_url('op/payment/detail/'.$c->no)?>' >Detail</a></li> 
                   <li><a href='<?php echo site_url('op/payment/tabel_view/'.$c->no)?>' >View Tabel</a></li>             
                 </ul>                                                 
               </div>

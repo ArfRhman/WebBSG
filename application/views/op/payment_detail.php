@@ -5,7 +5,7 @@
     table {
       border-collapse: collapse;
     }
-   
+
     #tbl{
       border: none;
     }
@@ -16,39 +16,62 @@
   <table width="100%" border="1">
     <tr>
       <td width="15%">Memo No</td>
-      <td width="35%">-</td>
+      <td width="35%">
+        <?php 
+        $nomor = "";
+        $res = $head->memo_no;
+        if($res >= 1)
+        {
+          $nomor = "00".$res;
+        }
+        if($res >= 10)
+        {
+          $nomor = "0".$res;
+        }
+        if($res >= 100)
+        {
+          $nomor = $res;
+        }
+        $kode = "/PM-OPS/BSG/";
+        $arrDate = explode(' ',$head->memo_date);
+        $tahun = $arrDate[0];
+        $bulan = $arrDate[1];
+        $fb = $this->mddata->decrom_MMM($bulan);
+        echo $nomor.$kode.$fb."/".$arrDate[2];
+        ?>
+      </td>
       <td width="15%">Memo Date</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->memo_date?></td>
     </tr>
     <tr>
       <td width="15%">Addressed To</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->addressed_to?></td>
       <td width="15%">CC To</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->cc_to?></td>
     </tr>
     <tr>
       <td width="15%">Due Date</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->due_date?></td>
       <td width="15%">Payment Type</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->payment_type?></td>
     </tr>
     <tr>
       <td width="15%">Bank Name</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->bank_name?></td>
       <td width="15%">Bank Account</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->bank_account?></td>
     </tr>
     <tr>
       <td width="15%">Beneficiary</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->beneficiary?></td>
       <td width="15%">Other Info</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->other_info?></td>
     </tr>
     <tr>
       <td width="15%">Payment Date</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->payment_date?></td>
       <td width="15%">Payment Amount</td>
-      <td width="35%">-</td>
+      <td width="35%"><?=$head->payment_amount?></td>
     </tr>
   </table>
   <br />
@@ -67,21 +90,21 @@
     </tr>
     <?php
     $total = 0;
-// foreach($sub->result() as $c)
-// {
-    ?>
-    <tr>
-      <td><?php //echo $c->cost_id; ?> -</td>
-      <td><?php //echo $c->vendor; ?> -</td>
-      <td><?php //echo $c->rate; ?> - </td>
-      <td align="right"><?php //echo number_format($c->amount,"2",".",","); $total += $c->amount; ?></td>
-      <td><?php //echo $c->uraian; ?></td>
-      <td><?php //echo $c->invoice; ?></td>
-      <td><?php //echo $c->uraian; ?></td>
-      <td><?php //echo $c->invoice; ?></td>
-    </tr> 
-    <?php
-// }
+    foreach($tabel as $c)
+    {
+      ?>
+      <tr>
+        <td><?php echo $c->budget_code; ?> -</td>
+        <td><?php echo $c->main_budget; ?> -</td>
+        <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'forwarder_id', $c->vendor)->row()->name; ?></td>
+        <td><?php echo $c->currency_type; ?></td>
+        <td align="right"><?php echo number_format($c->amount,"2",".",","); $total += $c->amount; ?></td>
+        <td><?php echo $c->description; ?></td>
+        <td><?php echo $c->invoice_no; ?></td>
+        <td><?php echo $c->remark; ?></td>
+      </tr> 
+      <?php
+    }
     ?>
     <tr>
       <td colspan="4"><b>Subtotal</b></td>
@@ -112,14 +135,14 @@
           </p>
         </td>
 
-         <td>
+        <td>
           <p>
             <b><u><?php //echo $memo->row()->diajukan; ?> TAUFIK N. </u></b>
             <br/>Accounting
           </p>
         </td>
 
-         <td>
+        <td>
           <p>
             <b><u><?php //echo $memo->row()->diajukan; ?> CUCU SP </u></b>
             <br/>FA Manager
