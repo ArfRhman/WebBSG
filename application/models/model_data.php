@@ -186,9 +186,65 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
-	function getImportLeadTimePerformance(){
-		$query = $this->db->query("SELECT * from tbl_op_po_tabel,tbl_op_po_header,tbl_dm_item,tbl_op_po_lead_time where tbl_op_po_lead_time.no_po = tbl_op_po_header.no AND tbl_dm_item.id = tbl_op_po_tabel.item_code AND tbl_op_po_tabel.no_po = tbl_op_po_header.no")->result_array();
+	//[OP] untuk graph import Cost 
+	function getImportCost($year){
+		$query = $this->db->query("SELECT *,count(tbl_dm_item.kategori) as jumlah_kat, tbl_dm_item.kategori as kat
+			from tbl_op_po_tabel,
+			tbl_op_po_header,
+			tbl_dm_item,
+			tbl_op_po_lead_time,
+			tbl_dm_supplier 
+			where tbl_op_po_header.supplier = tbl_dm_supplier.id 
+			AND tbl_dm_supplier.kategori = 'overseas' 
+			AND tbl_op_po_lead_time.no_po = tbl_op_po_header.no 
+			AND tbl_dm_item.id = tbl_op_po_tabel.item_code 
+			AND tbl_op_po_tabel.no_po = tbl_op_po_header.no 
+			AND YEAR(str_to_date(tbl_op_po_header.po_date,'%d %b %Y')) = '$year' 
+			group by tbl_dm_item.kategori order by jumlah_kat DESC limit 0,10")->result_array();
 		return $query;
+	}
+
+	function getImportCostVal($year,$id){
+		$query = $this->db->query("SELECT * from 
+			tbl_op_po_tabel,
+			tbl_op_po_header,
+			tbl_dm_item,
+			tbl_op_po_lead_time
+			where 
+			tbl_op_po_lead_time.no_po = tbl_op_po_header.no 
+			AND tbl_dm_item.id = tbl_op_po_tabel.item_code 
+			AND tbl_op_po_tabel.no_po = tbl_op_po_header.no 
+			AND YEAR(str_to_date(tbl_op_po_header.po_date,'%d %b %Y')) = '$year' 
+			AND tbl_dm_item.kategori in ($id)")->result_array();
+		return $query;	
+	}
+
+	//[OP] untuk dashboard import Performance
+
+	function getImportLeadTimePerformance(){
+		$query = $this->db->query("SELECT *,count(tbl_dm_item.kategori) as jumlah_kat, tbl_dm_item.kategori as kat
+			from tbl_op_po_tabel,
+			tbl_op_po_header,
+			tbl_dm_item,
+			tbl_op_po_lead_time,
+			tbl_dm_supplier 
+			where tbl_op_po_header.supplier = tbl_dm_supplier.id 
+			AND tbl_dm_supplier.kategori = 'overseas' 
+			AND tbl_op_po_lead_time.no_po = tbl_op_po_header.no 
+			AND tbl_dm_item.id = tbl_op_po_tabel.item_code 
+			AND tbl_op_po_tabel.no_po = tbl_op_po_header.no 
+			group by tbl_dm_item.kategori order by jumlah_kat DESC limit 0,10")->result_array();
+		return $query;
+	}
+
+	function getImportLeadTimePerformanceSea($id){
+		$query = $this->db->query("SELECT * from tbl_op_po_tabel,tbl_op_po_header,tbl_dm_item,tbl_op_po_lead_time where tbl_op_po_lead_time.no_po = tbl_op_po_header.no AND tbl_dm_item.id = tbl_op_po_tabel.item_code AND tbl_op_po_tabel.no_po = tbl_op_po_header.no AND kategori in ($id) AND moda = 'Sea'")->result_array();
+		return $query;	
+	}
+
+	function getImportLeadTimePerformanceAir($id){
+		$query = $this->db->query("SELECT * from tbl_op_po_tabel,tbl_op_po_header,tbl_dm_item,tbl_op_po_lead_time where tbl_op_po_lead_time.no_po = tbl_op_po_header.no AND tbl_dm_item.id = tbl_op_po_tabel.item_code AND tbl_op_po_tabel.no_po = tbl_op_po_header.no AND kategori in ($id) AND moda = 'Air'")->result_array();
+		return $query;	
 	}
 
 	//untuk dashboard target

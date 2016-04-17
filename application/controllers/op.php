@@ -355,6 +355,25 @@ class Op extends CI_Controller {
 		{
 			case 'view':
 			$this->load->view('top', $data);
+			$all = $this->mddata->getImportCost(2016);
+			$kat = array();
+			foreach($all as $k){
+				$kat[$k['kat']]='\''.$k['kat'].'\'';
+			}
+			$in = implode(',', $kat);
+			$import = $this->mddata->getImportCostVal(2016,$in);
+			$res = array();
+
+			/*
+			foreach($import as $im){
+				$res[$im['kategori']]['all']=
+				$res[$im['kategori']]['vat']
+				$res[$im['kategori']]['taxes']
+				$res[$im['kategori']]['custom']
+			}
+			print_r($import);
+			die();
+			*/
 			$this->load->view('op/graph_import_view', $data);
 			break;
 		}
@@ -377,8 +396,65 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			//$all = $this->mddata->getImportLeadTimePerformance();
-			//$cat = array();
+			$all = $this->mddata->getImportLeadTimePerformance();
+			$kat = array();
+			foreach($all as $k){
+				$kat[$k['kat']]='\''.$k['kat'].'\'';
+			}
+			$in = implode(',', $kat);
+			$sea = $this->mddata->getImportLeadTimePerformanceSea($in);
+			$air = $this->mddata->getImportLeadTimePerformanceAir($in);
+			
+			$arSea=array();
+			$arAir=array();
+			$tempAir=array();
+			foreach($air as $a){
+				if(!array_key_exists($a['kategori'], $tempAir)){
+					$tempAir[$a['kategori']]['overall']=$a['actual_lead_time'];
+					$tempAir[$a['kategori']]['shipping']=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
+					$tempAir[$a['kategori']]['clearance']=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
+					$tempAir[$a['kategori']]['production']=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
+					$tempAir[$a['kategori']]['total']=1;
+				}else{
+					$tempAir[$a['kategori']]['overall']+=$a['actual_lead_time'];
+					$tempAir[$a['kategori']]['shipping']+=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
+					$tempAir[$a['kategori']]['clearance']+=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
+					$tempAir[$a['kategori']]['production']+=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
+					$tempAir[$a['kategori']]['total']+=1;
+				}
+			}
+			$tempSea=array();
+			foreach($sea as $s){
+				if(!array_key_exists($s['kategori'], $tempSea)){
+					$tempSea[$s['kategori']]['overall']=$s['actual_lead_time'];
+					$tempSea[$s['kategori']]['shipping']=(strtotime($s['atf_vessel_arrival'])-strtotime($s['atf_vessel_depart']))/(60*60*24);
+					$tempSea[$s['kategori']]['clearance']=(strtotime($s['atf_clearance'])-strtotime($s['atf_vessel_arrival']))/(60*60*24);
+					$tempSea[$s['kategori']]['production']=(strtotime($s['atf_production'])-strtotime($s['po_date']))/(60*60*24);
+					$tempSea[$s['kategori']]['total']=1;
+				}else{
+					$tempSea[$s['kategori']]['overall']+=$s['actual_lead_time'];
+					$tempSea[$s['kategori']]['shipping']+=(strtotime($s['atf_vessel_arrival'])-strtotime($s['atf_vessel_depart']))/(60*60*24);
+					$tempSea[$s['kategori']]['clearance']+=(strtotime($s['atf_clearance'])-strtotime($s['atf_vessel_arrival']))/(60*60*24);
+					$tempSea[$s['kategori']]['production']+=(strtotime($s['atf_production'])-strtotime($s['po_date']))/(60*60*24);
+					$tempSea[$s['kategori']]['total']+=1;
+				}
+			}
+
+			foreach($tempAir as $key=>$t){
+				$arAir[$key]['y']=intval($t['overall']/$t['total']);
+				$arAir[$key]['myData']=array(intval($t['production']/$t['total']),intval($t['shipping']/$t['total']),intval($t['clearance']/$t['total']),'Air');
+			}
+
+			foreach($tempSea as $key=>$t){
+				$arSea[$key]['y']=intval($t['overall']/$t['total']);
+				$arSea[$key]['myData']=array(intval($t['production']/$t['total']),intval($t['shipping']/$t['total']),intval($t['clearance']/$t['total']),'Air');
+			}
+			// print_r($tempAir);
+			// print_r($arAir);
+			// die();
+			$data['kat']=json_encode(array_values($kat));
+			$data['sea']=json_encode(array_values($arSea));
+			$data['air']=json_encode(array_values($arAir));
 			$this->load->view('top', $data);
 			$this->load->view('op/import_performance_view', $data);
 			break;

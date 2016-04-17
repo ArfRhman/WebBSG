@@ -118,21 +118,20 @@
     },
     series: [{
         name: 'Item1',
-        // json data
         data: [
-        {y:item[0],myData: myDataPerItem[0]}]  // mydata [allimport,import without VAT,taxes,custom]
+        {y:5,myData: [3,1,3,1]}]  // mydata [allimport,import without VAT,taxes,custom]
     },{
         name: 'Item2',
         data: [
-        {y: item[1],myData:myDataPerItem[1]}]
+        {y: 2,myData:[2,2,2,2]}]
     },{
         name: 'Item3',
         data: [
-        {y: item[2],myData: myDataPerItem[2]}]
+        {y: 1,myData: [2,3,2,3]}]
     },{
         name: 'Item4',
         data: [
-        {y: item[3],myData:myDataPerItem[3]}]
+        {y: 3,myData:[1,4,1,4]}]
     }]
 });
 }

@@ -61,7 +61,7 @@
         enabled: false
     },
     xAxis: {
-             categories: ['Category 1','Category 2','Category 3','Category 4'], // json category item
+             categories: <?=$kat?>, // json category item
            
       },
       yAxis: {
@@ -72,7 +72,7 @@
    
     tooltip: {
         formatter: function () {
-            return 'Production Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[0] + '</b><br>Shipping Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[1] + '</b><br>Clearance Lead Time ('+this.point.myData[4]+') : <b>' + this.point.myData[2] + '</b><br>';
+            return 'Production Lead Time ('+this.point.myData[3]+') : <b>' + this.point.myData[0] + '</b><br>Shipping Lead Time ('+this.point.myData[3]+') : <b>' + this.point.myData[1] + '</b><br>Clearance Lead Time ('+this.point.myData[3]+') : <b>' + this.point.myData[2] + '</b><br>';
         }
     },
     legend: {
@@ -90,21 +90,10 @@
    
      series: [{
         name: 'Overall Lead Time (Sea)',
-        data: [
-        //json data
-        {y: 2,myData: [20,10,20,20,'Sea']},  // mydata [total debit note,nett transport ,saving,kpi]
-        {y: 7,myData: [20,10,20,40,'Sea']}, 
-        {y: 1,myData: [10,10,20,20,'Sea']},
-        {y: 5,myData: [10,10,20,120,'Sea']},
-        ]
+        data: <?=$sea;?>
     },{
         name: 'Overall Lead Time (Air)',
-        data: [
-        {y: 3,myData: [20,50,20,20,'Air']}, 
-        {y: 5,myData: [30,10,20,20,'Air']}, 
-        {y: 2,myData: [20,10,10,60,'Air']},
-        {y: 1,myData: [20,10,10,160,'Air']},
-        ]
+        data: <?=$air;?>
     }]
 });
 });
