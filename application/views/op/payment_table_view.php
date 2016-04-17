@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>							<a href="<?php echo site_url('op/payment/tabel_add')?>" class="btn btn-success">Add New Data</a>
+          ?>							<a href="<?php echo site_url('op/payment/tabel_add/'.$this->uri->segment(4))?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>

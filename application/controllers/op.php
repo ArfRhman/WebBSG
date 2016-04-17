@@ -1139,7 +1139,7 @@ function payment()
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+		$data['op'] = $this->mddata->getAllDataTbl('tbl_op_pm_header');
 		$this->load->view('top', $data);
 		$this->load->view('op/payment_view', $data);
 		break;
@@ -1148,13 +1148,89 @@ function payment()
 		$this->load->view('op/payment_add', $data);								
 		break;
 		case"edit":
-				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+		$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pm_header', 'no', $this->uri->segment(4))->row_array();
 		$this->load->view('top', $data);
 		$this->load->view('op/payment_edit', $data);
-		break;	
+		break;
+		case 'save':
+		$nomor = $this->db->query("SELECT * FROM tbl_op_pm_header ORDER BY no DESC");
+		$tahun = date('Y');
+		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
+		$fn = 0;
+		if($tahun == $sy)
+		{
+			if($nomor->num_rows() == 0)
+			{
+				$fn = 1;
+			} else {
+				$n = $nomor->row()->memo_no;
+				$fn = $n + 1;
+			}
+		} else {
+					//update tahun 
+			$data = array(
+				'tahun' => $tahun,
+				);
+			$this->mddata->updateDataTbl('tbl_setting_tahun', $data, 'id', '1');
+			$fn = 1;
+		}
+		$dir = "image/op_payment/";
+		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
+		$data=array(
+			'memo_no'=>$fn,
+			'memo_date'=>$p['date'],
+			'addressed_to'=>$p['addressed'],
+			'cc_to'=>$p['cc_to'],
+			'due_date'=>$p['due'],
+			'payment_type'=>$p['payment'],
+			'bank_name'=>$p['bank'],
+			'bank_account'=>$p['account'],
+			'beneficiary'=>$p['beneficiary'],
+			'other_info'=>$p['other'],
+			'payment_date'=>$p['payment_date'],
+			'payment_amount'=>$p['amount']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['payment_proof'] = $file;
+		}
+		$this->mddata->insertIntoTbl('tbl_op_pm_header', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$dir = "image/op_payment/";
+		$file = $dir . $_FILES['file']['name'];
+		$p=$this->input->post();
+		$data=array(
+			'memo_date'=>$p['date'],
+			'addressed_to'=>$p['addressed'],
+			'cc_to'=>$p['cc_to'],
+			'due_date'=>$p['due'],
+			'payment_type'=>$p['payment'],
+			'bank_name'=>$p['bank'],
+			'bank_account'=>$p['account'],
+			'beneficiary'=>$p['beneficiary'],
+			'other_info'=>$p['other'],
+			'payment_date'=>$p['payment_date'],
+			'payment_amount'=>$p['amount']
+			);
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['payment_proof'] = $file;
+		}
+		$this->mddata->updateDataTbl('tbl_op_pm_header',$data,'no',$p['no']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_op_pm_header','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
 
 		case "tabel_view":
-				//$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing', 'id', $this->uri->segment(4));
+		$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pm_table', 'pm_no', $this->uri->segment(4));
 		$this->load->view('top', $data);
 		$this->load->view('op/payment_table_view', $data);
 		break;	
@@ -1163,6 +1239,24 @@ function payment()
 		$this->load->view('top', $data);
 		$this->load->view('op/payment_table_add', $data);
 		break;	
+
+		case 'tabel_save':
+		$p=$this->input->post();
+		$data=array(
+			'budget_code' => $p['code'],
+			'main_budget' => $p['main'],
+			'vendor'=>$p['vendor'],
+			'currency_type'=>$p['currency'],
+			'amount'=>$p['amount'],
+			'description'=>$p['desc'],
+			'invoice_no'=>$p['invoice'],
+			'remark'=>$p['remark'],
+			'pm_no' => $p['pm_no']
+			);
+		$this->mddata->insertIntoTbl('tbl_op_pm_table', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
 
 		case "tabel_edit":
 		$this->load->view('top', $data);

@@ -68,7 +68,7 @@
 
 							<div class="panel-body">
 
-								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/incoming/save');?>" method="post">
+								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/payment/save');?>" method="post">
 
 									<fieldset>
 										<div class="form-group">
@@ -101,7 +101,7 @@
 													<label class="col-md-2 control-label" for="cc">CC to</label>
 
 													<div class="col-md-3">
-														<select name="addressed" class="form-control">
+														<select name="cc_to" class="form-control">
 															<?php
 															$sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
 															foreach($sql->result() as $s)
@@ -164,7 +164,7 @@
 
 												<div class="col-md-3">
 
-													<input id="payment_date" name="due" placeholder="dd MM YYYY" class="form-control  datepicker" type="text"></div>	
+													<input id="payment_date" name="payment_date" placeholder="dd MM YYYY" class="form-control  datepicker" type="text"></div>	
 											</div>
 											<div class="form-group">
 												

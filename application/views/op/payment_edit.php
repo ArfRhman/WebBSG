@@ -68,8 +68,8 @@
 
 							<div class="panel-body">
 
-								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/incoming/save');?>" method="post">
-
+								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/payment/update');?>" method="post">
+								<input type="hidden" name="no" value="<?=$op['no']?>">
 									<fieldset>
 										<div class="form-group">
 
@@ -77,7 +77,7 @@
 
 											<div class="col-md-3">
 
-												<input id="date" name="date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+												<input value="<?=$op['memo_date']?>" id="date" name="date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
 												<label class="col-md-2 control-label" for="addressed">Addressed to</label>
 
 												<div class="col-md-3">
@@ -88,7 +88,7 @@
 														foreach($sql->result() as $s)
 														{
 															?>
-															<option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
+															<option value="<?php echo $s->id; ?>" <?=$s->id==$op['addressed_to'] ? 'selected' : ''?>><?php echo $s->name ?></option>
 															<?php
 														}
 														?>
@@ -101,13 +101,13 @@
 													<label class="col-md-2 control-label" for="cc">CC to</label>
 
 													<div class="col-md-3">
-														<select name="addressed" class="form-control">
+														<select name="cc_to" class="form-control">
 															<?php
 															$sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
 															foreach($sql->result() as $s)
 															{
 																?>
-																<option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
+																<option value="<?php echo $s->id; ?>" <?=$s->id==$op['cc_to'] ? 'selected' : ''?>><?php echo $s->name ?></option>
 																<?php
 															}
 															?>
@@ -117,7 +117,7 @@
 
 													<div class="col-md-3">
 
-														<input id="due" name="due" placeholder="dd MM YYYY" class="form-control  datepicker" type="text"></div>	
+														<input value="<?=$op['due_date']?>" id="due" name="due" placeholder="dd MM YYYY" class="form-control  datepicker" type="text"></div>	
 
 
 													</div>
@@ -127,13 +127,13 @@
 
 														<div class="col-md-3">
 
-															<input id="payment" name="payment" placeholder="Payment Type" class="form-control" type="text"></div>
+															<input value="<?=$op['payment_type']?>" id="payment" name="payment" placeholder="Payment Type" class="form-control" type="text"></div>
 
 															<label class="col-md-2 control-label" for="bank">Bank Name</label>
 
 															<div class="col-md-3">
 
-																<input id="bank" name="bank" placeholder="Bank Name" class="form-control" type="text"></div>
+																<input value="<?=$op['bank_name']?>" id="bank" name="bank" placeholder="Bank Name" class="form-control" type="text"></div>
 															</div>
 
 															<div class="form-group">
@@ -144,13 +144,13 @@
 
 																<div class="col-md-3">
 
-																	<input id="account" name="account" placeholder="Bank Account" class="form-control" type="text"></div>
+																	<input value="<?=$op['bank_account']?>" id="account" name="account" placeholder="Bank Account" class="form-control" type="text"></div>
 
 																	<label class="col-md-2 control-label" for="beneficiary">Beneficiary</label>
 
 																	<div class="col-md-3">
 
-																		<input id="beneficiary" name="beneficiary" placeholder="Beneficiary" class="form-control" type="text"></div>
+																		<input value="<?=$op['beneficiary']?>" id="beneficiary" name="beneficiary" placeholder="Beneficiary" class="form-control" type="text"></div>
 																	</div>
 																	<div class="form-group">
 												
@@ -158,20 +158,20 @@
 												<label class="col-md-2 control-label" for="other">Other Info</label>
 
 												<div class="col-md-3">
-													<input id="other" name="other" placeholder="Other Info" class="form-control" type="text"></div>
+													<input value="<?=$op['other_info']?>" id="other" name="other" placeholder="Other Info" class="form-control" type="text"></div>
 												
 													<label class="col-md-2 control-label" for="payment_date">Payment Date</label>
 
 												<div class="col-md-3">
 
-													<input id="payment_date" name="due" placeholder="dd MM YYYY" class="form-control  datepicker" type="text"></div>	
+													<input value="<?=$op['payment_date']?>" id="payment_date" name="payment_date" placeholder="dd MM YYYY" class="form-control  datepicker" type="text"></div>	
 											</div>
 											<div class="form-group">
 												
 													<label class="col-md-2 control-label" for="amount">Payment Amount</label>
 
 												<div class="col-md-3">
-													<input id="amount" name="amount" placeholder="Payment Amount" class="form-control" type="text"></div>
+													<input value="<?=$op['payment_amount']?>" id="amount" name="amount" placeholder="Payment Amount" class="form-control" type="text"></div>
 														<label class="col-md-2 control-label" for="proof">Payment Proof</label>
 
 												<div class="col-md-3">

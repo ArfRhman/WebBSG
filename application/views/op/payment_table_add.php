@@ -68,8 +68,8 @@
 
 							<div class="panel-body">
 
-								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/incoming/save');?>" method="post">
-
+								<form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/payment/tabel_save');?>" method="post">
+								<input type="hidden" name="pm_no" value="<?=$this->uri->segment(4)?>">
 									<fieldset>
 										<div class="form-group">
 
