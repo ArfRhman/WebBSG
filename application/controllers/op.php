@@ -122,6 +122,39 @@ class Op extends CI_Controller {
 			break;
 		}
 	}
+	function petty()
+	{
+		$data['ac'] = "op_petty";
+		switch($this->uri->segment(3))
+		{
+			case 'view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$this->load->view('top', $data);
+			$this->load->view('op/petty_view', $data);
+			break;
+			case 'add':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/petty_add', $data);								
+			break;
+			case 'edit':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/petty_edit', $data);								
+			break;
+			case 'table_view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$this->load->view('top', $data);
+			$this->load->view('op/petty_table_view', $data);
+			break;
+			case 'table_add':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/petty_table_add', $data);								
+			break;
+			case 'table_edit':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/petty_table_edit', $data);								
+			break;
+		}
+	}
 	
 	function memo()
 	{
