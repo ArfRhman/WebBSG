@@ -1,4 +1,4 @@
-	<aside class="right-side">
+  <aside class="right-side">
    <!-- Main content -->
    <section class="content-header">
     <h1>Welcome to Dashboard</h1>
@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>							<a href="<?php echo site_url('op/stock/add')?>" class="btn btn-success">Add New Data</a>
+          ?>              <a href="<?php echo site_url('op/stock/table_add')?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>
@@ -18,49 +18,48 @@
             <div class="panel-title pull-left">
              <div class="caption">
               <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Stock Transaction - Header
+              Stock Transaction - Table
             </div>
           </div>
         </div>
         <div class="panel-body">
           <table class="table table-striped table-responsive" id="table1">
             <thead>
-              <tr>
-                <th>No</th>
-                <th>Type</th>
-                <th>Document</th>
-                <th>Document No</th>
-                <th>Document Date</th>
+                    <tr>
+                       <th>Item Code</th>
+                        <th>Item</th>
+                        <th>MoU</th>
+                        <th>Qty</th>
 
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-             <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-             ?>
-             <tr>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
+                      
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <?php
+                      //$no = 1;
+                      //foreach($in->result() as $c)
+                      //{
+                   ?>
+                   <tr>
+                    <td>AAA</td>
+                    <td>AAA</td>
+                    <td>AAA</td>
+                    <td>AAA</td>
+                                        
 
               <td>                                                                                                       
                 <div class='btn-group'>                                                     
                   <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
                   <ul class='dropdown-menu pull-right' role='menu'>       
-                    <li><a href='<?php echo site_url('op/stock/edit/')?>' >Edit</a></li>         
+                    <li><a href='<?php echo site_url('op/stock/table_edit/')?>' >Edit</a></li>         
                     <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                    <li><a href='<?php echo site_url('op/stock/table_view/')?>' >View Tabel</a></li>         
                   </ul>                                                 
                 </div>
               </td>
             </tr>
             <?php
-											//}
+                      //}
             ?>
           </tbody>
         </table>
@@ -93,8 +92,8 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>   <script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+<!-- end of page level js -->   <script>    $(document).ready(function(){     $('.delete').on('click',function(){       var btn = $(this);        bootbox.confirm('Are you sure to delete this record?', function(result){          if(result ==true){            window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');         }       });     });   }); </script>
 </body>
 </html>

@@ -22,7 +22,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Add Stock Transaction - Header
+                    Add Stock Transaction - Table
                 </h3>
                 <span class="pull-right">
                     <i class="glyphicon glyphicon-chevron-up clickable"></i>
@@ -30,52 +30,50 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
+                    <div class="form-group">
 
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="type">Type</label>
+                        <label class="col-md-2 control-label" for="item_code">Item Code</label>
+
                         <div class="col-md-3">
-                            <select name="type" class="form-control">
-                                <option>In</option>
-                                <option>Out</option>
-                                <option>Adj in</option>
-                                <option>Adj Out</option>
+                            <select name="item_code" id="item_code" class="form-control">
+                                <?php 
+                                foreach($this->mddata->getAllDataTbl('tbl_dm_item')->result() as $c)
+                                {
+                                    ?>
+                                    <option value="<?php echo $c->id; ?>"><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>    
+                                    <?php
+                                }
+                                ?>
                             </select>
                         </div>
-                        <label class="col-md-2 control-label" for="document">Document</label>
+
+                        <label class="col-md-2 control-label" for="item">Item</label>
+
                         <div class="col-md-3">
-                            <select name="document" class="form-control">
-                                <option>DO</option>
-                                <option>GR</option>
-                                <option>SI</option>
-                                <option>SR</option>
-                                <option>BA Opname</option>
-                                <option>Other</option>
-                            </select>
+
+                            <input id="item" disabled="true" name="item" placeholder="Item" class="form-control" type="text"></div>
                         </div>
-                        <!-- <input id="type" name="type" placeholder="Type" class="form-control" type="text"></div> -->
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="no">Document No</label>
-                        <div class="col-md-3">
-                            <input id="no" name="no" placeholder="Document No" class="form-control" type="text"></div>
-                            <label class="col-md-2 control-label" for="date">Document Date</label>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="mou">MoU</label>
                             <div class="col-md-3">
-                                <input id="date" name="date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
+                                <input id="mou" name="mou" placeholder="MoU" class="form-control" type="text"></div>
+                                <label class="col-md-2 control-label" for="qty">Qty</label>
+                                <div class="col-md-3">
+                                    <input id="qty" name="qty" placeholder="Qty" class="form-control" type="text"></div>
                                 </div>
-                            </div>
-
-                        </form>
+                                <div class="form-group">
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</aside>
-<!-- right-side -->
+        </section>
+    </aside>
+    <!-- right-side -->
 </div>
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
     <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
@@ -145,9 +143,9 @@
             $('#item').val('');
         } 
     });
-
+        
     });
-
+    
 </script>
 </body>
 </html>

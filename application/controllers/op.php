@@ -103,6 +103,23 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);				
 			$this->load->view('op/stock_add', $data);								
 			break;
+			case 'edit':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/stock_edit', $data);								
+			break;
+			case 'table_view':
+				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$this->load->view('top', $data);
+			$this->load->view('op/stock_table_view', $data);
+			break;
+			case 'table_add':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/stock_table_add', $data);								
+			break;
+			case 'table_edit':								
+			$this->load->view('top', $data);				
+			$this->load->view('op/stock_table_edit', $data);								
+			break;
 		}
 	}
 	
