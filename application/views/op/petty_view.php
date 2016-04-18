@@ -28,7 +28,6 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Kasbon ID</th>
                   <th>Tanggal kasbon</th>
                   <th>Divisi</th>
                   <th>Personal ID</th>
@@ -51,44 +50,42 @@
               </thead>
               <tbody>
                <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-               ?>
-               <tr>
-                 <td>1 </td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-
-                 <td>                                                                                                       
-                  <div class='btn-group'>                                                     
-                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                    <ul class='dropdown-menu pull-right' role='menu'>       
-                      <li><a href='<?php echo site_url('op/petty/edit/')?>' >Edit</a></li>         
-                      <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                      <li><a href='<?php echo site_url('op/petty/table_view/')?>' >View Tabel</a></li>         
-                    </ul>                                                 
-                  </div>
-                </td>
-              </tr>
-              <?php
-											//}
+               $no = 1;
+               foreach($op->result() as $c)
+               {
+                 ?>
+                 <tr>
+                 <td><?=$no;$no++?></td>
+                   <td><?=$c->tanggal_kasbon?></td>
+                   <td><?=$c->divisi?></td>
+                   <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->personal_id)->row()->name; ?></td>
+                   <td><?=$c->tujuan?></td>
+                   <td><?=$c->jumlah_kasbon?></td>
+                   <td><?=$c->jumlah_diapprove?></td>
+                   <td><?=$c->tanggal_diapprove?></td>
+                   <td><?=$c->terbilang?></td>
+                   <td><?=$c->tanggal_bayar_kasbon?></td>
+                   <td><?=$c->tanggal_warning?></td>
+                   <td><?=$c->tanggal_overdue_realisasi?></td>
+                   <td><?=$c->tanggal_realisasi?></td>
+                   <td><?=$c->tanggal_submit?></td>
+                   <td><?=$c->jumlah_net_realisasi?></td>
+                   <td><?=$c->jumlah_selisih?></td>
+                   <td><?=$c->tanggal_bayar?></td>
+                   <td><?=$c->status?></td>
+                   <td>                                                                                                       
+                    <div class='btn-group'>                                                     
+                      <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                      <ul class='dropdown-menu pull-right' role='menu'>       
+                        <li><a href='<?php echo site_url('op/petty/edit/'.$c->kasbon_id)?>' >Edit</a></li>         
+                        <li><a href='<?php echo site_url('op/petty/delete/'.$c->kasbon_id)?>' >Delete</a></li>          
+                        <li><a href='<?php echo site_url('op/petty/table_view/'.$c->kasbon_id)?>' >View Tabel</a></li>         
+                      </ul>                                                 
+                    </div>
+                  </td>
+                </tr>
+                <?php
+              }
               ?>
             </tbody>
           </table>

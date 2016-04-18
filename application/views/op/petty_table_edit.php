@@ -29,56 +29,56 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
-
+                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/petty/table_update');?>" method="post">
+                <input type="hidden" name="no" value="<?=$op->no?>">
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="type">Acc ID</label>
                         <div class="col-md-3">
                         <select name="acc_id" class="form-control"> 
-                        <option>0009 - Adjusment</option>
-                        <option>0004 - ATK</option>
-                        <option>0003 - Entertain</option>
-                        <option>0014 - Jasa</option>
-                        <option>0013 - Kesehatan</option>
-                        <option>0011 - Material</option>
-                        <option>0002 - Meal</option>
-                        <option>0005 - Ongkos Kirim</option>
-                        <option>0008 - Others</option>
-                        <option>0012 - Pentry</option>
-                        <option>0007 - Pulsa</option>
-                        <option>0006 - Swakelola</option>
-                        <option>0001 - Transport</option>
+                        <option <?=$op->acc_id=='0009 - Adjustment' ? 'selected' : ''?>>0009 - Adjusment</option>
+                        <option <?=$op->acc_id=='0004 - ATK' ? 'selected' : ''?>>0004 - ATK</option>
+                        <option <?=$op->acc_id=='0003 - Entertain' ? 'selected' : ''?>>0003 - Entertain</option>
+                        <option <?=$op->acc_id=='0014 - Jasa' ? 'selected' : ''?>>0014 - Jasa</option>
+                        <option <?=$op->acc_id=='0013 - Kesehatan' ? 'selected' : ''?>>0013 - Kesehatan</option>
+                        <option <?=$op->acc_id=='0011 - Material' ? 'selected' : ''?>>0011 - Material</option>
+                        <option <?=$op->acc_id=='0002 - Meal' ? 'selected' : ''?>>0002 - Meal</option>
+                        <option <?=$op->acc_id=='0005 - Ongkos Kirim' ? 'selected' : ''?>>0005 - Ongkos Kirim</option>
+                        <option <?=$op->acc_id=='0008 - Others' ? 'selected' : ''?>>0008 - Others</option>
+                        <option <?=$op->acc_id=='0012 - Pentry' ? 'selected' : ''?>>0012 - Pentry</option>
+                        <option <?=$op->acc_id=='0007 - Pulsa' ? 'selected' : ''?>>0007 - Pulsa</option>
+                        <option <?=$op->acc_id=='0006 - Swakelola' ? 'selected' : ''?>>0006 - Swakelola</option>
+                        <option <?=$op->acc_id=='0001 - Transport' ? 'selected' : ''?>>0001 - Transport</option>
                         </select>
                         </div>
                             <label class="col-md-2 control-label" for="document">Account</label>
                             <div class="col-md-3">
-                                <input id="date" name="account" placeholder="Account" class="form-control" type="text"></div>
+                                <input value="<?=$op->account?>" id="date" name="account" placeholder="Account" class="form-control" type="text"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Tanggal</label>
                                 <div class="col-md-3">
-                                    <input id="date" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                                    <input value="<?=$op->tanggal?>" id="date" name="tanggal" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
                                   <label class="col-md-2 control-label" for="date">Realisasi No.</label>
                                   <div class="col-md-3">
-                                    <input id="date" name="real_no" placeholder="Realisasi No." class="form-control" type="text"></div>
+                                    <input value="<?=$op->realisasi_no?>" id="date" name="real_no" placeholder="Realisasi No." class="form-control" type="text"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="no">Kwitansi No.</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="kwitansi" placeholder="Kwitansi No." class="form-control" type="text">
+                                        <input value="<?=$op->kwitansi_no?>" id="date" name="kwitansi" placeholder="Kwitansi No." class="form-control" type="text">
                                     </div>
                                     <label class="col-md-2 control-label" for="date">Uraian Realisasi</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="uraian_real" placeholder="Uraian Realisasi" class="form-control" type="text"></div>
+                                        <input value="<?=$op->uraian_realisasi?>" id="date" name="uraian_real" placeholder="Uraian Realisasi" class="form-control" type="text"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="no">Realisasi</label>
                                         <div class="col-md-3">
-                                            <input id="date" name="realisasi" placeholder="Realisasi" class="form-control" type="text">
+                                            <input value="<?=$op->realisasi?>" id="date" name="realisasi" placeholder="Realisasi" class="form-control" type="text">
                                         </div>
                                         <label class="col-md-2 control-label" for="date">Adjusment</label>
                                         <div class="col-md-3">
-                                            <input id="date" name="adjusment" placeholder="Adjusment" class="form-control" type="text"></div>
+                                            <input value="<?=$op->adjustment?>" id="date" name="adjustment" placeholder="Adjustment" class="form-control" type="text"></div>
                                         </div>
                                                         <div class="form-group">
                                                             <div class="col-md-12 text-right">

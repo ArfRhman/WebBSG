@@ -29,8 +29,8 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
-
+                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/petty/table_save');?>" method="post">
+                <input type="hidden" name="pc_no" value="<?=$this->uri->segment(4)?>">
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="type">Acc ID</label>
                         <div class="col-md-3">
@@ -78,7 +78,7 @@
                                         </div>
                                         <label class="col-md-2 control-label" for="date">Adjusment</label>
                                         <div class="col-md-3">
-                                            <input id="date" name="adjusment" placeholder="Adjusment" class="form-control" type="text"></div>
+                                            <input id="date" name="adjustment" placeholder="Adjustment" class="form-control" type="text"></div>
                                         </div>
                                                         <div class="form-group">
                                                             <div class="col-md-12 text-right">

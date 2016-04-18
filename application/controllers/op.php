@@ -187,7 +187,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['op'] = $this->mddata->getAllDataTbl('tbl_op_pc_header');
 			$this->load->view('top', $data);
 			$this->load->view('op/petty_view', $data);
 			break;
@@ -195,12 +195,75 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);				
 			$this->load->view('op/petty_add', $data);								
 			break;
-			case 'edit':								
+			case 'save':
+			$p=$this->input->post();
+			$bayar="OPEN";
+			if(!empty($p['tgl_byr_kembali'])){
+				$bayar="CLOSE";
+			}
+			$data=array(
+				'tanggal_kasbon'=>$p['tgl_kasbon'],
+				'personal_id'=>$p['personal'],
+				'divisi' => $p['divisi'],
+				'tujuan' => $p['tujuan'],
+				'jumlah_kasbon' => $p['jml_kasbon'],
+				'jumlah_diapprove' => $p['jml_approve'],
+				'tanggal_diapprove'=> $p['tgl_approve'],
+				'terbilang'=>$p['terbilang'],
+				'tanggal_bayar_kasbon'=>$p['tgl_byr_kasbon'],
+				'tanggal_warning'=>$p['tgl_warning'],
+				'tanggal_overdue_realisasi'=>$p['tgl_over_realisasi'],
+				'tanggal_realisasi'=>$p['tgl_realisasi'],
+				'tanggal_submit'=>$p['tgl_submit'],
+				'jumlah_net_realisasi'=>$p['jml_net_realisasi'],
+				'jumlah_selisih'=>$p['jml_selisih'],
+				'tanggal_bayar'=>$p['tgl_byr_kembali'],
+				'status'=>$bayar
+				);
+			$this->mddata->insertIntoTbl('tbl_op_pc_header', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'edit':
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_header', 'kasbon_id', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);				
 			$this->load->view('op/petty_edit', $data);								
 			break;
+			case 'update':
+			$p=$this->input->post();
+			$bayar="OPEN";
+			if(!empty($p['tgl_byr_kembali'])){
+				$bayar="CLOSE";
+			}
+			$data=array(
+				'tanggal_kasbon'=>$p['tgl_kasbon'],
+				'personal_id'=>$p['personal'],
+				'divisi' => $p['divisi'],
+				'tujuan' => $p['tujuan'],
+				'jumlah_kasbon' => $p['jml_kasbon'],
+				'jumlah_diapprove' => $p['jml_approve'],
+				'tanggal_diapprove'=> $p['tgl_approve'],
+				'terbilang'=>$p['terbilang'],
+				'tanggal_bayar_kasbon'=>$p['tgl_byr_kasbon'],
+				'tanggal_warning'=>$p['tgl_warning'],
+				'tanggal_overdue_realisasi'=>$p['tgl_over_realisasi'],
+				'tanggal_realisasi'=>$p['tgl_realisasi'],
+				'tanggal_submit'=>$p['tgl_submit'],
+				'jumlah_net_realisasi'=>$p['jml_net_realisasi'],
+				'jumlah_selisih'=>$p['jml_selisih'],
+				'tanggal_bayar'=>$p['tgl_byr_kembali'],
+				'status'=>$bayar
+				);
+			$this->mddata->updateDataTbl('tbl_op_pc_header',$data,'kasbon_id',$p['kasbon_id']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_op_pc_header','kasbon_id', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
 			case 'table_view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'pc_no', $this->uri->segment(4));
 			$this->load->view('top', $data);
 			$this->load->view('op/petty_table_view', $data);
 			break;
@@ -208,9 +271,46 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);				
 			$this->load->view('op/petty_table_add', $data);								
 			break;
+			case 'table_save':
+			$p=$this->input->post();
+			$data=array(
+				'acc_id'=>$p['acc_id'],
+				'account'=>$p['account'],
+				'tanggal'=>$p['tanggal'],
+				'realisasi_no'=>$p['real_no'],
+				'kwitansi_no'=>$p['kwitansi'],
+				'uraian_realisasi'=>$p['uraian_real'],
+				'realisasi'=>$p['realisasi'],
+				'adjustment'=>$p['adjustment'],
+				'pc_no'=>$p['pc_no']
+				);
+			$this->mddata->insertIntoTbl('tbl_op_pc_tabel', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
 			case 'table_edit':								
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);				
 			$this->load->view('op/petty_table_edit', $data);								
+			break;
+			case 'table_update':
+			$p=$this->input->post();
+			$data=array(
+				'acc_id'=>$p['acc_id'],
+				'account'=>$p['account'],
+				'tanggal'=>$p['tanggal'],
+				'realisasi_no'=>$p['real_no'],
+				'kwitansi_no'=>$p['kwitansi'],
+				'uraian_realisasi'=>$p['uraian_real'],
+				'realisasi'=>$p['realisasi'],
+				'adjustment'=>$p['adjustment']
+				);
+			$this->mddata->updateDataTbl('tbl_op_pc_tabel',$data,'no',$p['no']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			case 'table_delete':
+			$this->mddata->deleteGeneral('tbl_op_pc_tabel','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}

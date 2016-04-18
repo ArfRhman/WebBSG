@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>							<a href="<?php echo site_url('op/petty/table_add')?>" class="btn btn-success">Add New Data</a>
+          ?>							<a href="<?php echo site_url('op/petty/table_add/'.$this->uri->segment(4))?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>
@@ -41,37 +41,40 @@
               </thead>
               <tbody>
                <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-               ?>
-               <tr>
-                 <td>1 </td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>aaa</td>
-                 <td>                                                                                                       
-                  <div class='btn-group'>                                                     
-                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                    <ul class='dropdown-menu pull-right' role='menu'>       
-                      <li><a href='<?php echo site_url('op/petty/table_edit/')?>' >Edit</a></li>         
-                      <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                    </ul>                                                 
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <th colspan="7"> Subtotal </th>
-                <td colspan="3"> 900</td>
-              </tr>
-              <?php
-											//}
+               $no = 1;
+               $total=0;
+               foreach($op->result() as $c)
+               {
+                 $total+=$c->realisasi;
+                 ?>
+                 <tr>
+                 <td><?=$no;$no++;?></td>
+                   <td><?=$c->acc_id?></td>
+                   <td><?=$c->account?></td>
+                   <td><?=$c->tanggal?></td>
+                   <td><?=$c->realisasi_no?></td>
+                   <td><?=$c->kwitansi_no?></td>
+                   <td><?=$c->uraian_realisasi?></td>
+                   <td><?=$c->realisasi?></td>
+                   <td><?=$c->adjustment?></td>
+                   <td>                                                                                                       
+                    <div class='btn-group'>                                                     
+                      <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                      <ul class='dropdown-menu pull-right' role='menu'>       
+                        <li><a href='<?php echo site_url('op/petty/table_edit/'.$c->no)?>' >Edit</a></li>         
+                        <li><a href='<?php echo site_url('op/petty/table_delete/'.$c->no)?>' >Delete</a></li>         
+                      </ul>                                                 
+                    </div>
+                  </td>
+                </tr>
+               
+                <?php
+              }
               ?>
+               <tr>
+                  <th colspan="7"> Subtotal </th>
+                  <td colspan="3"> <?=$total?></td>
+                </tr>
             </tbody>
           </table>
         </div>

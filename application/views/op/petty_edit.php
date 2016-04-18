@@ -29,15 +29,15 @@
                     </span>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
-
+                    <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/petty/update');?>" method="post">
+                    <input type="hidden" name="kasbon_id" value="<?=$op->kasbon_id?>">
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="type">Tanggal Kasbon</label>
                             <div class="col-md-3">
-                                <input id="date" name="tgl_kasbon" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                                <input value="<?=$op->tanggal_kasbon?>" id="date" name="tgl_kasbon" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
                             <label class="col-md-2 control-label" for="document">Divisi</label>
                             <div class="col-md-3">
-                                <input id="date" name="divisi" placeholder="Divisi" class="form-control" type="text"></div>
+                                <input value="<?=$op->divisi?>" id="date" name="divisi" placeholder="Divisi" class="form-control" type="text"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="no">Personal ID</label>
@@ -48,68 +48,68 @@
                                     foreach($sql->result() as $s)
                                     {
                                       ?>
-                                      <option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
+                                      <option value="<?php echo $s->id; ?>" <?=$s->id==$op->personal_id ? 'selected' : ''?>><?php echo $s->name ?></option>
                                       <?php
                                   }
                                   ?>
                               </select> </div>
                               <label class="col-md-2 control-label" for="date">Tujuan</label>
                               <div class="col-md-3">
-                                <input id="date" name="tujuan" placeholder="Tujuan" class="form-control" type="text"></div>
+                                <input value="<?=$op->tujuan?>" id="date" name="tujuan" placeholder="Tujuan" class="form-control" type="text"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Jumlah Kasbon</label>
                                 <div class="col-md-3">
-                                    <input id="date" name="jml_kasbon" placeholder="Jumlah Kasbon" class="form-control" type="text">
+                                    <input value="<?=$op->jumlah_kasbon?>" id="date" name="jml_kasbon" placeholder="Jumlah Kasbon" class="form-control" type="text">
                                 </div>
                                 <label class="col-md-2 control-label" for="date">Jumlah Diapprove</label>
                                 <div class="col-md-3">
-                                    <input id="date" name="jml_approve" placeholder="Jumlah Diapprove" class="form-control" type="text"></div>
+                                    <input value="<?=$op->jumlah_diapprove?>" id="date" name="jml_approve" placeholder="Jumlah Diapprove" class="form-control" type="text"></div>
                                 </div>
                                 <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Tanggal Diapprove</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_approve" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
+                                        <input value="<?=$op->tanggal_diapprove?>" id="date" name="tgl_approve" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
                                     </div>
                                     <label class="col-md-2 control-label" for="date">Terbilang</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="terbilang" placeholder="Terbilang" class="form-control" type="text"></div>
+                                        <input value="<?=$op->terbilang?>" id="date" name="terbilang" placeholder="Terbilang" class="form-control" type="text"></div>
                                     </div>
                                      <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Tanggal Bayar Kasbon</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_byr_kasbon" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
+                                        <input value="<?=$op->tanggal_bayar_kasbon?>" id="date" name="tgl_byr_kasbon" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
                                     </div>
                                     <label class="col-md-2 control-label" for="date">Tanggal Warning</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_warning" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                                        <input value="<?=$op->tanggal_warning?>" id="date" name="tgl_warning" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
                                     </div>
                                      <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Tanggal Overdue Realisasi</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_over_realisasi" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
+                                        <input value="<?=$op->tanggal_overdue_realisasi?>" id="date" name="tgl_over_realisasi" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
                                     </div>
                                     <label class="col-md-2 control-label" for="date">Tanggal Realisasi</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_realisasi" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                                        <input value="<?=$op->tanggal_realisasi?>" id="date" name="tgl_realisasi" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
                                     </div>
                                      <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Tanggal Submit</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_submit" placeholder="dd MMM YYYY" class="form-control" type="text">
+                                        <input value="<?=$op->tanggal_submit?>" id="date" name="tgl_submit" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
                                     </div>
                                     <label class="col-md-2 control-label" for="date">Jumlah Net Realisasi</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="jml_net_realisasi" placeholder="Jumlah Net Realisasi" class="form-control datepicker" type="text"></div>
+                                        <input value="<?=$op->jumlah_net_realisasi?>" id="date" name="jml_net_realisasi" placeholder="Jumlah Net Realisasi" class="form-control" type="text"></div>
                                     </div>
                                      <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Jumlah Selisih</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="jml_selisih" placeholder="Jumlah Selisih" class="form-control" type="text">
+                                        <input value="<?=$op->jumlah_selisih?>" id="date" name="jml_selisih" placeholder="Jumlah Selisih" class="form-control" type="text">
                                     </div>
                                     <label class="col-md-2 control-label" for="date">Tanggal Bayar / Kembali</label>
                                     <div class="col-md-3">
-                                        <input id="date" name="tgl_byr_kembali" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                                        <input value="<?=$op->tanggal_bayar?>" id="date" name="tgl_byr_kembali" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12 text-right">
