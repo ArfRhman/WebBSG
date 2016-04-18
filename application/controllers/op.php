@@ -1220,9 +1220,19 @@ function price()
 		$this->mddata->deleteGeneral('tbl_op_pl_header','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
-		case 'tabel_view':
+		case 'table_view':
+		// $data['price'] = $this->mddata->getAllDataTbl('tbl_op_pl_header');
+		$this->load->view('top', $data);
+		$this->load->view('op/price_table_view', $data);
 		break;
-		case 'tabel_save':
+		case 'table_add':								
+		$this->load->view('top', $data);				
+		$this->load->view('op/price_table_add', $data);								
+		break;
+		case 'table_edit':								
+		$this->load->view('top', $data);				
+		$this->load->view('op/price_table_edit', $data);								
+		break;
 		/*
 		$data = array(
 			'no'
