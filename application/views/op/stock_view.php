@@ -37,30 +37,29 @@
             </thead>
             <tbody>
              <?php
-											//$no = 1;
-											//foreach($in->result() as $c)
-											//{
-             ?>
-             <tr>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-              <td>AAA</td>
-
-              <td>                                                                                                       
-                <div class='btn-group'>                                                     
-                  <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                  <ul class='dropdown-menu pull-right' role='menu'>       
-                    <li><a href='<?php echo site_url('op/stock/edit/')?>' >Edit</a></li>         
-                    <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                    <li><a href='<?php echo site_url('op/stock/table_view/')?>' >View Tabel</a></li>         
-                  </ul>                                                 
-                </div>
-              </td>
-            </tr>
-            <?php
-											//}
+             $no = 1;
+             foreach($op->result() as $c)
+             {
+               ?>
+               <tr>
+                <td><?=$no;$no++;?></td>
+                <td><?=$c->type;?></td>
+                <td><?=$c->document;?></td>
+                <td><?=$c->document_no;?></td>
+                <td><?=$c->document_date?></td>
+                <td>                                                                                                       
+                  <div class='btn-group'>                                                     
+                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                    <ul class='dropdown-menu pull-right' role='menu'>       
+                      <li><a href='<?php echo site_url('op/stock/edit/'.$c->no)?>' >Edit</a></li>         
+                      <li><a href='<?php echo site_url('op/stock/delete/'.$c->no)?>' >Delete</a></li>         
+                      <li><a href='<?php echo site_url('op/stock/table_view/'.$c->no)?>' >View Tabel</a></li>         
+                    </ul>                                                 
+                  </div>
+                </td>
+              </tr>
+              <?php
+            }
             ?>
           </tbody>
         </table>

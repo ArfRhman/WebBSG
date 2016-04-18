@@ -95,7 +95,7 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['op'] = $this->mddata->getAllDataTbl('tbl_op_st_header');
 			$this->load->view('top', $data);
 			$this->load->view('op/stock_view', $data);
 			break;
@@ -103,12 +103,41 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);				
 			$this->load->view('op/stock_add', $data);								
 			break;
-			case 'edit':								
+			case 'save':
+			$p=$this->input->post();
+			$data=array(
+				'type'=>$p['type'],
+				'document'=>$p['document'],
+				'document_no'=>$p['no'],
+				'document_date'=>$p['date']
+				);
+			$this->mddata->insertIntoTbl('tbl_op_st_header', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'edit':
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_st_header', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);				
 			$this->load->view('op/stock_edit', $data);								
 			break;
+			case 'update':
+			$p=$this->input->post();
+			$data=array(
+				'type'=>$p['type'],
+				'document'=>$p['document'],
+				'document_no'=>$p['doc_no'],
+				'document_date'=>$p['date']
+				);
+			$this->mddata->updateDataTbl('tbl_op_st_header',$data,'no',$p['no']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'delete':
+			$this->mddata->deleteGeneral('tbl_op_st_header','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
 			case 'table_view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_st_tabel', 'st_no', $this->uri->segment(4));
 			$this->load->view('top', $data);
 			$this->load->view('op/stock_table_view', $data);
 			break;
@@ -116,9 +145,39 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);				
 			$this->load->view('op/stock_table_add', $data);								
 			break;
-			case 'table_edit':								
+			case 'table_save':
+			$p=$this->input->post();
+			$data=array(
+				'item_code'=>$p['item_code'],
+				'item'=>$p['item'],
+				'mou'=>$p['mou'],
+				'qty'=>$p['qty'],
+				'st_no'=>$p['st_no']
+				);
+			$this->mddata->insertIntoTbl('tbl_op_st_tabel', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'table_edit':
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_st_tabel', 'no', $this->uri->segment(4))->row();						
 			$this->load->view('top', $data);				
 			$this->load->view('op/stock_table_edit', $data);								
+			break;
+			case 'table_update':
+			$p=$this->input->post();
+			$data=array(
+				'item_code'=>$p['item_code'],
+				'item'=>$p['item'],
+				'mou'=>$p['mou'],
+				'qty'=>$p['qty']
+				);
+			$this->mddata->updateDataTbl('tbl_op_st_tabel',$data,'no',$p['no']);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
+			break;
+			case 'table_delete':
+			$this->mddata->deleteGeneral('tbl_op_st_tabel','no', $this->uri->segment(4));
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}

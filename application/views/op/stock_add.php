@@ -29,7 +29,7 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
+                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/stock/save');?>" method="post">
 
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="type">Type</label>

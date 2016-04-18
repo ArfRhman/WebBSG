@@ -29,7 +29,8 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
+                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/stock/table_update');?>" method="post">
+                    <input type="hidden" name="no" value="<?=$op->no?>">
                     <div class="form-group">
 
                         <label class="col-md-2 control-label" for="item_code">Item Code</label>
@@ -40,7 +41,7 @@
                                 foreach($this->mddata->getAllDataTbl('tbl_dm_item')->result() as $c)
                                 {
                                     ?>
-                                    <option value="<?php echo $c->id; ?>"><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>    
+                                    <option value="<?php echo $c->id; ?>" <?=$op->item_code==$c->id ? 'selected' : ''?>><?php echo $c->code; ?> - <?php echo $c->nama; ?></option>    
                                     <?php
                                 }
                                 ?>
@@ -51,15 +52,15 @@
 
                         <div class="col-md-3">
 
-                            <input id="item" disabled="true" name="item" placeholder="Item" class="form-control" type="text"></div>
+                            <input value="<?=$op->item;?>" id="item" readonly="true" name="item" placeholder="Item" class="form-control" type="text"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="mou">MoU</label>
                             <div class="col-md-3">
-                                <input id="mou" name="mou" placeholder="MoU" class="form-control" type="text"></div>
+                                <input value="<?=$op->mou?>" id="mou" name="mou" placeholder="MoU" class="form-control" type="text"></div>
                                 <label class="col-md-2 control-label" for="qty">Qty</label>
                                 <div class="col-md-3">
-                                    <input id="qty" name="qty" placeholder="Qty" class="form-control" type="text"></div>
+                                    <input value="<?=$op->qty?>" id="qty" name="qty" placeholder="Qty" class="form-control" type="text"></div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12 text-right">

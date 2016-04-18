@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>              <a href="<?php echo site_url('op/stock/table_add')?>" class="btn btn-success">Add New Data</a>
+          ?>              <a href="<?php echo site_url('op/stock/table_add/'.$this->uri->segment(4))?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>
@@ -25,41 +25,39 @@
         <div class="panel-body">
           <table class="table table-striped table-responsive" id="table1">
             <thead>
-                    <tr>
-                       <th>Item Code</th>
-                        <th>Item</th>
-                        <th>MoU</th>
-                        <th>Qty</th>
-
-                      
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   <?php
-                      //$no = 1;
-                      //foreach($in->result() as $c)
-                      //{
-                   ?>
-                   <tr>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                    <td>AAA</td>
-                                        
-
-              <td>                                                                                                       
-                <div class='btn-group'>                                                     
-                  <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                  <ul class='dropdown-menu pull-right' role='menu'>       
-                    <li><a href='<?php echo site_url('op/stock/table_edit/')?>' >Edit</a></li>         
-                    <li><a href='#' class="delete" data-id = "<?php //echo $c->id;?>">Delete</a></li>    
-                  </ul>                                                 
-                </div>
-              </td>
-            </tr>
-            <?php
-                      //}
+              <tr>
+                <th>No</th>
+                <th>Item Code</th>
+                <th>Item</th>
+                <th>MoU</th>
+                <th>Qty</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+             <?php
+             $no = 1;
+             foreach($op->result() as $c)
+             {
+               ?>
+               <tr>
+               <td><?=$no;$no++;?></td>
+                <td><?=$c->item_code?></td>
+                <td><?=$c->item?></td>
+                <td><?=$c->mou?></td>
+                <td><?=$c->qty?></td>
+                <td>                                                                                                       
+                  <div class='btn-group'>                                                     
+                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                    <ul class='dropdown-menu pull-right' role='menu'>       
+                      <li><a href='<?php echo site_url('op/stock/table_edit/'.$c->no)?>' >Edit</a></li>         
+                      <li><a href='<?php echo site_url('op/stock/table_delete/'.$c->no)?>' >Delete</a></li>         
+                    </ul>                                                 
+                  </div>
+                </td>
+              </tr>
+              <?php
+            }
             ?>
           </tbody>
         </table>

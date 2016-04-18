@@ -29,27 +29,27 @@
                 </span>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/hs/save');?>" method="post">
-                 
+                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/stock/update');?>" method="post">
+                <input type="hidden" name="no" value="<?=$op->no;?>">
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="type">Type</label>
                         <div class="col-md-3">
                             <select name="type" class="form-control">
-                                <option>In</option>
-                                <option>Out</option>
-                                <option>Adj in</option>
-                                <option>Adj Out</option>
+                                <option <?=$op->type=='In' ? 'selected' : ''?>>In</option>
+                                <option <?=$op->type=='Out' ? 'selected' : ''?>>Out</option>
+                                <option <?=$op->type=='Adj in' ? 'selected' : ''?>>Adj in</option>
+                                <option <?=$op->type=='Adj Out' ? 'selected' : ''?>>Adj Out</option>
                             </select>
                         </div>
                         <label class="col-md-2 control-label" for="document">Document</label>
                         <div class="col-md-3">
                             <select name="document" class="form-control">
-                                <option>DO</option>
-                                <option>GR</option>
-                                <option>SI</option>
-                                <option>SR</option>
-                                <option>BA Opname</option>
-                                <option>Other</option>
+                                <option <?=$op->document=='DO' ? 'selected' : ''?>>DO</option>
+                                <option <?=$op->document=='GR' ? 'selected' : ''?>>GR</option>
+                                <option <?=$op->document=='SI' ? 'selected' : ''?>>SI</option>
+                                <option <?=$op->document=='SR' ? 'selected' : ''?>>SR</option>
+                                <option <?=$op->document=='BA Opname' ? 'selected' : ''?>>BA Opname</option>
+                                <option <?=$op->document=='Other' ? 'selected' : ''?>>Other</option>
                             </select>
                         </div>
                         <!-- <input id="type" name="type" placeholder="Type" class="form-control" type="text"></div> -->
@@ -57,10 +57,10 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="no">Document No</label>
                         <div class="col-md-3">
-                            <input id="no" name="no" placeholder="Document No" class="form-control" type="text"></div>
+                            <input value="<?=$op->document_no?>" id="no" name="doc_no" placeholder="Document No" class="form-control" type="text"></div>
                             <label class="col-md-2 control-label" for="date">Document Date</label>
                             <div class="col-md-3">
-                                <input id="date" name="date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                                <input value="<?=$op->document_date?>" id="date" name="date" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12 text-right">
