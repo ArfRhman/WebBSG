@@ -19,7 +19,7 @@
                     <div class="panel-title pull-left">
                      <div class="caption">
                         <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Price List
+                        Price List - Header
                     </div>
                 </div>
             </div>
@@ -69,6 +69,7 @@
                                   <ul class='dropdown-menu pull-right' role='menu'>
                                       <li><a href='<?php echo site_url('op/price/edit/'.$c->no)?>' >Edit</a></li>
                                       <li><a href='<?php echo site_url('op/price/delete/'.$c->no)?>' class="delete">Delete</a></li>
+                                      <li><a href='<?php echo site_url('op/price/table_view/'.$c->no)?>' class="delete">View Table</a></li>
                                   </ul>
                               </div>
                           </td>
