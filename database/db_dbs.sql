@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2016 at 04:01 PM
+-- Generation Time: Apr 17, 2016 at 10:17 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -1570,17 +1570,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_hs_code_list` (
   `hs_insw` text NOT NULL,
   `other_information` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `tbl_op_hs_code_list`
---
-
-INSERT INTO `tbl_op_hs_code_list` (`no`, `hs_code`, `percentage_hs_code`, `items`, `description_eng`, `descroption_ind`, `tarif_preference`, `lartas`, `hs_insw`, `other_information`) VALUES
-(1, '0', '0', '0', '0', '0', '0', '0', '', '0'),
-(2, '0', '0', '0', '0', '0', '0', '0', '', '0'),
-(3, '0', '0', '0', '0', '0', '0', '0', '', '0'),
-(4, '0', '0', '0', '0', '0', '0', '0', '', '0');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1871,71 +1861,6 @@ INSERT INTO `tbl_op_outgoing_letter_registration` (`no`, `ol_no`, `ol_date`, `su
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pc_header`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_op_pc_header` (
-  `kasbon_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tanggal_kasbon` varchar(255) NOT NULL,
-  `divisi` varchar(255) NOT NULL,
-  `personal_id` varchar(255) NOT NULL,
-  `tujuan` varchar(255) NOT NULL,
-  `jumlah_kasbon` varchar(255) NOT NULL,
-  `jumlah_diapprove` varchar(255) NOT NULL,
-  `tanggal_diapprove` varchar(255) NOT NULL,
-  `terbilang` varchar(255) NOT NULL,
-  `tanggal_bayar_kasbon` varchar(255) NOT NULL,
-  `tanggal_warning` varchar(255) NOT NULL,
-  `tanggal_overdue_realisasi` varchar(255) NOT NULL,
-  `tanggal_realisasi` varchar(255) NOT NULL,
-  `tanggal_submit` varchar(255) NOT NULL,
-  `jumlah_net_realisasi` varchar(255) NOT NULL,
-  `jumlah_selisih` varchar(255) NOT NULL,
-  `tanggal_bayar` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  PRIMARY KEY (`kasbon_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `tbl_op_pc_header`
---
-
-INSERT INTO `tbl_op_pc_header` (`kasbon_id`, `tanggal_kasbon`, `divisi`, `personal_id`, `tujuan`, `jumlah_kasbon`, `jumlah_diapprove`, `tanggal_diapprove`, `terbilang`, `tanggal_bayar_kasbon`, `tanggal_warning`, `tanggal_overdue_realisasi`, `tanggal_realisasi`, `tanggal_submit`, `jumlah_net_realisasi`, `jumlah_selisih`, `tanggal_bayar`, `status`) VALUES
-(1, '20 Apr 2016', '2', '2', '2', '12', '2', '20 Apr 2016', '2', '20 Apr 2016', '20 Apr 2016', '20 Apr 2016', '20 Apr 2016', '20 Apr 2016', '2', '2', '', 'OPEN'),
-(2, '06 Apr 2016', 'piko', '1', 'piko', '10', '10', '02 Apr 2016', '10', '05 Apr 2016', '12 Apr 2016', '21 Apr 2016', '27 Apr 2016', '21 Apr 2016', '10', '10', '10 Apr 2016', 'CLOSE');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_op_pc_tabel`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_op_pc_tabel` (
-  `no` int(11) NOT NULL AUTO_INCREMENT,
-  `acc_id` varchar(255) NOT NULL,
-  `account` varchar(255) NOT NULL,
-  `tanggal` varchar(255) NOT NULL,
-  `realisasi_no` varchar(255) NOT NULL,
-  `kwitansi_no` varchar(255) NOT NULL,
-  `uraian_realisasi` varchar(255) NOT NULL,
-  `realisasi` varchar(255) NOT NULL,
-  `adjustment` varchar(255) NOT NULL,
-  `subtotal` varchar(255) NOT NULL,
-  `pc_no` int(11) NOT NULL,
-  PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `tbl_op_pc_tabel`
---
-
-INSERT INTO `tbl_op_pc_tabel` (`no`, `acc_id`, `account`, `tanggal`, `realisasi_no`, `kwitansi_no`, `uraian_realisasi`, `realisasi`, `adjustment`, `subtotal`, `pc_no`) VALUES
-(1, '0009 - Adjusment', '9', '09 Apr 2016', '9', '9', '9', '9', '9', '', 1),
-(2, '0008 - Others', '2', '18 Apr 2016', '2', '2', '2', '200', '2', '', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_op_pl_header`
 --
 
@@ -1953,7 +1878,6 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pl_header` (
   `delivery_term` varchar(255) NOT NULL,
   `validity_term` varchar(255) NOT NULL,
   `other_term` varchar(255) NOT NULL,
-  `idr` varchar(255) NOT NULL DEFAULT '1',
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
@@ -1961,8 +1885,8 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pl_header` (
 -- Dumping data for table `tbl_op_pl_header`
 --
 
-INSERT INTO `tbl_op_pl_header` (`no`, `created_date`, `presented_date`, `shared_date`, `effective_from`, `effective_fill`, `usd`, `sgd`, `eur`, `price_term`, `delivery_term`, `validity_term`, `other_term`, `idr`) VALUES
-(1, '02 Apr 2016', '02 Apr 2016', '02 Apr 2016', '02 Apr 2016', '02 Apr 2016', 5, 5, 5, '5', '5', '5', '5', '1');
+INSERT INTO `tbl_op_pl_header` (`no`, `created_date`, `presented_date`, `shared_date`, `effective_from`, `effective_fill`, `usd`, `sgd`, `eur`, `price_term`, `delivery_term`, `validity_term`, `other_term`) VALUES
+(1, '01 Apr 2016', '02 Apr 2016', '03 Apr 2016', '04 Apr 2016', '05 Apr 2016', 1, 2, 3, '1', '2', '3', '4');
 
 -- --------------------------------------------------------
 
@@ -2012,7 +1936,6 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pl_tabel` (
   `competitor_2_name` varchar(255) NOT NULL,
   `competitor_3` int(12) NOT NULL,
   `competitor_3_name` varchar(255) NOT NULL,
-  `pl_no` int(11) NOT NULL,
   PRIMARY KEY (`no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -2038,15 +1961,14 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pm_header` (
   `payment_amount` varchar(255) NOT NULL,
   `payment_proof` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tbl_op_pm_header`
 --
 
 INSERT INTO `tbl_op_pm_header` (`no`, `memo_no`, `memo_date`, `addressed_to`, `cc_to`, `due_date`, `payment_type`, `bank_name`, `bank_account`, `beneficiary`, `other_info`, `payment_date`, `payment_amount`, `payment_proof`) VALUES
-(1, '1', '02 Apr 2016', '1', '2', '02 Apr 2016', '2', '2', '2', '2', '2', '02 Apr 2016', '2', 'image/op_payment/beras.png'),
-(5, '2', '08 Apr 2016', '1', '1', '06 Apr 2016', '1', '1', '1', '1', '1', '17 Apr 2016', '1', '');
+(1, '1', '02 Apr 2016', '1', '2', '02 Apr 2016', '2', '2', '2', '2', '2', '02 Apr 2016', '2', 'image/op_payment/beras.png');
 
 -- --------------------------------------------------------
 
@@ -2066,15 +1988,14 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pm_table` (
   `remark` varchar(255) NOT NULL,
   `pm_no` int(11) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `tbl_op_pm_table`
 --
 
 INSERT INTO `tbl_op_pm_table` (`no`, `budget_code`, `main_budget`, `vendor`, `currency_type`, `amount`, `description`, `invoice_no`, `remark`, `pm_no`) VALUES
-(1, '2-budget2', 'budmain', 'F001', 'SGD', '1', '1', '1', '1', 1),
-(2, '1-001', 'test', 'F001', 'IDR', '2', '2', '2', '2', 1);
+(1, '2-budget2', 'budmain', 'F001', 'SGD', '1', '1', '1', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -2450,14 +2371,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_st_header` (
   `document_no` varchar(255) NOT NULL,
   `document_date` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `tbl_op_st_header`
---
-
-INSERT INTO `tbl_op_st_header` (`no`, `type`, `document`, `document_no`, `document_date`) VALUES
-(1, 'In', 'Other', '2000', '22 Apr 2016');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2466,22 +2380,11 @@ INSERT INTO `tbl_op_st_header` (`no`, `type`, `document`, `document_no`, `docume
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_st_tabel` (
-  `no` int(11) NOT NULL AUTO_INCREMENT,
   `item_code` varchar(255) NOT NULL,
   `item` varchar(255) NOT NULL,
   `mou` varchar(255) NOT NULL,
-  `qty` varchar(255) NOT NULL,
-  `st_no` int(11) NOT NULL,
-  PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `tbl_op_st_tabel`
---
-
-INSERT INTO `tbl_op_st_tabel` (`no`, `item_code`, `item`, `mou`, `qty`, `st_no`) VALUES
-(1, '7', 'Adaptor LC/UPC Duplex', '10', '120', 1),
-(2, '15', 'Attenuator 30 watts, 10 dBi', '21', '31', 1);
+  `qty` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

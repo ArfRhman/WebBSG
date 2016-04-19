@@ -305,4 +305,5 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
+
 }

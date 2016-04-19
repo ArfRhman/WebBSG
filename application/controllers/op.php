@@ -1333,53 +1333,59 @@ function price()
 		$this->load->view('top', $data);				
 		$this->load->view('op/price_table_edit', $data);								
 		break;
-		/*
+		case 'table_save':
+		$p=$this->input->post();
+		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no'])->row();
+		$ftc = $p['purchase']*$p['percen_ftc'];
+		$ddp_price = $p['purchase']+$ftc;
+		$ddp_idr = $ddp_price*$head->strtolower($p['currency']);
 		$data = array(
-			'no'
-			'item_id'
-			'division'
-			'category'
-			'item_name'
-			'mou'
-			'brand'
-			'source'
-			'incoterm'
-			'currency'
-			'purchase_price'
-			'percen_stc'
-			'ftc'
-			'ddp_price'
-			'ddp_idr'
-			'percen_crosscomp'
-			'crosscomp_price'
-			'percen_price_list'
-			'price_list'
-			'percen_cash'
-			'cash'
-			'percen_skbdn'
-			'skbdn_price'
-			'percen_credit_1_month'
-			'credit_1_month'
-			'percen_credit_2_month'
-			'credit_2_month'
-			'precen_credit_3_month'
-			'credit_3_month'
-			'percen_credit_4_month'
-			'credit_4_month'
-			'special_condition'
-			'khs_price'
-			'percen_pricelist_to_khs'
-			'percen_nett_cash_to_khs'
-			'competitor_1'
-			'competitor_1_name'
-			'competitor_2'
-			'competitor_2_name'
-			'competitor_3'
-			'competitor_3_name'
+			'item_id'=>$p['item_id'],
+			'division'=>$p['division'],
+			'category'=>$p['category'],
+			'item_name'=>$p['item_nm'],
+			'mou'=>$p['mou'],
+			'brand'=>$p['brand'],
+			'source'=>$p['source'],
+			'incoterm'=>$p['incoterm'],
+			'currency'=>$p['currency'],
+			'purchase_price'=>$p['purchase'],
+			'percen_ftc'=>$p['percen_ftc'],
+			'ftc'=> $ftc,
+			'ddp_price'=>$ddp_price,
+			'ddp_idr'=>$ddp_idr,
+			'percen_crosscomp'=>$p['percen_cross'],
+			'crosscomp_price'=>$ddp_idr/(1-$p['percen_cross']),
+			'percen_price_list'=>$p['percen_price_list'],
+			'price_list'=>$ddp_idr/(1-$p['percen_price_list']),
+			'percen_cash'=>$p['percen_cash'],
+			'cash'=>$ddp_idr/(1-$p['percen_cash']),
+			'percen_skbdn'=>$p['percen_skbdn'],
+			'skbdn_price'=>$ddp_idr/(1-$p['percen_skbdn']),
+			'percen_credit_1_month'=>$p['percen_credit_1m'],
+			'credit_1_month'=>$ddp_idr/(1-$p['percen_credit_1m']),
+			'percen_credit_2_month'=>$p['percen_credit_2m'],
+			'credit_2_month'=>$ddp_idr/(1-$p['percen_credit_2m']),
+			'precen_credit_3_month'=>$p['percen_credit_3m'],
+			'credit_3_month'=>$ddp_idr/(1-$p['percen_credit_3m']),
+			'percen_credit_4_month'=>$p['percen_credit_4m'],
+			'credit_4_month'=>$ddp_idr/(1-$p['percen_credit_4m']),
+			'special_condition'=>$p['special'],
+			'khs_price'=>$p['khs_price'],
+			'percen_pricelist_to_khs'=>($p['khs_price']-$ddp_idr/(1-$p['percen_price_list']))/$p['khs_price'],
+			'percen_nett_cash_to_khs'=>($p['khs_price']-$ddp_idr/(1-$p['percen_cash']))/$p['khs_price'],
+			'competitor_1'=>$p['comp_1'],
+			'competitor_1_name'=>$p['comp_1_name'],
+			'competitor_2'=>$p['comp_2'],
+			'competitor_2_name'=>$p['comp_2_name'],
+			'competitor_3'=>$p['comp_3'],
+			'competitor_3_name'=>$p['comp_3_name']
 			);
-			*/
-break;
-}
+		$this->mddata->insertIntoTbl('tbl_op_pl_tabel', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+	}
 }
 function payment()
 {

@@ -67,7 +67,8 @@
                 </div>
 
                 <div class="panel-body">
-                  <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/price/save');?>" method="post">
+                  <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/price/table_save');?>" method="post">
+                  <input type="hidden" name="no" value="<?=$this->uri->segment(4)?>">
                     <fieldset>
                       <div class="form-group">
                         <label class="col-md-2 control-label" for="created">Item ID</label>
