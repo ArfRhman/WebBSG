@@ -1699,7 +1699,7 @@ function forecast()
 				$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
 				$opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
 				$so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$c->customer,'operator'=>$c->operator))->row();
-				$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',$so->id)->row();
+				$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
 
 				?>
 				<tr>
@@ -1707,10 +1707,10 @@ function forecast()
 					<td><?php echo $opr->name?></td>
 					<td><?php echo $cust->name?></td>
 					<td><?php echo $am->name?></td>
-					<td><?php echo $so->so_no?></td>
-					<td><?php echo $so->so_date?></td>
-					<td><?php echo $inv->no?></td>
-					<td><?php echo $inv->amount?></td>
+					<td><?php echo isset($so->so_no)?$so->so_no:''?></td>
+					<td><?php echo isset($so->so_date)?$so->so_date:''?></td>
+					<td><?php echo isset($inv->no)?$inv->no:''?></td>
+					<td><?php echo isset($inv->amount)?$inv->amount:''?></td>
 
 				</tr>
 				<?php
