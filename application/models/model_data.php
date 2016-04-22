@@ -305,5 +305,16 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
+	//[OP] untuk import cost report
+	function getImportCostReport(){
+		$query = $this->db->query("SELECT * from tbl_op_po_header,tbl_op_po_tabel,tbl_op_po_documentation,tbl_op_po_lead_time,tbl_op_po_costing,tbl_dm_item where 
+			tbl_op_po_header.no=tbl_op_po_tabel.no_po AND 
+			tbl_op_po_header.no=tbl_op_po_documentation.no_po AND 
+			tbl_op_po_header.no=tbl_op_po_lead_time.no_po AND 
+			tbl_op_po_header.no=tbl_op_po_costing.no_po AND 
+			tbl_dm_item.id=tbl_op_po_tabel.item_code
+			");
+		return $query;
+	}
 
 }

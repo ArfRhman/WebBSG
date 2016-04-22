@@ -650,6 +650,16 @@
 
 											</div>
 
+											<div class="form-group">
+											
+												<label class="col-md-2 control-label" for="pib">PIB Date</label>
+
+												<div class="col-md-3">
+
+													<input id="pib" name="pib" placeholder="PIB Date" class="form-control datepicker" type="text"></div>
+
+											</div>
+
 
 											<h3>Tabel</h3>
 											<u>Part 1 - Duty & Tax Base Calculation</u>

@@ -680,6 +680,7 @@ $data = array(
 	'received_by' => $this->input->post('received_by'), 
 	'nett' => $this->input->post('nett'),
 	'awb_file' => $file,
+	'debit_note_amount'=>$this->input->post('debit_note')
 	);
 $this->mddata->insertIntoTbl('tbl_sale_so_delivery', $data);
 $this->session->set_flashdata('data','Data Has Been Saved');
@@ -851,6 +852,7 @@ $data = array(
 	'received_by' => $this->input->post('received_by'), 
 	'nett' => $this->input->post('nett'),
 	'awb_file' => $file,
+	'debit_note_amount'=>$this->input->post('debit_note')
 	);
 $this->mddata->updateDataTbl('tbl_sale_so_delivery', $data, 'id', $this->uri->segment(4));
 $this->session->set_flashdata('data','Data Has Been Saved');

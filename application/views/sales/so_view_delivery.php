@@ -1,96 +1,101 @@
 	<aside class="right-side">
-       <!-- Main content -->
-       <section class="content-header">
-          <h1>Welcome to Dashboard</h1>
-      </section>
-      <section class="content">
-        <div class="row">
-            <div class="col-lg-12">
-              <?php
-              if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
-              {
-                  ?>
-                  <a href="<?php echo site_url('sales/so/add_delivery/'.$this->uri->segment(4))?>" class="btn btn-success">Add New Data</a>
-                  <?php
-              }
-              ?>
-              <div class="panel panel-primary filterable">
-                <div class="panel-heading clearfix  ">
-                    <div class="panel-title pull-left">
-                     <div class="caption">
-                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Sales Order Delivery Information
-                    </div>
-                </div>
+   <!-- Main content -->
+   <section class="content-header">
+    <h1>Welcome to Dashboard</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-lg-12">
+        <?php
+        if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
+        {
+          ?>
+          <a href="<?php echo site_url('sales/so/add_delivery/'.$this->uri->segment(4))?>" class="btn btn-success">Add New Data</a>
+          <?php
+        }
+        ?>
+        <div class="panel panel-primary filterable">
+          <div class="panel-heading clearfix  ">
+            <div class="panel-title pull-left">
+             <div class="caption">
+              <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+              Sales Order Delivery Information
             </div>
-            <div class="panel-body">
-                <table class="table table-striped table-responsive" id="table1">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>DO No</th>
-                            <th>DO Date</th>
-                            <th>Delivery Date</th>
-                            <th>Delivery By</th>
-                            <th>Expediture Name</th>
-                            <th>Delivery Method</th>
-                            <th>AWB/Receipt No</th>
-                            <th>Depart Date</th>
-                            <th>Received Date</th>
-                            <th>Received By</th>
-                            <th>Nett Delivery Cost</th>
-                            <th>AWB/Receipt</th>
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       <?php
-                       $no = 1;
-                       foreach($so->result() as $c)
-                       {
-                           ?>
-                           <tr>
-                             <td><?php echo $no;$no++; ?></td>
-                             <td><?php echo $c->do_no; ?></td>
-                             <td><?php echo $c->do_date; ?></td>
-                             <td><?php echo $c->delivery; ?></td>
-                             <td><?php echo $c->delivery_by; ?></td>
-                             <td><?php echo $c->name; ?></td>
-                             <td><?php echo $c->method; ?></td>
-                             <td><?php echo $c->awb_no; ?></td>
-                             <td><?php echo $c->depart; ?></td>
-                             <td><?php echo $c->received; ?></td>
-                             <td><?php echo $c->received_by; ?></td>
-                             <td><?php echo $c->nett; ?></td>
-                             <td><?php 
-                              if($c->awb_file!='')  echo anchor(base_url($c->awb_file), 'Download');
-                              else echo '-' ?></td>
-                              <td>
-                                <div class='btn-group'>
-                                   <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
-                                   <ul class='dropdown-menu pull-right' role='menu'>															
-                                     <li><a href='<?php echo site_url('sales/so/edit_delivery/'.$c->id);?>' >Edit</a></li>
-                                     <li><a href='<?php echo site_url('sales/so/delete_delivery/'.$c->id);?>'>Delete</a></li>
-                                     <li><a href='<?php echo site_url('sales/so/detail_delivery_view/'.$c->id);?>'>Delivery Detail</a></li>
-                                 </ul>													
-                             </div>
-                         </td>
-                     </tr>
-                     <?php
-                 }
+          </div>
+        </div>
+        <div class="panel-body">
+          <div style="overflow-x:scroll">
+            <table class="table table-striped table-responsive" id="table1">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>DO No</th>
+                  <th>DO Date</th>
+                  <th>Delivery Date</th>
+                  <th>Delivery By</th>
+                  <th>Expediture Name</th>
+                  <th>Delivery Method</th>
+                  <th>AWB/Receipt No</th>
+                  <th>Depart Date</th>
+                  <th>Received Date</th>
+                  <th>Received By</th>
+                  <th>Nett Delivery Cost</th>
+                  <th>AWB/Receipt</th>
+                  <th>Debit Note Amount</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+               <?php
+               $no = 1;
+               foreach($so->result() as $c)
+               {
                  ?>
-             </tbody>
+                 <tr>
+                   <td><?php echo $no;$no++; ?></td>
+                   <td><?php echo $c->do_no; ?></td>
+                   <td><?php echo $c->do_date; ?></td>
+                   <td><?php echo $c->delivery; ?></td>
+                   <td><?php echo $c->delivery_by; ?></td>
+                   <td><?php echo $c->name; ?></td>
+                   <td><?php echo $c->method; ?></td>
+                   <td><?php echo $c->awb_no; ?></td>
+                   <td><?php echo $c->depart; ?></td>
+                   <td><?php echo $c->received; ?></td>
+                   <td><?php echo $c->received_by; ?></td>
+                   <td><?php echo $c->nett; ?></td>
+                   <td><?php 
+                    if($c->awb_file!='')  echo anchor(base_url($c->awb_file), 'Download');
+                    else echo '-' ?>
+                  </td>
+                  <td><?php echo $c->debit_note_amount; ?></td>
+                  <td>
+                    <div class='btn-group'>
+                     <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
+                     <ul class='dropdown-menu pull-right' role='menu'>															
+                       <li><a href='<?php echo site_url('sales/so/edit_delivery/'.$c->id);?>' >Edit</a></li>
+                       <li><a href='<?php echo site_url('sales/so/delete_delivery/'.$c->id);?>'>Delete</a></li>
+                       <li><a href='<?php echo site_url('sales/so/detail_delivery_view/'.$c->id);?>'>Delivery Detail</a></li>
+                     </ul>													
+                   </div>
+                 </td>
+               </tr>
+               <?php
+             }
+             ?>
+           </tbody>
          </table>
+       </div>
      </div>
+   </div>
  </div>
-</div>
 </div>
 </section>
 </aside>
 <!-- right-side -->
 </div>
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
-    <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
+  <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
 </a>
 <!-- global js -->
 <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>

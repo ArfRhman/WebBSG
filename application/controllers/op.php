@@ -953,7 +953,8 @@ class Op extends CI_Controller {
 				'pengembalian_container' => $p['pengembalian'],
 				'pernyataan_fungsi_guna_barang' => $p['fungsi_guna'],
 				'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen'],
-				'no_po'=>$id
+				'no_po'=>$id,
+				'pib_date'=>$p['pib']
 				);
 $this->mddata->insertIntoTbl('tbl_op_po_documentation', $doc);
 
@@ -1097,7 +1098,8 @@ $doc=array(
 	'peminjaman_container' => $p['peminjaman'],
 	'pengembalian_container' => $p['pengembalian'],
 	'pernyataan_fungsi_guna_barang' => $p['fungsi_guna'],
-	'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen']
+	'pernyataan_keaslian_dokumen' => $p['keaslian_dokumen'],
+	'pib_date'=>$p['pib']
 	);
 
 $this->mddata->updateDataTbl('tbl_op_po_documentation',$doc,'no_po',$this->input->post('no'));
