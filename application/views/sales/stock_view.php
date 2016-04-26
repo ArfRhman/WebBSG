@@ -40,6 +40,7 @@
                     <tbody>
                       <?php
                       $q = $this->db->query("SELECT
+                        (SELECT gr_date FROM tbl_op_po_report WHERE po_no = po_tbl.no_po) AS gr_date,
                         po_tbl.item_code,
                         po_tbl.item,
                         st_tbl.mou,
@@ -78,6 +79,7 @@
     }
 
     $q2 = $this->db->query("SELECT
+        (SELECT gr_date FROM tbl_op_po_report WHERE po_no = po_tbl.no_po) AS gr_date,
         po_tbl.item_code,
         po_tbl.item,
         st_tbl.mou,
@@ -118,6 +120,7 @@
     }
 
     $q3 = $this->db->query("SELECT
+        (SELECT gr_date FROM tbl_op_po_report WHERE po_no = po_tbl.no_po) AS gr_date,
         po_tbl.item_code,
         po_tbl.item,
         st_tbl.mou,
@@ -185,7 +188,7 @@
             <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
             <td><?php echo $d->mou?></td>
             <td><?php echo $d->qty_balance?></td>
-            <td></td>
+            <td><?php echo $d->gr_date?></td>
             <td><?php echo $d->aging?></td>
             <td>Active</td>
             <td><?php echo number_format($pl->average_cost,0)?></td>
@@ -229,7 +232,7 @@
                 <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
                 <td><?php echo $d->mou?></td>
                 <td><?php echo $d->qty_balance?></td>
-                <td></td>
+                <td><?php echo $d->gr_date?></td>
                 <td><?php echo $d->aging?></td>
                 <td>Active</td>
                 <td><?php echo number_format($pl->average_cost,0)?></td>
@@ -273,7 +276,7 @@
                     <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
                     <td><?php echo $d->mou?></td>
                     <td><?php echo $d->qty_balance?></td>
-                    <td></td>
+                    <td><?php echo $d->gr_date?></td>
                     <td><?php echo $d->aging?></td>
                     <td>Active</td>
                     <td><?php echo number_format($pl->average_cost,0)?></td>
