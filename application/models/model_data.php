@@ -292,11 +292,16 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
-	//untuk dashboard product
+	//[Sales] untuk dashboard product
 	function getDsProduct(){
 		$query = $this->db->query("SELECT kategori,sum(qty) as y from tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id GROUP BY kategori order by y DESC")->result_array();
 		return $query;
 	}
+
+	// function getProVsProfit($tahun){
+	// 	$query = $this->db->query("SELECT * from tbl_sale_so_detail");
+	// 	return $query;
+	// }
 
 	//[OP] untuk Supply Report
 
@@ -315,6 +320,48 @@ class model_data extends CI_Model {
 			tbl_dm_item.id=tbl_op_po_tabel.item_code
 			");
 		return $query;
+	}
+
+	//[Sales] untuk AR performance
+	function getArPerformance(){
+		$query = $this->db->query("SELECT YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period,tbl_sale_so_invoicing.amount as invoiced,tbl_sale_so_payment.amount as paid from tbl_sale_so,tbl_sale_so_invoicing,tbl_sale_so_payment where
+			tbl_sale_so.id=tbl_sale_so_invoicing.id_so OR 
+			tbl_sale_so.id=tbl_sale_so_payment.id_so
+			")->result_array();
+		return $query;
+	}
+
+	//[OP] untuk dashboard grafik transport cost
+	function getGraphTransport(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery,tbl_sale_so_cost where 
+			tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
+			tbl_sale_so.id=tbl_sale_so_detail.id_so AND
+			tbl_sale_so.id=tbl_sale_so_cost.id_so 
+			GROUP BY tbl_sale_so_cost.id_so, tbl_sale_so_cost.transport 	
+			")->result_array();
+		return $query;
+	}
+
+	function getGraphDelivery($id){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun, tbl_sale_so_detail.delivery as do from tbl_sale_so,tbl_sale_so_detail where 
+			tbl_sale_so.id=tbl_sale_so_detail.id_so AND 
+			tbl_sale_so_detail.id_so IN ($id)
+			")->result_array();
+		return $query;	
+	}
+
+	function getGraphDebitNote($id){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_delivery where 
+			tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
+			tbl_sale_so_delivery.id_so IN ($id)
+			")->result_array();
+		return $query;	
+	}
+
+	function getKpiTransport(){
+		$query = $this->db->query("SELECT * from tbl_dm_kpi where item = 'Transport Cost'")->row_array();
+		return $query;
+
 	}
 
 }

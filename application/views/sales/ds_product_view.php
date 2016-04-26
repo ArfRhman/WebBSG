@@ -25,7 +25,8 @@
             </div>
             <div class="col-md-2">
               <select class="form-control" id="tahun" style="display:none;">
-                <option selected>2016</option>
+                <option>-- Pilih Tahun --</option>
+                <option>2016</option>
                 <option>2017</option>
                 <option>2018</option>
               </select>

@@ -593,7 +593,74 @@ class Op extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-				//$data['hs'] = $this->mddata->getAllDataTbl('tbl_op_hs');
+			$graph = $this->mddata->getGraphTransport();
+			$kpi = $this->mddata->getKpiTransport();
+			$periode=array();
+			$res=array();
+			$do=array();
+			
+			foreach($graph as $g){
+				if(!array_key_exists($g['tahun'], $res)){
+					$periode[$g['tahun']]=$g['tahun'];
+					$res[$g['tahun']]['debit_note']=0;
+					$res[$g['tahun']]['transport_cost']=$g['transport'];
+					$do[]=$g['id_so'];
+				}else{
+					//$res[$g['tahun']]['debit_note']+=$g['debit_note_amount'];
+					$res[$g['tahun']]['transport_cost']+=$g['transport'];
+				}
+			}
+			
+			$debitNote = $this->mddata->getGraphDebitNote(implode(',', $do));
+			$resDebitNote=array();
+			foreach($debitNote as $dn){
+				if(!array_key_exists($dn['tahun'], $resDebitNote)){
+					$resDebitNote[$dn['tahun']]['dn']=$dn['debit_note_amount'];
+				}else{
+					$resDebitNote[$dn['tahun']]['dn']+=$dn['debit_note_amount'];
+				}
+			}
+
+			$doAmount = $this->mddata->getGraphDelivery(implode(',', $do));
+			$resAmount=array();
+
+			foreach($doAmount as $doa){
+				if(!array_key_exists($doa['tahun'], $resAmount)){
+					$resAmount[$doa['tahun']]['y']=$doa['do'];
+				}else{
+					$resAmount[$doa['tahun']]['y']+=$doa['do'];
+				}
+			}
+
+			$kpires="";
+			foreach (array_values($periode) as $p) {
+				$res[$p]['debit_note']=intval($resDebitNote[$p]['dn']);
+				$res[$p]['saving']=intval($res[$p]['transport_cost'])-intval($kpi['kpi']);
+				if(intval($res[$p]['transport_cost'])==intval($kpi['kpi'])){
+					$kpires="GOOD";
+				}else if(intval($res[$p]['transport_cost'])>intval($kpi['kpi'])){
+					$kpires="LESS";
+				}else if(intval($res[$p]['transport_cost'])<intval($kpi['kpi'])){
+					$kpires="GREAT";
+				}
+				$res[$p]['kpi']=$kpires;
+			}
+			$resNett=array();
+			$resKPI=array();
+			foreach (array_values($periode) as $pe){
+				$resAmount[$pe]['y']=intval($resAmount[$pe]['y']);
+				$resAmount[$pe]['myData']=array_values($res[$pe]);
+				$resNett[$pe]['y']=intval($res[$pe]['transport_cost']-$res[$pe]['debit_note']);
+				$resNett[$pe]['myData']=array_values($res[$pe]);
+				$resKPI[$pe]['y']=intval($kpi['kpi']);
+				$resKPI[$pe]['myData']=array_values($res[$pe]);
+			}
+			
+			$data['resKPI']=json_encode(array_values($resKPI));
+			$data['resNett']=json_encode(array_values($resNett));
+			$data['resAmount']=json_encode(array_values($resAmount));
+			$data['periode']=json_encode(array_values($periode));
+			
 			$this->load->view('top', $data);
 			$this->load->view('op/graph_transport_view', $data);
 			break;

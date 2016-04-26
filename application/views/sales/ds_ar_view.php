@@ -17,7 +17,7 @@
         </div>
         <div class="panel-body">
           <div id="containers" style="width:100%; height:400px;"></div>
-          <table class="table table-striped table-responsive" id="table1">
+          <!-- <table class="table table-striped table-responsive" id="table1">
             <thead>
               <tr>
               <th>Invoiced Amount</th>
@@ -31,7 +31,7 @@
             </thead>
             <tbody>
             </tbody>
-          </table>
+          </table> -->
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@
         text: ' A/R Performance'
       },
       xAxis: {
-        categories: ['1', '2', '3']
+        categories: ['2016', '2', '3']
       },
       yAxis: {
         title: {
@@ -78,6 +78,9 @@
       series: [{
         name: '2',
         data: [1, 0, 4]
+      }, {
+        name: '3',
+        data: [5, 7, 3]
       }, {
         name: '3',
         data: [5, 7, 3]

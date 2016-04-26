@@ -62,7 +62,7 @@
         enabled: false
     },
     xAxis: {
-             categories: [2016,2017,2018,2019], // json category item
+             categories: <?=$periode?>, // json category item
              title: {
               text: ' Period'
           }
@@ -88,7 +88,7 @@
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{point.y} '
+                format: '{series.name} <br> ({point.y}) '
                  // formatter: function () { 
                  //    var topData;
                     
@@ -101,28 +101,13 @@
      series: [{
         name: 'DO Amount',
         // json data
-        data: [
-        {y: 3,myData: [20,10,20,20]},  // mydata [total debit note,nett transport ,saving,kpi]
-        {y: 7,myData: [20,10,20,40]}, 
-        {y: 1,myData: [10,10,20,20]},
-        {y: 1,myData: [10,10,20,120]},
-        ]
+        data: <?=$resAmount?>
     },{
         name: 'Nett Transport Cost',
-        data: [
-        {y: 3,myData: [20,50,20,20,30]}, 
-        {y: 7,myData: [30,10,20,20,30]}, 
-        {y: 1,myData: [20,10,10,60,20]},
-        {y: 1,myData: [20,10,10,160,10]},
-        ]
+        data: <?=$resNett?>
     },{
         name: 'KPI',
-        data: [
-        {y: 3,myData: [20,50,20,20]}, 
-        {y: 1,myData: [30,10,20,20]}, 
-        {y: 1,myData: [20,10,10,60]},
-        {y: 1,myData: [20,10,10,160]},
-        ]
+        data: <?=$resKPI?>
     }]
 });
 });

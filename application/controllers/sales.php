@@ -221,7 +221,9 @@ class Sales extends CI_Controller {
 			break;
 			case 'ar':
 			$data['ac'] = "s_ar_am";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$res = $this->mddata->getArPerformance();
+			print_r($res);
+			die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_ar_view', $data);
 			break;
