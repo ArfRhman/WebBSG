@@ -1888,7 +1888,7 @@ function loss()
 									WHERE
 										dt.id_so = so.id
 								)
-						) AS total_purchase
+						) AS total_purchase, so.adjustment
 					FROM
 						tbl_sale_so so
 					LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
@@ -2052,7 +2052,7 @@ function profit()
 									WHERE
 										dt.id_so = so.id
 								)
-						) AS total_purchase
+						) AS total_purchase, adjustment
 					FROM
 						tbl_sale_so so
 					LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so

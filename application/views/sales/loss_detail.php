@@ -73,9 +73,11 @@
                     <td><?php $total_cost = $c->sales + $c->extcom_pro + $c->bank + $c->transport + $c->adm + $c->other;
                     echo number_format($total_cost,0) ?></td>
                     <td><?php $enp1 = $gross - $total_cost; echo number_format($enp1,0);?></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                   <td><?php echo number_format($c->adjustment,0);?></td>
+                    <td><?php $enp2 = $enp1 +  $c->adjustment;
+                    echo number_format($enp2,0);
+                    ?></td>
+                    <td><?php echo $c->total_so!=0?number_format(100* $enp2/$c->total_so,2,'.',''):'0'?>%</td>
                     
                 </tr>
                  <?php
