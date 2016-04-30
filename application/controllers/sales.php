@@ -222,8 +222,12 @@ class Sales extends CI_Controller {
 			case 'ar':
 			$data['ac'] = "s_ar_am";
 			$res = $this->mddata->getArPerformance();
+			$ha=array();
+			foreach($res as $r){
+
+			}
 			print_r($res);
-			die();
+			//die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_ar_view', $data);
 			break;

@@ -187,7 +187,7 @@ class model_data extends CI_Model {
 	}
 
 	//[OP] untuk graph import Cost 
-	function getImportCost($year){
+	function getImportCost($year){ //buat ngambil 10 besar
 		$query = $this->db->query("SELECT *,count(tbl_dm_item.kategori) as jumlah_kat, tbl_dm_item.kategori as kat
 			from tbl_op_po_tabel,
 			tbl_op_po_header,
@@ -205,13 +205,15 @@ class model_data extends CI_Model {
 	}
 
 	function getImportCostVal($year,$id){
-		$query = $this->db->query("SELECT * from 
+		$query = $this->db->query("SELECT *	from 
 			tbl_op_po_tabel,
 			tbl_op_po_header,
 			tbl_dm_item,
-			tbl_op_po_lead_time
+			tbl_op_po_lead_time,
+			tbl_op_po_costing
 			where 
-			tbl_op_po_lead_time.no_po = tbl_op_po_header.no 
+			tbl_op_po_costing.no_po = tbl_op_po_header.no 
+			AND tbl_op_po_lead_time.no_po = tbl_op_po_header.no 
 			AND tbl_dm_item.id = tbl_op_po_tabel.item_code 
 			AND tbl_op_po_tabel.no_po = tbl_op_po_header.no 
 			AND YEAR(str_to_date(tbl_op_po_header.po_date,'%d %b %Y')) = '$year' 

@@ -565,25 +565,94 @@ class Op extends CI_Controller {
 			case 'view':
 			$this->load->view('top', $data);
 			$all = $this->mddata->getImportCost(2016);
+			$end=array();
+
 			$kat = array();
 			foreach($all as $k){
+				$end[$k['kat']]['name']=$k['kat'];
+				$end[$k['kat']]['data']=array();
+				$end[$k['kat']]['data']['y']=intval($k['jumlah_kat']);
 				$kat[$k['kat']]='\''.$k['kat'].'\'';
 			}
+			
 			$in = implode(',', $kat);
 			$import = $this->mddata->getImportCostVal(2016,$in);
 			$res = array();
+			$total_tax=0;
+			$total_duty_taxes=0;
+			$total_clearance=0;
 
-			/*
 			foreach($import as $im){
-				$res[$im['kategori']]['all']=
-				$res[$im['kategori']]['vat']
-				$res[$im['kategori']]['taxes']
-				$res[$im['kategori']]['custom']
+				$total_tax = $im['import_tax']+$im['vat_import']+$im['wht_import'];
+				$total_duty_taxes= $total_tax + $im['adm_cost'] + $im['notul'];
+				$total_clearance = $im['freight_cost']+$im['yellow_handling']+$im['red_handling']+$im['do']+$im['storage']+$im['demurrage']+$im['lift_on_lift_off']+$im['mechanic']+$im['undertable']+$im['trucking']+$im['other_cost'];
+				
+				if(!array_key_exists($im['kategori'], $res)){
+					$res[$im['kategori']]['all']=$total_duty_taxes+$total_clearance;
+					$res[$im['kategori']]['vat']=($total_duty_taxes+$total_clearance)-$im['vat_import'];
+					$res[$im['kategori']]['taxes']=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['custom']=intval($im['total_clearance']);
+				}else{
+					$res[$im['kategori']]['all']+=$total_duty_taxes+$total_clearance;
+					$res[$im['kategori']]['vat']+=($total_duty_taxes+$total_clearance)-$im['vat_import'];
+					$res[$im['kategori']]['taxes']+=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['custom']+=intval($im['total_clearance']);
+				}
 			}
-			print_r($import);
-			die();
-			*/
+
+			foreach($all as $k){
+				$end[$k['kat']]['data']['myData']=array_values($res[$k['kat']]);
+				$end[$k['kat']]['data']=array($end[$k['kat']]['data']);
+			}
+			$data['result']=json_encode(array_values($end));
 			$this->load->view('op/graph_import_view', $data);
+			break;
+			case 'getYear':
+			$all = $this->mddata->getImportCost($this->uri->segment(4));
+			$end=array();
+
+			$kat = array();
+			foreach($all as $k){
+				$end[$k['kat']]['name']=$k['kat'];
+				$end[$k['kat']]['data']=array();
+				$end[$k['kat']]['data']['y']=intval($k['jumlah_kat']);
+				$kat[$k['kat']]='\''.$k['kat'].'\'';
+			}
+			
+			$in = implode(',', $kat);
+			if(!empty($all)){
+				$import = $this->mddata->getImportCostVal($this->uri->segment(4),$in);
+			}else{
+				$import=array();
+			}
+			$res = array();
+			$total_tax=0;
+			$total_duty_taxes=0;
+			$total_clearance=0;
+
+			foreach($import as $im){
+				$total_tax = $im['import_tax']+$im['vat_import']+$im['wht_import'];
+				$total_duty_taxes= $total_tax + $im['adm_cost'] + $im['notul'];
+				$total_clearance = $im['freight_cost']+$im['yellow_handling']+$im['red_handling']+$im['do']+$im['storage']+$im['demurrage']+$im['lift_on_lift_off']+$im['mechanic']+$im['undertable']+$im['trucking']+$im['other_cost'];
+				
+				if(!array_key_exists($im['kategori'], $res)){
+					$res[$im['kategori']]['all']=$total_duty_taxes+$total_clearance;
+					$res[$im['kategori']]['vat']=($total_duty_taxes+$total_clearance)-$im['vat_import'];
+					$res[$im['kategori']]['taxes']=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['custom']=intval($im['total_clearance']);
+				}else{
+					$res[$im['kategori']]['all']+=$total_duty_taxes+$total_clearance;
+					$res[$im['kategori']]['vat']+=($total_duty_taxes+$total_clearance)-$im['vat_import'];
+					$res[$im['kategori']]['taxes']+=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['custom']+=intval($im['total_clearance']);
+				}
+			}
+
+			foreach($all as $k){
+				$end[$k['kat']]['data']['myData']=array_values($res[$k['kat']]);
+				$end[$k['kat']]['data']=array($end[$k['kat']]['data']);
+			}
+			print(json_encode(array_values($end)));
 			break;
 		}
 	}
@@ -1450,11 +1519,11 @@ function price()
 			'competitor_3'=>$p['comp_3'],
 			'competitor_3_name'=>$p['comp_3_name']
 			);
-		$this->mddata->insertIntoTbl('tbl_op_pl_tabel', $data);
-		$this->session->set_flashdata('data', 'Data Has Been Saved');
-		redirect($_SERVER['HTTP_REFERER']);
-		break;
-	}
+$this->mddata->insertIntoTbl('tbl_op_pl_tabel', $data);
+$this->session->set_flashdata('data', 'Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+}
 }
 function payment()
 {

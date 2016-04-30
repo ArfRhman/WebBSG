@@ -20,9 +20,13 @@
                 <div class="form-group">
                   <div class="col-md-3">
                     <select class="form-control" id="tahun">
-                        <option>2016</option>
-                        <option>2017</option>
-                        <option>2018</option>
+                        <?php 
+                        for($i=2016;$i<=date('Y');$i++){
+                            ?>
+                            <option><?=$i?></option>
+                            <?php 
+                        } 
+                        ?>
                     </select>
                 </div>
             </div>
@@ -61,80 +65,65 @@
 
         var categories = [2016]; // json default period
         var title = 'Import Cost ' + 2016 // json default title period
-        var item = [2,3,4,2]; // default json data [item1,item2,item3,dst...]
-        var myDataPerItem = [[1,1,1,1],[2,2,2,2],[3,3,3,3],[4,4,4,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
-        graphic(categories,title,item,myDataPerItem);
+        var res = <?=$result?>;
+        graphic(categories,title,res);
 
         $("#tahun").change(function(){ // data tahun change
-        th = $("#tahun").val();
+            th = $("#tahun").val();
         categories = [th]; // json default period
         title = 'Import Cost ' + th // json default title period
-        item = [5,2,1,3]; // default json data [item1,item2,item3,dst...]
-        myDataPerItem = [[3,1,3,1],[2,2,2,2],[2,3,2,3],[1,4,1,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
-        graphic(categories,title,item,myDataPerItem);
+        $.get('<?=base_url()?>index.php/op/graph_import/getYear/'+th,function(data){
+            //console.log(data);
+            graphic(categories,title,JSON.parse(data));
+        });
     });
-});
-        function graphic(categories,title,item,myDataPerItem){
+    });
+    function graphic(categories,title,res){
 
-            var chart = new Highcharts.Chart({
-              chart: {
-                type: 'column',
-                renderTo: 'containers',
-            }, 
+        var chart = new Highcharts.Chart({
+          chart: {
+            type: 'column',
+            renderTo: 'containers',
+        }, 
 
-            title: {
-                text: title
-            },
-            credits: {
-                enabled: false
-            },
-            xAxis: {
-             categories: categories,
-             title: {
-              text: ' Period'
-          }
-      },
-      yAxis: {
         title: {
-            text: ' Import Cost (All Import Cost)'
+            text: title
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+         categories: categories,
+         title: {
+          text: ' Period'
+      }
+  },
+  yAxis: {
+    title: {
+        text: ' Import Cost (All Import Cost)'
+    }
+},
+tooltip: {
+    formatter: function () {
+        return 'Import Without VAT : <b>' + this.point.myData[0] + '</b><br>Import Without VAT : <b>' + this.point.myData[1] + '</b><br>Taxes & Duties : <b>' + this.point.myData[2] + '</b><br>Custom Clearance : <b>' + this.point.myData[3] + '</b><br>';
+    }
+},
+legend: {
+    enabled: true
+},
+plotOptions: {
+    series: {
+        borderWidth: 0,
+        dataLabels: {
+            enabled: true,
+            format: '{point.y}'
         }
-    },
-    tooltip: {
-        formatter: function () {
-            return 'Import Without VAT : <b>' + this.point.myData[0] + '</b><br>Import Without VAT : <b>' + this.point.myData[1] + '</b><br>Taxes & Duties : <b>' + this.point.myData[2] + '</b><br>Custom Clearance : <b>' + this.point.myData[3] + '</b><br>';
-        }
-    },
-    legend: {
-        enabled: true
-    },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-                format: '{point.y}'
-            }
-        }
-    },
-    series: [{
-        name: 'Item1',
-        data: [
-        {y:5,myData: [3,1,3,1]}]  // mydata [allimport,import without VAT,taxes,custom]
-    },{
-        name: 'Item2',
-        data: [
-        {y: 2,myData:[2,2,2,2]}]
-    },{
-        name: 'Item3',
-        data: [
-        {y: 1,myData: [2,3,2,3]}]
-    },{
-        name: 'Item4',
-        data: [
-        {y: 3,myData:[1,4,1,4]}]
-    }]
+    }
+},
+series: res
+
 });
-}
+    }
 
 </script>
 </body>
