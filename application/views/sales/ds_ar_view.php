@@ -68,7 +68,7 @@
         text: ' A/R Performance'
       },
       xAxis: {
-        categories: ['2016', '2', '3']
+        categories: <?=$period?>
       },
       yAxis: {
         title: {
@@ -76,14 +76,14 @@
         }
       },
       series: [{
-        name: '2016',
-        data: [1, 0, 4]
+        name: 'Invoiced',
+        data: <?=$invoice?>
       }, {
-        name: '3',
-        data: [5, 7, 3]
+        name: 'Paid',
+        data: <?=$paid?>
       }, {
-        name: '3',
-        data: [5, 7, 3]
+        name: 'Outstanding',
+        data: <?=$out?>
       }]
     });
   });
