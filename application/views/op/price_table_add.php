@@ -392,8 +392,8 @@
                    $('#division').val(obj.devisi);
                    $('#category').val(obj.kategori);
                    $('#item_nm').val(obj.nama);
-                   $('#MOU').val('');
-                   $('#brand').val('');
+                   $('#mou').val(obj.sat);
+                   $('#brand').val(obj.merk);
                  }
                }); 
 
@@ -401,7 +401,7 @@
                 $('#division').val('');
                 $('#category').val('');
                 $('#item_nm').val('');
-                $('#MOU').val('');
+                $('#mou').val('');
                 $('#brand').val('');
               } 
             });

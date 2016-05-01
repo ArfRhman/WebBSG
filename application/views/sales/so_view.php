@@ -71,7 +71,8 @@
 															<li><a href='<?php echo site_url('sales/so/delivery_view/'.$c->id)?>'>SO Delivery Information</a></li>
 															<li><a href='<?php echo site_url('sales/so/invoice_view/'.$c->id)?>'>SO Invoicing & Collection Information</a></li>
 															<li><a href='<?php echo site_url('sales/so/payment_view/'.$c->id)?>'>Payment Information</a></li>
-															<li><a href='<?php echo site_url('sales/so/cost_view/'.$c->id)?>'>Cost & Commitment Information</a></li>
+                                                            <li><a href='<?php echo site_url('sales/so/cost_view/'.$c->id)?>'>Cost & Commitment Information</a></li>
+															<li><a href='<?php echo site_url('sales/so/profit_analisis/'.$c->id)?>'>Profit Analisis</a></li>
 														</ul>													
 												</div>
 											</td>

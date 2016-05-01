@@ -111,7 +111,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>	    <!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.datepicker').datepicker({				format:'dd M yyyy'			});		
+<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.datepicker').datepicker({				format:'MM yyyy'			});		
     $("#budgetCd").change(function(){
       if($("#budgetCd").val()!=""){
           $.ajax({

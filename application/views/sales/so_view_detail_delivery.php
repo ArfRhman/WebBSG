@@ -10,7 +10,7 @@
         if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
         {
           ?>
-          <a href="<?php echo site_url('sales/so/add_detail_delivery/'.$this->uri->segment(4))?>" class="btn btn-success">Add New Data</a>
+          <a href="<?php echo site_url('sales/so/add_detail_delivery/'.$this->uri->segment(4).'/'.$this->uri->segment(5))?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>

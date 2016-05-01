@@ -1523,6 +1523,15 @@ $this->mddata->insertIntoTbl('tbl_op_pl_tabel', $data);
 $this->session->set_flashdata('data', 'Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
 break;
+<<<<<<< 7e99e78e14d952afc8195cd8a85a2f9f749d5175
+=======
+case 'getItemPrice':
+$id = $_POST['id'];
+$data = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'item_id', $id)->row();
+$json = json_encode($data);
+echo $json;
+break;
+>>>>>>> 3ad40c454d4089378082ed8fa9401272cd5e727a
 }
 }
 function payment()

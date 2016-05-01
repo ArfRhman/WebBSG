@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                  <label class="col-md-2 control-label" for="email">Periode</label>
                                  <div class="col-md-3">
-                                    <input id="email" name="periode" placeholder="Periode" class="form-control" type="text"></div>                                                                                       
+                                    <input id="email" name="periode" placeholder="Periode" class="form-control datepicker" type="text"></div>                                                                                       
                                     <label class="col-md-2 control-label" for="email">Amount</label>
                                     <div class="col-md-3">
                                         <input id="email" name="amount" placeholder="Amount" class="form-control" type="text"></div>
@@ -104,7 +104,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>	    <!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.datepicker').datepicker({				format:'dd M yyyy'			});		
+<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.datepicker').datepicker({				format:'M yyyy'			});		
     $("#budgetCd").change(function(){
       if($("#budgetCd").val()!=""){
           $.ajax({
