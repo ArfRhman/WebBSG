@@ -2143,11 +2143,7 @@ function profit()
 				WHERE
 				dt.id_so = so.id
 				)
-<<<<<<< 7e99e78e14d952afc8195cd8a85a2f9f749d5175
-		) AS total_purchase
-=======
 		) AS total_purchase, adjustment
->>>>>>> 3ad40c454d4089378082ed8fa9401272cd5e727a
 		FROM
 		tbl_sale_so so
 		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
