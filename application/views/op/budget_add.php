@@ -139,7 +139,7 @@
                 $(document).ready(function(){
 
                     $('.datepicker').datepicker({
-                        format:'MM yyyy'
+                        format:'M yyyy'
                     });
 
                     $("#code").change(function(){
