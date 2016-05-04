@@ -50,12 +50,12 @@
               <div class="form-group">
                 <label class="col-md-2 control-label" for="email">Brand</label>
                 <div class="col-md-3">
-                  <input id="email" name="brand" placeholder="Brand" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">MoU</label>                                            <div class="col-md-3">                                                <input id="email" name="mou" placeholder="MoU" class="form-control" type="text"></div>
+                  <input id="brand" name="brand" placeholder="Brand" class="form-control" type="text" readonly></div>																						<label class="col-md-2 control-label" for="email">MoU</label>                                            <div class="col-md-3">                                                <input id="mou" name="mou" placeholder="MoU" class="form-control" type="text" readonly></div>
                 </div>
                 <div class="form-group">
                   <label class="col-md-2 control-label" for="email">Qty</label>
                   <div class="col-md-3">
-                    <input id="email" name="qty" placeholder="Qty" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Unit Price</label>                                            <div class="col-md-3">                                                <input id="email" name="price" placeholder="Unit Price" class="form-control" type="text"></div>
+                    <input id="email" name="qty" placeholder="Qty" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Unit Price</label>                                            <div class="col-md-3">                                                <input id="unit_price" name="price" placeholder="Unit Price" class="form-control" type="text" readonly></div>
                   </div>
                   <div class="form-group">
                     <label class="col-md-2 control-label" for="email">Disc</label>
@@ -114,10 +114,26 @@
          $('#itemName').val(obj.nama);
        }
      }); 
-
     }else{
       $('#itemName').val('');
+    } 
 
+    if($("#itemID").val()!=""){
+      $.ajax({
+        type:'POST',
+        url: "<?php echo site_url('op/price/getItemPrice') ?>",
+        data: "id=" + $("#itemID").val(),
+        success: function(data){
+         var obj = JSON.parse(data);
+         $('#mou').val(obj.mou);
+         $('#brand').val(obj.brand);
+         $('#unit_price').val(obj.ddp_price);
+       }
+     }); 
+    }else{
+      $('#mou').val('');
+      $('#brand').val('');
+      $('#unit_price').val('');
     } 
   });
  });		</script>

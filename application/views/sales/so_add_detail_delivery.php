@@ -37,31 +37,32 @@
                                 <select name="item" class="form-control" id="itemID">
                                   <option value=""> -- Pilih Item ID --</option>
                                   <?php
-                                  $sql = $this->mddata->getAllDataTbl('tbl_dm_item');
+                                  $sql = $this->db->query("SELECT * FROM tbl_sale_so_detail WHERE id_so = ".$this->uri->segment(5)."");
                                   foreach($sql->result() as $s)
                                   {
                                     ?>
-                                    <option value="<?php echo $s->id; ?>"><?php echo $s->id ?> - <?php echo $s->nama ?></option>
+                                    <option value="<?php echo $s->item; ?>"><?php echo $s->item ?> - <?php echo $s->item_name ?></option>
                                     <?php
                                 }
                                 ?>
                             </select> 
-                        </div>																						<label class="col-md-2 control-label" for="email">Item Name</label>											<div class="col-md-3">                                                <input id="itemName" readonly name="item_name" placeholder="Item Name" class="form-control" type="text"></div>
+                        </div>																						<label class="col-md-2 control-label" for="email">Item Name</label>											<div class="col-md-3">                                                <input id="itemName" readonly name="item_name" placeholder="Item Name" class="form-control" type="text" readonly></div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="email">Brand</label>
                         <div class="col-md-3">
-                            <input id="email" name="brand" placeholder="Brand" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">MoU</label>                                            <div class="col-md-3">                                                <input id="email" name="mou" placeholder="MoU" class="form-control" type="text"></div>
+                            <input id="brand" name="brand" placeholder="Brand" class="form-control" type="text" readonly></div>																						<label class="col-md-2 control-label" for="email">MoU</label>                                            <div class="col-md-3">                                                <input id="mou" name="mou" placeholder="MoU" class="form-control" type="text" readonly></div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="email">Qty</label>
                             <div class="col-md-3">
-                                <input id="email" name="qty" placeholder="Qty" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Unit Price</label>                                            <div class="col-md-3">                                                <input id="email" name="price" placeholder="Unit Price" class="form-control" type="text"></div>
+                                <input id="email" name="qty" placeholder="Qty" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Unit Price</label>                                            <div class="col-md-3">                                                <input id="unit_price" name="price" placeholder="Unit Price" class="form-control" type="text" readonly></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="email">Disc</label>
                                 <div class="col-md-3">
-                                    <input id="email" name="disc" placeholder="Disc" class="form-control" type="text"></div>																						
+                                    <input id="email" name="disc" placeholder="Disc" class="form-control" type="text"></div>			
+                                    <input id="itemIDSO" value="<?php echo $this->uri->segment(5)?>" type="hidden">
                                 </div>
                                 
                                 
@@ -108,18 +109,23 @@
     if($("#itemID").val()!=""){
       $.ajax({
         type:'POST',
-        url: "<?php echo site_url('dm/item/get_item') ?>",
-        data: "id=" + $("#itemID").val(),
+        url: "<?php echo site_url('sales/so/getItemPrice') ?>",
+        data: "id=" + $("#itemID").val() + "&id_so=" + $("#itemIDSO").val(),
         success: function(data){
-           var obj = JSON.parse(data);
-           $('#itemName').val(obj.nama);
+         var obj = JSON.parse(data);
+         $('#mou').val(obj.mou);
+         $('#brand').val(obj.brand);
+         $('#unit_price').val(obj.price);
+         $('#itemName').val(obj.item_name);
        }
-   }); 
-
-  }else{
+     }); 
+    }else{
+      $('#mou').val('');
+      $('#brand').val('');
+      $('#unit_price').val('');
       $('#itemName').val('');
 
-  } 
+    }
 });
 });		</script>
 </body>

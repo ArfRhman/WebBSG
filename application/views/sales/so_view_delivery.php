@@ -75,7 +75,7 @@
                      <ul class='dropdown-menu pull-right' role='menu'>															
                        <li><a href='<?php echo site_url('sales/so/edit_delivery/'.$c->id);?>' >Edit</a></li>
                        <li><a href='<?php echo site_url('sales/so/delete_delivery/'.$c->id);?>'>Delete</a></li>
-                       <li><a href='<?php echo site_url('sales/so/detail_delivery_view/'.$c->id);?>'>Delivery Detail</a></li>
+                       <li><a href='<?php echo site_url('sales/so/detail_delivery_view/'.$c->id.'/'.$this->uri->segment(4));?>'>Delivery Detail</a></li>
                      </ul>													
                    </div>
                  </td>

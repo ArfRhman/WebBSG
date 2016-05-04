@@ -974,6 +974,74 @@ case 'delete_cost':
 $this->mddata->deleteTblData('tbl_sale_so_cost', $this->uri->segment(4));
 redirect($_SERVER['HTTP_REFERER']);
 break;
+case 'profit_analisis':
+$data['data'] = $this->db->query("SELECT
+			so_no,
+			am,
+			division,
+			so_date,
+			customer_id,
+			po_no,
+			po_date,
+			inv.amount,
+			NO,
+			date,
+			due,
+			received_date,
+			inv.date AS inv_date,
+			inv. NO AS inv_no,
+			payment_date,
+			sales,
+			extcom_pro,
+			bank,
+			transport,
+			adm,
+			other,
+			(
+				SELECT
+				SUM(grand_total)
+				FROM
+				tbl_sale_so_detail d
+				WHERE
+				d.id_so = so.id
+				) AS total_so,
+		(
+			SELECT
+			SUM(DDP_IDR)
+			FROM
+			tbl_op_price_list pl
+			WHERE
+			pl.item_id IN (
+				SELECT
+				item
+				FROM
+				tbl_sale_so_detail dt
+				WHERE
+				dt.id_so = so.id
+				)
+		) AS total_purchase, adjustment
+		FROM
+		tbl_sale_so so
+		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
+		WHERE so.id = ".$this->uri->segment(4)."")->row();
+$this->load->view('top', $data);
+$this->load->view('sales/so_profit_analisis', $data);
+break;
+case 'update_adjusment':
+$id = $this->input->post('id');
+	$data = array('adjustment' => $this->input->post('adjustment'));
+$this->mddata->updateDataTbl('tbl_sale_so', $data, 'id', $id);
+$this->session->set_flashdata('data','Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+	break;
+	case 'getItemPrice':
+$id = $_POST['id'];
+$id_so = $_POST['id_so'];
+$data = $this->db->query("SELECT * FROM tbl_sale_so_detail WHERE id_so = $id_so AND item = $id")->row();
+$json = json_encode($data);
+echo $json;
+break;
 }
 }
 
@@ -1913,7 +1981,11 @@ function loss()
 				WHERE
 				dt.id_so = so.id
 				)
+<<<<<<< 7e99e78e14d952afc8195cd8a85a2f9f749d5175
 		) AS total_purchase
+=======
+		) AS total_purchase, so.adjustment
+>>>>>>> 3ad40c454d4089378082ed8fa9401272cd5e727a
 		FROM
 		tbl_sale_so so
 		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
@@ -1982,7 +2054,6 @@ function division()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
 		$this->load->view('top', $data);
 		$this->load->view('sales/division_view', $data);
 		break;			
@@ -2077,7 +2148,7 @@ function profit()
 				WHERE
 				dt.id_so = so.id
 				)
-		) AS total_purchase
+		) AS total_purchase, adjustment
 		FROM
 		tbl_sale_so so
 		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so

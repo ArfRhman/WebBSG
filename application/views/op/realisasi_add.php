@@ -141,7 +141,7 @@
                     <script>
                         $(document).ready(function(){
                             $('.datepicker').datepicker({
-                                format:'dd M yyyy'
+                                format:'M yyyy'
                             });
                             
                             $("#code").change(function(){
