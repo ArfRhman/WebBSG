@@ -1459,15 +1459,20 @@ function price()
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'table_view':
-		// $data['price'] = $this->mddata->getAllDataTbl('tbl_op_pl_header');
+		$data['pl'] = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'pl_no', $this->uri->segment(4));
 		$this->load->view('top', $data);
 		$this->load->view('op/price_table_view', $data);
+		break;
+		case 'table_delete':
+		$this->mddata->deleteGeneral('tbl_op_pl_tabel','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'table_add':								
 		$this->load->view('top', $data);				
 		$this->load->view('op/price_table_add', $data);								
 		break;
-		case 'table_edit':								
+		case 'table_edit':
+		$data['c'] = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);				
 		$this->load->view('op/price_table_edit', $data);								
 		break;
@@ -1476,7 +1481,13 @@ function price()
 		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no'])->row();
 		$ftc = $p['purchase']*$p['percen_ftc'];
 		$ddp_price = $p['purchase']+$ftc;
-		$ddp_idr = $ddp_price*$head->strtolower($p['currency']);
+		$currency = strtolower($p['currency']);
+		if($currency=='idr'){
+			$ddp_idr = $ddp_price*$head->$currency;	
+		}else{
+			$ddp_idr = $ddp_price;
+		}
+		
 		$data = array(
 			'item_id'=>$p['item_id'],
 			'division'=>$p['division'],
@@ -1493,25 +1504,84 @@ function price()
 			'ddp_price'=>$ddp_price,
 			'ddp_idr'=>$ddp_idr,
 			'percen_crosscomp'=>$p['percen_cross'],
-			'crosscomp_price'=>$ddp_idr/(1-$p['percen_cross']),
+			'crosscomp_price'=>$ddp_idr/(100/100-$p['percen_cross']/100),
 			'percen_price_list'=>$p['percen_price_list'],
-			'price_list'=>$ddp_idr/(1-$p['percen_price_list']),
+			'price_list'=>$ddp_idr/(100/-$p['percen_price_list']/100),
 			'percen_cash'=>$p['percen_cash'],
-			'cash'=>$ddp_idr/(1-$p['percen_cash']),
+			'cash'=>$ddp_idr/(100/100-$p['percen_cash']/100),
 			'percen_skbdn'=>$p['percen_skbdn'],
-			'skbdn_price'=>$ddp_idr/(1-$p['percen_skbdn']),
+			'skbdn_price'=>$ddp_idr/(100/100-$p['percen_skbdn']/100),
 			'percen_credit_1_month'=>$p['percen_credit_1m'],
-			'credit_1_month'=>$ddp_idr/(1-$p['percen_credit_1m']),
+			'credit_1_month'=>$ddp_idr/(100/100-$p['percen_credit_1m']/100),
 			'percen_credit_2_month'=>$p['percen_credit_2m'],
-			'credit_2_month'=>$ddp_idr/(1-$p['percen_credit_2m']),
-			'precen_credit_3_month'=>$p['percen_credit_3m'],
-			'credit_3_month'=>$ddp_idr/(1-$p['percen_credit_3m']),
+			'credit_2_month'=>$ddp_idr/(100/100-$p['percen_credit_2m']/100),
+			'percen_credit_3_month'=>$p['percen_credit_3m'],
+			'credit_3_month'=>$ddp_idr/(100/100-$p['percen_credit_3m']/100),
 			'percen_credit_4_month'=>$p['percen_credit_4m'],
-			'credit_4_month'=>$ddp_idr/(1-$p['percen_credit_4m']),
+			'credit_4_month'=>$ddp_idr/(100/100-$p['percen_credit_4m']/100),
 			'special_condition'=>$p['special'],
 			'khs_price'=>$p['khs_price'],
-			'percen_pricelist_to_khs'=>($p['khs_price']-$ddp_idr/(1-$p['percen_price_list']))/$p['khs_price'],
-			'percen_nett_cash_to_khs'=>($p['khs_price']-$ddp_idr/(1-$p['percen_cash']))/$p['khs_price'],
+			'percen_pricelist_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_price_list']/100))/$p['khs_price'],
+			'percen_nett_cash_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_cash']/100))/$p['khs_price'],
+			'competitor_1'=>$p['comp_1'],
+			'competitor_1_name'=>$p['comp_1_name'],
+			'competitor_2'=>$p['comp_2'],
+			'competitor_2_name'=>$p['comp_2_name'],
+			'competitor_3'=>$p['comp_3'],
+			'competitor_3_name'=>$p['comp_3_name'],
+			'pl_no'=>$p['no']
+			);
+$this->mddata->insertIntoTbl('tbl_op_pl_tabel', $data);
+$this->session->set_flashdata('data', 'Data Has Been Saved');
+redirect($_SERVER['HTTP_REFERER']);
+break;
+case 'table_update':
+		$p=$this->input->post();
+		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no'])->row();
+		$ftc = $p['purchase']*$p['percen_ftc'];
+		$ddp_price = $p['purchase']+$ftc;
+		$currency = strtolower($p['currency']);
+		if($currency=='idr'){
+			$ddp_idr = $ddp_price*$head->$currency;	
+		}else{
+			$ddp_idr = $ddp_price;
+		}
+		
+		$data = array(
+			'item_id'=>$p['item_id'],
+			'division'=>$p['division'],
+			'category'=>$p['category'],
+			'item_name'=>$p['item_nm'],
+			'mou'=>$p['mou'],
+			'brand'=>$p['brand'],
+			'source'=>$p['source'],
+			'incoterm'=>$p['incoterm'],
+			'currency'=>$p['currency'],
+			'purchase_price'=>$p['purchase'],
+			'percen_ftc'=>$p['percen_ftc'],
+			'ftc'=> $ftc,
+			'ddp_price'=>$ddp_price,
+			'ddp_idr'=>$ddp_idr,
+			'percen_crosscomp'=>$p['percen_cross'],
+			'crosscomp_price'=>$ddp_idr/(100/100-$p['percen_cross']/100),
+			'percen_price_list'=>$p['percen_price_list'],
+			'price_list'=>$ddp_idr/(100/-$p['percen_price_list']/100),
+			'percen_cash'=>$p['percen_cash'],
+			'cash'=>$ddp_idr/(100/100-$p['percen_cash']/100),
+			'percen_skbdn'=>$p['percen_skbdn'],
+			'skbdn_price'=>$ddp_idr/(100/100-$p['percen_skbdn']/100),
+			'percen_credit_1_month'=>$p['percen_credit_1m'],
+			'credit_1_month'=>$ddp_idr/(100/100-$p['percen_credit_1m']/100),
+			'percen_credit_2_month'=>$p['percen_credit_2m'],
+			'credit_2_month'=>$ddp_idr/(100/100-$p['percen_credit_2m']/100),
+			'percen_credit_3_month'=>$p['percen_credit_3m'],
+			'credit_3_month'=>$ddp_idr/(100/100-$p['percen_credit_3m']/100),
+			'percen_credit_4_month'=>$p['percen_credit_4m'],
+			'credit_4_month'=>$ddp_idr/(100/100-$p['percen_credit_4m']/100),
+			'special_condition'=>$p['special'],
+			'khs_price'=>$p['khs_price'],
+			'percen_pricelist_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_price_list']/100))/$p['khs_price'],
+			'percen_nett_cash_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_cash']/100))/$p['khs_price'],
 			'competitor_1'=>$p['comp_1'],
 			'competitor_1_name'=>$p['comp_1_name'],
 			'competitor_2'=>$p['comp_2'],
@@ -1519,7 +1589,7 @@ function price()
 			'competitor_3'=>$p['comp_3'],
 			'competitor_3_name'=>$p['comp_3_name']
 			);
-$this->mddata->insertIntoTbl('tbl_op_pl_tabel', $data);
+$this->mddata->updateDataTbl('tbl_op_pl_tabel',$data,'no',$p['no']);
 $this->session->set_flashdata('data', 'Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
 break;

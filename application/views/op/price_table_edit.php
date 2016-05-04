@@ -67,7 +67,8 @@
                 </div>
 
                 <div class="panel-body">
-                  <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/price/save');?>" method="post">
+                  <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/price/table_update');?>" method="post">
+                    <input type="hidden" name="no" value="<?=$c->no?>">
                     <fieldset>
                       <div class="form-group">
                         <label class="col-md-2 control-label" for="created">Item ID</label>
@@ -79,7 +80,7 @@
                            foreach($sql->result() as $s)
                            {
                             ?>
-                            <option value="<?php echo $s->id; ?>"><?php echo $s->code.' - '.$s->nama ?></option>
+                            <option value="<?php echo $s->id; ?>" <?=$s->id==$c->item_id ? 'selected' : ''?>><?php echo $s->code.' - '.$s->nama ?></option>
                             <?php
                           }
                           ?>
@@ -87,17 +88,17 @@
                       </div>
                       <label class="col-md-2 control-label" for="created">Division</label>
                       <div class="col-md-3">
-                        <input id="division" name="division" placeholder="Division" class="form-control" type="text" readonly>
+                        <input value="<?=$c->division?>" id="division" name="division" placeholder="Division" class="form-control" type="text" readonly>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-md-2 control-label" for="presented">Category</label>
                       <div class="col-md-3">
-                       <input id="category" name="category" placeholder="Category" class="form-control" type="text" readonly></div>
+                       <input value="<?=$c->category?>" id="category" name="category" placeholder="Category" class="form-control" type="text" readonly></div>
                        <label class="col-md-2 control-label" for="price">Item Name</label>
 
                        <div class="col-md-3">
-                        <input id="item_nm" name="item_nm" placeholder="Item Name" class="form-control" type="text" readonly>
+                        <input value="<?=$c->item_name?>" id="item_nm" name="item_nm" placeholder="Item Name" class="form-control" type="text" readonly>
 
                       </div>
 
@@ -105,11 +106,11 @@
                     <div class="form-group">
                       <label class="col-md-2 control-label" for="effective">MOU</label>
                       <div class="col-md-3">
-                        <input id="mou" name="mou" placeholder="MOU" class="form-control" type="text" readonly></div>
+                        <input value="<?=$c->mou?>" id="mou" name="mou" placeholder="MOU" class="form-control" type="text" readonly></div>
                         <label class="col-md-2 control-label" for="validity">Brand</label>
 
                         <div class="col-md-3">
-                          <input id="brand" name="brand" placeholder="Brand" class="form-control" type="text" readonly>
+                          <input value="<?=$c->brand?>" id="brand" name="brand" placeholder="Brand" class="form-control" type="text" readonly>
 
                         </div>
 
@@ -118,21 +119,21 @@
                         <label class="col-md-2 control-label" for="email">Source</label>
                         <div class="col-md-3">
                           <select name="source" class="form-control">
-                            <option>Local</option>
-                            <option>Import</option>
+                            <option <?=$c->source =='Local' ? 'selected' : ''?>>Local</option>
+                            <option <?=$c->source =='Import' ? 'selected' : ''?>>Import</option>
                           </select>
                         </div>
                         <label class="col-md-2 control-label" for="other">Incoterm </label>
 
                         <div class="col-md-3">
                          <select name="incoterm" class="form-control">
-                          <option>EXW</option>
-                          <option>FOB</option>
-                          <option>C&F</option>
-                          <option>CIF</option>
-                          <option>DDP</option>
-                          <option>EX Seller WH</option>
-                          <option>EX Cust  WH</option>
+                          <option <?=$c->incoterm =='EXW' ? 'selected' : ''?>>EXW</option>
+                          <option <?=$c->incoterm =='FOB' ? 'selected' : ''?>>FOB</option>
+                          <option <?=$c->incoterm =='C&F' ? 'selected' : ''?>>C&F</option>
+                          <option <?=$c->incoterm =='CIF' ? 'selected' : ''?>>CIF</option>
+                          <option <?=$c->incoterm =='DDP' ? 'selected' : ''?>>DDP</option>
+                          <option <?=$c->incoterm =='EX Seller WH' ? 'selected' : ''?>>EX Seller WH</option>
+                          <option <?=$c->incoterm =='EX Cust WH' ? 'selected' : ''?>>EX Cust  WH</option>
                         </select>
 
                       </div>
@@ -148,16 +149,16 @@
 
                             <div class="col-md-3" >
                               <select name="currency" class="form-control">
-                                <option>USD</option>
-                                <option>SGD</option>
-                                <option>IDR</option>
-                                <option>EUR</option>
+                                <option <?=$c->currency =='USD' ? 'selected' : ''?>>USD</option>
+                                <option <?=$c->currency =='SGD' ? 'selected' : ''?>>SGD</option>
+                                <option <?=$c->currency =='IDR' ? 'selected' : ''?>>IDR</option>
+                                <option <?=$c->currency =='EUR' ? 'selected' : ''?>>EUR</option>
                               </select>
                             </div>
                             <label class="col-md-2 control-label" for="presented">Purchase Price</label>
 
                             <div class="col-md-3">
-                              <input name="purchase" placeholder="00.000.000,0000" class="form-control" type="text">
+                              <input value="<?=$c->purchase_price?>" name="purchase" placeholder="00.000.000,0000" class="form-control" type="text">
                             </div>
 
 
@@ -167,7 +168,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_ftc" placeholder="% FTC" class="form-control" type="text">
+                                <input value="<?=$c->percen_ftc?>" aria-describedby="basic-addon1" name="percen_ftc" placeholder="% FTC" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -176,7 +177,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_cross" placeholder="% Cross Comp" class="form-control" type="text">
+                                <input value="<?=$c->percen_crosscomp?>" aria-describedby="basic-addon1" name="percen_cross" placeholder="% Cross Comp" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -187,7 +188,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_price_list" placeholder="% Price List" class="form-control" type="text">
+                                <input value="<?=$c->percen_price_list?>" aria-describedby="basic-addon1" name="percen_price_list" placeholder="% Price List" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -196,7 +197,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_cash" placeholder="% Cash/CBD/COD" class="form-control" type="text">
+                                <input value="<?=$c->percen_cash?>" aria-describedby="basic-addon1" name="percen_cash" placeholder="% Cash/CBD/COD" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -206,7 +207,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_skbdn" placeholder="% PSKBDN" class="form-control" type="text">
+                                <input value="<?=$c->percen_skbdn?>" aria-describedby="basic-addon1" name="percen_skbdn" placeholder="% PSKBDN" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -215,7 +216,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_credit_1m" placeholder="% Credit 1 Month" class="form-control" type="text">
+                                <input value="<?=$c->percen_credit_1_month?>" aria-describedby="basic-addon1" name="percen_credit_1m" placeholder="% Credit 1 Month" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -225,7 +226,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_credit_2m" placeholder="% Credit 2 Month" class="form-control" type="text">
+                                <input value="<?=$c->percen_credit_2_month?>" aria-describedby="basic-addon1" name="percen_credit_2m" placeholder="% Credit 2 Month" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -234,7 +235,7 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_credit_3m" placeholder="% Credit 3 Month" class="form-control" type="text">
+                                <input value="<?=$c->percen_credit_3_month?>" aria-describedby="basic-addon1" name="percen_credit_3m" placeholder="% Credit 3 Month" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
@@ -244,14 +245,14 @@
 
                             <div class="col-md-3">
                               <div class="input-group">
-                                <input aria-describedby="basic-addon1" name="percen_credit_4m" placeholder="% Credit 4 Month" class="form-control" type="text">
+                                <input value="<?=$c->percen_credit_4_month?>" aria-describedby="basic-addon1" name="percen_credit_4m" placeholder="% Credit 4 Month" class="form-control" type="text">
                                 <span class="input-group-addon" id="basic-addon1">%</span>
                               </div>
                             </div>
                              <label class="col-md-2 control-label" for="presented">Special Condition</label>
 
                             <div class="col-md-3">
-                              <input name="special" placeholder="Special Condition" class="form-control" type="text">
+                              <input value="<?=$c->special_condition?>" name="special" placeholder="Special Condition" class="form-control" type="text">
                             </div>
 
                           </div>
@@ -259,12 +260,12 @@
                              <label class="col-md-2 control-label" for="presented">KHS Price</label>
 
                             <div class="col-md-3">
-                              <input name="khs_price" placeholder="00.000.000" class="form-control" type="text">
+                              <input value="<?=$c->khs_price?>" name="khs_price" placeholder="00.000.000" class="form-control" type="text">
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 1</label>
 
                             <div class="col-md-3">
-                              <input name="comp_1" placeholder="00.000.000" class="form-control" type="text">
+                              <input value="<?=$c->competitor_1?>" name="comp_1" placeholder="Competitor 1" class="form-control" type="text">
                             </div>
 
                           </div>
@@ -272,12 +273,12 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 1 Name</label>
 
                             <div class="col-md-3">
-                              <input name="comp_1_name" placeholder="Competitor 1 Name" class="form-control" type="text">
+                              <input value="<?=$c->competitor_1_name?>" name="comp_1_name" placeholder="Competitor 1 Name" class="form-control" type="text">
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 2</label>
 
                             <div class="col-md-3">
-                              <input name="comp_2" placeholder="00.000.000" class="form-control" type="text">
+                              <input value="<?=$c->competitor_2?>" name="comp_2" placeholder="Competitor 2" class="form-control" type="text">
                             </div>
 
                           </div>
@@ -285,12 +286,12 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 2 Name</label>
 
                             <div class="col-md-3">
-                              <input name="comp_2_name" placeholder="Competitor 2 Name" class="form-control" type="text">
+                              <input value="<?=$c->competitor_2_name?>" name="comp_2_name" placeholder="Competitor 2 Name" class="form-control" type="text">
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 3</label>
 
                             <div class="col-md-3">
-                              <input name="comp_3" placeholder="00.000.000" class="form-control" type="text">
+                              <input value="<?=$c->competitor_3?>" name="comp_3" placeholder="Competitor 3" class="form-control" type="text">
                             </div>
 
                           </div>
@@ -298,7 +299,7 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 3 Name</label>
 
                             <div class="col-md-3">
-                              <input name="comp_3_name" placeholder="Competitor 3 Name" class="form-control" type="text">
+                              <input value="<?=$c->competitor_3_name?>" name="comp_3_name" placeholder="Competitor 3 Name" class="form-control" type="text">
                             </div>
 
                           </div>

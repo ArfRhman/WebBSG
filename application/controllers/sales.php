@@ -127,6 +127,11 @@ class Sales extends CI_Controller {
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_product_view', $data);
 			break;
+			case 'product_profit':
+			$res = $this->mddata->getProVsProfit(2016);
+			print_r($res);
+			die();
+			break;
 			case 'am':
 			$data['ac'] = "s_ds_am";
 			$this->load->view('top', $data);

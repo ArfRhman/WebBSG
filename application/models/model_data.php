@@ -3,11 +3,11 @@
 class model_data extends CI_Model {
 
 	public function __construct() {
-        parent::__construct();
-        $this->load->database();
+		parent::__construct();
+		$this->load->database();
 		$this->load->library('session');
 		$this->load->library('encrypt');
-    }
+	}
 
 	function generatePassword($str)
 	{
@@ -52,7 +52,7 @@ class model_data extends CI_Model {
 		$this->db->insert($tbl, $data);
 		$insert_id = $this->db->insert_id();
 
-   		return  $insert_id;
+		return  $insert_id;
 	}	
 	
 	function deleteTblData($tbl, $id)
@@ -109,41 +109,41 @@ class model_data extends CI_Model {
 		switch($dec)
 		{
 			case 1:
-				$fb = "I";
-				break;
+			$fb = "I";
+			break;
 			case 2:
-				$fb = "II";
-				break;
+			$fb = "II";
+			break;
 			case 3:
-				$fb = "III";
-				break;
+			$fb = "III";
+			break;
 			case 4:
-				$fb = "IV";
-				break;
+			$fb = "IV";
+			break;
 			case 5:
-				$fb = "V";
-				break;
+			$fb = "V";
+			break;
 			case 6:
-				$fb = "VI";
-				break;
+			$fb = "VI";
+			break;
 			case 7:
-				$fb = "VII";
-				break;
+			$fb = "VII";
+			break;
 			case 8:
-				$fb = "VIII";
-				break;
+			$fb = "VIII";
+			break;
 			case 9:
-				$fb = "IX";
-				break;
+			$fb = "IX";
+			break;
 			case 10:
-				$fb = "X";
-				break;
+			$fb = "X";
+			break;
 			case 11:
-				$fb = "XI";
-				break;
+			$fb = "XI";
+			break;
 			case 12:
-				$fb = "XII";
-				break;
+			$fb = "XII";
+			break;
 		}
 		return $fb;
 	}		function decrom_MMM($dec)	{		switch($dec)		{			case 'Jan':				$fb = "I";				break;			case 'Feb':				$fb = "II";				break;			case 'Mar':				$fb = "III";				break;			case 'Apr':				$fb = "IV";				break;			case 'May':				$fb = "V";				break;			case 'Jun':				$fb = "VI";				break;			case 'Jul':				$fb = "VII";				break;			case 'Aug':				$fb = "VIII";				break;			case 'Sep':				$fb = "IX";				break;			case 'Okt':				$fb = "X";				break;			case 'Nov':				$fb = "XI";				break;			case 'Des':				$fb = "XII";				break;		}		return $fb;	}
@@ -300,10 +300,14 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
-	// function getProVsProfit($tahun){
-	// 	$query = $this->db->query("SELECT * from tbl_sale_so_detail");
-	// 	return $query;
-	// }
+	function getProVsProfit($tahun){
+		$query = $this->db->query("SELECT *,
+			SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
+		 from tbl_sale_so_detail,tbl_op_pl_tabel where 
+			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id GROUP BY tbl_sale_so_detail.item
+			")->result_array();
+		return $query;
+	}
 
 	//[OP] untuk Supply Report
 

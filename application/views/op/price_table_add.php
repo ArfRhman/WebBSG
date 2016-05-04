@@ -265,7 +265,7 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 1</label>
 
                             <div class="col-md-3">
-                              <input name="comp_1" placeholder="00.000.000" class="form-control" type="text">
+                              <input name="comp_1" placeholder="Competitor 1" class="form-control" type="text">
                             </div>
 
                           </div>
@@ -278,7 +278,7 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 2</label>
 
                             <div class="col-md-3">
-                              <input name="comp_2" placeholder="00.000.000" class="form-control" type="text">
+                              <input name="comp_2" placeholder="Competitor 2" class="form-control" type="text">
                             </div>
 
                           </div>
@@ -291,7 +291,7 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 3</label>
 
                             <div class="col-md-3">
-                              <input name="comp_3" placeholder="00.000.000" class="form-control" type="text">
+                              <input name="comp_3" placeholder="Competitor 3" class="form-control" type="text">
                             </div>
 
                           </div>

@@ -92,7 +92,7 @@
                 }
               });
 });
-  function graphic(data1,title,categ){
+  function graphic(data1,title){
         // Build the chart
         $('#containers').highcharts({
           chart: {
