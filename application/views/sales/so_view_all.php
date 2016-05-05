@@ -52,7 +52,7 @@
 										</div>
 										<div class="col-md-12">
 											<label class="col-md-4 control-label" for="email">Customer Name</label>
-											<div class="col-md-3"><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $so->row()->customer_name)->row()->name; ?></div>
+											<div class="col-md-3"><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'customer_id', $so->row()->customer_id)->row()->name; ?></div>
                                         </div>
 										<div class="col-md-12">
                                             <label class="col-md-4 control-label" for="email">Address</label>

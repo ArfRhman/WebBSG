@@ -154,7 +154,7 @@
 <script>		
     $(document).ready(function(){
         $('.datepicker').datepicker({
-            format:'MM yyyy'
+            format:'M yyyy'
         });
 
         $('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('sales/so/delete');?>/"+btn.data('id');					}				});			});		});	</script>
