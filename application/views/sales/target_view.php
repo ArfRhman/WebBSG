@@ -122,7 +122,7 @@
          foreach ($am->result() as $a) {
           array_push($am_Code, $a->id);
           ?>
-          <th><a href="<?php echo site_url('sales/account/detail/'.$a->id)?>"><?php echo $a->name?></th>
+          <th><a href="<?php echo site_url('sales/target/detail/'.$a->id)?>"><?php echo $a->name?></th>
           <?php
         }
         ?>
