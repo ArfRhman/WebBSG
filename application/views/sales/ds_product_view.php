@@ -26,9 +26,13 @@
             <div class="col-md-2">
               <select class="form-control" id="tahun" style="display:none;">
                 <option>-- Pilih Tahun --</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
+                <?php 
+                for($i=2016;$i<=date('Y');$i++){
+                  ?>
+                  <option><?=$i?></option>
+                  <?php 
+                }
+                ?>
               </select>
             </div>
           </div>
@@ -68,30 +72,25 @@
       var cat = $("#categories").val();
                 if(cat == "1"){ // year to date SO
                  $("#tahun").hide();
+                 $("#tahun").val($("#tahun option:first").val());
                  title = 'Sales By Product (Year to Date)';
                  graphic(data1,title);
                 }else if(cat == "2"){ // pareto
                   $("#tahun").show();
                   title = 'Pareto :Product vs Profit ' + $("#tahun").val(); // default title
                   var categories = [$("#tahun").val()]; // json default period
-                  var item = [2,3,4,2]; // default json data [item1,item2,item3,dst...]
-                  var myDataPerItem = [[1,1,1,1],[2,2,2,2],[3,3,3,3],[4,4,4,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
-                  graphicBar(categories,title,item,myDataPerItem);
-
+                  
                   $("#tahun").change(function(){
                  // data quartal
                  title = ' Pareto :Product vs Profit '+ $("#tahun").val();
-
-                 myDataPerItem = [[1,3,1,1],[2,2,3,2],[3,1,3,3],[4,4,4,4]]; // default json ket. Data per item  array 2D item1 = [ket1,ket2,ket3,ket4],item2 = [ket2,ket2,ket2,ket2],dst..
-
-                item = [4,2,1,5]; // json data from tahun [item1,item2,item3,dst...]
-                categories = [$("#tahun").val()];
-                graphicBar(categories,title,item,myDataPerItem);
-
-              });
+                 categories = [$("#tahun").val()];
+                 $.get('<?=base_url()?>index.php/sales/dashboard/product_profit/'+$("#tahun").val(),function(data){
+                  graphicBar(categories,title,JSON.parse(data));
+                });
+               });
                 }
               });
-});
+  });
   function graphic(data1,title){
         // Build the chart
         $('#containers').highcharts({
@@ -130,7 +129,7 @@
           }]
         });
 }
-function graphicBar(categories,title,item,myDataPerItem){
+function graphicBar(categories,title,data){
 
   var chart = new Highcharts.Chart({
     chart: {
@@ -157,7 +156,7 @@ function graphicBar(categories,title,item,myDataPerItem){
   },
   tooltip: {
     formatter: function () {
-      return 'Amount SO : <b>' + this.point.myData[0] + '</b><br>Profit : <b>' + this.point.myData[1] + '</b><br>% Amount : <b>' + this.point.myData[2] + '</b><br>% Profit : <b>' + this.point.myData[3] + '</b><br>';
+      return 'Amount SO : <b>' + this.point.myData[0] + '</b><br>Profit : <b>' + this.point.myData[1] + '</b><br>% Amount : <b>' + this.point.myData[2] + '%</b><br>% Profit : <b>' + this.point.myData[3] + '%</b><br>';
     }
   },
   legend: {
@@ -172,24 +171,7 @@ function graphicBar(categories,title,item,myDataPerItem){
       }
     }
   },
-  series: [{
-     // json data
-     name: 'Item1',
-     data: [
-        {y:item[0],myData: myDataPerItem[0]}]  // mydata [Amount SO,Profit, %amount,%profit]
-      },{
-        name: 'Item2',
-        data: [
-        {y: item[1],myData:myDataPerItem[1]}]
-      },{
-        name: 'Item3',
-        data: [
-        {y: item[2],myData: myDataPerItem[2]}]
-      },{
-        name: 'Others',
-        data: [
-        {y: item[3],myData:myDataPerItem[3]}]
-      }]
+  series: data
     });
 }
 </script>

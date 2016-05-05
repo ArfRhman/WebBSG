@@ -69,6 +69,7 @@
                 <div class="panel-body">
                   <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/price/table_update');?>" method="post">
                     <input type="hidden" name="no" value="<?=$c->no?>">
+                    <input type="hidden" name="no_pl" value="<?=$c->pl_no?>">
                     <fieldset>
                       <div class="form-group">
                         <label class="col-md-2 control-label" for="created">Item ID</label>

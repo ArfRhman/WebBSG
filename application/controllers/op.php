@@ -1483,9 +1483,13 @@ function price()
 		$ddp_price = $p['purchase']+$ftc;
 		$currency = strtolower($p['currency']);
 		if($currency=='idr'){
-			$ddp_idr = $ddp_price*$head->$currency;	
-		}else{
 			$ddp_idr = $ddp_price;
+		}else if($currency=='eur'){
+			$ddp_idr = $ddp_price*$head->eur;	
+		}else if($currency=='sgd'){
+			$ddp_idr = $ddp_price*$head->sgd;	
+		}else if($currency=='usd'){
+			$ddp_idr = $ddp_price*$head->usd;	
 		}
 		
 		$data = array(
@@ -1537,14 +1541,18 @@ redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'table_update':
 		$p=$this->input->post();
-		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no'])->row();
+		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no_pl'])->row();
 		$ftc = $p['purchase']*$p['percen_ftc'];
 		$ddp_price = $p['purchase']+$ftc;
 		$currency = strtolower($p['currency']);
 		if($currency=='idr'){
-			$ddp_idr = $ddp_price*$head->$currency;	
-		}else{
 			$ddp_idr = $ddp_price;
+		}else if($currency=='eur'){
+			$ddp_idr = $ddp_price*$head->eur;	
+		}else if($currency=='sgd'){
+			$ddp_idr = $ddp_price*$head->sgd;	
+		}else if($currency=='usd'){
+			$ddp_idr = $ddp_price*$head->usd;	
 		}
 		
 		$data = array(

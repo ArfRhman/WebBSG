@@ -128,9 +128,41 @@ class Sales extends CI_Controller {
 			$this->load->view('sales/ds_product_view', $data);
 			break;
 			case 'product_profit':
-			$res = $this->mddata->getProVsProfit(2016);
-			print_r($res);
-			die();
+			$res = $this->mddata->getProVsProfit($this->uri->segment(4));
+			$data = array();
+			$total=0;
+			$qty=0;
+			foreach($res as $r){
+				$total+=$r['diff'];
+				$qty+=$r['jum'];
+			}
+			foreach($res as $r){
+				$data[$r['item_id']]['name']=$r['item_name'];
+				$data[$r['item_id']]['data']=array();
+				$data[$r['item_id']]['data']['y']=intval($r['diff']);
+				$data[$r['item_id']]['data']['myData']=array(intval($r['jum']),intval($r['diff']),($r['jum']/$qty)*100,($r['diff']/$total)*100);
+			}
+			$slice = array_slice($data,0,8);
+			$other = array_slice($data,9,count($data));
+			$new = array(
+				'name'=> 'Others',
+				'data'=> array(
+					'y'=>0,
+					'myData'=>array(0,0,0,0)
+					)
+				);
+			foreach($other as $o){
+				$new['data']['y']+=$o['diff'];
+				$new['data']['myData'][0]+=intval($o['jum']);
+				$new['data']['myData'][1]+=intval($o['diff']);
+			}
+			$new['data']['myData'][2]=($new['data']['myData'][0]/$qty)*100;
+			$new['data']['myData'][3]=($new['data']['myData'][1]/$total)*100;
+			$slice[]=$new;
+			foreach($slice as $k=>$s){
+				$slice[$k]['data']=array($s['data']);
+			}
+			print(json_encode(array_values($slice)));
 			break;
 			case 'am':
 			$data['ac'] = "s_ds_am";

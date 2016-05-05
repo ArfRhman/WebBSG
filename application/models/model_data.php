@@ -301,10 +301,11 @@ class model_data extends CI_Model {
 	}
 
 	function getProVsProfit($tahun){
-		$query = $this->db->query("SELECT *,
+		$query = $this->db->query("SELECT *, SUM(tbl_sale_so_detail.qty) as jum,
 			SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
-		 from tbl_sale_so_detail,tbl_op_pl_tabel where 
-			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id GROUP BY tbl_sale_so_detail.item
+		 from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
+			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
+			AND tbl_sale_so.id = tbl_sale_so_detail.id_so GROUP BY tbl_sale_so_detail.item
 			")->result_array();
 		return $query;
 	}
