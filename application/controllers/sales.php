@@ -250,8 +250,37 @@ class Sales extends CI_Controller {
 			break;
 			case 'profit':
 			$data['ac'] = "s_profit_am";
-			//$target = $this->mddata->getTargetByYear();
-			//print_r($target);
+			$ds = $this->mddata->getDsProfitByYear();
+			$end = array();
+			$end['total']=array(
+				'name' => 'Target',
+				'data' => array()
+				);
+			$end['total_so']=array(
+				'name' => 'SO',
+				'data' => array()
+				);
+			$end['total_invoice']=array(
+				'name' => 'Invoice',
+				'data' => array()
+				);
+			$end['cogs']=array(
+				'name' => 'COGS',
+				'data' => array()
+				);
+
+			foreach ($ds as $d) {
+				$end['total']['data'][$d['periode']]['y']=intval($d['total']);
+				$end['total_so']['data'][$d['periode']]['y']=intval($d['total_so']);
+				$end['total_invoice']['data'][$d['periode']]['y']=intval($d['total_invoice']);
+				$end['cogs']['data'][$d['periode']]['y']=intval($d['cogs']);
+				$end['total_so']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
+				$end['total_invoice']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
+				$end['cogs']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
+				$end['total']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
+			}
+			print_r($end);
+			//print_r(json_encode(array_values($end)));
 			//die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_profit_view', $data);

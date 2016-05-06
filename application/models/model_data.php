@@ -251,26 +251,45 @@ class model_data extends CI_Model {
 
 	//untuk dashboard target
 
-	function getTargetByYear($p){
-		$query = $this->db->query("SELECT *,sum(amount) as total, YEAR(str_to_date(periode,'%M %Y')) as periode from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) > 2020 group by YEAR(str_to_date(periode,'%M %Y'))")->result_array();
-		return $query;
-	}
-
 	function getTargetQuerterly($p){
-		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, QUARTER(str_to_date(periode,'%M %Y')) as quarter, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = 2020 group by QUARTER(str_to_date(periode,'%M %Y'))")->result_array();
+		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, QUARTER(str_to_date(periode,'%M %Y')) as quarter, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = $p group by QUARTER(str_to_date(periode,'%M %Y'))")->result_array();
 		return $query;
 	}
 
 	function getTargetPerMonth($p){
-		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, MONTH(str_to_date(periode,'%M %Y')) as month, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = 2020 group by MONTH(str_to_date(periode,'%M %Y'))")->result_array();
+		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, MONTH(str_to_date(periode,'%M %Y')) as month, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = $p group by MONTH(str_to_date(periode,'%M %Y'))")->result_array();
 		return $query;
 	}
 
-	function getDsProfitByYear($p){
-		$query = $this->db->query("SELECT *, sum(grand_total) as total_so, sum (tbl_sale_so_invoicing.amount) as total_invoice, YEAR(str_to_date(tbl_sale_so.so_date,'%M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_invoicing where tbl_sale_so.id = tbl_sale_so_detail.id_so AND tbl_sale_so_invoicing.id_so = tbl_sale_so.id AND YEAR(str_to_date(tbl_sale_so.so_date,'%M %Y')) = '$p'")->result_array();
+	function getDsProfitByQuartely($p){
+		$query = $this->db->query("SELECT *, 
+			sum(grand_total) as total_so, 
+			sum(tbl_sale_so_invoicing.amount) as total_invoice, 
+			YEAR(str_to_date(tbl_sale_so.so_date,'%M %Y')) as periode 
+			from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_invoicing 
+			where tbl_sale_so.id = tbl_sale_so_detail.id_so 
+			AND tbl_sale_so_invoicing.id_so = tbl_sale_so.id 
+			AND YEAR(str_to_date(tbl_sale_so.so_date,'%M %Y')) = '$p'")->result_array();
 		return $query;
 	}
 
+	function getDsProfitByYear(){
+		$query = $this->db->query("SELECT *, 
+			sum(tbl_sale_so_detail.grand_total) as total_so, 
+			sum(tbl_sale_so_invoicing.amount) as total_invoice, 
+			sum(tbl_op_pl_tabel.ddp_idr) as cogs, 
+			sum(tbl_sale_so_cost.sales)+sum(tbl_sale_so_cost.bank)+sum(tbl_sale_so_cost.transport)+sum(tbl_sale_so_cost.adm)+sum(tbl_sale_so_cost.other)+sum(tbl_sale_so_cost.extcom_pro) as direct_cost, 
+			sum(tbl_sale_target.amount) as total, 
+			YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode 
+			from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_invoicing,tbl_op_pl_tabel,tbl_sale_so_cost,tbl_sale_target 
+			where tbl_sale_so.id = tbl_sale_so_detail.id_so 
+			AND tbl_op_pl_tabel.item_id = tbl_sale_so_detail.item 
+			AND tbl_sale_so.id = tbl_sale_so_cost.id_so 
+			AND YEAR(str_to_date(tbl_sale_target.periode,'%M %Y')) = YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) 
+			AND tbl_sale_so_invoicing.id_so = tbl_sale_so.id GROUP BY periode ORDER BY periode ASC 
+			")->result_array();
+		return $query;
+	}
 
 	//untuk dashboard customer
 	function getCustomerOperator($id){
@@ -303,7 +322,7 @@ class model_data extends CI_Model {
 	function getProVsProfit($tahun){
 		$query = $this->db->query("SELECT *, SUM(tbl_sale_so_detail.qty) as jum,
 			SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
-		 from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
+			from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
 			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
 			AND tbl_sale_so.id = tbl_sale_so_detail.id_so GROUP BY tbl_sale_so_detail.item
 			")->result_array();
@@ -370,5 +389,6 @@ class model_data extends CI_Model {
 		return $query;
 
 	}
+
 
 }
