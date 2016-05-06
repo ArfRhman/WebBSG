@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2016 at 04:01 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Waktu pembuatan: 05. Mei 2016 jam 15:29
+-- Versi Server: 5.5.16
+-- Versi PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_agent`
+-- Struktur dari tabel `tbl_dm_agent`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_agent` (
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_agent` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_dm_agent`
+-- Dumping data untuk tabel `tbl_dm_agent`
 --
 
 INSERT INTO `tbl_dm_agent` (`id`, `agent_id`, `name`, `service`, `address`, `phone`, `fax`, `website`, `email`, `note`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `tbl_dm_agent` (`id`, `agent_id`, `name`, `service`, `address`, `pho
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_agent_subfield`
+-- Struktur dari tabel `tbl_dm_agent_subfield`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_agent_subfield` (
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_agent_subfield` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_brand`
+-- Struktur dari tabel `tbl_dm_brand`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_brand` (
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_brand` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_budget`
+-- Struktur dari tabel `tbl_dm_budget`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_budget` (
@@ -99,20 +99,24 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_budget` (
   `level2` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `tbl_dm_budget`
+-- Dumping data untuk tabel `tbl_dm_budget`
 --
 
 INSERT INTO `tbl_dm_budget` (`id`, `code`, `main`, `level1`, `level2`, `description`) VALUES
-(1, '001', 'test', '1', '2', 't'),
-(2, 'budget2', 'budmain', 'bud1', 'bud2', 'hahaha');
+(1, '71000001', 'Biaya Ops Pemasaran - Wireline', 'Biaya Ops Pemasaran - Wireline', 'Biaya BBM, tol, parkir (operasional)', '-'),
+(2, '71000002', 'Biaya Ops Pemasaran - Wireline', 'Biaya Ops Pemasaran - Wireline', 'Golf internal management', '-'),
+(3, '71000003', 'Biaya Ops Pemasaran - Wireline', 'Biaya Ops Pemasaran - Wireline', 'Pameran / event', '-'),
+(4, '71000004', 'Biaya Ops Pemasaran - Wireline', 'Biaya Ops Pemasaran - Wireline', 'lalala', '-'),
+(5, '71000005', 'Biaya Ops Pemasaran - Wireline', 'Biaya Ops Pemasaran - Wireline', 'lilili', '-'),
+(6, '81000001', 'Biaya Satu', 'Biaya Satu', 'Satu Satu', '-');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_creditor`
+-- Struktur dari tabel `tbl_dm_creditor`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_creditor` (
@@ -132,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_creditor` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_customer`
+-- Struktur dari tabel `tbl_dm_customer`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_customer` (
@@ -151,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_customer` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=357 ;
 
 --
--- Dumping data for table `tbl_dm_customer`
+-- Dumping data untuk tabel `tbl_dm_customer`
 --
 
 INSERT INTO `tbl_dm_customer` (`id`, `customer_id`, `manager`, `grade`, `name`, `address`, `postal`, `phone`, `fax`, `website`, `email`) VALUES
@@ -510,7 +514,7 @@ INSERT INTO `tbl_dm_customer` (`id`, `customer_id`, `manager`, `grade`, `name`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_customer_subfield`
+-- Struktur dari tabel `tbl_dm_customer_subfield`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_customer_subfield` (
@@ -532,7 +536,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_customer_subfield` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_forwarder`
+-- Struktur dari tabel `tbl_dm_forwarder`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_forwarder` (
@@ -550,7 +554,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_forwarder` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_dm_forwarder`
+-- Dumping data untuk tabel `tbl_dm_forwarder`
 --
 
 INSERT INTO `tbl_dm_forwarder` (`id`, `forwarder_id`, `name`, `category`, `address`, `phone`, `fax`, `website`, `email`, `notes`) VALUES
@@ -559,7 +563,7 @@ INSERT INTO `tbl_dm_forwarder` (`id`, `forwarder_id`, `name`, `category`, `addre
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_forwarder_legal`
+-- Struktur dari tabel `tbl_dm_forwarder_legal`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_forwarder_legal` (
@@ -619,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_forwarder_legal` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_dm_forwarder_legal`
+-- Dumping data untuk tabel `tbl_dm_forwarder_legal`
 --
 
 INSERT INTO `tbl_dm_forwarder_legal` (`id`, `id_forwarder`, `pendirian`, `pendirian_no`, `pendirian_date`, `pendirian_notary`, `menkeh`, `menkeh_no`, `menkeh_date`, `perubahan`, `perubahan_no`, `perubahan_date`, `perubahan_notary`, `menkeh_perubahan`, `menkeh_perubahan_no`, `menkeh_perubahan_date`, `tdp`, `tdp_no`, `tdp_date`, `tdp_expire`, `siup`, `siup_no`, `siup_date`, `siup_expire`, `siujt`, `siujt_no`, `siujt_date`, `siujt_expire`, `npwp`, `npwp_no`, `npwp_date`, `pkp`, `pkp_no`, `pkp_date`, `domisili`, `domisili_no`, `domisili_date`, `domisili_expire`, `lisensi1`, `lisensi1_name`, `lisensi1_no`, `lisensi1_date`, `lisensi1_expire`, `lisensi2`, `lisensi2_name`, `lisensi2_no`, `lisensi2_date`, `lisensi2_expire`, `pks`, `pks_no`, `pks_date`, `pks_expire`) VALUES
@@ -628,7 +632,7 @@ INSERT INTO `tbl_dm_forwarder_legal` (`id`, `id_forwarder`, `pendirian`, `pendir
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_forwarder_subfield`
+-- Struktur dari tabel `tbl_dm_forwarder_subfield`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_forwarder_subfield` (
@@ -650,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_forwarder_subfield` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_item`
+-- Struktur dari tabel `tbl_dm_item`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_item` (
@@ -670,391 +674,413 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_item` (
   `brochure` varchar(255) NOT NULL,
   `spek` varchar(255) NOT NULL,
   `catatan` varchar(255) NOT NULL,
+  `storaging_cost` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=378 ;
 
 --
--- Dumping data for table `tbl_dm_item`
+-- Dumping data untuk tabel `tbl_dm_item`
 --
 
-INSERT INTO `tbl_dm_item` (`id`, `code`, `devisi`, `kategori`, `nama`, `sat`, `merk`, `dimension`, `weight`, `weight_note`, `id_hs`, `tax`, `picture`, `brochure`, `spek`, `catatan`) VALUES
-(1, '03100002', 'WLS', 'ADAPTOR WLS', 'Adaptor Din-Female to N-Male', '', '', '', '', '', '2', '', '', '', '', ''),
-(2, '03100005', 'WLS', 'ADAPTOR WLS', 'Adaptor DIN-Male to DIN-Female Right Angel', '', '', '', '', '', '2', '', '', '', '', ''),
-(3, '01110021', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/APC', '', '', '', '', '', '2', '', '', '', '', ''),
-(4, '01110008', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Round', '', '', '', '', '', '2', '', '', '', '', ''),
-(5, '01110001', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Square', '', '', '', '', '', '2', '', '', '', '', ''),
-(6, '01110003', 'WLN', 'ADAPTOR WLN', 'Adaptor LC/APC Duplex', '', '', '', '', '', '2', '', '', '', '', ''),
-(7, '01110004', 'WLN', 'ADAPTOR WLN', 'Adaptor LC/UPC Duplex', '', '', '', '', '', '2', '', '', '', '', ''),
-(8, '01110011', 'WLN', 'ADAPTOR WLN', 'Adaptor SC/APC', '', '', '', '', '', '2', '', '', '', '', ''),
-(9, '01110006', 'WLN', 'ADAPTOR WLN', 'Adaptor SC/UPC Simplex', '', '', '', '', '', '2', '', '', '', '', ''),
-(10, '01140002', 'WLN', 'ATTENU WLN', 'Air Gap Attenuator - SC/PC-SC/APC', '', '', '', '', '', '2', '', '', '', '', ''),
-(11, '01140001', 'WLN', 'ATTENU WLN', 'Air Gap Attenuator - SC/PC-SC/PC', '', '', '', '', '', '2', '', '', '', '', ''),
-(12, '03020005', 'WLS', 'ANTENNA', 'Antenna Celling (Omni) 800-2500 MHz, 5dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(13, '03020006', 'WLS', 'ANTENNA', 'Antenna Outdoor Directional 824-2500 MHz, 16 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(14, '03020004', 'WLS', 'ANTENNA', 'Antenna Service Panel Single Polarization ISAT Band GSM, 16 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(15, '03110003', 'WLS', 'ATTENU WLS', 'Attenuator 30 watts, 10 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(16, '03110004', 'WLS', 'ATTENU WLS', 'Attenuator 30 watts, 20 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(17, '03110006', 'WLS', 'ATTENU WLS', 'Attenuator 50 watts, 20 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(18, '01080005', 'WLN', 'ODC', 'Base Tray ODC per 12 Fiber', '', '', '', '', '', '2', '', '', '', '', ''),
-(19, '01080045', 'WLN', 'ODC', 'Base Tray Per 12 Fiber For ODC 144C With LC/UPC Adapter & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(20, '01080019', 'WLN', 'ODC', 'Base Tray Per 12 Fiber For ODC-C 144C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(21, '01080020', 'WLN', 'ODC', 'Base Tray Per 12 Fiber For ODC-C 288C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(22, '03050010', 'WLS', 'ACCS WLS', 'Battery 12V, 33 AH, LIP1233', '', '', '', '', '', '2', '', '', '', '', ''),
-(23, '03050011', 'WLS', 'ACCS WLS', 'Battery Bank UB4840 ICA', '', '', '', '', '', '2', '', '', '', '', ''),
-(24, '01210046', 'WLN', 'ACCS WLN', 'Box Splitter For 1x16/1x32 Modular Splitter', '', '', '', '', '', '2', '', '', '', '', ''),
-(25, '03010001', 'WLS', 'REPEATER', 'BTS Hotel GSM/DCS/WCDMA', '', '', '', '', '', '2', '', '', '', '', ''),
-(26, '01260001', 'WLN', 'HANDHOLE', 'BULK3N071 SHIELD 1730 LID KIT, NO LOGO, L-BOLT', '', '', '', '', '', '2', '', '', '', '', ''),
-(27, '01150040', 'WLN', 'PIGTAIL', 'Buncy Pigtail FC/PC, SM, G.652D, 0,9mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(28, '01200011', 'WLN', 'RACK ', 'Cabinet FTM 900W 600D 2000Hmm', '', '', '', '', '', '2', '', '', '', '', ''),
-(29, '1210025', 'WLN', 'ACCS WLN', 'Cleaver SS-6S type', '', '', '', '', '', '2', '', '', '', '', ''),
-(30, '01200003', 'WLN', 'RACK ', 'Close Rack 19" 42U', '', '', '', '', '', '2', '', '', '', '', ''),
-(31, '03030002', 'WLS', 'COMBINER', 'Combiner 2 In, 1 Out Wifi/Celluler', '', '', '', '', '', '2', '', '', '', '', ''),
-(32, '03030004', 'WLS', 'COMBINER', 'Combiner 3 In, 1 Out Wideband', '', '', '', '', '', '2', '', '', '', '', ''),
-(33, '03030005', 'WLS', 'COMBINER', 'Combiner 4 In, 1 Out wideband', '', '', '', '', '', '2', '', '', '', '', ''),
-(34, '03030006', 'WLS', 'COMBINER', 'Combiner 4 In, 1 Out wideband Wifi/Cellular', '', '', '', '', '', '2', '', '', '', '', ''),
-(35, '03030011', 'WLS', 'COMBINER', 'Combiner GSM 900/3G CDMA 2000', '', '', '', '', '', '2', '', '', '', '', ''),
-(36, '03090002', 'WLS', 'CONECTOR WLS', 'Connector 1 1/4" N-Female', '', '', '', '', '', '2', '', '', '', '', ''),
-(37, '03090004', 'WLS', 'CONECTOR WLS', 'Connector 1 5/8" N-Female', '', '', '', '', '', '2', '', '', '', '', ''),
-(38, '03090009', 'WLS', 'CONECTOR WLS', 'Connector 1/2" Din-Female', '', '', '', '', '', '2', '', '', '', '', ''),
-(39, '03090008', 'WLS', 'CONECTOR WLS', 'Connector 1/2" Din-Male', '', '', '', '', '', '2', '', '', '', '', ''),
-(40, '03090010', 'WLS', 'CONECTOR WLS', 'Connector 1/2" NM', '', '', '', '', '', '2', '', '', '', '', ''),
-(41, '03090011', 'WLS', 'CONECTOR WLS', 'Connector 7/8" Din-Female', '', '', '', '', '', '2', '', '', '', '', ''),
-(42, '03090001', 'WLS', 'CONECTOR WLS', 'Connector N-Male RG-8, Merk Amphenol', '', '', '', '', '', '2', '', '', '', '', ''),
-(43, '01240001', 'WLN', 'CONECTOR WLN', 'Connector UY2P', '', '', '', '', '', '2', '', '', '', '', ''),
-(44, '01240001', 'WLN', 'CONECTOR WLN', 'Connector UY2P', '', '', '', '', '', '2', '', '', '', '', ''),
-(45, '01170005', 'WLN', 'PEDESTAL', 'CPH1122 - Pedestal 11" Light Green B1 Bracket & Self Lock', '', '', '', '', '', '2', '', '', '', '', ''),
-(46, '01170003', 'WLN', 'PEDESTAL', 'CPH12126 - Pedestal 12" Light Green Square B1 Bracket and Self Lock ', '', '', '', '', '', '2', '', '', '', '', ''),
-(47, '01170004', 'WLN', 'PEDESTAL', 'CPH920 - Pedestal 9" Light Green B1 Bracket and Self Lock ', '', '', '', '', '', '2', '', '', '', '', ''),
-(48, '01170004', 'WLN', 'PEDESTAL', 'CPH920 - Pedestal 9" Light Green B1 Bracket and Self Lock ', '', '', '', '', '', '2', '', '', '', '', ''),
-(49, '01180005', 'WLN', 'CABLE FO', 'Drop Cable FO Aerial / Direct, Burried 2 Core, SM, G657A', '', '', '', '', '', '2', '', '', '', '', ''),
-(50, '06180009', 'RND', 'CABLE FO', 'Drop Cable FO Aerial, LSZH, G657A, 2 Core', '', '', '', '', '', '2', '', '', '', '', ''),
-(52, '06180012', 'RND', 'CABLE FO', 'Drop Cable FO Aerial, LSZH,G657A, 1 Core ', '', '', '', '', '', '2', '', '', '', '', ''),
-(54, '01110001', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Square', '', '', '', '', '', '2', '', '', '', '', ''),
-(55, '01500015', 'WLN', 'ENCODER', 'E2CMTS', '', '', '', '', '', '2', '', '', '', '', ''),
-(56, '01180006', 'WLN', 'CABLE FO', 'Fabric Innerduct Maxcell Type: 6428-3', '', '', '', '', '', '2', '', '', '', '', ''),
-(57, '04060003', 'FTTH ', 'CABLE FO', 'Feeder Cable SM G652D 48 core ', '', '', '', '', '', '2', '', '', '', '', ''),
-(58, '04060012S', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable Easy Split G652D Aerial 12C', '', '', '', '', '', '2', '', '', '', '', ''),
-(59, '04060012V', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable Easy Split G652D Aerial 12C', '', '', '', '', '', '2', '', '', '', '', ''),
-(60, '04060005', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable Easy Split G652D Aerial 24C', '', '', '', '', '', '2', '', '', '', '', ''),
-(61, '04060013S', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 144C', '', '', '', '', '', '2', '', '', '', '', ''),
-(62, '04060014', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 264C', '', '', '', '', '', '2', '', '', '', '', ''),
-(63, '04060015', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 288C', '', '', '', '', '', '2', '', '', '', '', ''),
-(64, '04060011', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 96C', '', '', '', '', '', '2', '', '', '', '', ''),
-(65, '04060001', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652D Aerial SM Cap. 12 core', '', '', '', '', '', '2', '', '', '', '', ''),
-(66, '04060002', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652D Aerial SM Cap. 24 core', '', '', '', '', '', '2', '', '', '', '', ''),
-(67, '04060004', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652D, Duct SM 24C', '', '', '', '', '', '2', '', '', '', '', ''),
-(68, '04060007', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable, Easy Split (Single Core) G652D, Duct, SM 12 C', '', '', '', '', '', '2', '', '', '', '', ''),
-(69, '04060009', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable, Easy Split (Single Core), G652D, Duct24 C', '', '', '', '', '', '2', '', '', '', '', ''),
-(70, '03030008', 'WLS', 'COMBINER', 'Filter BTS CDMA 1900', '', '', '', '', '', '2', '', '', '', '', ''),
-(71, '03030009', 'WLS', 'COMBINER', 'Filter BTS WCDMA 2100Filter BTS WCDMA 2100', '', '', '', '', '', '2', '', '', '', '', ''),
-(72, '01020002', 'WLN', 'CLODOME', 'FO Closure Dome Type Cap. 24C With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', ''),
-(73, '01020001', 'WLN', 'CLODOME', 'FO Closure Dome Type Cap. 48C With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', ''),
-(74, '01010003', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 144 Core (FOCM) With OST-A ', '', '', '', '', '', '2', '', '', '', '', ''),
-(75, '01010005', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 384C (FOCL) With OST-C ', '', '', '', '', '', '2', '', '', '', '', ''),
-(76, '01010002', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 96 Core (FOCM) With OST-A ', '', '', '', '', '', '2', '', '', '', '', ''),
-(77, '01010028', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 96 Core (FOCM) without Splice Tray', '', '', '', '', '', '2', '', '', '', '', ''),
-(78, '01010004', 'WLN', 'CLOINL', 'FO Closure Inline Type Kap. 48C (GPJ09H4-C1) With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', ''),
-(79, '01010012', 'WLN', 'CLOINL', 'FO Closure Inline Type Kap. 96C (GPJ09H4-C1) With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', ''),
-(80, '01170002', 'WLN', 'DP OPTIC', 'FTTH FO Terminal Box Cap. Max. 4 Core GP62FN-1', '', '', '', '', '', '2', '', '', '', '', ''),
-(81, '01170002', 'WLN', 'DP OPTIC', 'FTTH FO Terminal Box Cap. Max. 4 Core GP62FN-1', '', '', '', '', '', '2', '', '', '', '', ''),
-(82, '01210027', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 1 Core, type OFS-QTE', '', '', '', '', '', '2', '', '', '', '', ''),
-(83, '01210027', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 1 Core, type OFS-QTE', '', '', '', '', '', '2', '', '', '', '', ''),
-(84, '01210028', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 2 Core, type OFS-QTE', '', '', '', '', '', '2', '', '', '', '', ''),
-(85, '01210050', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 2 Core, type OFS-QTE & Pigtail SC/APC', '', '', '', '', '', '2', '', '', '', '', ''),
-(86, '06180001', 'RND', 'CABLE FO', 'G.657B3 Transparent Optic Cable', '', '', '', '', '', '2', '', '', '', '', ''),
-(87, '04040001', 'FTTH ', 'HANDHOLE', 'GLB1111-61T11 HH-PIT-HA', '', '', '', '', '', '2', '', '', '', '', ''),
-(88, '06250002', 'RND', 'GPS', 'GPS Tracker - OT08', '', '', '', '', '', '2', '', '', '', '', ''),
-(89, '01100001', 'WLN', 'SLEEVE', 'Heatshrinkable Sleeve', '', '', '', '', '', '2', '', '', '', '', ''),
-(90, '01100001', 'WLN', 'SLEEVE', 'Heatshrinkable Sleeve', '', '', '', '', '', '2', '', '', '', '', ''),
-(91, '03020013', 'WLS', 'ANTENNA', 'High Gain Antenna Wideband 825-2500, 16 dBi, GHD825V1665A', '', '', '', '', '', '2', '', '', '', '', ''),
-(92, '01170023', 'WLN', 'DP OPTIC', 'Household Information Box SPX2-B1 (Wall Mounted)', '', '', '', '', '', '2', '', '', '', '', ''),
-(93, '03010008', 'WLS', 'REPEATER', 'Inline Amplifier GSM/WCMA 20 Watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(94, '01280002', 'WLN', 'ACCS NSL', 'IP Decoder H.264, Support MPEG-2/H.264,Gbe100/1000 Mbps Input & Output', '', '', '', '', '', '2', '', '', '', '', ''),
-(95, '01210026', 'WLN', 'ACCS WLN', 'Jacket Stripper', '', '', '', '', '', '2', '', '', '', '', ''),
-(96, '01210026', 'WLN', 'ACCS WLN', 'Jacket Stripper', '', '', '', '', '', '2', '', '', '', '', ''),
-(97, '03080006', 'WLS', 'JUMPER CABLE', 'Jumper Cable 1M  superflexible  with 1/2" N-male and N-male connector', '', '', '', '', '', '2', '', '', '', '', ''),
-(98, '03080009', 'WLS', 'JUMPER CABLE', 'Jumper Cable 3M  superflexible  with 1/2" DIN-male to DIN-male connector', '', '', '', '', '', '2', '', '', '', '', ''),
-(99, '03080013', 'WLS', 'JUMPER CABLE', 'Jumper Cable 3M  superflexible  with 1/2" N-male and N-male Right Angle', '', '', '', '', '', '2', '', '', '', '', ''),
-(100, '03080015', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5 m 1/2" Superflexible Din Male to Din-Male', '', '', '', '', '', '2', '', '', '', '', ''),
-(101, '03080008', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5M  superflexible  with 1/2" N-male and N-male connector', '', '', '', '', '', '2', '', '', '', '', ''),
-(102, '03080014', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5M  superflexible  with 1/2" N-male and N-male connector', '', '', '', '', '', '2', '', '', '', '', ''),
-(103, '03080016', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5M superflexible with 1/2" N-male and N-female connector ', '', '', '', '', '', '2', '', '', '', '', ''),
-(104, '06720001', 'RND', 'MGN LCK', 'Magnetic Lock', '', '', '', '', '', '2', '', '', '', '', ''),
-(105, '03010015', 'WLS', 'REPEATER', 'MCPA GSM 900 8 Carrier 200 Watt, Indosats Band', '', '', '', '', '', '2', '', '', '', '', ''),
-(106, '03010014', 'WLS', 'REPEATER', 'MCPA GSM 900 Mhz 200 Watts, 8 Carriers (XL)', '', '', '', '', '', '2', '', '', '', '', ''),
-(107, '03010016', 'WLS', 'REPEATER', 'MCPA WCDMA (3G) 100 Watt (XL band)', '', '', '', '', '', '2', '', '', '', '', ''),
-(108, '01250003', 'RND', 'UPS ', 'Mini UPS 12V 3A', '', '', '', '', '', '2', '', '', '', '', ''),
-(109, '03030012', 'WLS', 'COMBINER', 'Multi Combiner 6 in 4 out, IMD-150', '', '', '', '', '', '2', '', '', '', '', ''),
-(110, '03030013', 'WLS', 'COMBINER', 'Multi Operator Combiner (POI) 16 In, 4 Out', '', '', '', '', '', '2', '', '', '', '', ''),
-(111, '03120004', 'WLS', 'COUPLER', 'Multiband 10 dB directional coupler', '', '', '', '', '', '2', '', '', '', '', ''),
-(112, '03120005', 'WLS', 'COUPLER', 'Multiband 13 dB directional coupler', '', '', '', '', '', '2', '', '', '', '', ''),
-(113, '03120006', 'WLS', 'COUPLER', 'Multiband 15 dB directional coupler with wall mounting bracket, ', '', '', '', '', '', '2', '', '', '', '', ''),
-(114, '03120007', 'WLS', 'COUPLER', 'Multiband 20 dB directional coupler with wall mounting bracket, ', '', '', '', '', '', '2', '', '', '', '', ''),
-(115, '03120008', 'WLS', 'COUPLER', 'Multiband 5 dB power coupler with wall mounting bracket,100W,N-F connectors', '', '', '', '', '', '2', '', '', '', '', ''),
-(116, '03120001', 'WLS', 'COUPLER', 'Multiband 6 dB directional coupler', '', '', '', '', '', '2', '', '', '', '', ''),
-(117, '03120009', 'WLS', 'COUPLER', 'Multiband 6 dB power coupler with wall mounting bracket,100W,N-F Connector', '', '', '', '', '', '2', '', '', '', '', ''),
-(118, '03120002', 'WLS', 'COUPLER', 'Multiband 7 dB directional coupler with wall mounting bracket, ', '', '', '', '', '', '2', '', '', '', '', ''),
-(119, '03120003', 'WLS', 'COUPLER', 'Multiband 8 dB directional coupler with wall mounting bracket,', '', '', '', '', '', '2', '', '', '', '', ''),
-(120, '06250001', 'RND', 'GPS', 'OBD II GPS Tracker - OT01', '', '', '', '', '', '2', '', '', '', '', ''),
-(121, '01080036', 'WLN', 'ODC', 'ODC C FTTX Cap 144C Type SC/APC', '', '', '', '', '', '2', '', '', '', '', ''),
-(122, '01080015', 'WLN', 'ODC', 'ODC C FTTX Cap 144C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(124, '01080001', 'WLN', 'ODC', 'ODC C FTTX Cap 288C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(125, '01080030', 'WLN', 'ODC', 'ODC C FTTX Cap 288C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(126, '01080018', 'WLN', 'ODC', 'ODC C FTTX Cap 576C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(127, '01170008', 'WLN', 'DP OPTIC', 'ODC-B Pole Cap. 48C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(128, '01170021', 'WLN', 'DP OPTIC', 'ODC-C Pole Cap. 48C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(130, '01170022', 'WLN', 'DP OPTIC', 'ODF Modular 144C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(131, '01170022', 'WLN', 'DP OPTIC', 'ODF Modular 144C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(132, '01170022', 'WLN', 'DP OPTIC', 'ODF Modular 144C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(133, '01170015', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C', '', '', '', '', '', '2', '', '', '', '', ''),
-(134, '01170015', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C', '', '', '', '', '', '2', '', '', '', '', ''),
-(135, '01170015', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C', '', '', '', '', '', '2', '', '', '', '', ''),
-(136, '01170054', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C Without Cassete & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(137, '01170026', 'WLN', 'DP OPTIC', 'ODP Pedestal 11" Cap. 16C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(138, '01170049', 'WLN', 'DP OPTIC', 'ODP Pedestal 9" Cap. 8C SC/APC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(139, '01170018', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 12C With SC/APC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(140, '01170029', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 12C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(141, '01170038', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 16C With SC/APC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(142, '01170012', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 16C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(143, '01170019', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 16C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(144, '01170050', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 8C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(145, '01200004', 'WLN', 'RACK ', 'Open Rack 19" 40U', '', '', '', '', '', '2', '', '', '', '', ''),
-(146, '01200005', 'WLN', 'RACK ', 'Open Rack 19" 42U', '', '', '', '', '', '2', '', '', '', '', ''),
-(147, '01040021', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 24C Transparant Door Box Only', '', '', '', '', '', '2', '', '', '', '', ''),
-(148, '01040004', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 24C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(149, '01040023', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 72C Transparant Door Only Box', '', '', '', '', '', '2', '', '', '', '', ''),
-(150, '01040009', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 72C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(151, '01040020', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 96C Transparant Door Box Only Include Sleeve', '', '', '', '', '', '2', '', '', '', '', ''),
-(152, '01040011', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 96C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(153, '01040014', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 96C Transparant Door With FC/UPC Adaptor & Storage With Pigtail', '', '', '', '', '', '2', '', '', '', '', ''),
-(154, '01030026', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 12C Metal Door Box Only', '', '', '', '', '', '2', '', '', '', '', ''),
-(155, '01030051', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 144C Transparant Door Box Only Include Sleeve', '', '', '', '', '', '2', '', '', '', '', ''),
-(156, '01030015', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 144C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(157, '01030002', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 144C Transparant Door With SC/UPC Adaptor ', '', '', '', '', '', '2', '', '', '', '', ''),
-(158, '01030052', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 24C Metal Door Box Only', '', '', '', '', '', '2', '', '', '', '', ''),
-(159, '01030010', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 24C Metal Door With SC/UPC Adaptor ', '', '', '', '', '', '2', '', '', '', '', ''),
-(160, '01030033', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 48C Box Only', '', '', '', '', '', '2', '', '', '', '', ''),
-(161, '01030020', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 48C Metal Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(162, '01030008', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 48C Metal Door With SC/UPC Adaptor ', '', '', '', '', '', '2', '', '', '', '', ''),
-(163, '01030043', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 96C Box Only', '', '', '', '', '', '2', '', '', '', '', ''),
-(164, '01070001', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 24C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(165, '01070003', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 24C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(166, '01070004', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 24C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(167, '01070002', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 48C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(168, '03020001', 'WLS', 'ANTENNA', 'Panel Antenna BS directional DB8982665E-M', '', '', '', '', '', '2', '', '', '', '', ''),
-(169, '03020009', 'WLS', 'ANTENNA', 'Panel Antenna GHD 3500 V15120K, 3300-3800 MHz, 15 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(170, '03020003', 'WLS', 'ANTENNA', 'Panel antenna Wideband 1/2M  13 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(171, '01120035', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 24C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(172, '01120016', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 72C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(173, '01120032', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 96C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(174, '01120017', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 96C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(175, '01120001', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 12C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(176, '01120034', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 12C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(177, '01120014', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 12C LC/UPC Duplex', '', '', '', '', '', '2', '', '', '', '', ''),
-(178, '01120022', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 144C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(179, '01120006', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 144C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(180, '01120009', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 144C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(181, '01120002', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(182, '01120015', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C LC/UPC Duplex', '', '', '', '', '', '2', '', '', '', '', ''),
-(183, '01120018', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(184, '01120031', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C SC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(185, '01120023', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 264C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(186, '01120003', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(187, '01120036', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(188, '01120011', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(189, '01120028', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C SC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(190, '01120021', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 72C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(191, '01120012', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 72C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(192, '01120037', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 96C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(193, '01120013', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 96C SC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(194, '01120029', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 96C SC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', ''),
-(195, '01120004', 'WLN', 'PANEL ADAPTR', 'Panel OTB Swing Rack Type Cap. 24C FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(196, '03020017', 'WLS', 'ANTENNA', 'Parabolic Antenna, TS-OADPA-806/960-16.5-18', '', '', '', '', '', '2', '', '', '', '', ''),
-(197, '03020008', 'WLS', 'ANTENNA', 'Parabolic Grid Antenna 900 MHz, 17 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(198, '01160003', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, DP, G.652D, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(199, '01160044', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 1 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(200, '01160047', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 15 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(202, '01160045', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(203, '01160048', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(204, '01280003', 'WLN', 'ACCS NSL', 'Zoom modem, anderson, model AD-RT-ETH/USB-X5', '', '', '', '', '', '2', '', '', '', '', ''),
-(205, '03020016', 'WLS', 'ANTENNA', 'Yagi Antenna, TS-IADYG-2000-50-12, WCDMA 2100 3G', '', '', '', '', '', '2', '', '', '', '', ''),
-(206, '03020012', 'WLS', 'ANTENNA', 'Yagi Antenna GSM900 MHz, 12 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(207, '03020011', 'WLS', 'ANTENNA', 'Yagi Antenna DCS1800 MHz, 12 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(208, '03050012', 'WLS', 'ACCS WLS', 'UPS ICA 2000 VA/1000 Watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(209, '03010023', 'WLS', 'REPEATER', 'TS-OR15RC-43, Repeater CDMA 20 watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(210, '03020015', 'WLS', 'ANTENNA', 'TS-CUDYG-1800-50-12, Antenna Yagi DCS1800 (1710-1885 MHz) 12 dBi', '', '', '', '', '', '2', '', '', '', '', ''),
-(211, '03010017', 'WLS', 'REPEATER', 'Triple Band Pico Repeater GSM/DCS/WCDMA 15 dBm XL Band', '', '', '', '', '', '2', '', '', '', '', ''),
-(212, '03010029', 'WLS', 'REPEATER', 'TMB GSM 900 MHz, 100 Watt, 52 dBm 4 carries', '', '', '', '', '', '2', '', '', '', '', ''),
-(213, '03010029', 'WLS', 'REPEATER', 'TMB GSM 900 MHz, 100 Watt, 52 dBm 4 carries', '', '', '', '', '', '2', '', '', '', '', ''),
-(214, '03010018', 'WLS', 'REPEATER', 'TMB DCS 1800 MHz, 100 Watt 4 carries', '', '', '', '', '', '2', '', '', '', '', ''),
-(215, '03010028', 'WLS', 'REPEATER', 'TMB DCS 1800 MHz 4, 100 Watt, 4 Carries', '', '', '', '', '', '2', '', '', '', '', ''),
-(216, '01280001', 'WLN', 'ACCS NSL', 'Sumavision EMRV-3 Blue Chassis, 6 slots, dual power 1xC150 HD License 1xSFP 100', '', '', '', '', '', '2', '', '', '', '', ''),
-(217, '01500001', 'WLN', 'ENCODER', 'Sumavision EMRD8020 H.264 Decoder', '', '', '', '', '', '2', '', '', '', '', ''),
-(218, '04010002', 'FTTH ', 'SUBDUCT', 'Subduct HDPE Unilon Stel 27/32mm Hitam-Biru 400M', '', '', '', '', '', '2', '', '', '', '', ''),
-(219, '01210069', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x8 SC/APC, In 1m Out 1m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(220, '01210067', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x8 SC/APC, In 0.75m Out 0.75m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(221, '01210032', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x4 SC/UPC, In 1.5m Out 2.0m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(222, '01210030', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x4 SC/UPC, In 1.5m Out 1.5m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(223, '01210064', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x4 SC/APC, In 1.5m Out 1.5m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(224, '01210048', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x32 SC/UPC, In 1.5m Out 2.0m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(225, '01210007', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x32 SC/UPC, In 1.5m Out 1.5m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(226, '01210029', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x2 SC/UPC, In 2m Out 2m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(227, '01210014', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x8 SC/APC, In 1m Out 1m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(228, '01210054', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x8 LC/APC, In 0.5m Out 0.5m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(229, '01210019', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x4 SC/UPC, In 1m Out 2m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(230, '01210015', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x16 SC/APC, In 1.5m Out 1.5m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(231, '01210031', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 1x8 SC/UPC, In 0.5m Out 0.5m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(232, '01210070', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 1x8 SC/APC, In 0.8m Out 0.8m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(233, '01210002', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 1x4 SC/UPC, In 1.5m Out 1.5m, Dia 0.9 mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(234, '01090006', 'WLN', 'SPLICE TRAY', 'Splice Tray OST-C-1, 24/48 Fiber', '', '', '', '', '', '2', '', '', '', '', ''),
-(235, '01090004', 'WLN', 'SPLICE TRAY', 'Splice Tray OST-B-1, 06/12 Fiber', '', '', '', '', '', '2', '', '', '', '', ''),
-(236, '01090005', 'WLN', 'SPLICE TRAY', 'Splice Tray OST-A-1, 12/24 Fiber', '', '', '', '', '', '2', '', '', '', '', ''),
-(237, '01090002', 'WLN', 'SPLICE TRAY', 'Splice Tray Inline Q-Tech', '', '', '', '', '', '2', '', '', '', '', ''),
-(238, '01090001', 'WLN', 'SPLICE TRAY', 'Splice Tray Dome Type', '', '', '', '', '', '2', '', '', '', '', ''),
-(239, '01090001', 'WLN', 'SPLICE TRAY', 'Splice Tray Dome Type', '', '', '', '', '', '2', '', '', '', '', ''),
-(240, '01090003', 'WLN', 'SPLICE TRAY', 'Splice Organizer for Splice Tray Inline CHQ', '', '', '', '', '', '2', '', '', '', '', ''),
-(241, '01170007', 'WLN', 'PEDESTAL', 'SPH920 - Pedestal 9" Light Green Bracket and Self Lock', '', '', '', '', '', '2', '', '', '', '', ''),
-(242, '01170006', 'WLN', 'PEDESTAL', 'SPH710 - Pedestal 7" Light Green B1 Bracket and Self Lock', '', '', '', '', '', '2', '', '', '', '', ''),
-(243, '01190001', 'WLN', 'PEDESTAL', 'SPH10106C3B2L01 - Signature Pedestal Housing', '', '', '', '', '', '2', '', '', '', '', ''),
-(244, '03020014', 'WLS', 'ANTENNA', 'Smoke sensor ceiling mount, antenna: TQJ-0825, Freq: 800-2500 mhz', '', '', '', '', '', '2', '', '', '', '', ''),
-(245, '01180004', 'WLN', 'CABLE FO', 'SI-01 fiber optical cable stripper (vertical)', '', '', '', '', '', '2', '', '', '', '', ''),
-(246, '01180004', 'WLN', 'CABLE FO', 'SI-01 fiber optical cable stripper (vertical)', '', '', '', '', '', '2', '', '', '', '', ''),
-(247, '01180004', 'WLN', 'CABLE FO', 'SI-01 fiber optical cable stripper (vertical)', '', '', '', '', '', '2', '', '', '', '', ''),
-(248, '01260007', 'WLN', 'HANDHOLE', 'SGLB243631T11004,SGLB 36" Deep, Green Plastic LID, Telecomm. Logo, L-Bolt, With Marker, No Floor', '', '', '', '', '', '2', '', '', '', '', ''),
-(249, '01260010', 'WLN', 'HANDHOLE', 'SGLB24361B41 SGLB LID', '', '', '', '', '', '2', '', '', '', '', ''),
-(250, '01260005', 'WLN', 'HANDHOLE', 'SGLB2436 Extension 10 Inch', '', '', '', '', '', '2', '', '', '', '', ''),
-(251, '01260014', 'WLN', 'HANDHOLE', 'SGLB173021T11010, SGLB1730, Green Plastic LID, L-Bolt, Floor, Telco Logo, 24” Depth', '', '', '', '', '', '2', '', '', '', '', ''),
-(252, '01260013', 'WLN', 'HANDHOLE', 'SGLB173021T110, SGLB1730, Green Plastic LID, L-Bolt, No Floor, Telco Logo, 24” Depth', '', '', '', '', '', '2', '', '', '', '', ''),
-(253, '01260012', 'WLN', 'HANDHOLE', 'SGLB1730 Floor', '', '', '', '', '', '2', '', '', '', '', ''),
-(254, '01330002', 'WLN', 'SFP MODULES', 'SFP BWDM SMF TX1550/RX1310 LC 10 KM DOM For Sisco Comp.', '', '', '', '', '', '2', '', '', '', '', ''),
-(255, '01330001', 'WLN', 'SFP MODULES', 'SFP BWDM SMF TX1310/RX1550 LC 10 KM DOM For Sisco Comp.', '', '', '', '', '', '2', '', '', '', '', ''),
-(256, '03050001', 'WLS', 'ACCS WLS', 'Roll Cable RG-8, merk Daichi', '', '', '', '', '', '2', '', '', '', '', ''),
-(257, '01100005', 'WLN', 'SLEEVE', 'Ribbon Sleeve per 4 fiber, 60 mm', '', '', '', '', '', '2', '', '', '', '', ''),
-(258, '03010020', 'WLS', 'REPEATER', 'Repeater ICS WCDMA 20 watt Next Link', '', '', '', '', '', '2', '', '', '', '', ''),
-(259, '03010007', 'WLS', 'REPEATER', 'Repeater GSM/DCS/WCDMA 20 Watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(260, '03010027', 'WLS', 'REPEATER', 'Repeater GSM 900 MHz Band Selective 20 watt, 43 DBm', '', '', '', '', '', '2', '', '', '', '', ''),
-(261, '03010002', 'WLS', 'REPEATER', 'Repeater CDMA 800 MHz Band Selective 20 Watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(262, '06710001', 'RND', 'FGR PRNT', 'Reader Finger Print Based on IP MGS 100', '', '', '', '', '', '2', '', '', '', '', ''),
-(263, '01200009', 'WLN', 'RACK ', 'Rack FTM DImension : 19" t=2.2 m', '', '', '', '', '', '2', '', '', '', '', ''),
-(264, '01110019', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector SC/PC', '', '', '', '', '', '2', '', '', '', '', ''),
-(265, '01110019', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector SC/PC', '', '', '', '', '', '2', '', '', '', '', ''),
-(266, '01110017', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector SC/APC', '', '', '', '', '', '2', '', '', '', '', ''),
-(267, '01110016', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector FC/UPC', '', '', '', '', '', '2', '', '', '', '', ''),
-(268, '01160046', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(269, '01160046', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(270, '01160007', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(271, '01160052', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(272, '01160053', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 15 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(273, '01160054', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(274, '01160051', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(275, '01160002', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G652D, 3.0 mm, 1 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(276, '03050008', 'WLS', 'ACCS WLS', 'Power Terminator (dummy load) 50 watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(277, '03050002', 'WLS', 'ACCS WLS', 'Power Terminator (dummy load) 100 watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(278, '03050003', 'WLS', 'ACCS WLS', 'Power Terminator (dummy load) 10 watt', '', '', '', '', '', '2', '', '', '', '', ''),
-(279, '01150012', 'WLN', 'PIGTAIL', 'Pigtail ST/UPC, HMM, SP, G.652D, 3.0mm , 1 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(280, '01150035', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, SP, G655C, 0.9 mm, 1.8 Mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(281, '01150032', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, SP, G652D, 0.9mm, 1.8m', '', '', '', '', '', '2', '', '', '', '', ''),
-(282, '01150020', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, SP, G.652, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(283, '01150010', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, G.652D, 0.9 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(284, '01150005', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, G.652D, 0.9 mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(285, '01150021', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC , SM, SP, G657A1, 2.0 mm, 1 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(286, '01150023', 'WLN', 'PIGTAIL', 'Pigtail SC/PC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(287, '01150006', 'WLN', 'PIGTAIL', 'Pigtail SC/APC, SM, G.652D, 0.9 mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(288, '01150042', 'WLN', 'PIGTAIL', 'Pigtail SC/APC, SM, G.652D, 0.9 mm, 1.5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(289, '01150007', 'WLN', 'PIGTAIL', 'Pigtail LC/UPC, SM, G.652D, 0,9mm, 1,8 Mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(290, '01150008', 'WLN', 'PIGTAIL', 'Pigtail LC/APC, SM, SP, G652D, 0.9mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(291, '01160008', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(292, '01160004', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(293, '01160023', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(294, '01160024', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(295, '01160025', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(296, '01160013', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(297, '01160056', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(298, '01150039', 'WLN', 'PIGTAIL', 'Pigtail LC/APC, SM, SP, G652D, 0.9mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(299, '01150017', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC,SM, SP, G.652D, 2.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(300, '01150018', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652D, 2.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(301, '01150026', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652D, 0.9 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(302, '01150014', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652, 3.0mm, 3 mtr (NZDSF)', '', '', '', '', '', '2', '', '', '', '', ''),
-(303, '01150016', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652, 2.4 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(304, '01150013', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652, 2.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(305, '01150001', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, G.652D, 0.9mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(306, '01150002H', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, G.652D, 0.9mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(307, '01150011', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, G.652, 3.0mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(308, '01150030', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, MM, SP, G.652D, 3.0mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(309, '01150022', 'WLN', 'PIGTAIL', 'Pigtail FC/APC, SM, SP, G652D, 3.0 mm, 2 Mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(310, '03010030', 'WLS', 'REPEATER', 'Pico Repeater WCDMA (3G) 2100 MHz, 20 dBM', '', '', '', '', '', '2', '', '', '', '', ''),
-(311, '03010019', 'WLS', 'REPEATER', 'Pico Repeater WCDMA (3G) 2100 MHz, 20 dBM', '', '', '', '', '', '2', '', '', '', '', ''),
-(312, '01160011', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(313, '01160057', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(314, '03010013', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 Elevator', '', '', '', '', '', '2', '', '', '', '', ''),
-(315, '03010012', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 AGC 15 dBm Telkomsel Band', '', '', '', '', '', '2', '', '', '', '', ''),
-(316, '03010011', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 AGC 15 dBm Indosat Band', '', '', '', '', '', '2', '', '', '', '', ''),
-(317, '03010010', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 20 dBm, 7.5 MHz', '', '', '', '', '', '2', '', '', '', '', ''),
-(318, '03010009', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 20 dBm', '', '', '', '', '', '2', '', '', '', '', ''),
-(319, '01160058', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 40 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(320, '01160012', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(321, '01160009', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G652D, 2.4 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(322, '01160026', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(323, '01160026', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(324, '01160055', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-SC/APC, SM, SP, G.652, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(325, '01160001', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-SC/UPC, SM, DP, G652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(326, '01160084', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-SC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(327, '03010025', 'WLS', 'REPEATER', 'Pico Repeater Dual Band GSM900 & DCS1800 20 dBm', '', '', '', '', '', '2', '', '', '', '', ''),
-(328, '03010025', 'WLS', 'REPEATER', 'Pico Repeater Dual Band GSM900 & DCS1800 20 dBm', '', '', '', '', '', '2', '', '', '', '', ''),
-(329, '03010024', 'WLS', 'REPEATER', 'Pico Repeater Dual Band GSM/WCDMA 20 dBm', '', '', '', '', '', '2', '', '', '', '', ''),
-(330, '01160063', 'WLN', 'PATCHCORD', 'Patchcord LC/UPC-LC/UPC, SM, DP, G.652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(331, '01160042', 'WLN', 'PATCHCORD', 'Patchcord LC/UPC-LC/UPC, SM, SP, G657A, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(332, '01160005', 'WLN', 'PATCHCORD', 'Patchcord LC/UPC-SC/APC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(333, '01160062', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-LC/UPC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(334, '03010006', 'WLS', 'REPEATER', 'Pico Repeater DCS 900 20 dBm, 7.5 MHz', '', '', '', '', '', '2', '', '', '', '', ''),
-(335, '03010005', 'WLS', 'REPEATER', 'Pico Repeater DCS 1800 20 Dbm', '', '', '', '', '', '2', '', '', '', '', ''),
-(336, '03010026', 'WLS', 'REPEATER', 'Pico Repeater DCS 1800 20 dBm', '', '', '', '', '', '2', '', '', '', '', ''),
-(337, '03010004', 'WLS', 'REPEATER', 'Pico Repeater CDMA 800 AGC 15 dBm 2 Fix Band', '', '', '', '', '', '2', '', '', '', '', ''),
-(338, '03010003', 'WLS', 'REPEATER', 'Pico Repeater CDMA 800 20 dBm 2 Fix Band (Flexi Band)', '', '', '', '', '', '2', '', '', '', '', ''),
-(339, '03010022', 'WLS', 'REPEATER', 'Pico Repeater 20dBm, GSM 900, Fix Band, MR01RB-20', '', '', '', '', '', '2', '', '', '', '', ''),
-(340, '01160014', 'WLN', 'PATCHCORD', 'Patchcord, SC/UPC-SC/UPC, SM, SP, G.652, 2.4 mm, 15 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(341, '01160062', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-LC/UPC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(342, '01160018', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.652D, 3.0 mm, 20 Mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(343, '01160059', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(344, '01160032', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.657A, 2.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(345, '01160032', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.657A, 2.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(346, '01160071', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(347, '01160071', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(348, '01160069', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(349, '01160069', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(350, '01160073', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(351, '01160073', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(352, '01160072', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(353, '01160072', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(354, '01160070', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(355, '01160070', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(356, '01160067', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 2 meter', '', '', '', '', '', '2', '', '', '', '', ''),
-(357, '01160067', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 2 meter', '', '', '', '', '', '2', '', '', '', '', ''),
-(358, '01160068', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 5 meter', '', '', '', '', '', '2', '', '', '', '', ''),
-(359, '01160068', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 5 meter', '', '', '', '', '', '2', '', '', '', '', ''),
-(360, '01160019', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-ST/UPC, SM, SP, G.652, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(361, '01160020', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-ST/UPC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(362, '01160061', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-ST/UPC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(363, '01160035', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(364, '01160092', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/APC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(365, '01160033', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/APC, SM, SP, G.657A, 2.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(366, '01160016', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, MM, DP, G.652, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(367, '01160006', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, MM, DP, G.652D, 3.0 mm, 13 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(368, '01160015', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, MM, SP, G.652D, 3.0 mm, 8 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(369, '01160040', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, DP, G652D, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(370, '01160031', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(371, '01160031', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(372, '01160029', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D, 2.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(373, '01160090', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(374, '01160080', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G652D, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(375, '01160017', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-ST/UPC, SM, DP, G.652, 3.0 mm, 80 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(376, '01160021', 'WLN', 'PATCHCORD', 'Patchcord ST/UPC-ST/UPC, HMM, DP, G.652, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', ''),
-(377, '01080001', 'WLN', 'ODC', 'ODC C FTTX Cap 288C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', '');
+INSERT INTO `tbl_dm_item` (`id`, `code`, `devisi`, `kategori`, `nama`, `sat`, `merk`, `dimension`, `weight`, `weight_note`, `id_hs`, `tax`, `picture`, `brochure`, `spek`, `catatan`, `storaging_cost`) VALUES
+(1, '03100002', 'WLS', 'ADAPTOR WLS', 'Adaptor Din-Female to N-Male', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(2, '03100005', 'WLS', 'ADAPTOR WLS', 'Adaptor DIN-Male to DIN-Female Right Angel', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(3, '01110021', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/APC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(4, '01110008', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Round', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(5, '01110001', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Square', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(6, '01110003', 'WLN', 'ADAPTOR WLN', 'Adaptor LC/APC Duplex', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(7, '01110004', 'WLN', 'ADAPTOR WLN', 'Adaptor LC/UPC Duplex', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(8, '01110011', 'WLN', 'ADAPTOR WLN', 'Adaptor SC/APC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(9, '01110006', 'WLN', 'ADAPTOR WLN', 'Adaptor SC/UPC Simplex', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(10, '01140002', 'WLN', 'ATTENU WLN', 'Air Gap Attenuator - SC/PC-SC/APC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(11, '01140001', 'WLN', 'ATTENU WLN', 'Air Gap Attenuator - SC/PC-SC/PC', '', '', '', '', '', '2', '', '', '', '', '', '2000'),
+(12, '03020005', 'WLS', 'ANTENNA', 'Antenna Celling (Omni) 800-2500 MHz, 5dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(13, '03020006', 'WLS', 'ANTENNA', 'Antenna Outdoor Directional 824-2500 MHz, 16 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(14, '03020004', 'WLS', 'ANTENNA', 'Antenna Service Panel Single Polarization ISAT Band GSM, 16 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(15, '03110003', 'WLS', 'ATTENU WLS', 'Attenuator 30 watts, 10 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(16, '03110004', 'WLS', 'ATTENU WLS', 'Attenuator 30 watts, 20 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(17, '03110006', 'WLS', 'ATTENU WLS', 'Attenuator 50 watts, 20 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(18, '01080005', 'WLN', 'ODC', 'Base Tray ODC per 12 Fiber', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(19, '01080045', 'WLN', 'ODC', 'Base Tray Per 12 Fiber For ODC 144C With LC/UPC Adapter & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(20, '01080019', 'WLN', 'ODC', 'Base Tray Per 12 Fiber For ODC-C 144C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(21, '01080020', 'WLN', 'ODC', 'Base Tray Per 12 Fiber For ODC-C 288C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(22, '03050010', 'WLS', 'ACCS WLS', 'Battery 12V, 33 AH, LIP1233', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(23, '03050011', 'WLS', 'ACCS WLS', 'Battery Bank UB4840 ICA', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(24, '01210046', 'WLN', 'ACCS WLN', 'Box Splitter For 1x16/1x32 Modular Splitter', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(25, '03010001', 'WLS', 'REPEATER', 'BTS Hotel GSM/DCS/WCDMA', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(26, '01260001', 'WLN', 'HANDHOLE', 'BULK3N071 SHIELD 1730 LID KIT, NO LOGO, L-BOLT', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(27, '01150040', 'WLN', 'PIGTAIL', 'Buncy Pigtail FC/PC, SM, G.652D, 0,9mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(28, '01200011', 'WLN', 'RACK ', 'Cabinet FTM 900W 600D 2000Hmm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(29, '1210025', 'WLN', 'ACCS WLN', 'Cleaver SS-6S type', '', '', '', '', '', '2', '', '', '', '', '', '3000'),
+(30, '01200003', 'WLN', 'RACK ', 'Close Rack 19" 42U', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(31, '03030002', 'WLS', 'COMBINER', 'Combiner 2 In, 1 Out Wifi/Celluler', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(32, '03030004', 'WLS', 'COMBINER', 'Combiner 3 In, 1 Out Wideband', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(33, '03030005', 'WLS', 'COMBINER', 'Combiner 4 In, 1 Out wideband', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(34, '03030006', 'WLS', 'COMBINER', 'Combiner 4 In, 1 Out wideband Wifi/Cellular', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(35, '03030011', 'WLS', 'COMBINER', 'Combiner GSM 900/3G CDMA 2000', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(36, '03090002', 'WLS', 'CONECTOR WLS', 'Connector 1 1/4" N-Female', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(37, '03090004', 'WLS', 'CONECTOR WLS', 'Connector 1 5/8" N-Female', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(38, '03090009', 'WLS', 'CONECTOR WLS', 'Connector 1/2" Din-Female', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(39, '03090008', 'WLS', 'CONECTOR WLS', 'Connector 1/2" Din-Male', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(40, '03090010', 'WLS', 'CONECTOR WLS', 'Connector 1/2" NM', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(41, '03090011', 'WLS', 'CONECTOR WLS', 'Connector 7/8" Din-Female', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(42, '03090001', 'WLS', 'CONECTOR WLS', 'Connector N-Male RG-8, Merk Amphenol', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(43, '01240001', 'WLN', 'CONECTOR WLN', 'Connector UY2P', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(44, '01240001', 'WLN', 'CONECTOR WLN', 'Connector UY2P', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(45, '01170005', 'WLN', 'PEDESTAL', 'CPH1122 - Pedestal 11" Light Green B1 Bracket & Self Lock', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(46, '01170003', 'WLN', 'PEDESTAL', 'CPH12126 - Pedestal 12" Light Green Square B1 Bracket and Self Lock ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(47, '01170004', 'WLN', 'PEDESTAL', 'CPH920 - Pedestal 9" Light Green B1 Bracket and Self Lock ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(48, '01170004', 'WLN', 'PEDESTAL', 'CPH920 - Pedestal 9" Light Green B1 Bracket and Self Lock ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(49, '01180005', 'WLN', 'CABLE FO', 'Drop Cable FO Aerial / Direct, Burried 2 Core, SM, G657A', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(50, '06180009', 'RND', 'CABLE FO', 'Drop Cable FO Aerial, LSZH, G657A, 2 Core', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(52, '06180012', 'RND', 'CABLE FO', 'Drop Cable FO Aerial, LSZH,G657A, 1 Core ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(54, '01110001', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Square', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(55, '01500015', 'WLN', 'ENCODER', 'E2CMTS', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(56, '01180006', 'WLN', 'CABLE FO', 'Fabric Innerduct Maxcell Type: 6428-3', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(57, '04060003', 'FTTH ', 'CABLE FO', 'Feeder Cable SM G652D 48 core ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(58, '04060012S', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable Easy Split G652D Aerial 12C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(59, '04060012V', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable Easy Split G652D Aerial 12C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(60, '04060005', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable Easy Split G652D Aerial 24C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(61, '04060013S', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 144C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(62, '04060014', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 264C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(63, '04060015', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 288C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(64, '04060011', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652, Duct SM 96C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(65, '04060001', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652D Aerial SM Cap. 12 core', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(66, '04060002', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652D Aerial SM Cap. 24 core', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(67, '04060004', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable G652D, Duct SM 24C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(68, '04060007', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable, Easy Split (Single Core) G652D, Duct, SM 12 C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(69, '04060009', 'FTTH ', 'CABLE FO', 'Fiber Optic Cable, Easy Split (Single Core), G652D, Duct24 C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(70, '03030008', 'WLS', 'COMBINER', 'Filter BTS CDMA 1900', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(71, '03030009', 'WLS', 'COMBINER', 'Filter BTS WCDMA 2100Filter BTS WCDMA 2100', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(72, '01020002', 'WLN', 'CLODOME', 'FO Closure Dome Type Cap. 24C With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(73, '01020001', 'WLN', 'CLODOME', 'FO Closure Dome Type Cap. 48C With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(74, '01010003', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 144 Core (FOCM) With OST-A ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(75, '01010005', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 384C (FOCL) With OST-C ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(76, '01010002', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 96 Core (FOCM) With OST-A ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(77, '01010028', 'WLN', 'CLOINL', 'FO Closure Inline Type Cap. 96 Core (FOCM) without Splice Tray', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(78, '01010004', 'WLN', 'CLOINL', 'FO Closure Inline Type Kap. 48C (GPJ09H4-C1) With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(79, '01010012', 'WLN', 'CLOINL', 'FO Closure Inline Type Kap. 96C (GPJ09H4-C1) With Splice Tray ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(80, '01170002', 'WLN', 'DP OPTIC', 'FTTH FO Terminal Box Cap. Max. 4 Core GP62FN-1', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(81, '01170002', 'WLN', 'DP OPTIC', 'FTTH FO Terminal Box Cap. Max. 4 Core GP62FN-1', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(82, '01210027', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 1 Core, type OFS-QTE', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(83, '01210027', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 1 Core, type OFS-QTE', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(84, '01210028', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 2 Core, type OFS-QTE', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(85, '01210050', 'WLN', 'ACCS WLN', 'FTTH Optical Fiber Socket 2 Core, type OFS-QTE & Pigtail SC/APC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(86, '06180001', 'RND', 'CABLE FO', 'G.657B3 Transparent Optic Cable', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(87, '04040001', 'FTTH ', 'HANDHOLE', 'GLB1111-61T11 HH-PIT-HA', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(88, '06250002', 'RND', 'GPS', 'GPS Tracker - OT08', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(89, '01100001', 'WLN', 'SLEEVE', 'Heatshrinkable Sleeve', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(90, '01100001', 'WLN', 'SLEEVE', 'Heatshrinkable Sleeve', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(91, '03020013', 'WLS', 'ANTENNA', 'High Gain Antenna Wideband 825-2500, 16 dBi, GHD825V1665A', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(92, '01170023', 'WLN', 'DP OPTIC', 'Household Information Box SPX2-B1 (Wall Mounted)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(93, '03010008', 'WLS', 'REPEATER', 'Inline Amplifier GSM/WCMA 20 Watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(94, '01280002', 'WLN', 'ACCS NSL', 'IP Decoder H.264, Support MPEG-2/H.264,Gbe100/1000 Mbps Input & Output', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(95, '01210026', 'WLN', 'ACCS WLN', 'Jacket Stripper', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(96, '01210026', 'WLN', 'ACCS WLN', 'Jacket Stripper', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(97, '03080006', 'WLS', 'JUMPER CABLE', 'Jumper Cable 1M  superflexible  with 1/2" N-male and N-male connector', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(98, '03080009', 'WLS', 'JUMPER CABLE', 'Jumper Cable 3M  superflexible  with 1/2" DIN-male to DIN-male connector', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(99, '03080013', 'WLS', 'JUMPER CABLE', 'Jumper Cable 3M  superflexible  with 1/2" N-male and N-male Right Angle', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(100, '03080015', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5 m 1/2" Superflexible Din Male to Din-Male', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(101, '03080008', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5M  superflexible  with 1/2" N-male and N-male connector', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(102, '03080014', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5M  superflexible  with 1/2" N-male and N-male connector', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(103, '03080016', 'WLS', 'JUMPER CABLE', 'Jumper Cable 5M superflexible with 1/2" N-male and N-female connector ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(104, '06720001', 'RND', 'MGN LCK', 'Magnetic Lock', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(105, '03010015', 'WLS', 'REPEATER', 'MCPA GSM 900 8 Carrier 200 Watt, Indosats Band', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(106, '03010014', 'WLS', 'REPEATER', 'MCPA GSM 900 Mhz 200 Watts, 8 Carriers (XL)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(107, '03010016', 'WLS', 'REPEATER', 'MCPA WCDMA (3G) 100 Watt (XL band)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(108, '01250003', 'RND', 'UPS ', 'Mini UPS 12V 3A', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(109, '03030012', 'WLS', 'COMBINER', 'Multi Combiner 6 in 4 out, IMD-150', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(110, '03030013', 'WLS', 'COMBINER', 'Multi Operator Combiner (POI) 16 In, 4 Out', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(111, '03120004', 'WLS', 'COUPLER', 'Multiband 10 dB directional coupler', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(112, '03120005', 'WLS', 'COUPLER', 'Multiband 13 dB directional coupler', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(113, '03120006', 'WLS', 'COUPLER', 'Multiband 15 dB directional coupler with wall mounting bracket, ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(114, '03120007', 'WLS', 'COUPLER', 'Multiband 20 dB directional coupler with wall mounting bracket, ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(115, '03120008', 'WLS', 'COUPLER', 'Multiband 5 dB power coupler with wall mounting bracket,100W,N-F connectors', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(116, '03120001', 'WLS', 'COUPLER', 'Multiband 6 dB directional coupler', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(117, '03120009', 'WLS', 'COUPLER', 'Multiband 6 dB power coupler with wall mounting bracket,100W,N-F Connector', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(118, '03120002', 'WLS', 'COUPLER', 'Multiband 7 dB directional coupler with wall mounting bracket, ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(119, '03120003', 'WLS', 'COUPLER', 'Multiband 8 dB directional coupler with wall mounting bracket,', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(120, '06250001', 'RND', 'GPS', 'OBD II GPS Tracker - OT01', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(121, '01080036', 'WLN', 'ODC', 'ODC C FTTX Cap 144C Type SC/APC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(122, '01080015', 'WLN', 'ODC', 'ODC C FTTX Cap 144C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(124, '01080001', 'WLN', 'ODC', 'ODC C FTTX Cap 288C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(125, '01080030', 'WLN', 'ODC', 'ODC C FTTX Cap 288C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(126, '01080018', 'WLN', 'ODC', 'ODC C FTTX Cap 576C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(127, '01170008', 'WLN', 'DP OPTIC', 'ODC-B Pole Cap. 48C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(128, '01170021', 'WLN', 'DP OPTIC', 'ODC-C Pole Cap. 48C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(130, '01170022', 'WLN', 'DP OPTIC', 'ODF Modular 144C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(131, '01170022', 'WLN', 'DP OPTIC', 'ODF Modular 144C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(132, '01170022', 'WLN', 'DP OPTIC', 'ODF Modular 144C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(133, '01170015', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(134, '01170015', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(135, '01170015', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(136, '01170054', 'WLN', 'DP OPTIC', 'ODP Closure Aerial Cap. 8C Without Cassete & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(137, '01170026', 'WLN', 'DP OPTIC', 'ODP Pedestal 11" Cap. 16C SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(138, '01170049', 'WLN', 'DP OPTIC', 'ODP Pedestal 9" Cap. 8C SC/APC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(139, '01170018', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 12C With SC/APC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(140, '01170029', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 12C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(141, '01170038', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 16C With SC/APC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(142, '01170012', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 16C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(143, '01170019', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 16C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(144, '01170050', 'WLN', 'DP OPTIC', 'ODP Pole/Wall Cap. 8C With SC/UPC Adaptor & Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(145, '01200004', 'WLN', 'RACK ', 'Open Rack 19" 40U', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(146, '01200005', 'WLN', 'RACK ', 'Open Rack 19" 42U', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(147, '01040021', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 24C Transparant Door Box Only', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(148, '01040004', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 24C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(149, '01040023', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 72C Transparant Door Only Box', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(150, '01040009', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 72C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(151, '01040020', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 96C Transparant Door Box Only Include Sleeve', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(152, '01040011', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 96C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(153, '01040014', 'WLN', 'OTB DRAWER', 'OTB Rack Mounted Drawer Type Cap. 96C Transparant Door With FC/UPC Adaptor & Storage With Pigtail', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(154, '01030026', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 12C Metal Door Box Only', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(155, '01030051', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 144C Transparant Door Box Only Include Sleeve', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(156, '01030015', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 144C Transparant Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(157, '01030002', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 144C Transparant Door With SC/UPC Adaptor ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(158, '01030052', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 24C Metal Door Box Only', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(159, '01030010', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 24C Metal Door With SC/UPC Adaptor ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(160, '01030033', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 48C Box Only', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(161, '01030020', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 48C Metal Door With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(162, '01030008', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 48C Metal Door With SC/UPC Adaptor ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(163, '01030043', 'WLN', 'OTB FIXED', 'OTB Rack Mounted Fixed Type Cap. 96C Box Only', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(164, '01070001', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 24C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(165, '01070003', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 24C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(166, '01070004', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 24C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(167, '01070002', 'WLN', 'OTB WALL', 'OTB Wall Mounted Fixed Type Cap. 48C With FC/UPC Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(168, '03020001', 'WLS', 'ANTENNA', 'Panel Antenna BS directional DB8982665E-M', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(169, '03020009', 'WLS', 'ANTENNA', 'Panel Antenna GHD 3500 V15120K, 3300-3800 MHz, 15 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(170, '03020003', 'WLS', 'ANTENNA', 'Panel antenna Wideband 1/2M  13 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(171, '01120035', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 24C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(172, '01120016', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 72C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(173, '01120032', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 96C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(174, '01120017', 'WLN', 'PANEL ADAPTR', 'Panel OTB Drawer Rack Type Cap. 96C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(175, '01120001', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 12C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(176, '01120034', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 12C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(177, '01120014', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 12C LC/UPC Duplex', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(178, '01120022', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 144C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(179, '01120006', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 144C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(180, '01120009', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 144C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(181, '01120002', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(182, '01120015', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C LC/UPC Duplex', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(183, '01120018', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(184, '01120031', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 24C SC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(185, '01120023', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 264C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(186, '01120003', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(187, '01120036', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(188, '01120011', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(189, '01120028', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 48C SC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(190, '01120021', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 72C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(191, '01120012', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 72C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(192, '01120037', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 96C FC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(193, '01120013', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 96C SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(194, '01120029', 'WLN', 'PANEL ADAPTR', 'Panel OTB Fixed Rack Type Cap. 96C SC/UPC Inc Adaptor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(195, '01120004', 'WLN', 'PANEL ADAPTR', 'Panel OTB Swing Rack Type Cap. 24C FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(196, '03020017', 'WLS', 'ANTENNA', 'Parabolic Antenna, TS-OADPA-806/960-16.5-18', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(197, '03020008', 'WLS', 'ANTENNA', 'Parabolic Grid Antenna 900 MHz, 17 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(198, '01160003', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, DP, G.652D, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(199, '01160044', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 1 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(200, '01160047', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 15 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(202, '01160045', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(203, '01160048', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(204, '01280003', 'WLN', 'ACCS NSL', 'Zoom modem, anderson, model AD-RT-ETH/USB-X5', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(205, '03020016', 'WLS', 'ANTENNA', 'Yagi Antenna, TS-IADYG-2000-50-12, WCDMA 2100 3G', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(206, '03020012', 'WLS', 'ANTENNA', 'Yagi Antenna GSM900 MHz, 12 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(207, '03020011', 'WLS', 'ANTENNA', 'Yagi Antenna DCS1800 MHz, 12 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(208, '03050012', 'WLS', 'ACCS WLS', 'UPS ICA 2000 VA/1000 Watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(209, '03010023', 'WLS', 'REPEATER', 'TS-OR15RC-43, Repeater CDMA 20 watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(210, '03020015', 'WLS', 'ANTENNA', 'TS-CUDYG-1800-50-12, Antenna Yagi DCS1800 (1710-1885 MHz) 12 dBi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(211, '03010017', 'WLS', 'REPEATER', 'Triple Band Pico Repeater GSM/DCS/WCDMA 15 dBm XL Band', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(212, '03010029', 'WLS', 'REPEATER', 'TMB GSM 900 MHz, 100 Watt, 52 dBm 4 carries', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(213, '03010029', 'WLS', 'REPEATER', 'TMB GSM 900 MHz, 100 Watt, 52 dBm 4 carries', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(214, '03010018', 'WLS', 'REPEATER', 'TMB DCS 1800 MHz, 100 Watt 4 carries', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(215, '03010028', 'WLS', 'REPEATER', 'TMB DCS 1800 MHz 4, 100 Watt, 4 Carries', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(216, '01280001', 'WLN', 'ACCS NSL', 'Sumavision EMRV-3 Blue Chassis, 6 slots, dual power 1xC150 HD License 1xSFP 100', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(217, '01500001', 'WLN', 'ENCODER', 'Sumavision EMRD8020 H.264 Decoder', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(218, '04010002', 'FTTH ', 'SUBDUCT', 'Subduct HDPE Unilon Stel 27/32mm Hitam-Biru 400M', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(219, '01210069', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x8 SC/APC, In 1m Out 1m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(220, '01210067', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x8 SC/APC, In 0.75m Out 0.75m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(221, '01210032', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x4 SC/UPC, In 1.5m Out 2.0m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(222, '01210030', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x4 SC/UPC, In 1.5m Out 1.5m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(223, '01210064', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x4 SC/APC, In 1.5m Out 1.5m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(224, '01210048', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x32 SC/UPC, In 1.5m Out 2.0m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(225, '01210007', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x32 SC/UPC, In 1.5m Out 1.5m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(226, '01210029', 'WLN', 'ACCS WLN', 'Splitter Modular PLC 1x2 SC/UPC, In 2m Out 2m, dia 2.0mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(227, '01210014', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x8 SC/APC, In 1m Out 1m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(228, '01210054', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x8 LC/APC, In 0.5m Out 0.5m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(229, '01210019', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x4 SC/UPC, In 1m Out 2m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(230, '01210015', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 2x16 SC/APC, In 1.5m Out 1.5m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(231, '01210031', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 1x8 SC/UPC, In 0.5m Out 0.5m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(232, '01210070', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 1x8 SC/APC, In 0.8m Out 0.8m, dia 0.9mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(233, '01210002', 'WLN', 'ACCS WLN', 'Splitter Micro PLC 1x4 SC/UPC, In 1.5m Out 1.5m, Dia 0.9 mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(234, '01090006', 'WLN', 'SPLICE TRAY', 'Splice Tray OST-C-1, 24/48 Fiber', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(235, '01090004', 'WLN', 'SPLICE TRAY', 'Splice Tray OST-B-1, 06/12 Fiber', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(236, '01090005', 'WLN', 'SPLICE TRAY', 'Splice Tray OST-A-1, 12/24 Fiber', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(237, '01090002', 'WLN', 'SPLICE TRAY', 'Splice Tray Inline Q-Tech', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(238, '01090001', 'WLN', 'SPLICE TRAY', 'Splice Tray Dome Type', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(239, '01090001', 'WLN', 'SPLICE TRAY', 'Splice Tray Dome Type', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(240, '01090003', 'WLN', 'SPLICE TRAY', 'Splice Organizer for Splice Tray Inline CHQ', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(241, '01170007', 'WLN', 'PEDESTAL', 'SPH920 - Pedestal 9" Light Green Bracket and Self Lock', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(242, '01170006', 'WLN', 'PEDESTAL', 'SPH710 - Pedestal 7" Light Green B1 Bracket and Self Lock', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(243, '01190001', 'WLN', 'PEDESTAL', 'SPH10106C3B2L01 - Signature Pedestal Housing', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(244, '03020014', 'WLS', 'ANTENNA', 'Smoke sensor ceiling mount, antenna: TQJ-0825, Freq: 800-2500 mhz', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(245, '01180004', 'WLN', 'CABLE FO', 'SI-01 fiber optical cable stripper (vertical)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(246, '01180004', 'WLN', 'CABLE FO', 'SI-01 fiber optical cable stripper (vertical)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(247, '01180004', 'WLN', 'CABLE FO', 'SI-01 fiber optical cable stripper (vertical)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(248, '01260007', 'WLN', 'HANDHOLE', 'SGLB243631T11004,SGLB 36" Deep, Green Plastic LID, Telecomm. Logo, L-Bolt, With Marker, No Floor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(249, '01260010', 'WLN', 'HANDHOLE', 'SGLB24361B41 SGLB LID', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(250, '01260005', 'WLN', 'HANDHOLE', 'SGLB2436 Extension 10 Inch', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(251, '01260014', 'WLN', 'HANDHOLE', 'SGLB173021T11010, SGLB1730, Green Plastic LID, L-Bolt, Floor, Telco Logo, 24” Depth', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(252, '01260013', 'WLN', 'HANDHOLE', 'SGLB173021T110, SGLB1730, Green Plastic LID, L-Bolt, No Floor, Telco Logo, 24” Depth', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(253, '01260012', 'WLN', 'HANDHOLE', 'SGLB1730 Floor', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(254, '01330002', 'WLN', 'SFP MODULES', 'SFP BWDM SMF TX1550/RX1310 LC 10 KM DOM For Sisco Comp.', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(255, '01330001', 'WLN', 'SFP MODULES', 'SFP BWDM SMF TX1310/RX1550 LC 10 KM DOM For Sisco Comp.', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(256, '03050001', 'WLS', 'ACCS WLS', 'Roll Cable RG-8, merk Daichi', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(257, '01100005', 'WLN', 'SLEEVE', 'Ribbon Sleeve per 4 fiber, 60 mm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(258, '03010020', 'WLS', 'REPEATER', 'Repeater ICS WCDMA 20 watt Next Link', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(259, '03010007', 'WLS', 'REPEATER', 'Repeater GSM/DCS/WCDMA 20 Watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(260, '03010027', 'WLS', 'REPEATER', 'Repeater GSM 900 MHz Band Selective 20 watt, 43 DBm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(261, '03010002', 'WLS', 'REPEATER', 'Repeater CDMA 800 MHz Band Selective 20 Watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(262, '06710001', 'RND', 'FGR PRNT', 'Reader Finger Print Based on IP MGS 100', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(263, '01200009', 'WLN', 'RACK ', 'Rack FTM DImension : 19" t=2.2 m', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(264, '01110019', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector SC/PC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(265, '01110019', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector SC/PC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(266, '01110017', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector SC/APC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(267, '01110016', 'WLN', 'ADAPTOR WLN', 'Quick Assembly Connector FC/UPC', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(268, '01160046', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(269, '01160046', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(270, '01160007', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.652D, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(271, '01160052', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(272, '01160053', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 15 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(273, '01160054', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(274, '01160051', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G.655C, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(275, '01160002', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G652D, 3.0 mm, 1 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(276, '03050008', 'WLS', 'ACCS WLS', 'Power Terminator (dummy load) 50 watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(277, '03050002', 'WLS', 'ACCS WLS', 'Power Terminator (dummy load) 100 watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(278, '03050003', 'WLS', 'ACCS WLS', 'Power Terminator (dummy load) 10 watt', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(279, '01150012', 'WLN', 'PIGTAIL', 'Pigtail ST/UPC, HMM, SP, G.652D, 3.0mm , 1 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(280, '01150035', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, SP, G655C, 0.9 mm, 1.8 Mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(281, '01150032', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, SP, G652D, 0.9mm, 1.8m', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(282, '01150020', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, SP, G.652, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(283, '01150010', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, G.652D, 0.9 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(284, '01150005', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC, SM, G.652D, 0.9 mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(285, '01150021', 'WLN', 'PIGTAIL', 'Pigtail SC/UPC , SM, SP, G657A1, 2.0 mm, 1 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(286, '01150023', 'WLN', 'PIGTAIL', 'Pigtail SC/PC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(287, '01150006', 'WLN', 'PIGTAIL', 'Pigtail SC/APC, SM, G.652D, 0.9 mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(288, '01150042', 'WLN', 'PIGTAIL', 'Pigtail SC/APC, SM, G.652D, 0.9 mm, 1.5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(289, '01150007', 'WLN', 'PIGTAIL', 'Pigtail LC/UPC, SM, G.652D, 0,9mm, 1,8 Mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(290, '01150008', 'WLN', 'PIGTAIL', 'Pigtail LC/APC, SM, SP, G652D, 0.9mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(291, '01160008', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(292, '01160004', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-FC/UPC, SM, SP, G652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(293, '01160023', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(294, '01160024', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(295, '01160025', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(296, '01160013', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(297, '01160056', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(298, '01150039', 'WLN', 'PIGTAIL', 'Pigtail LC/APC, SM, SP, G652D, 0.9mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(299, '01150017', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC,SM, SP, G.652D, 2.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(300, '01150018', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652D, 2.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(301, '01150026', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652D, 0.9 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(302, '01150014', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652, 3.0mm, 3 mtr (NZDSF)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(303, '01150016', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652, 2.4 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(304, '01150013', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, SP, G.652, 2.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(305, '01150001', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, G.652D, 0.9mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(306, '01150002H', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, G.652D, 0.9mm, 1.8 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(307, '01150011', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, SM, G.652, 3.0mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(308, '01150030', 'WLN', 'PIGTAIL', 'Pigtail FC/UPC, MM, SP, G.652D, 3.0mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(309, '01150022', 'WLN', 'PIGTAIL', 'Pigtail FC/APC, SM, SP, G652D, 3.0 mm, 2 Mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(310, '03010030', 'WLS', 'REPEATER', 'Pico Repeater WCDMA (3G) 2100 MHz, 20 dBM', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(311, '03010019', 'WLS', 'REPEATER', 'Pico Repeater WCDMA (3G) 2100 MHz, 20 dBM', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(312, '01160011', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(313, '01160057', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(314, '03010013', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 Elevator', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(315, '03010012', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 AGC 15 dBm Telkomsel Band', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(316, '03010011', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 AGC 15 dBm Indosat Band', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(317, '03010010', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 20 dBm, 7.5 MHz', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(318, '03010009', 'WLS', 'REPEATER', 'Pico Repeater GSM 900 20 dBm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(319, '01160058', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 40 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(320, '01160012', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G.655C, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(321, '01160009', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G652D, 2.4 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(322, '01160026', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(323, '01160026', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-LC/UPC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(324, '01160055', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-SC/APC, SM, SP, G.652, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(325, '01160001', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-SC/UPC, SM, DP, G652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(326, '01160084', 'WLN', 'PATCHCORD', 'Patchcord FC/UPC-SC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(327, '03010025', 'WLS', 'REPEATER', 'Pico Repeater Dual Band GSM900 & DCS1800 20 dBm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(328, '03010025', 'WLS', 'REPEATER', 'Pico Repeater Dual Band GSM900 & DCS1800 20 dBm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(329, '03010024', 'WLS', 'REPEATER', 'Pico Repeater Dual Band GSM/WCDMA 20 dBm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(330, '01160063', 'WLN', 'PATCHCORD', 'Patchcord LC/UPC-LC/UPC, SM, DP, G.652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(331, '01160042', 'WLN', 'PATCHCORD', 'Patchcord LC/UPC-LC/UPC, SM, SP, G657A, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(332, '01160005', 'WLN', 'PATCHCORD', 'Patchcord LC/UPC-SC/APC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(333, '01160062', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-LC/UPC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(334, '03010006', 'WLS', 'REPEATER', 'Pico Repeater DCS 900 20 dBm, 7.5 MHz', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(335, '03010005', 'WLS', 'REPEATER', 'Pico Repeater DCS 1800 20 Dbm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(336, '03010026', 'WLS', 'REPEATER', 'Pico Repeater DCS 1800 20 dBm', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(337, '03010004', 'WLS', 'REPEATER', 'Pico Repeater CDMA 800 AGC 15 dBm 2 Fix Band', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(338, '03010003', 'WLS', 'REPEATER', 'Pico Repeater CDMA 800 20 dBm 2 Fix Band (Flexi Band)', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(339, '03010022', 'WLS', 'REPEATER', 'Pico Repeater 20dBm, GSM 900, Fix Band, MR01RB-20', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(340, '01160014', 'WLN', 'PATCHCORD', 'Patchcord, SC/UPC-SC/UPC, SM, SP, G.652, 2.4 mm, 15 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(341, '01160062', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-LC/UPC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(342, '01160018', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.652D, 3.0 mm, 20 Mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(343, '01160059', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(344, '01160032', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.657A, 2.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(345, '01160032', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G.657A, 2.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(346, '01160071', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(347, '01160071', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(348, '01160069', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(349, '01160069', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(350, '01160073', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(351, '01160073', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(352, '01160072', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(353, '01160072', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(354, '01160070', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(355, '01160070', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/APC, SM, SP, G657A, 3.0 mm, 5 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(356, '01160067', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 2 meter', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(357, '01160067', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 2 meter', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(358, '01160068', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 5 meter', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(359, '01160068', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-SC/UPC,SM,SP,G657A Roset to ONT Bend Insensitive 3.0mm 5 meter', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(360, '01160019', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-ST/UPC, SM, SP, G.652, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(361, '01160020', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-ST/UPC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(362, '01160061', 'WLN', 'PATCHCORD', 'Patchcord SC/APC-ST/UPC, SM, SP, G.652D, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(363, '01160035', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-LC/UPC, SM, SP, G.652D, 3.0 mm, 2 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(364, '01160092', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/APC, SM, SP, G.652D, 3.0 mm, 10 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(365, '01160033', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/APC, SM, SP, G.657A, 2.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(366, '01160016', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, MM, DP, G.652, 3.0 mm, 4 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(367, '01160006', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, MM, DP, G.652D, 3.0 mm, 13 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(368, '01160015', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, MM, SP, G.652D, 3.0 mm, 8 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(369, '01160040', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, DP, G652D, 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(370, '01160031', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(371, '01160031', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D 3.0 mm, 30 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(372, '01160029', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D, 2.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', '');
+INSERT INTO `tbl_dm_item` (`id`, `code`, `devisi`, `kategori`, `nama`, `sat`, `merk`, `dimension`, `weight`, `weight_note`, `id_hs`, `tax`, `picture`, `brochure`, `spek`, `catatan`, `storaging_cost`) VALUES
+(373, '01160090', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G.652D, 3.0 mm, 3 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(374, '01160080', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-SC/UPC, SM, SP, G652D, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(375, '01160017', 'WLN', 'PATCHCORD', 'Patchcord SC/UPC-ST/UPC, SM, DP, G.652, 3.0 mm, 80 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(376, '01160021', 'WLN', 'PATCHCORD', 'Patchcord ST/UPC-ST/UPC, HMM, DP, G.652, 3.0 mm, 20 mtr', '', '', '', '', '', '2', '', '', '', '', '', ''),
+(377, '01080001', 'WLN', 'ODC', 'ODC C FTTX Cap 288C Type SC/UPC', '', '', '', '', '', '2', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_operator`
+-- Struktur dari tabel `tbl_dm_kpi`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_dm_kpi` (
+  `no` int(11) NOT NULL AUTO_INCREMENT,
+  `item` varchar(255) NOT NULL,
+  `kpi` varchar(255) NOT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `tbl_dm_kpi`
+--
+
+INSERT INTO `tbl_dm_kpi` (`no`, `item`, `kpi`) VALUES
+(1, 'Transport Cost', '4000');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_dm_operator`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_operator` (
@@ -1071,7 +1097,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_operator` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_dm_operator`
+-- Dumping data untuk tabel `tbl_dm_operator`
 --
 
 INSERT INTO `tbl_dm_operator` (`id`, `name`, `product`, `brand`, `address`, `postal`, `phone`, `fax`, `website`) VALUES
@@ -1081,7 +1107,7 @@ INSERT INTO `tbl_dm_operator` (`id`, `name`, `product`, `brand`, `address`, `pos
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_personnel`
+-- Struktur dari tabel `tbl_dm_personnel`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_personnel` (
@@ -1099,20 +1125,21 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_personnel` (
   `bbm` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_dm_personnel`
+-- Dumping data untuk tabel `tbl_dm_personnel`
 --
 
 INSERT INTO `tbl_dm_personnel` (`id`, `id_personnel`, `name`, `position`, `join_date`, `join_date_div`, `residence`, `phone`, `mobile1`, `mobile2`, `whatsapp`, `bbm`, `image`) VALUES
 (1, '001', 'Gia Nuralamsyah', '1', '21-05-2015', '21-05-2015', 'Bandung', '', '081312449952', '', '081312449952', '', 'image/personnel/avatar.png'),
-(2, 'ID-01', 'nama', '2', '27 Mar 2016', '01 Mar 2016', 'Bandung', '081', '0', '0', '0', '0', 'image/personnel/20141021_094349.jpg');
+(2, 'ID-01', 'nama', '2', '27 Mar 2016', '01 Mar 2016', 'Bandung', '081', '0', '0', '0', '0', 'image/personnel/20141021_094349.jpg'),
+(3, '5', 'Gan', '1', '', '', '', '', '', '', '', '', 'image/personnel/WEB BSG(1)_jawaban puput (1).xlsx');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_stock`
+-- Struktur dari tabel `tbl_dm_stock`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_stock` (
@@ -1133,7 +1160,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_stock` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_supplier`
+-- Struktur dari tabel `tbl_dm_supplier`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_supplier` (
@@ -1154,7 +1181,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_supplier` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=213 ;
 
 --
--- Dumping data for table `tbl_dm_supplier`
+-- Dumping data untuk tabel `tbl_dm_supplier`
 --
 
 INSERT INTO `tbl_dm_supplier` (`id`, `supplier_id`, `kategori`, `status`, `supplier`, `brand`, `address`, `postal`, `phone`, `fax`, `website`, `email`, `product`) VALUES
@@ -1371,7 +1398,7 @@ INSERT INTO `tbl_dm_supplier` (`id`, `supplier_id`, `kategori`, `status`, `suppl
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_dm_supplier_subfield`
+-- Struktur dari tabel `tbl_dm_supplier_subfield`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_dm_supplier_subfield` (
@@ -1393,7 +1420,7 @@ CREATE TABLE IF NOT EXISTS `tbl_dm_supplier_subfield` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_group`
+-- Struktur dari tabel `tbl_group`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_group` (
@@ -1429,7 +1456,7 @@ CREATE TABLE IF NOT EXISTS `tbl_group` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `tbl_group`
+-- Dumping data untuk tabel `tbl_group`
 --
 
 INSERT INTO `tbl_group` (`id`, `name`, `d1`, `d2`, `d3`, `d4`, `d5`, `d6`, `d7`, `d8`, `d9`, `d10`, `d11`, `d12`, `d13`, `d14`, `d15`, `d16`, `d17`, `d18`, `d19`, `d20`, `d21`, `d22`, `d23`, `d24`, `d25`, `d26`) VALUES
@@ -1447,7 +1474,7 @@ INSERT INTO `tbl_group` (`id`, `name`, `d1`, `d2`, `d3`, `d4`, `d5`, `d6`, `d7`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_budget`
+-- Struktur dari tabel `tbl_op_budget`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_budget` (
@@ -1462,7 +1489,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_budget` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_budget`
+-- Dumping data untuk tabel `tbl_op_budget`
 --
 
 INSERT INTO `tbl_op_budget` (`no`, `budget_code`, `main_budget`, `sub_budget_level1`, `sub_budget_level2`, `periode`, `amount`) VALUES
@@ -1472,7 +1499,7 @@ INSERT INTO `tbl_op_budget` (`no`, `budget_code`, `main_budget`, `sub_budget_lev
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_business_doc_template`
+-- Struktur dari tabel `tbl_op_business_doc_template`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_business_doc_template` (
@@ -1484,7 +1511,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_business_doc_template` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_business_doc_template`
+-- Dumping data untuk tabel `tbl_op_business_doc_template`
 --
 
 INSERT INTO `tbl_op_business_doc_template` (`no`, `document_name`, `description`, `document_template`) VALUES
@@ -1493,7 +1520,7 @@ INSERT INTO `tbl_op_business_doc_template` (`no`, `document_name`, `description`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_cases`
+-- Struktur dari tabel `tbl_op_cases`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_cases` (
@@ -1513,7 +1540,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_cases` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_government_regulation`
+-- Struktur dari tabel `tbl_op_government_regulation`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_government_regulation` (
@@ -1529,7 +1556,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_government_regulation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_hs`
+-- Struktur dari tabel `tbl_op_hs`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_hs` (
@@ -1545,7 +1572,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_hs` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_op_hs`
+-- Dumping data untuk tabel `tbl_op_hs`
 --
 
 INSERT INTO `tbl_op_hs` (`id`, `code`, `description`, `uraian`, `duty`, `lartas`, `jenis`, `catatan`) VALUES
@@ -1555,7 +1582,7 @@ INSERT INTO `tbl_op_hs` (`id`, `code`, `description`, `uraian`, `duty`, `lartas`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_hs_code_list`
+-- Struktur dari tabel `tbl_op_hs_code_list`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_hs_code_list` (
@@ -1573,7 +1600,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_hs_code_list` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_op_hs_code_list`
+-- Dumping data untuk tabel `tbl_op_hs_code_list`
 --
 
 INSERT INTO `tbl_op_hs_code_list` (`no`, `hs_code`, `percentage_hs_code`, `items`, `description_eng`, `descroption_ind`, `tarif_preference`, `lartas`, `hs_insw`, `other_information`) VALUES
@@ -1585,7 +1612,7 @@ INSERT INTO `tbl_op_hs_code_list` (`no`, `hs_code`, `percentage_hs_code`, `items
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_import_licenses`
+-- Struktur dari tabel `tbl_op_import_licenses`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_import_licenses` (
@@ -1602,7 +1629,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_import_licenses` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_import_licenses`
+-- Dumping data untuk tabel `tbl_op_import_licenses`
 --
 
 INSERT INTO `tbl_op_import_licenses` (`no`, `license_name`, `license_no`, `date_of_issurance`, `date_of_expiry`, `issuing_institution`, `description`, `license`, `explanation`) VALUES
@@ -1611,7 +1638,7 @@ INSERT INTO `tbl_op_import_licenses` (`no`, `license_name`, `license_no`, `date_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_incoming`
+-- Struktur dari tabel `tbl_op_incoming`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_incoming` (
@@ -1628,7 +1655,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_incoming` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_op_incoming`
+-- Dumping data untuk tabel `tbl_op_incoming`
 --
 
 INSERT INTO `tbl_op_incoming` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, `terima`, `pembuat`, `letak`, `file`) VALUES
@@ -1637,7 +1664,7 @@ INSERT INTO `tbl_op_incoming` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, `t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_incoming_letter_registration`
+-- Struktur dari tabel `tbl_op_incoming_letter_registration`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_incoming_letter_registration` (
@@ -1657,7 +1684,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_incoming_letter_registration` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_internal_memo`
+-- Struktur dari tabel `tbl_op_internal_memo`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_internal_memo` (
@@ -1676,7 +1703,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_internal_memo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_op_internal_memo`
+-- Dumping data untuk tabel `tbl_op_internal_memo`
 --
 
 INSERT INTO `tbl_op_internal_memo` (`id`, `memo_id`, `kepada`, `tembusan`, `devisi`, `tempo`, `pembayaran`, `diajukan`, `diketahui`, `diverifikasi`, `ref`) VALUES
@@ -1685,7 +1712,7 @@ INSERT INTO `tbl_op_internal_memo` (`id`, `memo_id`, `kepada`, `tembusan`, `devi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_internal_memoo`
+-- Struktur dari tabel `tbl_op_internal_memoo`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_internal_memoo` (
@@ -1699,7 +1726,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_internal_memoo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_op_internal_memoo`
+-- Dumping data untuk tabel `tbl_op_internal_memoo`
 --
 
 INSERT INTO `tbl_op_internal_memoo` (`no`, `internal_memo_no`, `date`, `addressed_to`, `subject`, `file`) VALUES
@@ -1708,7 +1735,7 @@ INSERT INTO `tbl_op_internal_memoo` (`no`, `internal_memo_no`, `date`, `addresse
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_internal_memo_subfield`
+-- Struktur dari tabel `tbl_op_internal_memo_subfield`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_internal_memo_subfield` (
@@ -1724,7 +1751,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_internal_memo_subfield` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_op_internal_memo_subfield`
+-- Dumping data untuk tabel `tbl_op_internal_memo_subfield`
 --
 
 INSERT INTO `tbl_op_internal_memo_subfield` (`id`, `id_memo`, `cost_id`, `vendor`, `rate`, `amount`, `uraian`, `invoice`) VALUES
@@ -1733,7 +1760,7 @@ INSERT INTO `tbl_op_internal_memo_subfield` (`id`, `id_memo`, `cost_id`, `vendor
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_jobdesc_kpi`
+-- Struktur dari tabel `tbl_op_jobdesc_kpi`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_jobdesc_kpi` (
@@ -1747,7 +1774,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_jobdesc_kpi` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `tbl_op_jobdesc_kpi`
+-- Dumping data untuk tabel `tbl_op_jobdesc_kpi`
 --
 
 INSERT INTO `tbl_op_jobdesc_kpi` (`no`, `am`, `fungsi_posisi`, `jobdesc`, `kpi`, `parent`) VALUES
@@ -1762,7 +1789,7 @@ INSERT INTO `tbl_op_jobdesc_kpi` (`no`, `am`, `fungsi_posisi`, `jobdesc`, `kpi`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_letter_of_authorization`
+-- Struktur dari tabel `tbl_op_letter_of_authorization`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_letter_of_authorization` (
@@ -1783,7 +1810,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_letter_of_authorization` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_letter_of_authorization`
+-- Dumping data untuk tabel `tbl_op_letter_of_authorization`
 --
 
 INSERT INTO `tbl_op_letter_of_authorization` (`no`, `loa_no`, `loa_date`, `subject`, `addressed_to`, `description`, `authorizer_name`, `authorizer_title`, `authorized_name`, `authorized_title`, `authorized_id`, `file`, `archive_code`) VALUES
@@ -1792,7 +1819,7 @@ INSERT INTO `tbl_op_letter_of_authorization` (`no`, `loa_no`, `loa_date`, `subje
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_operational_sop`
+-- Struktur dari tabel `tbl_op_operational_sop`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_operational_sop` (
@@ -1808,7 +1835,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_operational_sop` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_op_operational_sop`
+-- Dumping data untuk tabel `tbl_op_operational_sop`
 --
 
 INSERT INTO `tbl_op_operational_sop` (`no`, `sop_no`, `sop_date`, `description`, `file`, `date_of_issued`, `date_if_expired`, `remark`) VALUES
@@ -1817,7 +1844,7 @@ INSERT INTO `tbl_op_operational_sop` (`no`, `sop_no`, `sop_date`, `description`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_outgoing`
+-- Struktur dari tabel `tbl_op_outgoing`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_outgoing` (
@@ -1835,7 +1862,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_outgoing` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_op_outgoing`
+-- Dumping data untuk tabel `tbl_op_outgoing`
 --
 
 INSERT INTO `tbl_op_outgoing` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, `terima`, `pembuat`, `jawab`, `letak`, `file`) VALUES
@@ -1844,7 +1871,7 @@ INSERT INTO `tbl_op_outgoing` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, `t
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_outgoing_letter_registration`
+-- Struktur dari tabel `tbl_op_outgoing_letter_registration`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_outgoing_letter_registration` (
@@ -1861,7 +1888,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_outgoing_letter_registration` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_op_outgoing_letter_registration`
+-- Dumping data untuk tabel `tbl_op_outgoing_letter_registration`
 --
 
 INSERT INTO `tbl_op_outgoing_letter_registration` (`no`, `ol_no`, `ol_date`, `subject`, `addressed_to`, `description`, `signer_by`, `file`, `archive_code`) VALUES
@@ -1871,7 +1898,7 @@ INSERT INTO `tbl_op_outgoing_letter_registration` (`no`, `ol_no`, `ol_date`, `su
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pc_header`
+-- Struktur dari tabel `tbl_op_pc_header`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_pc_header` (
@@ -1897,7 +1924,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pc_header` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_pc_header`
+-- Dumping data untuk tabel `tbl_op_pc_header`
 --
 
 INSERT INTO `tbl_op_pc_header` (`kasbon_id`, `tanggal_kasbon`, `divisi`, `personal_id`, `tujuan`, `jumlah_kasbon`, `jumlah_diapprove`, `tanggal_diapprove`, `terbilang`, `tanggal_bayar_kasbon`, `tanggal_warning`, `tanggal_overdue_realisasi`, `tanggal_realisasi`, `tanggal_submit`, `jumlah_net_realisasi`, `jumlah_selisih`, `tanggal_bayar`, `status`) VALUES
@@ -1907,7 +1934,7 @@ INSERT INTO `tbl_op_pc_header` (`kasbon_id`, `tanggal_kasbon`, `divisi`, `person
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pc_tabel`
+-- Struktur dari tabel `tbl_op_pc_tabel`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_pc_tabel` (
@@ -1926,7 +1953,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pc_tabel` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_pc_tabel`
+-- Dumping data untuk tabel `tbl_op_pc_tabel`
 --
 
 INSERT INTO `tbl_op_pc_tabel` (`no`, `acc_id`, `account`, `tanggal`, `realisasi_no`, `kwitansi_no`, `uraian_realisasi`, `realisasi`, `adjustment`, `subtotal`, `pc_no`) VALUES
@@ -1936,7 +1963,7 @@ INSERT INTO `tbl_op_pc_tabel` (`no`, `acc_id`, `account`, `tanggal`, `realisasi_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pl_header`
+-- Struktur dari tabel `tbl_op_pl_header`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_pl_header` (
@@ -1958,7 +1985,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pl_header` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_op_pl_header`
+-- Dumping data untuk tabel `tbl_op_pl_header`
 --
 
 INSERT INTO `tbl_op_pl_header` (`no`, `created_date`, `presented_date`, `shared_date`, `effective_from`, `effective_fill`, `usd`, `sgd`, `eur`, `price_term`, `delivery_term`, `validity_term`, `other_term`, `idr`) VALUES
@@ -1967,7 +1994,7 @@ INSERT INTO `tbl_op_pl_header` (`no`, `created_date`, `presented_date`, `shared_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pl_tabel`
+-- Struktur dari tabel `tbl_op_pl_tabel`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_pl_tabel` (
@@ -2014,12 +2041,21 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pl_tabel` (
   `competitor_3_name` varchar(255) NOT NULL,
   `pl_no` int(11) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data untuk tabel `tbl_op_pl_tabel`
+--
+
+INSERT INTO `tbl_op_pl_tabel` (`no`, `item_id`, `division`, `category`, `item_name`, `mou`, `brand`, `source`, `incoterm`, `currency`, `purchase_price`, `percen_ftc`, `ftc`, `ddp_price`, `ddp_idr`, `percen_crosscomp`, `crosscomp_price`, `percen_price_list`, `price_list`, `percen_cash`, `cash`, `percen_skbdn`, `skbdn_price`, `percen_credit_1_month`, `credit_1_month`, `percen_credit_2_month`, `credit_2_month`, `percen_credit_3_month`, `credit_3_month`, `percen_credit_4_month`, `credit_4_month`, `special_condition`, `khs_price`, `percen_pricelist_to_khs`, `percen_nett_cash_to_khs`, `competitor_1`, `competitor_1_name`, `competitor_2`, `competitor_2_name`, `competitor_3`, `competitor_3_name`, `pl_no`) VALUES
+(3, '2', 'WLS', 'ADAPTOR WLS', 'Adaptor DIN-Male to DIN-Female Right Angel', '', '', 'Import', 'EX Cust WH', 'EUR', 6000, 4, 24000, 30000, 30000, '4', 31250, 10, -300000, 4, 31250, 4, 31250, 4, 31250, 4, 31250, 4, 31250, 4, 31250, '4', 4, -8332, -7812, 4, '4', 4, '4', 4, '4', 1),
+(6, '1', 'WLS', 'ADAPTOR WLS', 'Adaptor Din-Female to N-Male', '', '', 'Local', 'EXW', 'IDR', 5000, 1, 5000, 10000, 0, '1', 0, 2, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, '1', 1, 1, 1, 1, '1', 1, '1', 1, '1', 1),
+(7, '5', 'WLN', 'ADAPTOR WLN', 'Adaptor FC/UPC Square', '', '', 'Local', 'EXW', 'USD', 6400, 5, 32000, 38400, 38400, '5', 40421, 5, -192000, 5, 40421, 5, 40421, 5, 40421, 5, 40421, 5, 40421, 5, 40421, '5', 5, -8083, -8083, 5, '5', 5, '5', 5, '5', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pm_header`
+-- Struktur dari tabel `tbl_op_pm_header`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_pm_header` (
@@ -2041,7 +2077,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pm_header` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_op_pm_header`
+-- Dumping data untuk tabel `tbl_op_pm_header`
 --
 
 INSERT INTO `tbl_op_pm_header` (`no`, `memo_no`, `memo_date`, `addressed_to`, `cc_to`, `due_date`, `payment_type`, `bank_name`, `bank_account`, `beneficiary`, `other_info`, `payment_date`, `payment_amount`, `payment_proof`) VALUES
@@ -2051,7 +2087,7 @@ INSERT INTO `tbl_op_pm_header` (`no`, `memo_no`, `memo_date`, `addressed_to`, `c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_pm_table`
+-- Struktur dari tabel `tbl_op_pm_table`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_pm_table` (
@@ -2069,7 +2105,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_pm_table` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_pm_table`
+-- Dumping data untuk tabel `tbl_op_pm_table`
 --
 
 INSERT INTO `tbl_op_pm_table` (`no`, `budget_code`, `main_budget`, `vendor`, `currency_type`, `amount`, `description`, `invoice_no`, `remark`, `pm_no`) VALUES
@@ -2079,7 +2115,7 @@ INSERT INTO `tbl_op_pm_table` (`no`, `budget_code`, `main_budget`, `vendor`, `cu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_costing`
+-- Struktur dari tabel `tbl_op_po_costing`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_costing` (
@@ -2121,17 +2157,18 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_costing` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_op_po_costing`
+-- Dumping data untuk tabel `tbl_op_po_costing`
 --
 
 INSERT INTO `tbl_op_po_costing` (`currency`, `po_amount`, `freight_bc`, `insurance_bc`, `cif_bc`, `bc_rate`, `cif_bc_idr`, `import_tax`, `vat_import`, `wht_import`, `total_tax`, `adm_cost`, `notul`, `notul_desc`, `total_duty_taxes`, `percentage_duty_taxes`, `freight_cost`, `yellow_handling`, `red_handling`, `do`, `storage`, `demurrage`, `lift_on_lift_off`, `mechanic`, `undertable`, `trucking`, `other_cost`, `other_cost_desc`, `total_clearance`, `percentage_clearance`, `total_cost`, `percentage_total_cost`, `total_cost_without_vat`, `percentage_cost_without_vat`, `no_po`) VALUES
-('IDR', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '20000', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', 12),
-('1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 13);
+('IDR', '2', '2', '2', '2', '2', '2', '1000', '1000', '2000', '500', '20000', '22', '22', '5600', '7', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', 12),
+('1', '', '', '', '', '', '', '500', '800', '1200', '3839', '3200', '1', '191', '6330', '4000', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 13),
+('USD', '', '', '', '', '', '', '1', '1', '1', '1', '1', '1', '1', '1', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 15);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_documentation`
+-- Struktur dari tabel `tbl_op_po_documentation`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_documentation` (
@@ -2165,21 +2202,23 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_documentation` (
   `pengembalian_container` varchar(255) NOT NULL,
   `pernyataan_fungsi_guna_barang` varchar(255) NOT NULL,
   `pernyataan_keaslian_dokumen` varchar(255) NOT NULL,
-  `no_po` int(11) NOT NULL
+  `no_po` int(11) NOT NULL,
+  `pib_date` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_op_po_documentation`
+-- Dumping data untuk tabel `tbl_op_po_documentation`
 --
 
-INSERT INTO `tbl_op_po_documentation` (`purchase_order`, `purchase_request`, `csd`, `awb_bl_no`, `awb_bl_date`, `awb_bl`, `invoice_no`, `invoice_date`, `invoice`, `packing_list_no`, `packing_list_date`, `packing_list`, `lc_no`, `lc_date`, `lc`, `form_e_ak_etc_no`, `form_e_ak_etc_date`, `form_e_ak_etc`, `dnp_request`, `spjk_spjm`, `sppb`, `gr_no`, `gr_date`, `gr`, `kuasa_inklaring`, `kuasa_do`, `peminjaman_container`, `pengembalian_container`, `pernyataan_fungsi_guna_barang`, `pernyataan_keaslian_dokumen`, `no_po`) VALUES
-('2', '2', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '2', '2', '2', '02 Apr 2016', '2', '2', '2', '2', '2', '2', '2', 12),
-('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 13);
+INSERT INTO `tbl_op_po_documentation` (`purchase_order`, `purchase_request`, `csd`, `awb_bl_no`, `awb_bl_date`, `awb_bl`, `invoice_no`, `invoice_date`, `invoice`, `packing_list_no`, `packing_list_date`, `packing_list`, `lc_no`, `lc_date`, `lc`, `form_e_ak_etc_no`, `form_e_ak_etc_date`, `form_e_ak_etc`, `dnp_request`, `spjk_spjm`, `sppb`, `gr_no`, `gr_date`, `gr`, `kuasa_inklaring`, `kuasa_do`, `peminjaman_container`, `pengembalian_container`, `pernyataan_fungsi_guna_barang`, `pernyataan_keaslian_dokumen`, `no_po`, `pib_date`) VALUES
+('2', '2', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '02 Apr 2016', '2', '2', '2', '2', '2', '02 Apr 2016', '2', '2', '2', '2', '2', '2', '2', 12, ''),
+('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 13, ''),
+('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 15, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_header`
+-- Struktur dari tabel `tbl_op_po_header`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_header` (
@@ -2199,20 +2238,21 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_header` (
   `delivery_date` varchar(255) NOT NULL,
   `other_terms` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
--- Dumping data for table `tbl_op_po_header`
+-- Dumping data untuk tabel `tbl_op_po_header`
 --
 
 INSERT INTO `tbl_op_po_header` (`no`, `po_no`, `po_date`, `pureq_no`, `pureq_date`, `supplier`, `forwarder`, `moda`, `currency`, `convertion`, `description`, `purpose_of`, `payment_type`, `delivery_date`, `other_terms`) VALUES
 (12, '2', '02 Apr 2016', '2', '02 Apr 2016', '5', '1', 'Air', 'IDR', '2', '2', '2', '2', '02 Apr 2016', '2'),
-(13, '1', '08 Apr 2016', '1', '08 Apr 2016', '5', '1', 'Sea', '1', '1', '1', '1', '1', '08 Apr 2016', '1');
+(13, '1', '08 Apr 2016', '1', '08 Apr 2016', '5', '1', 'Sea', '1', '1', '1', '1', '1', '08 Apr 2016', '1'),
+(15, '2', '12 Apr 2016', '1', '30 Apr 2016', '5', '1', 'Sea', 'USD', '1', '1', '1', '1', '26 Apr 2016', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_lead_time`
+-- Struktur dari tabel `tbl_op_po_lead_time`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_lead_time` (
@@ -2236,17 +2276,18 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_lead_time` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_op_po_lead_time`
+-- Dumping data untuk tabel `tbl_op_po_lead_time`
 --
 
 INSERT INTO `tbl_op_po_lead_time` (`etf_lc`, `etf_production`, `etf_vessel_depart`, `etf_vessel_arrival`, `etf_clearance`, `etf_wh_arrival`, `estimated_lead_time`, `atf_lc`, `atf_production`, `atf_vessel_depart`, `atf_vessel_arrival`, `atf_clearance`, `atf_wh_arrival`, `actual_lead_time`, `deviation`, `forecast_level`, `no_po`) VALUES
 ('02 Apr 2016', '02 Apr 2016', '02 Apr 2016', '05 Apr 2016', '07 Apr 2016', '02 Apr 2016', '2', '02 Apr 2016', '12 Apr 2016', '02 Apr 2016', '05 Apr 2016', '09 Apr 2016', '02 Apr 2016', '10', '2', '2', 12),
-('01 Apr 2016', '02 Apr 2016', '03 Apr 2016', '04 Apr 2016', '05 Apr 2016', '06 Apr 2016', '1', '', '01 Apr 2016', '02 Apr 2016', '03 Apr 2016', '04 Apr 2016', '05 Apr 2016', '12', '', '', 13);
+('01 Apr 2016', '02 Apr 2016', '03 Apr 2016', '04 Apr 2016', '05 Apr 2016', '06 Apr 2016', '1', '', '01 Apr 2016', '02 Apr 2016', '03 Apr 2016', '04 Apr 2016', '05 Apr 2016', '12', '', '', 13),
+('30 Apr 2016', '30 Apr 2016', '30 Apr 2016', '30 Apr 2016', '30 Apr 2016', '', '1', '', '30 Apr 2016', '30 Apr 2016', '', '30 Apr 2016', '', '1', '1', '1', 15);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_payment_information`
+-- Struktur dari tabel `tbl_op_po_payment_information`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_payment_information` (
@@ -2259,7 +2300,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_payment_information` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_op_po_payment_information`
+-- Dumping data untuk tabel `tbl_op_po_payment_information`
 --
 
 INSERT INTO `tbl_op_po_payment_information` (`no`, `payment_type`, `payment_date`, `payment_amount`, `payment_proof`) VALUES
@@ -2268,7 +2309,7 @@ INSERT INTO `tbl_op_po_payment_information` (`no`, `payment_type`, `payment_date
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_report`
+-- Struktur dari tabel `tbl_op_po_report`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_report` (
@@ -2290,7 +2331,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_report` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_po_report`
+-- Dumping data untuk tabel `tbl_op_po_report`
 --
 
 INSERT INTO `tbl_op_po_report` (`no`, `po_no`, `po_date`, `pureq_no`, `invoice_no`, `supplier`, `forwarder`, `moda`, `currency`, `amount`, `gr_no`, `gr_date`, `payment_type`, `payment_date`) VALUES
@@ -2300,7 +2341,7 @@ INSERT INTO `tbl_op_po_report` (`no`, `po_no`, `po_date`, `pureq_no`, `invoice_n
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_po_tabel`
+-- Struktur dari tabel `tbl_op_po_tabel`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_po_tabel` (
@@ -2314,26 +2355,28 @@ CREATE TABLE IF NOT EXISTS `tbl_op_po_tabel` (
   `total_price` varchar(255) NOT NULL,
   `no_po` int(11) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `tbl_op_po_tabel`
+-- Dumping data untuk tabel `tbl_op_po_tabel`
 --
 
 INSERT INTO `tbl_op_po_tabel` (`no`, `item_code`, `item`, `mou`, `qty`, `currency`, `unit_price`, `total_price`, `no_po`) VALUES
 (4, '11', 'Air Gap Attenuator - SC/PC-SC/PC', '2', '2', 'IDR', '2', '2', 12),
-(5, '29', 'Cleaver SS-6S type', '', '', '1', '', '', 13);
+(5, '29', 'Cleaver SS-6S type', '', '', '1', '', '', 13),
+(7, '29', 'Cleaver SS-6S type', '10', '1', 'USD', '1', '1', 15);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_price_list`
+-- Struktur dari tabel `tbl_op_price_list`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_price_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `division` varchar(255) DEFAULT NULL,
   `category` varchar(255) DEFAULT NULL,
+  `item_id` varchar(255) NOT NULL,
   `item_name` varchar(255) DEFAULT NULL,
   `mou` varchar(255) DEFAULT NULL,
   `brand` varchar(255) DEFAULT NULL,
@@ -2387,18 +2430,18 @@ CREATE TABLE IF NOT EXISTS `tbl_op_price_list` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_op_price_list`
+-- Dumping data untuk tabel `tbl_op_price_list`
 --
 
-INSERT INTO `tbl_op_price_list` (`id`, `division`, `category`, `item_name`, `mou`, `brand`, `source`, `incoterm`, `currency`, `purchase_price`, `perc_FTC`, `FTC`, `DDP_price`, `DDP_IDR`, `perc_crosscomp`, `crosscomp_price`, `perc_pricelist`, `pricelist`, `perc_cash`, `cash`, `perc_skbdn`, `skbdn_price`, `perc_credit_1`, `credit_1`, `perc_credit_2`, `credit_2`, `perc_credit_3`, `credit_3`, `perc_credit_4`, `credit_4`, `special_condition`, `khs_price`, `perc_price_khs`, `perc_nett_khs`, `competitor_1`, `competitor_name_1`, `competitor_2`, `competitor_name_2`, `competitor_3`, `competitor_name_3`, `created_dt`, `presented_dt`, `shared_dt`, `effective_from`, `effective_till`, `conv_rate_USD`, `conv_rate_SGD`, `conv_rate_EUR`, `price_term`, `delivery_term`, `validity_term`, `other_term`) VALUES
-(1, '123', '1231', '13', '132', '13', '131', '32', '1', 31, '321', 3213, 123, 1, '32132', 1, '321', 231, '32', 132, '12', 31, '32', 123, '12', 31, '23', 132, '12', 31, '32', 123, '123', '123', 23, '1', 32, '132', 132, '', '123', '12', '3', '321', '23', '123', '321', '32', '11', '12', '12', '32'),
-(3, 'WLS', 'ADAPTOR WLS', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Local', 'EXW', 'USD', 12300, '10', 1230, NULL, NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', 0, NULL, NULL, 0, '', 0, '', 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(4, 'WLN', 'ADAPTOR WLS', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Local', 'EXW', 'USD', 100, '10', 10, 110, 11000, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 11000, '100', 100, '-121.22222222222', '-121.22222222222', 100, '100', 100, '100', 100, '100', '01 Jan 2016', '01 Jan 2016', '01 Jan 2016', '01 Jan 2016', '01 Jan 2016', '100', '100', '100', '100', '100', '100', '100');
+INSERT INTO `tbl_op_price_list` (`id`, `division`, `category`, `item_id`, `item_name`, `mou`, `brand`, `source`, `incoterm`, `currency`, `purchase_price`, `perc_FTC`, `FTC`, `DDP_price`, `DDP_IDR`, `perc_crosscomp`, `crosscomp_price`, `perc_pricelist`, `pricelist`, `perc_cash`, `cash`, `perc_skbdn`, `skbdn_price`, `perc_credit_1`, `credit_1`, `perc_credit_2`, `credit_2`, `perc_credit_3`, `credit_3`, `perc_credit_4`, `credit_4`, `special_condition`, `khs_price`, `perc_price_khs`, `perc_nett_khs`, `competitor_1`, `competitor_name_1`, `competitor_2`, `competitor_name_2`, `competitor_3`, `competitor_name_3`, `created_dt`, `presented_dt`, `shared_dt`, `effective_from`, `effective_till`, `conv_rate_USD`, `conv_rate_SGD`, `conv_rate_EUR`, `price_term`, `delivery_term`, `validity_term`, `other_term`) VALUES
+(1, '123', '1231', '11', '13', '132', '13', '131', '32', '1', 31, '321', 3213, 123, 1, '32132', 1, '321', 231, '32', 132, '12', 31, '32', 123, '12', 31, '23', 132, '12', 31, '32', 123, '123', '123', 23, '1', 32, '132', 132, '', '123', '12', '3', '321', '23', '123', '321', '32', '11', '12', '12', '32'),
+(3, 'WLS', 'ADAPTOR WLS', '29', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Local', 'EXW', 'USD', 12300, '10', 1230, NULL, NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', NULL, '', 0, NULL, NULL, 0, '', 0, '', 0, '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(4, 'WLN', 'ADAPTOR WLS', '', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Adaptor Din-Female to N-Male', 'Local', 'EXW', 'USD', 100, '10', 10, 110, 11000, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 12222, '10', 11000, '100', 100, '-121.22222222222', '-121.22222222222', 100, '100', 100, '100', 100, '100', '01 Jan 2016', '01 Jan 2016', '01 Jan 2016', '01 Jan 2016', '01 Jan 2016', '100', '100', '100', '100', '100', '100', '100');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_realisasi`
+-- Struktur dari tabel `tbl_op_realisasi`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_realisasi` (
@@ -2414,7 +2457,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_realisasi` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_op_realisasi`
+-- Dumping data untuk tabel `tbl_op_realisasi`
 --
 
 INSERT INTO `tbl_op_realisasi` (`no`, `budget_code`, `main_budget`, `sub_budget_level1`, `sub_budget_level2`, `date`, `transaction_description`, `amount`) VALUES
@@ -2423,7 +2466,7 @@ INSERT INTO `tbl_op_realisasi` (`no`, `budget_code`, `main_budget`, `sub_budget_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_short_brief`
+-- Struktur dari tabel `tbl_op_short_brief`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_short_brief` (
@@ -2431,7 +2474,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_short_brief` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_op_short_brief`
+-- Dumping data untuk tabel `tbl_op_short_brief`
 --
 
 INSERT INTO `tbl_op_short_brief` (`content`) VALUES
@@ -2440,7 +2483,7 @@ INSERT INTO `tbl_op_short_brief` (`content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_st_header`
+-- Struktur dari tabel `tbl_op_st_header`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_st_header` (
@@ -2453,7 +2496,7 @@ CREATE TABLE IF NOT EXISTS `tbl_op_st_header` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_op_st_header`
+-- Dumping data untuk tabel `tbl_op_st_header`
 --
 
 INSERT INTO `tbl_op_st_header` (`no`, `type`, `document`, `document_no`, `document_date`) VALUES
@@ -2462,7 +2505,7 @@ INSERT INTO `tbl_op_st_header` (`no`, `type`, `document`, `document_no`, `docume
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_op_st_tabel`
+-- Struktur dari tabel `tbl_op_st_tabel`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_op_st_tabel` (
@@ -2476,17 +2519,17 @@ CREATE TABLE IF NOT EXISTS `tbl_op_st_tabel` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_op_st_tabel`
+-- Dumping data untuk tabel `tbl_op_st_tabel`
 --
 
 INSERT INTO `tbl_op_st_tabel` (`no`, `item_code`, `item`, `mou`, `qty`, `st_no`) VALUES
-(1, '7', 'Adaptor LC/UPC Duplex', '10', '120', 1),
-(2, '15', 'Attenuator 30 watts, 10 dBi', '21', '31', 1);
+(1, '11', 'Adaptor LC/UPC Duplex', '10', '120', 1),
+(2, '29', 'Attenuator 30 watts, 10 dBi', '21', '31', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_position`
+-- Struktur dari tabel `tbl_position`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_position` (
@@ -2496,7 +2539,7 @@ CREATE TABLE IF NOT EXISTS `tbl_position` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_position`
+-- Dumping data untuk tabel `tbl_position`
 --
 
 INSERT INTO `tbl_position` (`id`, `position`) VALUES
@@ -2506,7 +2549,7 @@ INSERT INTO `tbl_position` (`id`, `position`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_budget`
+-- Struktur dari tabel `tbl_sale_budget`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_budget` (
@@ -2521,7 +2564,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_budget` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_sale_budget`
+-- Dumping data untuk tabel `tbl_sale_budget`
 --
 
 INSERT INTO `tbl_sale_budget` (`no`, `budget_code`, `main_budget`, `sub_budget_level1`, `sub_budget_level2`, `periode`, `amount`) VALUES
@@ -2531,7 +2574,7 @@ INSERT INTO `tbl_sale_budget` (`no`, `budget_code`, `main_budget`, `sub_budget_l
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_catatan_direksi`
+-- Struktur dari tabel `tbl_sale_catatan_direksi`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_catatan_direksi` (
@@ -2545,7 +2588,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_catatan_direksi` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_sale_catatan_direksi`
+-- Dumping data untuk tabel `tbl_sale_catatan_direksi`
 --
 
 INSERT INTO `tbl_sale_catatan_direksi` (`no`, `csd_no`, `date`, `addressed_to`, `subject`, `file`) VALUES
@@ -2554,7 +2597,7 @@ INSERT INTO `tbl_sale_catatan_direksi` (`no`, `csd_no`, `date`, `addressed_to`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_customer_visit`
+-- Struktur dari tabel `tbl_sale_customer_visit`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_customer_visit` (
@@ -2571,7 +2614,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_customer_visit` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `tbl_sale_customer_visit`
+-- Dumping data untuk tabel `tbl_sale_customer_visit`
 --
 
 INSERT INTO `tbl_sale_customer_visit` (`no`, `visit_date`, `am`, `accompanied_by`, `company_to_visit`, `person_to_visit`, `people_of_PTV`, `purpose_of_visit`, `result_of_visit`) VALUES
@@ -2583,7 +2626,7 @@ INSERT INTO `tbl_sale_customer_visit` (`no`, `visit_date`, `am`, `accompanied_by
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_direksi`
+-- Struktur dari tabel `tbl_sale_direksi`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_direksi` (
@@ -2602,7 +2645,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_direksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_incoming`
+-- Struktur dari tabel `tbl_sale_incoming`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_incoming` (
@@ -2619,7 +2662,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_incoming` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_sale_incoming`
+-- Dumping data untuk tabel `tbl_sale_incoming`
 --
 
 INSERT INTO `tbl_sale_incoming` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, `terima`, `pembuat`, `letak`, `file`) VALUES
@@ -2628,7 +2671,7 @@ INSERT INTO `tbl_sale_incoming` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_incoming_letter_registration`
+-- Struktur dari tabel `tbl_sale_incoming_letter_registration`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_incoming_letter_registration` (
@@ -2646,7 +2689,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_incoming_letter_registration` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_sale_incoming_letter_registration`
+-- Dumping data untuk tabel `tbl_sale_incoming_letter_registration`
 --
 
 INSERT INTO `tbl_sale_incoming_letter_registration` (`no`, `received_date`, `from`, `letter_no`, `letter_date`, `subject`, `addressed_to`, `description`, `file`, `archive_code`) VALUES
@@ -2655,7 +2698,7 @@ INSERT INTO `tbl_sale_incoming_letter_registration` (`no`, `received_date`, `fro
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_internal_memo`
+-- Struktur dari tabel `tbl_sale_internal_memo`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo` (
@@ -2669,7 +2712,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_sale_internal_memo`
+-- Dumping data untuk tabel `tbl_sale_internal_memo`
 --
 
 INSERT INTO `tbl_sale_internal_memo` (`no`, `internal_memo_no`, `date`, `addressed_to`, `subject`, `file`) VALUES
@@ -2679,7 +2722,7 @@ INSERT INTO `tbl_sale_internal_memo` (`no`, `internal_memo_no`, `date`, `address
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_internal_memo_subfield`
+-- Struktur dari tabel `tbl_sale_internal_memo_subfield`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo_subfield` (
@@ -2695,7 +2738,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_internal_memo_subfield` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `tbl_sale_internal_memo_subfield`
+-- Dumping data untuk tabel `tbl_sale_internal_memo_subfield`
 --
 
 INSERT INTO `tbl_sale_internal_memo_subfield` (`id`, `id_memo`, `cost_id`, `vendor`, `rate`, `amount`, `uraian`, `invoice`) VALUES
@@ -2706,7 +2749,7 @@ INSERT INTO `tbl_sale_internal_memo_subfield` (`id`, `id_memo`, `cost_id`, `vend
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_jobdesc`
+-- Struktur dari tabel `tbl_sale_jobdesc`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_jobdesc` (
@@ -2717,20 +2760,21 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_jobdesc` (
   `kpi` text NOT NULL,
   `parent` varchar(3) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `tbl_sale_jobdesc`
+-- Dumping data untuk tabel `tbl_sale_jobdesc`
 --
 
 INSERT INTO `tbl_sale_jobdesc` (`no`, `am`, `fungsi`, `jobdesc`, `kpi`, `parent`) VALUES
 (6, '1', 'AAA', 'image/s_jobdesc/Software Architecture.jpg', 'image/s_jobdesc/usecase diagram 1.0.jpg', '0'),
-(7, '2', 'bebas', '', '', '6');
+(7, '2', 'bebas', '', '', '6'),
+(8, '1', 'ooo', '', '', '6');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_letter_of_support`
+-- Struktur dari tabel `tbl_sale_letter_of_support`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_letter_of_support` (
@@ -2746,7 +2790,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_letter_of_support` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_sale_letter_of_support`
+-- Dumping data untuk tabel `tbl_sale_letter_of_support`
 --
 
 INSERT INTO `tbl_sale_letter_of_support` (`no`, `version_of_support`, `los_no`, `date`, `addressed_to`, `customer_of_support`, `project_name`, `product_name`) VALUES
@@ -2755,7 +2799,7 @@ INSERT INTO `tbl_sale_letter_of_support` (`no`, `version_of_support`, `los_no`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_organization_structure`
+-- Struktur dari tabel `tbl_sale_organization_structure`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_organization_structure` (
@@ -2769,7 +2813,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_organization_structure` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_outgoing`
+-- Struktur dari tabel `tbl_sale_outgoing`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_outgoing` (
@@ -2789,7 +2833,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_outgoing` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `tbl_sale_outgoing`
+-- Dumping data untuk tabel `tbl_sale_outgoing`
 --
 
 INSERT INTO `tbl_sale_outgoing` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, `terima`, `pembuat`, `jawab`, `letak`, `file`, `desc`, `archive_code`) VALUES
@@ -2804,7 +2848,7 @@ INSERT INTO `tbl_sale_outgoing` (`id`, `nomer`, `tanggal`, `tujuan`, `perihal`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_outgoing_letter_registration`
+-- Struktur dari tabel `tbl_sale_outgoing_letter_registration`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_outgoing_letter_registration` (
@@ -2821,7 +2865,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_outgoing_letter_registration` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_sale_outgoing_letter_registration`
+-- Dumping data untuk tabel `tbl_sale_outgoing_letter_registration`
 --
 
 INSERT INTO `tbl_sale_outgoing_letter_registration` (`no`, `ol_no`, `ol_date`, `subject`, `addressed_to`, `description`, `signer_by`, `file`, `archive_code`) VALUES
@@ -2830,7 +2874,7 @@ INSERT INTO `tbl_sale_outgoing_letter_registration` (`no`, `ol_no`, `ol_date`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_policies`
+-- Struktur dari tabel `tbl_sale_policies`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_policies` (
@@ -2847,7 +2891,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_policies` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `tbl_sale_policies`
+-- Dumping data untuk tabel `tbl_sale_policies`
 --
 
 INSERT INTO `tbl_sale_policies` (`no`, `policy_no`, `policy_date`, `policy_type`, `description`, `file`, `date_of_issued`, `date_of_expired`, `remark`) VALUES
@@ -2857,7 +2901,7 @@ INSERT INTO `tbl_sale_policies` (`no`, `policy_no`, `policy_date`, `policy_type`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_realisasi`
+-- Struktur dari tabel `tbl_sale_realisasi`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_realisasi` (
@@ -2873,7 +2917,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_realisasi` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_sale_realisasi`
+-- Dumping data untuk tabel `tbl_sale_realisasi`
 --
 
 INSERT INTO `tbl_sale_realisasi` (`no`, `budget_code`, `main_budget`, `sub_budget_level1`, `sub_budget_level2`, `date`, `transaction_description`, `amount`) VALUES
@@ -2883,7 +2927,7 @@ INSERT INTO `tbl_sale_realisasi` (`no`, `budget_code`, `main_budget`, `sub_budge
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_sales_sop`
+-- Struktur dari tabel `tbl_sale_sales_sop`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_sales_sop` (
@@ -2899,7 +2943,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_sales_sop` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_sale_sales_sop`
+-- Dumping data untuk tabel `tbl_sale_sales_sop`
 --
 
 INSERT INTO `tbl_sale_sales_sop` (`no`, `sop_no`, `sop_date`, `description`, `file`, `date_of_issued`, `date_of_expired`, `remark`) VALUES
@@ -2908,7 +2952,7 @@ INSERT INTO `tbl_sale_sales_sop` (`no`, `sop_no`, `sop_date`, `description`, `fi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_short_brief`
+-- Struktur dari tabel `tbl_sale_short_brief`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_short_brief` (
@@ -2916,7 +2960,7 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_short_brief` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_sale_short_brief`
+-- Dumping data untuk tabel `tbl_sale_short_brief`
 --
 
 INSERT INTO `tbl_sale_short_brief` (`short_brief`) VALUES
@@ -2925,7 +2969,7 @@ INSERT INTO `tbl_sale_short_brief` (`short_brief`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_so`
+-- Struktur dari tabel `tbl_sale_so`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_so` (
@@ -2950,23 +2994,25 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_so` (
   `other_term` varchar(255) NOT NULL,
   `other_status` varchar(255) NOT NULL,
   `softcopy` varchar(255) NOT NULL,
+  `adjustment` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `tbl_sale_so`
+-- Dumping data untuk tabel `tbl_sale_so`
 --
 
-INSERT INTO `tbl_sale_so` (`id`, `so_no`, `so_date`, `po_no`, `po_date`, `customer_id`, `customer_name`, `address`, `phone`, `fax`, `am`, `division`, `operator`, `pn`, `description`, `payment_term`, `delivery_term`, `delivery_cost_term`, `other_term`, `other_status`, `softcopy`) VALUES
-(3, 'SO-1', '01 Mar 2016', 'PO-11111111', '02 Mar 2016', '1AGU0001', '4', '-', '-', '-', '1', '', '1', '-', '-', '-', '-', '-', '-', '-', ''),
-(4, '1', '12 Apr 2016', '1', '13 Apr 2016', '1AAT0001', 'AGUNG, Bpk', '1', '081391456411', '', '1', '', '1', '', '', '', '', '', '', '', ''),
-(5, '1', '09 Apr 2016', '1', '09 Apr 2016', '1AAT0001', '13', '', '', '', '1', '', '2', '', '', '', '', '', '', '', ''),
-(6, '', '07 Apr 2020', '', '07 Apr 2016', '1ADY0001', 'ADYAWINSA TELECOMUNICATION & ELECTRICAL, PT', 'Jl. Pegangsaan Dua KM 2 No. 64 RT. 005/002 Pegangsaan Dua, Kelapan Gading Jakarta Utara', '021-893 6001', '', '2', '', '1', '', '', '', '', '', '', '', '');
+INSERT INTO `tbl_sale_so` (`id`, `so_no`, `so_date`, `po_no`, `po_date`, `customer_id`, `customer_name`, `address`, `phone`, `fax`, `am`, `division`, `operator`, `pn`, `description`, `payment_term`, `delivery_term`, `delivery_cost_term`, `other_term`, `other_status`, `softcopy`, `adjustment`) VALUES
+(3, 'SO-1', '01 Mar 2016', 'PO-11111111', '02 Mar 2016', '1AKB0001', 'AKBAR SAPUTRA UTAMA, PT', '', '0811460080', '', '1', 'CORP', '1', '-', '-', '-', '-', '-', '-', '-', '', 0),
+(4, '1', '12 Apr 2017', '1', '13 Apr 2016', '1AAT0001', 'AGUNG, Bpk', '1', '081391456411', '', '1', 'WLS', '1', '', '', '', '', '', '', '', '', 0),
+(5, '1', '09 Apr 2016', '1', '09 Apr 2016', '1ANI0001', 'ANIEZA, CV', 'Jl. Cikunir Barat GG Bojong Trngah No 51/149B RT 007 RW 012 Cigadung-Cibeunying Kaler', '', '', '1', 'OTHER', '2', '', '', '', '', '', '', '', '', 0),
+(6, '', '07 Apr 2020', '', '07 Apr 2016', '1ADY0001', 'ADYAWINSA TELECOMUNICATION & ELECTRICAL, PT', 'Jl. Pegangsaan Dua KM 2 No. 64 RT. 005/002 Pegangsaan Dua, Kelapan Gading Jakarta Utara', '021-893 6001', '', '2', 'CORP', '1', '', '', '', '', '', '', '', '', 0),
+(7, '1', '20 Apr 2017', '1', '25 Apr 2017', '1ALT0001', 'ALTELCOM, CV', 'Jl. Jakarta No. 20-22 Ruko 22 Bandung', '62-22-7219927', '', '2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_so_cost`
+-- Struktur dari tabel `tbl_sale_so_cost`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_so_cost` (
@@ -2988,19 +3034,23 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_so_cost` (
   `payment_date` varchar(255) NOT NULL,
   `through` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_sale_so_cost`
+-- Dumping data untuk tabel `tbl_sale_so_cost`
 --
 
 INSERT INTO `tbl_sale_so_cost` (`id`, `id_so`, `sales_com`, `sales`, `bank_interest`, `bank`, `transport`, `adm`, `other`, `extcom`, `extcom_pro`, `income`, `nett`, `receiver`, `approved`, `payment_date`, `through`) VALUES
-(1, 1, '1', '1', '13 Jan 2016', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '13 Jan 2016', '16');
+(1, 1, '1', '1', '13 Jan 2016', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '13 Jan 2016', '16'),
+(2, 3, '10', '10', '10', '10', '5001', '2000', '10000', '20', '10', '10', '1', '1', '1', '11 Apr 2016', '1'),
+(3, 3, '1', '1', '1', '', '2400', '1', '1', '1', '1', '1', '1', '1', '1', '26 Apr 2016', '1'),
+(4, 4, '1', '1', '1', '1', '3000', '1', '1', '1', '1', '1', '1', '1', '1', '26 Apr 2016', '1'),
+(5, 5, '1', '1', '1', '1', '2111', '1', '1', '1', '1', '1', '1', '1', '1', '26 Apr 2016', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_so_delivery`
+-- Struktur dari tabel `tbl_sale_so_delivery`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_so_delivery` (
@@ -3018,21 +3068,23 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_so_delivery` (
   `received_by` varchar(255) NOT NULL,
   `nett` varchar(255) NOT NULL,
   `awb_file` varchar(255) NOT NULL,
+  `debit_note_amount` varchar(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `tbl_sale_so_delivery`
+-- Dumping data untuk tabel `tbl_sale_so_delivery`
 --
 
-INSERT INTO `tbl_sale_so_delivery` (`id`, `id_so`, `do_no`, `do_date`, `delivery`, `delivery_by`, `name`, `method`, `awb_no`, `depart`, `received`, `received_by`, `nett`, `awb_file`) VALUES
-(1, '3', '1', '03 Jan 2016', '02 Jan 2016', 'Own Transportation', '1', 'Land', '4', '04 Apr 2016', '08 Apr 2016', '7', '8', 'image/s_delivery/password.png'),
-(3, '4', '1', '08 Apr 2016', '08 Apr 2016', 'Own Transportation', '1', 'Land', '1', '04 Apr 2016', '21 Apr 2016', '1', '1', '');
+INSERT INTO `tbl_sale_so_delivery` (`id`, `id_so`, `do_no`, `do_date`, `delivery`, `delivery_by`, `name`, `method`, `awb_no`, `depart`, `received`, `received_by`, `nett`, `awb_file`, `debit_note_amount`) VALUES
+(1, '3', '1', '03 Jan 2016', '02 Jan 2016', 'Own Transportation', '1', 'Land', '4', '04 Apr 2016', '08 Apr 2016', '7', '600', 'image/s_delivery/password.png', '2500'),
+(3, '4', '1', '08 Apr 2016', '08 Apr 2016', 'Own Transportation', '1', 'Land', '1', '04 Apr 2016', '21 Apr 2016', '1', '1', '', '0'),
+(4, '3', '11', '13 Apr 2016', '14 Apr 2016', 'Own Transportation', 'piko', 'Land', '11', '28 Apr 2016', '30 Apr 2016', 'piko', '2000', '', '2100');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_so_detail`
+-- Struktur dari tabel `tbl_sale_so_detail`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_so_detail` (
@@ -3054,27 +3106,28 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_so_detail` (
   `vat` varchar(255) NOT NULL,
   `grand_total` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `tbl_sale_so_detail`
+-- Dumping data untuk tabel `tbl_sale_so_detail`
 --
 
 INSERT INTO `tbl_sale_so_detail` (`id`, `id_so`, `item`, `item_name`, `brand`, `mou`, `qty`, `price`, `disc`, `nett`, `total`, `subtotal`, `discount`, `delivery`, `nett_tax`, `vat`, `grand_total`) VALUES
-(1, 3, '2', '2', '2', '2', '3000', '1', '1', '1', '1', '1', '1', '1000', '1', '1', '3000'),
-(2, 5, '1', '1', '1', '1', '6000', '1', '1', '1', '1', '1', '1', '2000', '1', '1', '2500'),
-(3, 4, '5', '1', '1', '1', '200', '1', '1', '1', '1', '1', '1', '3000', '1', '1', '1900'),
-(4, 6, '2', '', '', '', '4000', '', '', '', '', '', '', '', '', '', '');
+(1, 3, '2', '2', '2', '2', '1', '3000', '1', '1', '1', '1', '1', '1000', '1', '1', '3000'),
+(2, 5, '1', '1', '1', '1', '1', '6000', '1', '1', '1', '1', '1', '2000', '1', '1', '2500'),
+(3, 4, '5', '1', '1', '1', '1', '200', '1', '1', '1', '1', '1', '3000', '1', '1', '1900'),
+(4, 6, '2', '', '', '', '1', '4000', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_so_invoicing`
+-- Struktur dari tabel `tbl_sale_so_invoicing`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_so_invoicing` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_so` int(11) NOT NULL,
+  `item_id` varchar(255) NOT NULL,
   `no` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
@@ -3087,19 +3140,20 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_so_invoicing` (
   `receipt_no` varchar(255) NOT NULL,
   `receipt_file` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tbl_sale_so_invoicing`
+-- Dumping data untuk tabel `tbl_sale_so_invoicing`
 --
 
-INSERT INTO `tbl_sale_so_invoicing` (`id`, `id_so`, `no`, `date`, `amount`, `desc`, `due`, `sent`, `sent_by`, `received_by`, `received_date`, `receipt_no`, `receipt_file`) VALUES
-(1, 1, '121', '1 Jan 2016', '13123', 'asdas', '5 Jan 2016', 'asdas', 'asdsa', 'asdsa', '6 Jan 2016', '123213', '');
+INSERT INTO `tbl_sale_so_invoicing` (`id`, `id_so`, `item_id`, `no`, `date`, `amount`, `desc`, `due`, `sent`, `sent_by`, `received_by`, `received_date`, `receipt_no`, `receipt_file`) VALUES
+(1, 3, '2', '121', '1 Jan 2016', '33123', 'asdas', '5 Jan 2016', 'asdas', 'asdsa', 'asdsa', '6 Jan 2016', '123213', ''),
+(2, 7, '2', '1', '22 Apr 2016', '27500', '1', '22 Apr 2016', '22 Apr 2016', '2', '2', '22 Apr 2016', '2', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_so_payment`
+-- Struktur dari tabel `tbl_sale_so_payment`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_so_payment` (
@@ -3116,16 +3170,16 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_so_payment` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_sale_so_payment`
+-- Dumping data untuk tabel `tbl_sale_so_payment`
 --
 
 INSERT INTO `tbl_sale_so_payment` (`id`, `id_so`, `reference`, `due_date`, `payment_date`, `through`, `amount`, `account`, `remark`) VALUES
-(1, 1, 'dasdasd', '11/01/2015', '14/01/2016', 'asda', '13123', '123123', '');
+(1, 3, 'dasdasd', '11/01/2015', '14/01/2016', 'asda', '13123', '123123', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sale_target`
+-- Struktur dari tabel `tbl_sale_target`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_sale_target` (
@@ -3136,23 +3190,25 @@ CREATE TABLE IF NOT EXISTS `tbl_sale_target` (
   `customer` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `tbl_sale_target`
+-- Dumping data untuk tabel `tbl_sale_target`
 --
 
 INSERT INTO `tbl_sale_target` (`no`, `a_m`, `periode`, `operator`, `customer`, `amount`) VALUES
-(1, '1', 'September 2020', '1', '21', '2112'),
-(2, '1', 'April 2020', '2', '4', '2000'),
-(3, '1', 'January 2017', '1', '4', '1000'),
-(4, '1', 'April 2020', '2', '4', '1200'),
-(5, '1', 'April 2016', '2', '4', '100');
+(6, '1', 'May 2016', '1', '4', '100000'),
+(7, '1', 'Jun 2016', '1', '5', '20000'),
+(8, '1', 'Jul 2016', '2', '4', '10000'),
+(9, '3', 'Jan 2016', '1', '7', '20000'),
+(10, '3', 'Feb 2016', '2', '7', '12000'),
+(11, '1', 'Feb 2016', '2', '4', '80000'),
+(12, '1', 'Jan 2016', '1', '6', '60000');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_setting_tahun`
+-- Struktur dari tabel `tbl_setting_tahun`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_setting_tahun` (
@@ -3162,7 +3218,7 @@ CREATE TABLE IF NOT EXISTS `tbl_setting_tahun` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `tbl_setting_tahun`
+-- Dumping data untuk tabel `tbl_setting_tahun`
 --
 
 INSERT INTO `tbl_setting_tahun` (`id`, `tahun`) VALUES
@@ -3171,7 +3227,7 @@ INSERT INTO `tbl_setting_tahun` (`id`, `tahun`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_user`
+-- Struktur dari tabel `tbl_user`
 --
 
 CREATE TABLE IF NOT EXISTS `tbl_user` (
@@ -3183,7 +3239,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `tbl_user`
+-- Dumping data untuk tabel `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id`, `username`, `password`, `id_group`) VALUES

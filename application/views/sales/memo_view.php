@@ -60,7 +60,7 @@
                                 {
                                     $nomor = $res;
                                 }
-                                $kode = "/LOS-SLS/BSG/";
+                                $kode = "/IM-SLS/BSG/";
                                 $arrDate = explode(' ',$c->date);
                                 $tahun = $arrDate[0];
                                 $bulan = $arrDate[1];

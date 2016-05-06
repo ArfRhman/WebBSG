@@ -1801,6 +1801,10 @@ function target()
 		$this->session->set_flashdata('data','Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
+		case 'detail':
+		$this->load->view('top', $data);
+		$this->load->view('sales/target_detail', $data);
+		break;
 		case 'delete':
 		$this->mddata->deleteGeneral('tbl_sale_target','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
