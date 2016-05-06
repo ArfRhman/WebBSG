@@ -131,7 +131,7 @@
     </thead>
     <tbody>
       <?php
-      $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+      $bln = array("January","February","March","April","May","June","July","August","September","Oktober","November","Desember");
       $bln2 = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
       $no = 0;
 
@@ -190,7 +190,7 @@
 <script>        
   $(document).ready(function(){
     $('.datepicker').datepicker({
-      format:'M'
+      format:'MM yyyy'
     });
 
   }); </script>
