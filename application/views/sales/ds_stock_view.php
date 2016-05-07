@@ -68,7 +68,8 @@
                     allowPointSelect: true,
                     cursor: 'pointer',
                     dataLabels: {
-                        enabled: false
+                        enabled: true,
+                        format: '{point.myData}'
                     },
                     showInLegend: true
                 }
@@ -78,15 +79,18 @@
                 colorByPoint: true,
                 data: [{
                     name: 'Active Stock',
-                    y: 56.33
+                    y: <?=$yAc?>,
+                    myData: '<?=$resAc?>'
                 }, {
                     name: 'Slow Moving Stock',
-                    y: 24.03,
+                    y: <?=$ySl?>,
+                    myData: '<?=$resSl?>',
                     sliced: true,
                     selected: true
                 }, {
                     name: 'Dead Stock',
-                    y: 10.38
+                    y: <?=$yDe?>,
+                    myData: '<?=$resDe?>'
                 }]
             }]
         });

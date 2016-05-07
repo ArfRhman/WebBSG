@@ -252,6 +252,7 @@ class Sales extends CI_Controller {
 			$data['ac'] = "s_profit_am";
 			$ds = $this->mddata->getDsProfitByYear();
 			$end = array();
+			$kateg = array();
 			$end['total']=array(
 				'name' => 'Target',
 				'data' => array()
@@ -269,19 +270,28 @@ class Sales extends CI_Controller {
 				'data' => array()
 				);
 
-			foreach ($ds as $d) {
+			foreach($ds as $d) {
+				$kateg[]=$d['periode'];
 				$end['total']['data'][$d['periode']]['y']=intval($d['total']);
 				$end['total_so']['data'][$d['periode']]['y']=intval($d['total_so']);
 				$end['total_invoice']['data'][$d['periode']]['y']=intval($d['total_invoice']);
 				$end['cogs']['data'][$d['periode']]['y']=intval($d['cogs']);
-				$end['total_so']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
-				$end['total_invoice']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
-				$end['cogs']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
-				$end['total']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval(4),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+5));
+				$end['total_so']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval($d['total_adjustment']),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+$d['total_adjustment']));
+				$end['total_invoice']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval($d['total_adjustment']),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+$d['total_adjustment']));
+				$end['cogs']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval($d['total_adjustment']),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+$d['total_adjustment']));
+				$end['total']['data'][$d['periode']]['myData']=array(intval($d['cogs']-$d['total_so']),intval($d['direct_cost']),intval($d['total_adjustment']),intval(($d['cogs']-$d['total_so'])-$d['direct_cost']+$d['total_adjustment']));
 			}
-			print_r($end);
-			//print_r(json_encode(array_values($end)));
-			//die();
+			
+			foreach($end as $e){
+				$end['total']['data']=array_values($end['total']['data']);
+				$end['total_so']['data']=array_values($end['total_so']['data']);
+				$end['total_invoice']['data']=array_values($end['total_invoice']['data']);
+				$end['cogs']['data']=array_values($end['cogs']['data']);
+			}
+
+			$data['kateg']=json_encode($kateg);
+			$data['year']=json_encode(array_values($end));
+			//print_r($data['year']);
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_profit_view', $data);
 			break;
@@ -319,7 +329,60 @@ class Sales extends CI_Controller {
 			break;
 			case 'stock':
 			$data['ac'] = "s_stock_am";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$res = $this->mddata->getStockPerformance();
+			$active=array();
+			$slow=array();
+			$dead=array();
+			foreach($res as $r){
+				if($r['geer']<=90){
+					$active[$r['item']]['name']=$r['item'];
+					$active[$r['item']]['total']=$r['amount'];
+				}else if($r['geer']>90 && $r['geer']<=180){
+					$slow[$r['item']]['name']=$r['item'];
+					$slow[$r['item']]['total']=$r['amount'];
+				}else if($r['geer']>180){
+					$dead[$r['item']]['name']=$r['item'];
+					$dead[$r['item']]['total']=$r['amount'];
+				}
+			}
+
+			function sortByOrder($a, $b) {
+				return $a['total'] - $b['total'];
+			}
+
+			usort($active, 'sortByOrder');
+			usort($slow, 'sortByOrder');
+			usort($dead, 'sortByOrder');
+			
+			$sActive=array_slice($active,0,4);
+			$sSlow=array_slice($slow,0,4);
+			$sDead=array_slice($dead,0,4);
+			
+			$yAc=0;
+			$resAc=array();
+			$ySl=0;
+			$resSl=array();
+			$yDe=0;
+			$resDe=array();
+			foreach($sActive as $act){
+				$yAc+=$act['total'];
+				$resAc[]=$act['name'];
+			}
+			foreach($sSlow as $slo){
+				$ySl+=$slo['total'];
+				$resSl[]=$slo['name'];
+			}
+			foreach($sDead as $de){
+				$yDe+=$de['total'];
+				$resDe[]=$de['name'];
+			}
+			$data['yAc']=intval($yAc);
+			$data['ySl']=intval($ySl);
+			$data['yDe']=intval($yDe);
+			$data['resAc']=implode('<br>', $resAc);
+			$data['resSl']=implode('<br>', $resSl);
+			$data['resDe']=implode('<br>', $resDe);
+			//die();
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_stock_view', $data);
 			break;
@@ -1037,66 +1100,66 @@ redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'profit_analisis':
 $data['data'] = $this->db->query("SELECT
-			so_no,
-			am,
-			division,
-			so_date,
-			customer_id,
-			po_no,
-			po_date,
-			inv.amount,
-			NO,
-			date,
-			due,
-			received_date,
-			inv.date AS inv_date,
-			inv. NO AS inv_no,
-			payment_date,
-			sales,
-			extcom_pro,
-			bank,
-			transport,
-			adm,
-			other,
-			(
-				SELECT
-				SUM(grand_total)
-				FROM
-				tbl_sale_so_detail d
-				WHERE
-				d.id_so = so.id
-				) AS total_so,
-		(
-			SELECT
-			SUM(DDP_IDR)
-			FROM
-			tbl_op_price_list pl
-			WHERE
-			pl.item_id IN (
-				SELECT
-				item
-				FROM
-				tbl_sale_so_detail dt
-				WHERE
-				dt.id_so = so.id
-				)
-		) AS total_purchase, adjustment
+	so_no,
+	am,
+	division,
+	so_date,
+	customer_id,
+	po_no,
+	po_date,
+	inv.amount,
+	NO,
+	date,
+	due,
+	received_date,
+	inv.date AS inv_date,
+	inv. NO AS inv_no,
+	payment_date,
+	sales,
+	extcom_pro,
+	bank,
+	transport,
+	adm,
+	other,
+	(
+		SELECT
+		SUM(grand_total)
 		FROM
-		tbl_sale_so so
-		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
-		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
-		WHERE so.id = ".$this->uri->segment(4)."")->row();
+		tbl_sale_so_detail d
+		WHERE
+		d.id_so = so.id
+		) AS total_so,
+(
+	SELECT
+	SUM(DDP_IDR)
+	FROM
+	tbl_op_price_list pl
+	WHERE
+	pl.item_id IN (
+		SELECT
+		item
+		FROM
+		tbl_sale_so_detail dt
+		WHERE
+		dt.id_so = so.id
+		)
+) AS total_purchase, adjustment
+FROM
+tbl_sale_so so
+LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
+WHERE so.id = ".$this->uri->segment(4)."")->row();
 $this->load->view('top', $data);
 $this->load->view('sales/so_profit_analisis', $data);
 break;
 case 'update_adjusment':
 $id = $this->input->post('id');
-	$data = array('adjustment' => $this->input->post('adjustment'));
+$data = array('adjustment' => $this->input->post('adjustment'));
 $this->mddata->updateDataTbl('tbl_sale_so', $data, 'id', $id);
 $this->session->set_flashdata('data','Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
-	break;
-	case 'getItemPrice':
+break;
+case 'getItemPrice':
 $id = $_POST['id'];
 $id_so = $_POST['id_so'];
 $data = $this->db->query("SELECT * FROM tbl_sale_so_detail WHERE id_so = $id_so AND item = $id")->row();
@@ -2046,21 +2109,21 @@ function loss()
 				WHERE
 				dt.id_so = so.id
 				)
-<<<<<<< 7e99e78e14d952afc8195cd8a85a2f9f749d5175
+		<<<<<<< 7e99e78e14d952afc8195cd8a85a2f9f749d5175
 		) AS total_purchase
-=======
+		=======
 		) AS total_purchase, so.adjustment
->>>>>>> 3ad40c454d4089378082ed8fa9401272cd5e727a
+		>>>>>>> 3ad40c454d4089378082ed8fa9401272cd5e727a
 		FROM
 		tbl_sale_so so
 		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
 		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
 		WHERE
 		SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y'));
-		$this->load->view('top', $data);
-		$this->load->view('sales/loss_detail', $data);
-		break;		
-	}
+$this->load->view('top', $data);
+$this->load->view('sales/loss_detail', $data);
+break;		
+}
 }
 function ar()
 {

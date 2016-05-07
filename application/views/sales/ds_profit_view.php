@@ -26,9 +26,14 @@
             </div>
             <div class="col-md-2">
               <select class="form-control" id="tahun" style="display:none;">
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
+                <option>-- Pilih Tahun --</option>
+                <?php 
+                foreach(json_decode($kateg) as $k){
+                ?>
+                <option><?=$k?></option>
+                <?php 
+                }
+                ?>
               </select>
             </div>
           </div>
@@ -64,37 +69,17 @@
 
  $(document).ready(function () {
         // default tahunan
-        var categories = [2016, 2017, 2018, 2019]; // json period sales disini
-        var myDataPerItem = [[1,2,3,4],[2,2,2,2],[3,3,3,3],[4,4,4,4]]; // json ket. data gimana period nya (4 tahun)
-        var dataTarget = [
-        {y:49.9,myData:myDataPerItem[0]},
-        {y: 71.5,myData:myDataPerItem[1]},
-        {y:106.4,myData:myDataPerItem[2]},
-        {y:129.2,myData:myDataPerItem[3]},]; // json data target disini
-
-        var dataSO = [7.0, 6.9, 9.5, 14.5]; // json data so disini
-        var dataInvoice = [7.0, 6.9, 9.5, 14.5]; // json data invoice disini
-        var dataCOGS = [7.0, 6.9, 9.5, 14.5]; // json data cogs disini
-      
+        var categories = <?=$kateg?> // json period sales disini
         var title = ' Year to Date';
-        
-      
-
-        graphic(dataTarget,dataSO,dataInvoice,dataCOGS,title,categories,myDataPerItem);
+        var dataTahun= <?=$year?>;
+        graphicNew(title,categories,dataTahun);
         $("#categories").change(function(){
           var cat = $("#categories").val();
           if(cat == "1"){ // tahun
             $("#tahun").hide();
             title = ' Year to Date'; 
                 // data tahunan
-                dataTarget = [49.9, 71.5, 106.4, 129.2]; // json data target disini
-                dataSO = [7.0, 6.9, 9.5, 14.5]; // json data so disini
-                dataInvoice = [7.0, 6.9, 9.5, 14.5]; // json data invoice disini
-                dataCOGS = [7.0, 6.9, 9.5, 14.5]; // json data paid disini
-                categories = [2016, 2017, 2018, 2019]; // json period sales disini
-                myDataPerItem = [[1,2,3,4],[2,2,2,2],[3,3,3,3],[4,4,4,4]]; // json ket. data gimana period nya (4 tahun)
-                graphic(dataTarget,dataSO,dataInvoice,dataCOGS,title,categories,myDataPerItem);
-              
+                graphicNew(title,categories,dataTahun);
               }else if(cat == "2"){
                $("#tahun").show();
                title = ' Quarterly ' + $("#tahun").val();
@@ -220,6 +205,55 @@
         {y:dataCOGS[3],myData:myDataPerItem[3]},
         ]
       }]
+    });
+}
+function graphicNew(title,categ,data) { 
+    $('#containers').highcharts({
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: title
+      },
+      credits: {
+        enabled: false
+      },
+      xAxis: {
+        categories: categ,
+        title: {
+          text: ' Period'
+        }
+      },
+      yAxis: {
+        title: {
+          text: ' Amount'
+        }
+      },
+      legend: {
+        enabled: true
+      },
+      plotOptions: {
+        series: {
+          borderWidth: 0,
+          dataLabels: {
+            enabled: true,
+            format: '{point.y}'
+          }
+        }
+      },
+      tooltip: {
+          
+        formatter: function () {
+           var s = [];
+              $.each(this.points, function(i, point) {
+                 s = 'Gross Profit : <b>' + this.point.myData[0] + '</b><br>Direct Cost : <b>' + this.point.myData[1] + '</b><br>Adjusment : <b>' + this.point.myData[2] + '</b><br>ENP : <b>' + this.point.myData[3] + '</b><br>';
+              });
+          return s;
+        },
+         shared: true
+      },
+     
+      series: data
     });
 }
 </script>
