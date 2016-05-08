@@ -251,161 +251,206 @@ class model_data extends CI_Model {
 
 	//untuk dashboard target
 
-	function getTargetQuerterly($p){
-		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, QUARTER(str_to_date(periode,'%M %Y')) as quarter, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = $p group by QUARTER(str_to_date(periode,'%M %Y'))")->result_array();
+	function getTargetPeriode(){
+		$query = $this->db->query("SELECT YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as tahun from tbl_sale_so,tbl_sale_target where YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = YEAR(str_to_date(tbl_sale_target.periode,'%M %Y')) GROUP BY tahun")->result_array();
 		return $query;
 	}
 
-	function getTargetPerMonth($p){
-		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, MONTH(str_to_date(periode,'%M %Y')) as month, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = $p group by MONTH(str_to_date(periode,'%M %Y'))")->result_array();
+	function getTargetYear(){
+		$query = $this->db->query("SELECT *, YEAR(str_to_date(periode,'%M %Y')) as periode, sum(amount) as total from tbl_sale_target group by YEAR(str_to_date(periode,'%M %Y'))")->result_array();
 		return $query;
 	}
 
-	function getDsProfitByYear(){//adjustment masih duplikasi
-		$query = $this->db->query("SELECT *, 
-			sum(tbl_sale_so_detail.grand_total) as total_so, 
-			sum(tbl_sale_so_invoicing.amount) as total_invoice, 
-			sum(tbl_op_pl_tabel.ddp_idr) as cogs, 
-			sum(tbl_sale_so_cost.sales)+sum(tbl_sale_so_cost.bank)+sum(tbl_sale_so_cost.transport)+sum(tbl_sale_so_cost.adm)+sum(tbl_sale_so_cost.other)+sum(tbl_sale_so_cost.extcom_pro) as direct_cost, 
-			sum(tbl_sale_target.amount) as total, 
-			YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode, 
-			sum(tbl_sale_so.adjustment) as total_adjustment
-			from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_invoicing,tbl_op_pl_tabel,tbl_sale_so_cost,tbl_sale_target 
-			where tbl_sale_so.id = tbl_sale_so_detail.id_so 
-			AND tbl_op_pl_tabel.item_id = tbl_sale_so_detail.item 
-			AND tbl_sale_so.id = tbl_sale_so_cost.id_so 
-			AND YEAR(str_to_date(tbl_sale_target.periode,'%M %Y')) = YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) 
-			AND tbl_sale_so_invoicing.id_so = tbl_sale_so.id GROUP BY periode ORDER BY periode ASC 
-			")->result_array();
+	function getTargetQuarterly($p){
+		$query = $this->db->query("SELECT *, QUARTER(str_to_date(periode,'%M %Y')) as periode, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = $p group by QUARTER(str_to_date(periode,'%M %Y'))")->result_array();
 		return $query;
 	}
 
-	function getDsProfitQuarterly(){//adjustment masih duplikasi
-		$query = $this->db->query("SELECT *, 
-			sum(tbl_sale_so_detail.grand_total) as total_so, 
-			sum(tbl_sale_so_invoicing.amount) as total_invoice, 
-			sum(tbl_op_pl_tabel.ddp_idr) as cogs, 
-			sum(tbl_sale_so_cost.sales)+sum(tbl_sale_so_cost.bank)+sum(tbl_sale_so_cost.transport)+sum(tbl_sale_so_cost.adm)+sum(tbl_sale_so_cost.other)+sum(tbl_sale_so_cost.extcom_pro) as direct_cost, 
-			sum(tbl_sale_target.amount) as total,  
-			QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode,
-			sum(tbl_sale_so.adjustment) as total_adjustment
-			from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_invoicing,tbl_op_pl_tabel,tbl_sale_so_cost,tbl_sale_target 
-			where tbl_sale_so.id = tbl_sale_so_detail.id_so 
-			AND tbl_op_pl_tabel.item_id = tbl_sale_so_detail.item 
-			AND tbl_sale_so.id = tbl_sale_so_cost.id_so 
-			AND QUARTER(str_to_date(tbl_sale_target.periode,'%M %Y')) = QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) 
-			AND tbl_sale_so_invoicing.id_so = tbl_sale_so.id 
-			AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = 2016
-			GROUP BY periode ORDER BY periode ASC 
-			")->result_array();
-return $query;
-}
+	function getTargetMonthly($p){
+		$query = $this->db->query("SELECT *, MONTH(str_to_date(periode,'%M %Y')) as periode, sum(amount) as total from tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) = $p group by MONTH(str_to_date(periode,'%M %Y'))")->result_array();
+		return $query;
+	}
+
+	function getTotalAdjustment(){
+		$query = $this->db->query("SELECT sum(adjustment) as adj, YEAR(str_to_date(so_date,'%d %M %Y')) as periode from tbl_sale_so group by periode")->result_array();
+		return $query;
+	}
+
+	function getTotalAdjustmentQuarterly($p){
+		$query = $this->db->query("SELECT sum(adjustment) as adj, QUARTER(str_to_date(so_date,'%d %M %Y')) as periode from tbl_sale_so where YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p group by periode")->result_array();
+		return $query;
+	}
+
+	function getTotalAdjustmentMonthly($p){
+		$query = $this->db->query("SELECT sum(adjustment) as adj, MONTH(str_to_date(so_date,'%d %M %Y')) as periode from tbl_sale_so where YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p group by periode")->result_array();
+		return $query;
+	}
+
+	function getTotalSoYear(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail where tbl_sale_so.id=tbl_sale_so_detail.id_so")->result_array();
+		return $query;
+	}
+
+	function getTotalSoQuarterly($p){
+		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail where tbl_sale_so.id=tbl_sale_so_detail.id_so AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getTotalSoMonthly($p){
+		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail where tbl_sale_so.id=tbl_sale_so_detail.id_so AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getTotalInvoiceYear(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_invoicing where tbl_sale_so.id=tbl_sale_so_invoicing.id_so")->result_array();
+		return $query;
+	}
+
+	function getTotalInvoiceQuarterly($p){
+		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_invoicing where tbl_sale_so.id=tbl_sale_so_invoicing.id_so AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getTotalInvoiceMonthly($p){
+		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_invoicing where tbl_sale_so.id=tbl_sale_so_invoicing.id_so AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getCogsYear(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id")->result_array();
+		return $query;
+	}
+
+	function getCogsQuarterly($p){
+		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getCogsMonthly($p){
+		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getDirectCostYear(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_cost where tbl_sale_so.id=tbl_sale_so_cost.id_so")->result_array();
+		return $query;
+	}
+
+	function getDirectCostQuarterly($p){
+		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_cost where tbl_sale_so.id=tbl_sale_so_cost.id_so")->result_array();
+		return $query;
+	}
+
+	function getDirectCostMonthly($p){
+		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_cost where tbl_sale_so.id=tbl_sale_so_cost.id_so")->result_array();
+		return $query;
+	}
 
 	//untuk dashboard customer
-function getCustomerOperator($id){
-	$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' group by operator order by y DESC")->result_array();
-	return $query;
-}
+	function getCustomerOperator($id){
+		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' group by operator order by y DESC")->result_array();
+		return $query;
+	}
 
-function getCustomerCust(){
-	$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id order by y DESC")->result_array();
-	return $query;	
-}
+	function getCustomerCust(){
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id order by y DESC")->result_array();
+		return $query;	
+	}
 
 	//untuk dashboard sales by AM
-function getAmOperator($id){
-	$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND am = '$id' group by operator order by y DESC")->result_array();
-	return $query;
-}
+	function getAmOperator($id){
+		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND am = '$id' group by operator order by y DESC")->result_array();
+		return $query;
+	}
 
-function getAmCust($id){
-	$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id  AND am = '$id' group by customer_id order by y DESC")->result_array();
-	return $query;
-}
+	function getAmCust($id){
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id  AND am = '$id' group by customer_id order by y DESC")->result_array();
+		return $query;
+	}
 
 	//[Sales] untuk dashboard product
-function getDsProduct(){
-	$query = $this->db->query("SELECT kategori,sum(qty) as y from tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id GROUP BY kategori order by y DESC")->result_array();
-	return $query;
-}
+	function getDsProduct(){
+		$query = $this->db->query("SELECT kategori,sum(qty) as y from tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id GROUP BY kategori order by y DESC")->result_array();
+		return $query;
+	}
 
-function getProVsProfit($tahun){
-	$query = $this->db->query("SELECT *, SUM(tbl_sale_so_detail.qty) as jum,
-		SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
-		from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
-		tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
-		AND tbl_sale_so.id = tbl_sale_so_detail.id_so GROUP BY tbl_sale_so_detail.item
-		")->result_array();
-	return $query;
-}
+	function getProVsProfit($tahun){
+		$query = $this->db->query("SELECT *, SUM(tbl_sale_so_detail.qty) as jum,
+			SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
+			from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
+			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
+			AND tbl_sale_so.id = tbl_sale_so_detail.id_so GROUP BY tbl_sale_so_detail.item
+			")->result_array();
+		return $query;
+	}
 
 	//[OP] untuk Supply Report
 
-function getSupplyReport(){
-	$query = $this->db->query("SELECT *,tbl_sale_so_delivery.delivery as deli_date from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery where  tbl_sale_so.id = tbl_sale_so_detail.id_so AND tbl_sale_so.id=tbl_sale_so_delivery.id_so");
-	return $query;
-}
+	function getSupplyReport(){
+		$query = $this->db->query("SELECT *,tbl_sale_so_delivery.delivery as deli_date from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery where  tbl_sale_so.id = tbl_sale_so_detail.id_so AND tbl_sale_so.id=tbl_sale_so_delivery.id_so");
+		return $query;
+	}
 
 	//[OP] untuk import cost report
-function getImportCostReport(){
-	$query = $this->db->query("SELECT * from tbl_op_po_header,tbl_op_po_tabel,tbl_op_po_documentation,tbl_op_po_lead_time,tbl_op_po_costing,tbl_dm_item where 
-		tbl_op_po_header.no=tbl_op_po_tabel.no_po AND 
-		tbl_op_po_header.no=tbl_op_po_documentation.no_po AND 
-		tbl_op_po_header.no=tbl_op_po_lead_time.no_po AND 
-		tbl_op_po_header.no=tbl_op_po_costing.no_po AND 
-		tbl_dm_item.id=tbl_op_po_tabel.item_code
-		");
-	return $query;
-}
+	function getImportCostReport(){
+		$query = $this->db->query("SELECT * from tbl_op_po_header,tbl_op_po_tabel,tbl_op_po_documentation,tbl_op_po_lead_time,tbl_op_po_costing,tbl_dm_item where 
+			tbl_op_po_header.no=tbl_op_po_tabel.no_po AND 
+			tbl_op_po_header.no=tbl_op_po_documentation.no_po AND 
+			tbl_op_po_header.no=tbl_op_po_lead_time.no_po AND 
+			tbl_op_po_header.no=tbl_op_po_costing.no_po AND 
+			tbl_dm_item.id=tbl_op_po_tabel.item_code
+			");
+		return $query;
+	}
 
 	//[Sales] untuk AR performance
-function getArPerformance(){
-	$query = $this->db->query("SELECT YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period,tbl_sale_so_invoicing.amount as invoiced,tbl_sale_so_payment.amount as paid from tbl_sale_so,tbl_sale_so_invoicing,tbl_sale_so_payment where
-		tbl_sale_so.id=tbl_sale_so_invoicing.id_so AND 
-		tbl_sale_so.id=tbl_sale_so_payment.id_so
-		")->result_array();
-	return $query;
-}
+	function getArPerformance(){
+		$query = $this->db->query("SELECT YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period,tbl_sale_so_invoicing.amount as invoiced,tbl_sale_so_payment.amount as paid from tbl_sale_so,tbl_sale_so_invoicing,tbl_sale_so_payment where
+			tbl_sale_so.id=tbl_sale_so_invoicing.id_so AND 
+			tbl_sale_so.id=tbl_sale_so_payment.id_so
+			")->result_array();
+		return $query;
+	}
 
 	//[OP] untuk dashboard grafik transport cost
-function getGraphTransport(){
-	$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery,tbl_sale_so_cost where 
-		tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
-		tbl_sale_so.id=tbl_sale_so_detail.id_so AND
-		tbl_sale_so.id=tbl_sale_so_cost.id_so 
-		GROUP BY tbl_sale_so_cost.id_so, tbl_sale_so_cost.transport 	
-		")->result_array();
-	return $query;
-}
+	function getGraphTransport(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery,tbl_sale_so_cost where 
+			tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
+			tbl_sale_so.id=tbl_sale_so_detail.id_so AND
+			tbl_sale_so.id=tbl_sale_so_cost.id_so 
+			GROUP BY tbl_sale_so_cost.id_so, tbl_sale_so_cost.transport 	
+			")->result_array();
+		return $query;
+	}
 
-function getGraphDelivery($id){
-	$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun, tbl_sale_so_detail.delivery as do from tbl_sale_so,tbl_sale_so_detail where 
-		tbl_sale_so.id=tbl_sale_so_detail.id_so AND 
-		tbl_sale_so_detail.id_so IN ($id)
-		")->result_array();
-	return $query;	
-}
+	function getGraphDelivery($id){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun, tbl_sale_so_detail.delivery as do from tbl_sale_so,tbl_sale_so_detail where 
+			tbl_sale_so.id=tbl_sale_so_detail.id_so AND 
+			tbl_sale_so_detail.id_so IN ($id)
+			")->result_array();
+		return $query;	
+	}
 
-function getGraphDebitNote($id){
-	$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_delivery where 
-		tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
-		tbl_sale_so_delivery.id_so IN ($id)
-		")->result_array();
-	return $query;	
-}
+	function getGraphDebitNote($id){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_delivery where 
+			tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
+			tbl_sale_so_delivery.id_so IN ($id)
+			")->result_array();
+		return $query;	
+	}
 
-function getKpiTransport(){
-	$query = $this->db->query("SELECT * from tbl_dm_kpi where item = 'Transport Cost'")->row_array();
-	return $query;
+	function getKpiTransport(){
+		$query = $this->db->query("SELECT * from tbl_dm_kpi where item = 'Transport Cost'")->row_array();
+		return $query;
 
-}
+	}
 
 	//[Sales] Stock Performance
-function getStockPerformance(){
-	$query = $this->db->query("SELECT item, SUM( tbl_op_po_tabel.qty ) AS amount, DATEDIFF( CURDATE( ) , MAX( STR_TO_DATE( tbl_op_po_documentation.gr_date,  '%d %b %Y' ) ) ) AS geer
-		FROM tbl_op_po_tabel, tbl_op_po_documentation
-		WHERE tbl_op_po_tabel.no_po = tbl_op_po_documentation.no_po
-		GROUP BY tbl_op_po_tabel.item_code")->result_array();
-	return $query;
-}
+	function getStockPerformance(){
+		$query = $this->db->query("SELECT item, SUM( tbl_op_po_tabel.qty ) AS amount, DATEDIFF( CURDATE( ) , MAX( STR_TO_DATE( tbl_op_po_documentation.gr_date,  '%d %b %Y' ) ) ) AS geer
+			FROM tbl_op_po_tabel, tbl_op_po_documentation
+			WHERE tbl_op_po_tabel.no_po = tbl_op_po_documentation.no_po
+			GROUP BY tbl_op_po_tabel.item_code")->result_array();
+		return $query;
+	}
 }
