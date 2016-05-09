@@ -127,7 +127,7 @@
          var obj = JSON.parse(data);
          $('#mou').val(obj.mou);
          $('#brand').val(obj.brand);
-         $('#unit_price').val(obj.ddp_price);
+         $('#unit_price').val(obj.DDP_IDR);
        }
      }); 
     }else{

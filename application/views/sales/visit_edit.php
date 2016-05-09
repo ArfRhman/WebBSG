@@ -22,27 +22,30 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">
                                 <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                Add Visit Report Customer
+                                Edit Visit Report Customer
                             </h3>
                             <span class="pull-right">
                                 <i class="glyphicon glyphicon-chevron-up clickable"></i>
                             </span>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/visit/save');?>" method="post">
+                            <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/visit/update');?>" method="post">
+                            <input type="hidden" name="id" value="<?php echo $data->no ?>">
                                 <fieldset>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="name">Visit Date</label>
                                         <div class="col-md-3">
-                                            <input id="email" name="visit_date" placeholder="Visit Date" class="form-control datepicker" type="text">
+                                            <input id="email" name="visit_date" placeholder="Visit Date" class="form-control datepicker" type="text" value="<?php echo $data->visit_date ?>">
                                         </div>                                                                                      <label class="col-md-2 control-label" for="email">AM / Visitor</label>                                          <div class="col-md-3">                                                 <select name="visit_am" class="form-control">
                                         <?php
                                         $sql = $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'position', '1');
                                         foreach($sql->result() as $s)
                                         {
-                                            ?>
+                                            if($data->am==$s->id){?>
+                                            <option value="<?php echo $s->id; ?>" selected><?php echo $s->name ?></option>
+                                            <?php }else{ ?>
                                             <option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
-                                            <?php
+                                            <?php }
                                         }
                                         ?>
                                     </select></div>
@@ -50,14 +53,17 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" for="email">Accompanied by</label>
                                     <div class="col-md-3">
-                                        <input id="email" name="visit_accompanied_by" placeholder="Accompanied by" class="form-control" type="text"></div>                                                                                      <label class="col-md-2 control-label" for="email">Company To Visit</label>                                            <div class="col-md-3">                                                 <select name="visit_company" class="form-control">
+                                        <input id="email" name="visit_accompanied_by" placeholder="Accompanied by" class="form-control" type="text" value="<?php echo $data->accompanied_by ?>"></div>                                                                                      <label class="col-md-2 control-label" for="email">Company To Visit</label>                                            <div class="col-md-3">                                                 <select name="visit_company" class="form-control">
                                         <?php
                                         $sql = $this->mddata->getAllDataTbl('tbl_dm_customer');
                                         foreach($sql->result() as $s)
                                         {
-                                            ?>
+                                             if($data->company_to_visit==$s->id){?>
+                                            <option value="<?php echo $s->id; ?>" selected><?php echo $s->name ?></option>
+                                            <?php }else{ ?>
                                             <option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
-                                            <?php
+                                            <?php }
+
                                         }
                                         ?>
                                     </select></div>
@@ -70,24 +76,28 @@
                                         $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
                                         foreach($sql->result() as $s)
                                         {
-                                            ?>
+
+                                             if($data->person_to_visit==$s->id){?>
+                                            <option value="<?php echo $s->id; ?>" selected><?php echo $s->name ?></option>
+                                            <?php }else{ ?>
                                             <option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
-                                            <?php
-                                        }
+                                            <?php }
+
+                                                                                   }
                                         ?>
                                     </select> </div>                                                                                      <label class="col-md-2 control-label" for="email">People of PTV</label>   
                                     <div class="col-md-3">                                              
-                                      <input id="email" name="visit_people" placeholder="People of PTV" class="form-control" type="text">
+                                      <input id="email" name="visit_people" placeholder="People of PTV" class="form-control" type="text" value="<?php echo $data->people_of_PTV ?>">
                                   </div>
                               </div>
                               <div class="form-group">
                                <label class="col-md-2 control-label" for="email">Purpose of Visit</label>   
                                <div class="col-md-3">                                              
-                                  <input id="email" name="visit_purpose" placeholder="Purpose of Visit" class="form-control" type="text">                                                                               
+                                  <input id="email" name="visit_purpose" placeholder="Purpose of Visit" class="form-control" type="text" value="<?php echo $data->purpose_of_visit ?>">                                                                               
                               </div>
                               <label class="col-md-2 control-label" for="email">Result of Visit</label>   
                               <div class="col-md-3">                                              
-                                  <input id="email" name="visit_result" placeholder="Result of Visit" class="form-control" type="text">                                                                               
+                                  <input id="email" name="visit_result" placeholder="Result of Visit" class="form-control" type="text" value="<?php echo $data->result_of_visit ?>">                                                                               
                               </div>
                           </div>
 

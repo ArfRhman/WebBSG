@@ -9,7 +9,7 @@
         <?php
         if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         {
-          ?>              <a href="<?php echo site_url('op/petty/add')?>" class="btn btn-success">Add New Data</a>
+          ?>							<a href="<?php echo site_url('op/petty/add')?>" class="btn btn-success">Add New Data</a>
           <?php
         }
         ?>
@@ -18,23 +18,34 @@
             <div class="panel-title pull-left">
              <div class="caption">
               <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Petty Cash 
+              Petty Cash - Header
             </div>
           </div>
         </div>
         <div class="panel-body">
-          <div >
+          <div style="overflow-x:scroll">
             <table class="table table-striped table-responsive" id="table1">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Kasbon ID</th>
-                  <th>Tanggal Kasbon</th>
+                  <th>Tanggal kasbon</th>
                   <th>Divisi</th>
                   <th>Personal ID</th>
                   <th>Tujuan</th>
                   <th>Jumlah kasbon</th>
-                  <!-- <th>Action</th> -->
+                  <th>Jumlah diapprove</th>
+                  <th>Tanggal diapprove</th>
+                  <th>Terbilang</th>
+                  <th>Tanggal Bayar Kasbon</th>
+                  <th>Tanggal Warning</th>
+                  <th>Tanggal Overdue Realisasi</th>
+                  <th>Tanggal Realisasi</th>
+                  <th>Tanggal Submit</th>
+                  <th>Jumlah Net Realisasi</th>
+                  <th>Jumlah Selisih</th>
+                  <th>Tanggal Bayar/ Kembali</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -45,14 +56,24 @@
                  ?>
                  <tr>
                  <td><?=$no;$no++?></td>
-                   <td><a href="<?php echo site_url('op/petty/table_view/'.$c->kasbon_id)?>" style="color: #04c;font-weight: bold;
-"><?=$c->kasbon_id?></a></td>
                    <td><?=$c->tanggal_kasbon?></td>
                    <td><?=$c->divisi?></td>
                    <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->personal_id)->row()->name; ?></td>
                    <td><?=$c->tujuan?></td>
                    <td><?=$c->jumlah_kasbon?></td>
-                   <!-- <td>                                                                                                       
+                   <td><?=$c->jumlah_diapprove?></td>
+                   <td><?=$c->tanggal_diapprove?></td>
+                   <td><?=$c->terbilang?></td>
+                   <td><?=$c->tanggal_bayar_kasbon?></td>
+                   <td><?=$c->tanggal_warning?></td>
+                   <td><?=$c->tanggal_overdue_realisasi?></td>
+                   <td><?=$c->tanggal_realisasi?></td>
+                   <td><?=$c->tanggal_submit?></td>
+                   <td><?=$c->jumlah_net_realisasi?></td>
+                   <td><?=$c->jumlah_selisih?></td>
+                   <td><?=$c->tanggal_bayar?></td>
+                   <td><?=$c->status?></td>
+                   <td>                                                                                                       
                     <div class='btn-group'>                                                     
                       <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
                       <ul class='dropdown-menu pull-right' role='menu'>       
@@ -61,7 +82,7 @@
                         <li><a href='<?php echo site_url('op/petty/table_view/'.$c->kasbon_id)?>' >View Tabel</a></li>         
                       </ul>                                                 
                     </div>
-                  </td -->
+                  </td>
                 </tr>
                 <?php
               }
