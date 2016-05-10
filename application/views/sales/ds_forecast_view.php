@@ -55,28 +55,19 @@
       },
       series: [{
         name: 'Forecast',
-        data: [ 
-        // json disini
-        {name: 2016,y: 5,drilldown:'fc-2016'},
-        {name: 2015,y: 3,drilldown:'2015'}, 
-        {name: 2014,y: 2,drilldown:'2014'}
-        //sampe sini
-        ],},
+        data: <?=$Fo?>
+        ,},
         {
           name: 'SO',
-          data: [
-          //json disini
-          {name: 2016,y: 3,drilldown:'so-2016'},
-          {name: 2015,y: 1,drilldown:'2015'}, 
-          {name: 2014,y: 4,drilldown:'2014'}
-          //sampe sini
-          ],
+          data: <?=$So?>
+          ,
         }],
 
         drilldown: {
 
-          series: [
+          series: 
           //Level 2
+          /*
           {
             name: 'Forecast',
             id: 'fc-2016',
@@ -107,8 +98,9 @@
             ['Customer 4', 10],
            ['Customer 5', 20],
             ]
-          },  
-          ]
+          },
+          */
+          <?=$drill_op?>  
        }
      });
 });

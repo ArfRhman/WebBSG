@@ -47,17 +47,28 @@ class Sales extends CI_Controller {
 				$dataFo[$i]=array(
 					'name' => $i,
 					'y' => 0,
-					'drilldown' => ''.$i.''
+					'drilldown' => 'fc-'.$i.''
+					);
+
+				$dataSo[$i]=array(
+					'name' => $i,
+					'y' => 0,
+					'drilldown' => 'so-'.$i.''
 					);
 				
 				$opFo[$i] = array(
-					'name' => ''.$i.'',
-					'type' => 'pie',
-					'id' => ''.$i.'',
+					'name' => 'Forecast',
+					'id' => 'fc-'.$i.'',
 					'data'=> array()
 					);
+
+				$opSo[$i] = array(
+					'name' => 'SO',
+					'id' => 'so-'.$i.'',
+					'data'=>array()
+					);
+
 			}
-			$dataSo = $dataFo;
 
 			foreach($forecast as $f){
 				$dataFo[$f['period']]['y']+=intval($f['y']);
@@ -67,35 +78,65 @@ class Sales extends CI_Controller {
 				$dataSo[$s['period']]['y']+=intval($s['qty']);
 			}
 			
-			
 			$forecastOp = $this->mddata->getForecastOp();
 			$soOp = $this->mddata->getSoOp();
-
-			foreach ($forecastOp as $f) {
-				$opFo[$f['period']]['data'][$f['operator'].'f']['name']='Forecast - '.$f['name'];
-				$opFo[$f['period']]['data'][$f['operator'].'f']['y']=intval($f['y']);
-				$opFo[$f['period']]['data'][$f['operator'].'f']['drilldown']=$f['name'];
-				$opFo[$f['period']]['data'][$f['operator'].'f']['color']='#7CB5EC';
-			}
 			
-			foreach($soOp as $s){
-				$opFo[$s['period']]['data'][$s['operator'].'s']['name']='SO - '.$s['name'];
-				$opFo[$s['period']]['data'][$s['operator'].'s']['y']=intval($s['y']);
-				$opFo[$s['period']]['data'][$s['operator'].'s']['color']='#434348';	
+			$sliceFo = array_slice($forecastOp, 0, 4);
+			$otherFo = array_slice($forecastOp, 5, count($forecastOp));
+			
+			foreach ($sliceFo as $f) {
+				$opFo[$f['period']]['data'][$f['operator']]['name']=$f['name'];
+				$opFo[$f['period']]['data'][$f['operator']]['y']=intval($f['y']);
+				$opFo[$f['period']]['data'][$f['operator']]['drilldown']=$f['name'];
 			}
 
-			$res = array();
+			foreach ($otherFo as $f) {
+				$opFo[$f['period']]['data']['Others']['name']='Others';
+				$opFo[$f['period']]['data']['Others']['y']=0;
+				$opFo[$f['period']]['data']['Others']['drilldown']=$f['name'];
+			} 
+
+			foreach ($otherFo as $f) {
+				$opFo[$f['period']]['data']['Others']['y']+=intval($f['y']);
+			} 
+
+			$sliceSo = array_slice($soOp, 0, 4);
+			$otherSo = array_slice($soOp, 5, count($soOp));
+
+			$custo = array();
 			
-			foreach($opFo as $key => $r){
-				$res[$key]['name']=$r['name'];
-				$res[$key]['type']=$r['type'];
-				$res[$key]['id']=$r['id'];
-				$res[$key]['data']=array_values($r['data']);
+			foreach($sliceSo as $s){
+				$opSo[$s['period']]['data'][$s['operator']]['name']=$s['name'];
+				$opSo[$s['period']]['data'][$s['operator']]['y']=intval($s['y']);
+				$opSo[$s['period']]['data'][$s['operator']]['drilldown']=$f['name'];
+				$custo[$s['operator']]['name']=$s['name'];
+				$custo[$s['operator']]['type']='pie';
+				$custo[$s['operator']]['id']=$s['name'];
+				$custo[$s['operator']]['data']=array();
+			}
+
+			print_r($custo);
+			die();
+
+			foreach($otherSo as $s){
+				$opSo[$s['period']]['data']['Others']['name']='Others';
+				$opSo[$s['period']]['data']['Others']['y']=0;
+				$opSo[$s['period']]['data']['Others']['drilldown']='Others';
+			}
+
+			foreach($otherSo as $s){
+				$opSo[$s['period']]['data']['Others']['y']+=intval($s['y']);
 			}
 			
-			$data['Fo']=array_values($dataFo);
-			$data['So']=array_values($dataSo);
-			$data['drill_op']=array_values($res);
+			$drillOne = array_merge(array_values($opFo),array_values($opSo));
+			
+			foreach($drillOne as $key=>$d){
+				$drillOne[$key]['data']=array_values($d['data']);
+			}
+			
+			$data['Fo']=json_encode(array_values($dataFo));
+			$data['So']=json_encode(array_values($dataSo));
+			$data['drill_op']=json_encode(array_values($drillOne));
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_forecast_view', $data);
 			break;

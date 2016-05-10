@@ -161,6 +161,7 @@ class model_data extends CI_Model {
 		return $this->db->get($tbl);
 	}
 
+	//[Sales] untu DS Forecast
 	function getForecast(){
 		$query = $this->db->query("SELECT *,sum(amount) as y, YEAR(str_to_date(periode,'%M %Y')) as period FROM tbl_sale_target where YEAR(str_to_date(periode,'%M %Y')) > 2015 group by period order by y DESC")->result_array();
 		return $query;
@@ -180,6 +181,11 @@ class model_data extends CI_Model {
 		$query = $this->db->query("SELECT *,sum(qty) as y,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period FROM tbl_sale_so,tbl_sale_so_detail,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_so.operator AND tbl_sale_so_detail.id_so = tbl_sale_so.id group by period, operator order by y DESC")->result_array();
 		return $query;
 	}
+
+	function getCustoOp($id){
+		$query = $this->db->query("SELECT *,sum(qty) as y FROM tbl_sale_so,tbl_sale_so_detail,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_so.operator AND tbl_sale_so_detail.id_so = tbl_sale_so.id group by period, operator order by y DESC")
+	}
+	//===========================
 
 	function getSupplyDetailPerformance(){
 		$query = $this->db->query("SELECT * from tbl_sale_so_delivery,tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id AND tbl_sale_so_detail.id_so = tbl_sale_so_delivery.id_so")->result_array();
