@@ -1924,7 +1924,8 @@ function visit()
 		$this->load->view('sales/visit_view', $data);
 		break;	
 		case 'detail':
-		$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_customer_visit');
+		$data['am'] = $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $this->uri->segment(4))->row();
+		$data['data'] = $this->mddata->getDataFromTblWhere('tbl_sale_customer_visit', 'am', $this->uri->segment(4))->result();
 		$this->load->view('top', $data);
 		$this->load->view('sales/visit_detail', $data);
 		break;					
@@ -1948,9 +1949,30 @@ function visit()
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
-		case 'edit':								
+		case 'edit':
+		$data['data'] = $this->mddata->getDataFromTblWhere('tbl_sale_customer_visit', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);				
 		$this->load->view('sales/visit_edit', $data);								
+		break;
+		case 'update':
+		$p = $this->input->post();
+		$data = array(
+			'visit_date	' => $p['visit_date'],
+			'am' => $p['visit_am'],
+			'accompanied_by' => $p['visit_accompanied_by'],
+			'company_to_visit' => $p['visit_company'],
+			'person_to_visit' => $p['visit_person'],
+			'people_of_PTV' => $p['visit_people'],
+			'purpose_of_visit' => $p['visit_purpose'],
+			'result_of_visit' => $p['visit_result'],
+			);
+		$this->mddata->updateDataTbl('tbl_sale_customer_visit',$data,'no',$p['id']);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'delete':
+		$this->mddata->deleteGeneral('tbl_sale_customer_visit','no', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }

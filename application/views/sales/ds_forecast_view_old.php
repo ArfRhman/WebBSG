@@ -55,60 +55,71 @@
       },
       series: [{
         name: 'Forecast',
-        data: [ 
-        // json disini
-        {name: 2016,y: 5,drilldown:'fc-2016'},
-        {name: 2015,y: 3,drilldown:'2015'}, 
-        {name: 2014,y: 2,drilldown:'2014'}
-        //sampe sini
-        ],},
+        data: <?=json_encode($Fo)?>
+        ,},
         {
           name: 'SO',
-          data: [
-          //json disini
-          {name: 2016,y: 3,drilldown:'so-2016'},
-          {name: 2015,y: 1,drilldown:'2015'}, 
-          {name: 2014,y: 4,drilldown:'2014'}
-          //sampe sini
-          ],
-        }],
+          data: <?=json_encode($So)?>
+          ,}],
+          
+          drilldown: {
 
-        drilldown: {
-
-          series: [
-          //Level 2
+          series: /*[
           {
-            name: 'Forecast',
-            id: 'fc-2016',
-            data: [
-            {name: 'op1',y: 5,drilldown:'op1'},
-            {name: 'op2',y: 3,drilldown:'2015'}, 
-            {name: 'op3',y: 2,drilldown:'2014'}
-            ]
-          },
-           {
-            name: 'SO',
-            id: 'so-2016',
-            data: [
-            {name: 'op1',y: 6,drilldown:'op1'},
-            {name: 'op2',y: 2,drilldown:'2015'}, 
-            {name: 'op3',y: 3,drilldown:'2014'}
-            ]
-          },
-          //Level 3
-          {
-            name: 'Operator1',
+            name: '2016',
             type: 'pie',
-            id: 'op1',
+            id: '2016',
             data: [
-            ['Customer 1', 10],
-            ['Customer 2', 20],
-            ['Customer 3', 20],
-            ['Customer 4', 10],
-           ['Customer 5', 20],
+            {name: 'SO - Operator1', y: 30, drilldown: 'Operator1',color:soColor},
+            {name: 'Forecast - Operator1', y: 25,color:forcastColor},
+            {name: 'SO - Operator2', y: 30, drilldown: 'Operator2',color:soColor},
+            {name: 'Forecast - Operator2', y: 20,color:forcastColor},
+            {name: 'SO - Operator3', y: 10, drilldown: 'Operator3',color:soColor},
+            {name: 'Forecast - Operator3', y: 10,color:forcastColor},
+            {name: 'SO - Others', y: 5, drilldown: 'Others',color:soColor},
+            {name: 'Forecast - Others', y: 7,color:forcastColor},
+            ]
+          },
+          {
+            name: '2020',
+            type: 'pie',
+            id: '2020',
+            data: [
+            {name: 'SO - Operator1', y: 30, drilldown: 'Operator1',color:soColor},
+            {name: 'SO - Operator2', y: 30, drilldown: 'Operator2',color:soColor},
+            {name: 'SO - Operator3', y: 10, drilldown: 'Operator3',color:soColor},
+            {name: 'SO - Others', y: 5, drilldown: 'Others',color:soColor},
+            {name: 'Forecast - Operator1', y: 25,color:forcastColor},
+            {name: 'Forecast - Operator2', y: 20,color:forcastColor},
+            {name: 'Forecast - Operator3', y: 10,color:forcastColor},
+            {name: 'Forecast - Others', y: 7,color:forcastColor},
+            ]
+          },
+          {
+            name: '2017',
+            type: 'pie',
+            id: '2017',
+            data: [
+            
             ]
           },  
-          ]
+          ]*/
+          <?=json_encode($drill_op)?>
+
+          /* contoh data pie op */
+         //   {
+         //   name: 'Operator1', // diisi nama operator
+         //   type: 'pie',
+         //   id: 'Operator1', // diisi nama operator ato id operator gimana drilldown nya
+         //   data: [
+         //   ['Customer 1', 10],
+         //   ['Customer 2', 20],
+         //   ['Customer 3', 20],
+         //   ['Customer 4', 10],
+         //   ['Customer 5', 20],
+         //   ]
+         // }
+         /*end contoh data pie op */
        }
      });
 });

@@ -263,7 +263,8 @@ class Op extends CI_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 			break;
 			case 'table_view':
-			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'pc_no', $this->uri->segment(4));
+			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_header', 'kasbon_id', $this->uri->segment(4))->row();
+			$data['opt'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'pc_no', $this->uri->segment(4));
 			$this->load->view('top', $data);
 			$this->load->view('op/petty_table_view', $data);
 			break;

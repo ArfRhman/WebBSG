@@ -24,12 +24,50 @@
           </div>
         </div>
         <div class="panel-body">
-         <div id="containers" style="width:100%; height:400px;"></div>
-       </div>
-     </div>
-   </div>
- </div>
- <div class="row">
+         <div class="row">
+          <div class="col-lg-12">
+
+            <?php 
+            $thn = date('Y');
+            $sql = $this->db->query("SELECT p.id AS id,p.image AS image,p.name AS name,COUNT(scv.am) AS total_vis FROM tbl_sale_customer_visit AS scv,tbl_dm_personnel AS p WHERE scv.am = p.id AND YEAR(str_to_date(visit_date,'%d' '%b' '%Y')) = '".$thn."' GROUP BY scv.am ORDER BY total_vis DESC LIMIT 4"); 
+            $coun = count($sql->result());
+            foreach ($sql->result() as $s) {?>
+            <div class="col-md-3" style="height: 310px !important;">
+             <div class="thumbnail" style="height: 100%;">
+             <img src="<?php echo base_url().$s->image ?>" width="200px">
+              <div class="caption">
+                <h3> <?php echo $s->name ?></h3>
+                <p>Total Visit : <b><?php echo $s->total_vis ?></b></p>
+              </div>
+            </div>
+
+            <!--   <table class="table table-bordered" height="100%">
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <img src="<?php echo base_url().$s->image ?>" width="200px">
+                  </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">
+                    <?php echo $s->name ?>
+                  </th>
+                </tr>
+                <tr>
+                  <th style="vertical-align: middle;">
+                    <h4><?php echo $s->total_vis ?></h4>
+                  </th>
+                </tr>
+              </table> -->
+            </div>
+            <?php }
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="col-lg-12">
     <div class="panel panel-primary filterable">
       <div class="panel-heading clearfix  ">
@@ -41,7 +79,49 @@
       </div>
     </div>
     <div class="panel-body">
-      <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/visit/view');?>" method="post">
+      <table class="table table-bordered table-stripped">
+        <tr>
+          <th rowspan="2" style="vertical-align: middle;">No</th>
+          <th rowspan="2" style="vertical-align: middle;">Periode</th>
+          <th colspan="<?php echo $coun?>" style="text-align:center"> AM Name </th>
+        </tr>
+        <tr>
+          <?php
+          $no = 1;
+          $am_id = array();
+          foreach ($sql->result() as $s) {
+            array_push($am_id, $s->id);
+            ?>
+            <th>
+            <a href="<?php echo site_url('sales/visit/detail/'.$s->id.'') ?>"> <?php echo $s->name ?> </a>
+           </th>
+           <?php } ?>
+         </tr>
+         <?php 
+         $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+
+         foreach ($bln as $b) { ?>
+         <tr>
+          <td> <?php echo $no;  ?></td>
+          <td> <?php echo $b ?> </td>
+          <?php  
+          $count_id = 0;
+          foreach ($sql->result() as $d) {
+           $data = $this->db->query("SELECT COUNT(scv.am) AS total_vis_am FROM tbl_sale_customer_visit AS scv WHERE scv.am = '".$d->id."' AND MONTH(str_to_date(visit_date,'%d' '%b' '%Y')) = '".$no."'")->row(); ?>
+
+
+           <td style="text-align:right"><?php echo $data->total_vis_am ?></td>
+           <?php } ?>
+         </tr>
+         <?php $no++; }?>
+
+
+       </table>
+
+
+
+
+       <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/visit/view');?>" method="post">
         <fieldset>
           <div class="form-group">
             <label class="col-md-2 control-label" style="text-align:left" for="name">A/M</label>
