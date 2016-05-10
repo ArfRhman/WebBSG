@@ -183,7 +183,8 @@ class model_data extends CI_Model {
 	}
 
 	function getCustoOp($id){
-		$query = $this->db->query("SELECT *,sum(qty) as y FROM tbl_sale_so,tbl_sale_so_detail,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_so.operator AND tbl_sale_so_detail.id_so = tbl_sale_so.id group by period, operator order by y DESC")
+		$query = $this->db->query("SELECT *,sum(qty) as y FROM tbl_sale_so,tbl_sale_so_detail,tbl_dm_operator where tbl_dm_operator.id = tbl_sale_so.operator AND tbl_sale_so_detail.id_so = tbl_sale_so.id group by period, operator order by y DESC");
+		return $query;
 	}
 	//===========================
 
