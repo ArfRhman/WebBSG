@@ -1,42 +1,46 @@
 	<aside class="right-side">
-     <!-- Main content -->
-     <section class="content-header">
-        <h1>Welcome to Dashboard</h1>
-    </section>
-    <section class="content">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-primary filterable">
-              <div class="panel-heading clearfix  ">
-                <div class="panel-title pull-left">
-                   <div class="caption">
-                      <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                      Sales By Period
-                  </div>
-              </div>
+   <!-- Main content -->
+   <section class="content-header">
+    <h1>Welcome to Dashboard</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-primary filterable">
+          <div class="panel-heading clearfix  ">
+            <div class="panel-title pull-left">
+             <div class="caption">
+              <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+              Sales By Period
+            </div>
           </div>
-          <div class="panel-body">
-            <div class="form-group">
-              <div class="col-md-3">
-                <select class="form-control" id="categories">
-                    <option value="1">Year to Date</option>
-                    <option value="2">Quarterly</option>
-                    <option value="3">Monthly</option>
-                </select>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="col-md-3">
+              <select class="form-control" id="categories">
+                <option value="1">Year to Date</option>
+                <option value="2">Quarterly</option>
+                <option value="3">Monthly</option>
+              </select>
             </div>
             <div class="col-md-2">
-                <select class="form-control" id="tahun" style="display:none;">
-                    <option>2016</option>
-                    <option>2017</option>
-                    <option>2018</option>
-                </select>
-            </div>
+              <select class="form-control" id="tahun" style="display:none;">
+               <?php 
+               foreach(json_decode($kateg) as $k){
+                ?>
+                <option><?=$k?></option>
+                <?php 
+              }
+              ?>
+            </select>
+          </div>
         </div>
         <br>
         <div id="containers" style="width:100%; height:auto;margin-top:3%;"></div>
+      </div>
     </div>
-</div>
-</div>
+  </div>
 </div>
 </section>
 </aside>
@@ -62,130 +66,101 @@
 <!-- end of page level js -->
 <script type="text/javascript">
 
-   $(document).ready(function () {
-        // default tahunan
-        var dataTarget = [49.9, 71.5, 106.4, 129.2]; // json data target disini
-        var dataSO = [7.0, 6.9, 9.5, 14.5]; // json data so disini
-        var dataInvoice = [7.0, 6.9, 9.5, 14.5]; // json data invoice disini
-        var dataPaid = [7.0, 6.9, 9.5, 14.5]; // json data paid disini
+ $(document).ready(function () {
 
-        var title = ' Sales By Period (Year to Date)';
-        
-        var categories = [2016, 2017, 2018, 2019]; // json period sales disini
+  var title = ' Sales By Period (Year to Date)';
 
-        var persen = 10;
+  var categories = <?=$kateg?>;
 
-        graphic(dataTarget,dataSO,dataInvoice,dataPaid,title,categories,persen);
-        $("#categories").change(function(){
-            var cat = $("#categories").val();
-            if(cat == "1"){
-              $("#tahun").hide();
-              title = ' Sales By Period (Year to Date)'; 
+  var persen = 10;
+
+  var data = <?=$year?>;
+  graphic(data,title,categories,persen);
+  $("#categories").change(function(){
+    var cat = $("#categories").val();
+    if(cat == "1"){
+      $("#tahun").hide();
+      title = ' Sales By Period (Year to Date)'; 
                 // data tahunan
-                dataTarget = [49.9, 71.5, 106.4, 129.2]; // json data target disini
-                dataSO = [7.0, 6.9, 9.5, 14.5]; // json data so disini
-                dataInvoice = [7.0, 6.9, 9.5, 14.5]; // json data invoice disini
-                dataPaid = [7.0, 6.9, 9.5, 14.5]; // json data paid disini
-                categories = [2016, 2017, 2018, 2019]; // json period sales disini
-            }else if(cat == "2"){
+                categories = <?=$kateg?>;
+                graphic(data,title,categories,persen);
+              }else if(cat == "2"){
                $("#tahun").show();
                title = ' Sales By Period (Quarterly)';
                 // data quartal
-                dataTarget = [99.9, 71.5, 106.4, 129.2]; // json data target disini
-                dataSO = [7.0, 6.9, 9.5, 14.5]; // json data so disini
-                dataInvoice = [7.0, 6.9, 9.5, 14.5]; // json data invoice disini
-                dataPaid = [7.0, 6.9, 9.5, 14.5]; // json data paid disini
                 categories = ['Q1', 'Q2', 'Q3', 'Q4']; 
-                $("#tahun").change(function(){
-                 // data quartal
-                  title = ' Sales By Period (Quarterly) 2016';
-                dataTarget = [19.9, 71.5, 106.4, 129.2]; // json data target disini
-                dataSO = [17.0, 6.9, 9.5, 14.5]; // json data so disini
-                dataInvoice = [37.0, 6.9, 9.5, 14.5]; // json data invoice disini
-                dataPaid = [17.0, 6.9, 9.5, 14.5]; // json data paid disini
-                categories = ['Q1', 'Q2', 'Q3', 'Q4'];
-                graphic(dataTarget,dataSO,dataInvoice,dataPaid,title,categories,persen);
-
-            });
-            }else{
+                $.get('<?=base_url()?>index.php/sales/dashboard/period_quarterly/'+$("#tahun").val(),function(data){
+                  graphic(JSON.parse(data),title,categories,persen);
+                });
+              }else if(cat == "3"){
                $("#tahun").show();
                title = ' Sales By Period (Monthly)';
                 // data monthly
-                dataTarget = [99.9, 71.5, 106.4, 129.2,12,1,2,3,2,1,2,1]; // json data target disini
-                dataSO = [7.0, 6.9, 9.5, 14.5,12,1,2,3,2,1,2,1]; // json data so disini
-                dataInvoice = [7.0, 6.9, 9.5, 14.5,12,1,2,3,2,1,2,1]; // json data invoice disini
-                dataPaid = [7.0, 6.9, 9.5, 14.5,12,1,2,3,2,1,2,1]; // json data paid disini
                 categories = ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                $("#tahun").change(function(){
-                 // data quartal
-                  title = ' Sales By Period (Monthly) 2016';
-                dataTarget = [19.9, 71.5, 106.4, 129.2,1,2,3,2,1,2,1]; // json data target disini
-                dataSO = [17.0, 6.9, 9.5, 14.5,1,2,3,2,1,2,1]; // json data so disini
-                dataInvoice = [37.0, 6.9, 9.5, 14.5,1,2,3,2,1,2,1]; // json data invoice disini
-                dataPaid = [17.0, 6.9, 9.5, 14.5,1,2,3,2,1,2,1]; // json data paid disini
-                categories = ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                graphic(dataTarget,dataSO,dataInvoice,dataPaid,title,categories,persen);
-
+                $.get('<?=base_url()?>index.php/sales/dashboard/period_monthly/'+$("#tahun").val(),function(data){
+                  graphic(JSON.parse(data),title,categories,persen);
+                });
+              }
             });
-            }
-
-            graphic(dataTarget,dataSO,dataInvoice,dataPaid,title,categories,persen);
-        });
+  $("#tahun").change(function(){
+    var cat = $("#categories").val();
+                 // data quartal
+                 if(cat == "2"){
+                  title = ' Sales By Period (Quarterly)';
+                  categories = ['Q1', 'Q2', 'Q3', 'Q4']; 
+                  $.get('<?=base_url()?>index.php/sales/dashboard/period_quarterly/'+$("#tahun").val(),function(data){
+                    graphic(JSON.parse(data),title,categories,persen);
+                  });
+                }else if(cat == "3"){
+                  title = ' Sales By Period (Monthly)';
+                  categories = ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                  $.get('<?=base_url()?>index.php/sales/dashboard/period_monthly/'+$("#tahun").val(),function(data){
+                    graphic(JSON.parse(data),title,categories,persen);
+                  });
+                }
+              });
 });
-  function graphic(dataTarget,dataSO,dataInvoice,dataPaid,title,categ,persen) { 
+  function graphic(data,title,categ,persen) { 
     $('#containers').highcharts({
       chart: {
         type: 'column'
-    },
-    title: {
+      },
+      title: {
         text: title
-    },
-    credits: {
+      },
+      credits: {
         enabled: false
-    },
-    xAxis: {
+      },
+      xAxis: {
         categories: categ,
         title: {
           text: ' Period'
-      }
-  },
-  yAxis: {
-    title: {
-      text: ' Amount'
-  }
-},
-legend: {
-    enabled: true
-},
-plotOptions: {
-    series: {
-        borderWidth: 0,
-        dataLabels: {
-            enabled: true,
-            format: persen+' %'
         }
-    }
-},
-
-tooltip: {
-    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-    pointFormat: '<span style="color:{point.color}">Amount</span>: <b>{point.y:.2f}</b><br/>'
-},
-series: [{
-    name: 'Target/Forecast',
-    data: dataTarget
-}, {
-    name: 'SO',
-    data: dataSO
-}, {
-    name: 'Invoice',
-    data: dataInvoice
-}, {
-    name: 'Paid',
-    data: dataPaid
-}]
-});
-}
+      },
+      yAxis: {
+        title: {
+          text: ' Amount'
+        }
+      },
+      legend: {
+        enabled: true
+      },
+      plotOptions: {
+        series: {
+          borderWidth: 0,
+          dataLabels: {
+            enabled: true,
+            format: '{point.y}'
+          }
+        }
+      },
+      tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">Amount</span>: <b>{point.y}</b><br/>'
+      },
+      series: data
+    });
+  }
 </script>
 </body>
 </html>

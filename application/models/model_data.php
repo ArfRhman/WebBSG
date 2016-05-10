@@ -346,6 +346,22 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
+	function getPaidYear(){
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_payment where tbl_sale_so.id=tbl_sale_so_payment.id_so")->result_array();
+		return $query;
+	}
+
+	function getPaidQuarterly($p){
+		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_payment where tbl_sale_so.id=tbl_sale_so_payment.id_so AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+	function getPaidMonthly($p){
+		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_payment where tbl_sale_so.id=tbl_sale_so_payment.id_so AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		return $query;
+	}
+
+
 	//untuk dashboard customer
 	function getCustomerOperator($id){
 		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' group by operator order by y DESC")->result_array();

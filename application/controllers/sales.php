@@ -101,9 +101,202 @@ class Sales extends CI_Controller {
 			break;
 			case 'period':
 			$data['ac'] = "s_ds_period";
-			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_internal_memo');
+			$periode=$this->mddata->getTargetPeriode();
+			$target = $this->mddata->getTargetYear();
+			$so = $this->mddata->getTotalSoYear();
+			$invoice = $this->mddata->getTotalInvoiceYear();
+			$paid = $this->mddata->getPaidYear();
+			$kateg=array();
+			$end = array();
+			foreach($periode as $p){
+				if(!array_key_exists($p['tahun'], $end)){
+					$end[$p['tahun']]=array(
+						'total_target'=>0,
+						'so'=>0,
+						'invoice'=>0,
+						'paid'=>0
+						);
+				}
+				$kateg[]=$p['tahun'];
+			}
+
+			foreach($target as $t){
+				$end[$t['periode']]['total_target']=$t['total'];
+			}
+
+			foreach($so as $s){
+				$end[$s['periode']]['so']+=$s['grand_total'];
+			}
+
+			foreach($invoice as $i){
+				$end[$i['periode']]['invoice']+=$i['amount'];
+			}
+
+			foreach($paid as $p){
+				$end[$p['periode']]['paid']+=$p['amount'];
+			}
+
+
+			$res = array();
+			$res['target']=array(
+				'name' => 'Target/Forecast',
+				'data' => array()
+				);
+			$res['so']=array(
+				'name' => 'SO',
+				'data' => array()
+				);
+			$res['invoice']=array(
+				'name' => 'Invoice',
+				'data' => array()
+				);
+			$res['paid']=array(
+				'name' => 'Paid',
+				'data' => array()
+				);
+
+			foreach($end as $k=>$e){
+				$res['target']['data'][$k][]=intval($e['total_target']);
+				$res['so']['data'][$k][]=intval($e['so']);
+				$res['invoice']['data'][$k][]=intval($e['invoice']);
+				$res['paid']['data'][$k][]=intval($e['paid']);
+			}
+			
+			foreach($res as $k=>$re){
+				$res[$k]['data']=array_values($re['data']);
+			}
+			$data['kateg']=json_encode(array_values($kateg));
+			$data['year']=json_encode(array_values($res));
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_period_view', $data);
+			break;
+			case 'period_quarterly':
+			$data['ac'] = "s_ds_period";
+			
+			$target = $this->mddata->getTargetQuarterly($this->uri->segment(4));
+			$so = $this->mddata->getTotalSoQuarterly($this->uri->segment(4));
+			$invoice = $this->mddata->getTotalInvoiceQuarterly($this->uri->segment(4));
+			$paid = $this->mddata->getPaidQuarterly($this->uri->segment(4));
+			$end = array();
+			for($i=1;$i<5;$i++){
+				$end[$i]=array(
+					'total_target'=>0,
+					'so'=>0,
+					'invoice'=>0,
+					'paid'=>0
+					);
+			}
+
+			foreach($target as $t){
+				$end[$t['periode']]['total_target']=$t['total'];
+			}
+
+			foreach($so as $s){
+				$end[$s['periode']]['so']+=$s['grand_total'];
+			}
+
+			foreach($invoice as $i){
+				$end[$i['periode']]['invoice']+=$i['amount'];
+			}
+
+			foreach($paid as $p){
+				$end[$p['periode']]['paid']+=$p['amount'];
+			}
+
+
+			$res = array();
+			$res['target']=array(
+				'name' => 'Target/Forecast',
+				'data' => array()
+				);
+			$res['so']=array(
+				'name' => 'SO',
+				'data' => array()
+				);
+			$res['invoice']=array(
+				'name' => 'Invoice',
+				'data' => array()
+				);
+			$res['paid']=array(
+				'name' => 'Paid',
+				'data' => array()
+				);
+
+			foreach($end as $k=>$e){
+				$res['target']['data'][$k][]=intval($e['total_target']);
+				$res['so']['data'][$k][]=intval($e['so']);
+				$res['invoice']['data'][$k][]=intval($e['invoice']);
+				$res['paid']['data'][$k][]=intval($e['paid']);
+			}
+			
+			foreach($res as $k=>$re){
+				$res[$k]['data']=array_values($re['data']);
+			}
+			print(json_encode(array_values($res)));
+			break;
+			case 'period_monthly':
+			$data['ac'] = "s_ds_period";
+			
+			$target = $this->mddata->getTargetMonthly($this->uri->segment(4));
+			$so = $this->mddata->getTotalSoMonthly($this->uri->segment(4));
+			$invoice = $this->mddata->getTotalInvoiceMonthly($this->uri->segment(4));
+			$paid = $this->mddata->getPaidMonthly($this->uri->segment(4));
+			$end = array();
+			for($i=1;$i<13;$i++){
+				$end[$i]=array(
+					'total_target'=>0,
+					'so'=>0,
+					'invoice'=>0,
+					'paid'=>0
+					);
+			}
+
+			foreach($target as $t){
+				$end[$t['periode']]['total_target']=$t['total'];
+			}
+
+			foreach($so as $s){
+				$end[$s['periode']]['so']+=$s['grand_total'];
+			}
+
+			foreach($invoice as $i){
+				$end[$i['periode']]['invoice']+=$i['amount'];
+			}
+
+			foreach($paid as $p){
+				$end[$p['periode']]['paid']+=$p['amount'];
+			}
+
+
+			$res = array();
+			$res['target']=array(
+				'name' => 'Target/Forecast',
+				'data' => array()
+				);
+			$res['so']=array(
+				'name' => 'SO',
+				'data' => array()
+				);
+			$res['invoice']=array(
+				'name' => 'Invoice',
+				'data' => array()
+				);
+			$res['paid']=array(
+				'name' => 'Paid',
+				'data' => array()
+				);
+
+			foreach($end as $k=>$e){
+				$res['target']['data'][$k][]=intval($e['total_target']);
+				$res['so']['data'][$k][]=intval($e['so']);
+				$res['invoice']['data'][$k][]=intval($e['invoice']);
+				$res['paid']['data'][$k][]=intval($e['paid']);
+			}
+			
+			foreach($res as $k=>$re){
+				$res[$k]['data']=array_values($re['data']);
+			}
+			print(json_encode(array_values($res)));
 			break;
 			case 'product':
 			$data['ac'] = "s_ds_product";
