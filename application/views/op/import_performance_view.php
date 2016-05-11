@@ -46,7 +46,7 @@
                     <table class="table">
                         <tr> <th style="font-size: 18px;"> Sea </th> </tr>
                         <tr> <td class="cal-bg"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left">12</span></td> </tr>
+                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" title="adasd"><?=$sea['overall']?></span></td> </tr>
                     </table>
                    
                 </div>
@@ -54,7 +54,7 @@
               <table class="table">
                         <tr> <th style="font-size: 18px;"> Air </th> </tr>
                         <tr> <td class="cal-bg"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left">5</span></td> </tr>
+                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><?=$air['overall']?></span></td> </tr>
                     </table>
              </div>
 
@@ -85,58 +85,5 @@
 <!-- end of page level js -->		
 <script src="<?php echo base_url();?>style/highchart/js/highcharts.js"></script>
 <!-- end of page level js -->
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        var chart = new Highcharts.Chart({
-          chart: {
-            type: 'column',
-            renderTo: 'containers',
-        }, 
-
-        title: {
-            text: 'Import Lead Time Performance'
-        },
-        credits: {
-            enabled: false
-        },
-        xAxis: {
-             categories: <?=$kat?>, // json category item
-
-         },
-         yAxis: {
-            title: {
-                text: 'Lead Time (days)'
-            }
-        },
-
-        tooltip: {
-            formatter: function () {
-                return 'Production Lead Time ('+this.point.myData[3]+') : <b>' + this.point.myData[0] + '</b><br>Shipping Lead Time ('+this.point.myData[3]+') : <b>' + this.point.myData[1] + '</b><br>Clearance Lead Time ('+this.point.myData[3]+') : <b>' + this.point.myData[2] + '</b><br>';
-            }
-        },
-        legend: {
-            enabled: true
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y}'
-                }
-            }
-        },
-
-        series: [{
-            name: 'Overall Lead Time (Sea)',
-            data: <?=$sea;?>
-        },{
-            name: 'Overall Lead Time (Air)',
-            data: <?=$air;?>
-        }]
-    });
-});
-</script>
 </body>
 </html>

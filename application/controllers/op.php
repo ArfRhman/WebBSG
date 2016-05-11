@@ -753,54 +753,30 @@ class Op extends CI_Controller {
 			
 			$arSea=array();
 			$arAir=array();
-			$tempAir=array();
+			$tempAir=array(
+				'overall'=>0,
+				'shipping'=>0,
+				'clearance'=>0,
+				'production'=>0
+				);
+			$tempSea=$tempAir;
 			foreach($air as $a){
-				if(!array_key_exists($a['kategori'], $tempAir)){
-					$tempAir[$a['kategori']]['overall']=$a['actual_lead_time'];
-					$tempAir[$a['kategori']]['shipping']=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
-					$tempAir[$a['kategori']]['clearance']=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
-					$tempAir[$a['kategori']]['production']=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
-					$tempAir[$a['kategori']]['total']=1;
-				}else{
-					$tempAir[$a['kategori']]['overall']+=$a['actual_lead_time'];
-					$tempAir[$a['kategori']]['shipping']+=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
-					$tempAir[$a['kategori']]['clearance']+=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
-					$tempAir[$a['kategori']]['production']+=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
-					$tempAir[$a['kategori']]['total']+=1;
-				}
+				$tempAir['overall']+=$a['actual_lead_time'];
+				$tempAir['shipping']+=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
+				$tempAir['clearance']+=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
+				$tempAir['production']+=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
 			}
-			$tempSea=array();
-			foreach($sea as $s){
-				if(!array_key_exists($s['kategori'], $tempSea)){
-					$tempSea[$s['kategori']]['overall']=$s['actual_lead_time'];
-					$tempSea[$s['kategori']]['shipping']=(strtotime($s['atf_vessel_arrival'])-strtotime($s['atf_vessel_depart']))/(60*60*24);
-					$tempSea[$s['kategori']]['clearance']=(strtotime($s['atf_clearance'])-strtotime($s['atf_vessel_arrival']))/(60*60*24);
-					$tempSea[$s['kategori']]['production']=(strtotime($s['atf_production'])-strtotime($s['po_date']))/(60*60*24);
-					$tempSea[$s['kategori']]['total']=1;
-				}else{
-					$tempSea[$s['kategori']]['overall']+=$s['actual_lead_time'];
-					$tempSea[$s['kategori']]['shipping']+=(strtotime($s['atf_vessel_arrival'])-strtotime($s['atf_vessel_depart']))/(60*60*24);
-					$tempSea[$s['kategori']]['clearance']+=(strtotime($s['atf_clearance'])-strtotime($s['atf_vessel_arrival']))/(60*60*24);
-					$tempSea[$s['kategori']]['production']+=(strtotime($s['atf_production'])-strtotime($s['po_date']))/(60*60*24);
-					$tempSea[$s['kategori']]['total']+=1;
-				}
+			
+			foreach($sea as $a){
+				$tempSea['overall']+=$a['actual_lead_time'];
+				$tempSea['shipping']+=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
+				$tempSea['clearance']+=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
+				$tempSea['production']+=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
 			}
-
-			foreach($tempAir as $key=>$t){
-				$arAir[$key]['y']=intval($t['overall']/$t['total']);
-				$arAir[$key]['myData']=array(intval($t['production']/$t['total']),intval($t['shipping']/$t['total']),intval($t['clearance']/$t['total']),'Air');
-			}
-
-			foreach($tempSea as $key=>$t){
-				$arSea[$key]['y']=intval($t['overall']/$t['total']);
-				$arSea[$key]['myData']=array(intval($t['production']/$t['total']),intval($t['shipping']/$t['total']),intval($t['clearance']/$t['total']),'Air');
-			}
-			// print_r($tempAir);
-			// print_r($arAir);
-			// die();
-			$data['kat']=json_encode(array_values($kat));
-			$data['sea']=json_encode(array_values($arSea));
-			$data['air']=json_encode(array_values($arAir));
+			
+			$data['sea']=$tempSea;
+			$data['air']=$tempAir;
+			
 			$this->load->view('top', $data);
 			$this->load->view('op/import_performance_view', $data);
 			break;

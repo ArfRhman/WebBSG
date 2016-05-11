@@ -108,15 +108,24 @@ class Sales extends CI_Controller {
 			foreach($sliceSo as $s){
 				$opSo[$s['period']]['data'][$s['operator']]['name']=$s['name'];
 				$opSo[$s['period']]['data'][$s['operator']]['y']=intval($s['y']);
-				$opSo[$s['period']]['data'][$s['operator']]['drilldown']=$f['name'];
+				$opSo[$s['period']]['data'][$s['operator']]['drilldown']=$s['name'];
 				$custo[$s['operator']]['name']=$s['name'];
 				$custo[$s['operator']]['type']='pie';
 				$custo[$s['operator']]['id']=$s['name'];
 				$custo[$s['operator']]['data']=array();
+				$resOperator = $this->mddata->getCustoOp($s['operator']);
+				$sliceResOp = array_slice($resOperator, 0, 4);
+				$otherResOp = array_slice($resOperator, 5, count($resOperator));
+				foreach($sliceResOp as $sop){
+					$custo[$s['operator']]['data'][]=array($sop['customer_name'],intval($sop['y']));
+				}
+				foreach($otherResOp as $oop){
+					$custo[$s['operator']]['data']['Other']=array('Other',0);
+				}
+				foreach($otherResOp as $oop){
+					$custo[$s['operator']]['data']['Other'][1]+=intval($sop['y']);
+				}
 			}
-
-			print_r($custo);
-			die();
 
 			foreach($otherSo as $s){
 				$opSo[$s['period']]['data']['Others']['name']='Others';
@@ -129,11 +138,11 @@ class Sales extends CI_Controller {
 			}
 			
 			$drillOne = array_merge(array_values($opFo),array_values($opSo));
-			
+			$drillOne = array_merge($drillOne,array_values($custo));
 			foreach($drillOne as $key=>$d){
 				$drillOne[$key]['data']=array_values($d['data']);
 			}
-			
+
 			$data['Fo']=json_encode(array_values($dataFo));
 			$data['So']=json_encode(array_values($dataSo));
 			$data['drill_op']=json_encode(array_values($drillOne));
@@ -149,6 +158,7 @@ class Sales extends CI_Controller {
 			$paid = $this->mddata->getPaidYear();
 			$kateg=array();
 			$end = array();
+
 			foreach($periode as $p){
 				if(!array_key_exists($p['tahun'], $end)){
 					$end[$p['tahun']]=array(
@@ -161,20 +171,30 @@ class Sales extends CI_Controller {
 				$kateg[]=$p['tahun'];
 			}
 
+
 			foreach($target as $t){
-				$end[$t['periode']]['total_target']=$t['total'];
+				if(array_key_exists($t['periode'], $end)){
+					$end[$t['periode']]['total_target']=$t['total'];
+				}
 			}
 
 			foreach($so as $s){
-				$end[$s['periode']]['so']+=$s['grand_total'];
+				if(array_key_exists($s['periode'], $end)){
+					$end[$s['periode']]['so']+=$s['grand_total'];
+				}
 			}
+			
 
 			foreach($invoice as $i){
-				$end[$i['periode']]['invoice']+=$i['amount'];
+				if(array_key_exists($i['periode'], $end)){
+					$end[$i['periode']]['invoice']+=$i['amount'];
+				}
 			}
 
 			foreach($paid as $p){
-				$end[$p['periode']]['paid']+=$p['amount'];
+				if(array_key_exists($p['periode'], $end)){
+					$end[$p['periode']]['paid']+=$p['amount'];
+				}
 			}
 
 
@@ -195,6 +215,7 @@ class Sales extends CI_Controller {
 				'name' => 'Paid',
 				'data' => array()
 				);
+
 
 			foreach($end as $k=>$e){
 				$res['target']['data'][$k][]=intval($e['total_target']);
@@ -508,27 +529,39 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($target as $t){
-				$end[$t['periode']]['total_target']=$t['total'];
+				if(array_key_exists($t['periode'], $end)){
+					$end[$t['periode']]['total_target']=$t['total'];
+				}
 			}
 
 			foreach($so as $s){
-				$end[$s['periode']]['so']+=$s['grand_total'];
+				if(array_key_exists($s['periode'], $end)){
+					$end[$s['periode']]['so']+=$s['grand_total'];
+				}
 			}
 
 			foreach($invoice as $i){
-				$end[$i['periode']]['invoice']+=$i['amount'];
+				if(array_key_exists($i['periode'], $end)){
+					$end[$i['periode']]['invoice']+=$i['amount'];
+				}
 			}
 
 			foreach($cogs as $c){
-				$end[$c['periode']]['cogs']+=$c['ddp_idr'];
+				if(array_key_exists($c['periode'], $end)){
+					$end[$c['periode']]['cogs']+=$c['ddp_idr'];
+				}
 			}
 
 			foreach($direct as $d){
-				$end[$d['periode']]['direct']+=$d['sales']+$d['bank']+$d['transport']+$d['adm']+$d['other']+$d['extcom_pro'];
+				if(array_key_exists($s['periode'], $end)){
+					$end[$d['periode']]['direct']+=$d['sales']+$d['bank']+$d['transport']+$d['adm']+$d['other']+$d['extcom_pro'];
+				}
 			}
 
 			foreach($adjustment as $a){
-				$end[$t['periode']]['adjustment']=$a['adj'];
+				if(array_key_exists($s['periode'], $end)){
+					$end[$t['periode']]['adjustment']=$a['adj'];
+				}
 			}
 
 			$res = array();
