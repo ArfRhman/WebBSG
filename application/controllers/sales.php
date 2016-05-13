@@ -1723,7 +1723,7 @@ function outgoing()
 			{
 				$fn = 1;
 			} else {
-				$n = $nomor->row()->nomer;
+				$n = $nomor->row()->ol_no;
 				$fn = $n + 1;
 			}
 		} else {
@@ -1755,7 +1755,7 @@ function outgoing()
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
 		case 'edit':
-		$data['out'] = $this->mddata->getDataFromTblWhere('tbl_op_outgoing_letter_registration', 'no', $this->uri->segment(4))->row();
+		$data['out'] = $this->mddata->getDataFromTblWhere('tbl_sale_outgoing_letter_registration', 'no', $this->uri->segment(4))->row();
 		$this->load->view('top', $data);
 		$this->load->view('sales/outgoing_edit', $data);
 		break;
@@ -1915,7 +1915,12 @@ function LoS()
 			'addressed_to' => $p['los_address_to'],
 			'customer_of_support' => $p['los_customer_support'],
 			'project_name' => $p['los_project_name'],
-			'product_name' => $p['los_product_name']
+			'product_name' => $p['los_product_name'],
+			'customer_address' => $p['customer_address'],
+			'period_of_warranty' => $p['period'],
+			'signer_name'=>$p['signer_name'],
+			'signer_title'=>$p['signer_title'],
+			'archive_code'=>$p['archive_code']
 			);
 		
 		$this->mddata->insertIntoTbl('tbl_sale_letter_of_support', $data);
@@ -1935,7 +1940,12 @@ function LoS()
 			'addressed_to' => $p['los_address_to'],
 			'customer_of_support' => $p['los_customer_support'],
 			'project_name' => $p['los_project_name'],
-			'product_name' => $p['los_product_name']
+			'product_name' => $p['los_product_name'],
+			'customer_address' => $p['customer_address'],
+			'period_of_warranty' => $p['period'],
+			'signer_name'=>$p['signer_name'],
+			'signer_title'=>$p['signer_title'],
+			'archive_code'=>$p['archive_code']
 			);
 		$this->mddata->updateDataTbl('tbl_sale_letter_of_support',$data,'no',$p['no']);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');

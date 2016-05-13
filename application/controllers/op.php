@@ -1875,7 +1875,7 @@ function letter()
 		$this->load->view('op/letter_add', $data);								
 		break;
 		case 'save':
-		$nomor = $this->db->query("SELECT * FROM tbl_op_letter_of_authorization ORDER BY 'no' DESC");
+		$nomor = $this->db->query("SELECT * FROM tbl_op_letter_of_authorization ORDER BY no DESC");
 		$tahun = date('Y');
 		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
 		$fn = 0;
@@ -1885,7 +1885,7 @@ function letter()
 			{
 				$fn = 1;
 			} else {
-				$n = $nomor->row()->nomer;
+				$n = $nomor->row()->loa_no;
 				$fn = $n + 1;
 			}
 		} else {

@@ -35,6 +35,11 @@
                             <th>Costumer To Support</th>
                             <th>Project Name</th>
                             <th>Product Name</th>
+                            <th>Customer Address</th>
+                            <th>Period Of Warranty</th>
+                            <th>Signer Name</th>
+                            <th>Signer Title</th>
+                            <th>Archive Code</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -73,9 +78,14 @@
                             </td>
                             <td><?php echo $c->date ?></td>
                             <td><?php echo $c->addressed_to ?></td>
-                            <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->customer_of_support)->row()->name; ?></td>
+                            <td><?php if(!empty($c->customer_of_support)) echo $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $c->customer_of_support)->row()->name; ?></td>
                             <td><?php echo $c->project_name ?></td>
                             <td><?php echo $c->product_name ?></td>
+                            <td><?php echo $c->customer_address ?></td>
+                            <td><?php echo $c->period_of_warranty ?></td>
+                            <td><?php if(!empty($c->signer_name)) echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->signer_name)->row()->name; ?></td>
+                            <td><?php echo $c->signer_title ?></td>
+                            <td><?php echo $c->archive_code ?></td>
                             <td>
                                 <div class='btn-group'>
                                     <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>

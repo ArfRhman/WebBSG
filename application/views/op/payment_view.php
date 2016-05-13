@@ -24,98 +24,104 @@
           </div>
         </div>
         <div class="panel-body">
-          <table class="table table-striped table-responsive" id="table1">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Memo No</th>
-                <th>Memo Date</th>
-                <th>Addressed to</th>
-                <th>CC to</th>
-                <th>Due Date</th>
-                <th>Payment Type</th>
-                <th>Bank Name</th>
-                <th>Bank Account</th>
-                <th>Beneficiary</th>
-                <th>Other Info</th>
-                <th>Payment Date</th>
-                <th>Payment Amount</th>
-                <th>Payment Proof</th>
+          <div style="overflow-x:scroll">
+            <table class="table table-striped table-responsive" id="table1">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Memo No</th>
+                  <th>Memo Date</th>
+                  <th>Addressed to</th>
+                  <th>CC to</th>
+                  <th>Due Date</th>
+                  <th>Payment Type</th>
+                  <th>Bank Name</th>
+                  <th>Bank Account</th>
+                  <th>Beneficiary</th>
+                  <th>Other Info</th>
+                  <th>Payment Date</th>
+                  <th>Payment Amount</th>
+                  <th>Payment Proof</th>
 
 
 
-                <th>Action</th>
+                  <th>Action</th>
 
-              </tr>
-            </thead>
-            <tbody>
-             <?php
-             $no = 1;
-             foreach($op->result() as $c)
-             {
-               ?>
-               <tr>
-                <td><?php echo $no; $no++; ?></td>
+                </tr>
+              </thead>
+              <tbody>
+               <?php
+               $no = 1;
+               foreach($op->result() as $c)
+               {
+                 ?>
+                 <tr>
+                  <td><?php echo $no; $no++; ?></td>
+                  <td>
+                   <?php 
+                   $nomor = "";
+                   $res = $c->memo_no;
+                   if($res >= 1)
+                   {
+                    $nomor = "00".$res;
+                  }
+                  if($res >= 10)
+                  {
+                    $nomor = "0".$res;
+                  }
+                  if($res >= 100)
+                  {
+                    $nomor = $res;
+                  }
+                  $kode = "/PM-OPS/BSG/";
+                  if(!empty($c->memo_date)){
+                    $arrDate = explode(' ',$c->memo_date);
+                    $tahun = $arrDate[0];
+                    $bulan = $arrDate[1];
+                    $fb = $this->mddata->decrom_MMM($bulan);
+                    echo $nomor.$kode.$fb."/".$arrDate[2];
+                  }else{
+                    echo "<font color='red'>Memo date belum terisi</font>";
+                  }
+                  ?>
+                </td>
+                <td><?php echo $c->memo_date ?></td>
+                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->addressed_to)->row()->name; ?></td>
+                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->cc_to)->row()->name; ?></td>
+                <td><?php echo $c->due_date ?></td>
+                <td><?php echo $c->payment_type ?></td>
+                <td><?php echo $c->bank_name ?></td>
+                <td><?php echo $c->bank_account ?></td>
+                <td><?php echo $c->beneficiary ?></td>
+                <td><?php echo $c->other_info?></td>
+                <td><?php echo $c->payment_date ?></td>
+                <td><?php echo $c->payment_amount ?></td>
                 <td>
                  <?php 
-                 $nomor = "";
-                 $res = $c->memo_no;
-                 if($res >= 1)
+                 if($c->payment_proof != "") 
                  {
-                  $nomor = "00".$res;
-                }
-                if($res >= 10)
-                {
-                  $nomor = "0".$res;
-                }
-                if($res >= 100)
-                {
-                  $nomor = $res;
-                }
-                $kode = "/PM-OPS/BSG/";
-                $arrDate = explode(' ',$c->memo_date);
-                $tahun = $arrDate[0];
-                $bulan = $arrDate[1];
-                $fb = $this->mddata->decrom_MMM($bulan);
-                echo $nomor.$kode.$fb."/".$arrDate[2];
-                ?>
+                  echo anchor(base_url($c->payment_proof), "Download File"); 
+                } ?>
               </td>
-              <td><?php echo $c->memo_date ?></td>
-              <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->addressed_to)->row()->name; ?></td>
-              <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->cc_to)->row()->name; ?></td>
-              <td><?php echo $c->due_date ?></td>
-              <td><?php echo $c->payment_type ?></td>
-              <td><?php echo $c->bank_name ?></td>
-              <td><?php echo $c->bank_account ?></td>
-              <td><?php echo $c->beneficiary ?></td>
-              <td><?php echo $c->other_info?></td>
-              <td><?php echo $c->payment_date ?></td>
-              <td><?php echo $c->payment_amount ?></td>
-              <td>
-               <?php 
-               if($c->payment_proof != "") 
-               {
-                echo anchor(base_url($c->payment_proof), "Download File"); 
-              } ?>
-            </td>
-            <td>                                                                                                       
-              <div class='btn-group'>                                                     
-                <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                <ul class='dropdown-menu pull-right' role='menu'>       
-                  <li><a href='<?php echo site_url('op/payment/edit/'.$c->no)?>' >Edit</a></li>         
-                  <li><a href='<?php echo site_url('op/payment/delete/'.$c->no)?>' >Delete</a></li>
-                  <li><a href='<?php echo site_url('op/payment/detail/'.$c->no)?>' >Detail</a></li> 
-                  <li><a href='<?php echo site_url('op/payment/tabel_view/'.$c->no)?>' >View Tabel</a></li>             
-                </ul>                                                 
-              </div>
-            </td>
+              <td>                                                                                                       
+                <div class='btn-group'>                                                     
+                  <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
+                  <ul class='dropdown-menu pull-right' role='menu'>       
+                    <li><a href='<?php echo site_url('op/payment/edit/'.$c->no)?>' >Edit</a></li>         
+                    <li><a href='<?php echo site_url('op/payment/delete/'.$c->no)?>' >Delete</a></li>
+                    <li><a href='<?php echo site_url('op/payment/detail/'.$c->no)?>' >Detail</a></li> 
+                    <li><a href='<?php echo site_url('op/payment/tabel_view/'.$c->no)?>' >View Tabel</a></li>             
+                  </ul>                                                 
+                </div>
+              </td>
 
-          </tr>
-          <?php
-        }
-        ?>
-      </tbody>
-    </table>
+            </tr>
+            <?php
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 </div>

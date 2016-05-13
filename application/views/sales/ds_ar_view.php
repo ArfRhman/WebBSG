@@ -75,6 +75,18 @@
           text: ' Forecast vs Sale'
         }
       },
+      legend: {
+        enabled: true
+      },
+      plotOptions: {
+        series: {
+          borderWidth: 0,
+          dataLabels: {
+            enabled: true,
+            format: '{point.y}'
+          }
+        }
+      },
       series: [{
         name: 'Invoiced',
         data: <?=$invoice?>

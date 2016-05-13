@@ -193,6 +193,12 @@ class Dm extends CI_Controller {
 			$json = json_encode($data);
 			echo $json;
 			break;
+			case 'getDataField':
+			$id = $_POST['id'];
+			$data = $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $id)->row();
+			$json = json_encode($data);
+			echo $json;
+			break;
 			default:
 			redirect('site/');
 			break;
@@ -1128,6 +1134,12 @@ function personnel()
 		break;
 		case 'getAllPersonel':
 		$data = $this->mddata->getAllDataTbl('tbl_dm_personnel')->result();
+		$json = json_encode($data);
+		echo $json;
+		break;
+		case 'get_field':
+		$id = $_POST['id'];
+		$data = $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $id)->row();
 		$json = json_encode($data);
 		echo $json;
 		break;

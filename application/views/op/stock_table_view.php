@@ -42,7 +42,7 @@
                ?>
                <tr>
                <td><?=$no;$no++;?></td>
-                <td><?=$c->item_code?></td>
+                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $c->item_code)->row()->code; ?></td>
                 <td><?=$c->item?></td>
                 <td><?=$c->mou?></td>
                 <td><?=$c->qty?></td>
