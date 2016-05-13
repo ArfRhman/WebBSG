@@ -103,7 +103,7 @@
 											<div class="col-md-8"><?php echo $so->row()->other_term; ?></div>
                                         </div>
 										<div class="col-md-12">
-                                            <label class="col-md-4 control-label" for="email">Other Status</label>
+                                            <label class="col-md-4 control-label" for="email">Order Status</label>
                                             <div class="col-md-8"><?php echo $so->row()->other_status; ?></div>
 										</div>
 										<div class="col-md-12">

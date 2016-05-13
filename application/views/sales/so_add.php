@@ -125,9 +125,9 @@
                                                     <input id="email" name="delivery_cost_term" placeholder="Delivery Cost Term" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Other Term</label>                                            <div class="col-md-3">                                                <input id="email" name="other_term" placeholder="Other Term" class="form-control" type="text"></div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-2 control-label" for="email">Other Status</label>
+                                                    <label class="col-md-2 control-label" for="email">Order Status</label>
                                                     <div class="col-md-3">
-                                                        <input id="email" name="other_status" placeholder="Other Status" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Softcopy</label>                                            <div class="col-md-3">                                                <input name="softcopy" type="file"></div>
+                                                        <input id="email" name="other_status" placeholder="Order Status" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Softcopy</label>                                            <div class="col-md-3">                                                <input name="softcopy" type="file"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-md-12 text-right">

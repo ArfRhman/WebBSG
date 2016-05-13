@@ -29,14 +29,14 @@
 
             <?php 
             $thn = date('Y');
-            $sql = $this->db->query("SELECT p.id AS id,p.image AS image,p.name AS name,COUNT(scv.am) AS total_vis FROM tbl_sale_customer_visit AS scv,tbl_dm_personnel AS p WHERE scv.am = p.id AND YEAR(str_to_date(visit_date,'%d' '%b' '%Y')) = '".$thn."' GROUP BY scv.am ORDER BY total_vis DESC LIMIT 4"); 
+            $sql = $this->db->query("SELECT p.id AS id,p.image AS image,p.name AS name,COUNT(scv.am) AS total_vis FROM tbl_sale_customer_visit AS scv,tbl_dm_personnel AS p WHERE p.position = 1 AND scv.am = p.id AND YEAR(str_to_date(visit_date,'%d' '%b' '%Y')) = '".$thn."' GROUP BY scv.am ORDER BY total_vis DESC LIMIT 4"); 
             $coun = count($sql->result());
             foreach ($sql->result() as $s) {?>
-            <div class="col-md-3" style="height: 310px !important;">
+            <div style="width:200px; height: 300px !important;float:left;margin-right:10px">
              <div class="thumbnail" style="height: 100%;">
              <img src="<?php echo base_url().$s->image ?>" width="200px">
               <div class="caption">
-                <h3> <?php echo $s->name ?></h3>
+                <h4> <?php echo $s->name ?></h4>
                 <p>Total Visit : <b><?php echo $s->total_vis ?></b></p>
               </div>
             </div>
@@ -121,7 +121,7 @@
 
 
 
-       <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/visit/view');?>" method="post">
+     <!--   <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/visit/view');?>" method="post">
         <fieldset>
           <div class="form-group">
             <label class="col-md-2 control-label" style="text-align:left" for="name">A/M</label>
@@ -155,8 +155,8 @@
           </div>                                                                                  
         </div>
       </fieldset>
-    </form>
-    <hr>
+    </form> -->
+  <!--   <hr>
     <table class="table table-striped table-responsive" id="table1">
       <thead>
         <tr>
@@ -181,7 +181,7 @@
         } 
         ?>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </div>
 </div>

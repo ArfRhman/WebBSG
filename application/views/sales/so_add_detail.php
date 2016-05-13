@@ -41,7 +41,7 @@
                   foreach($sql->result() as $s)
                   {
                     ?>
-                    <option value="<?php echo $s->id; ?>"><?php echo $s->id ?> - <?php echo $s->nama ?></option>
+                    <option value="<?php echo $s->id; ?>"><?php echo $s->code ?> - <?php echo $s->nama ?></option>
                     <?php
                   }
                   ?>
@@ -55,7 +55,7 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label" for="email">Qty</label>
                   <div class="col-md-3">
-                    <input id="email" name="qty" placeholder="Qty" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Unit Price</label>                                            <div class="col-md-3">                                                <input id="unit_price" name="price" placeholder="Unit Price" class="form-control" type="text" readonly></div>
+                    <input id="email" name="qty" placeholder="Qty" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Unit Price</label>                                            <div class="col-md-3">                                                <input id="unit_price" name="price" placeholder="Unit Price" class="form-control" type="text" ></div>
                   </div>
                   <div class="form-group">
                     <label class="col-md-2 control-label" for="email">Disc</label>

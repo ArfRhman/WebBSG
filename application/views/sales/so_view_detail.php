@@ -102,11 +102,11 @@
            </tr>
            <tr>
                 <th class="text-right">Vat 10%</th>
-                <th class="text-left"><?php echo number_format($vat,0); ?></th>
+                <th class="text-left"><?php echo number_format($vat,4); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Grand Total</th>
-                <th class="text-left"><?php echo number_format($gran,0); ?></th>
+                <th class="text-left"><?php echo number_format($gran,4); ?></th>
            </tr>
            </table>
        </tr>
