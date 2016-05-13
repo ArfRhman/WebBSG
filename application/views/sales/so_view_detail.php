@@ -62,10 +62,10 @@
                        <td><?php echo $c->brand; ?></td>
                        <td><?php echo $c->mou; ?></td>
                        <td><?php echo $c->qty; ?></td>
-                       <td><?php echo number_format($c->price,0); ?></td>
-                       <td><?php echo number_format($c->disc,0); ?></td>
-                       <td><?php echo number_format($c->nett,0); ?></td>
-                       <td><?php echo number_format($c->total,0); ?></td>
+                       <td><?php echo !empty($c->price)?number_format($c->price,0):'-'; ?></td>
+                       <td><?php echo !empty($c->disc)?number_format($c->disc,0):'-'; ?></td>
+                       <td><?php echo !empty($c->nett)?number_format($c->nett,0):'-'; ?></td>
+                       <td><?php echo !empty($c->total)?number_format($c->total,0):'-'; ?></td>
                        <td>
                         <div class='btn-group'>
                          <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>

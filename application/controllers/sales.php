@@ -2328,14 +2328,27 @@ function target()
 		break;
 		case 'save':
 		$p = $this->input->post();
-		$data = array(
-			'a_m' => $p['am'],
-			'periode' => $p['periode'],
-			'operator' => $p['operator'],
-			'customer' => $p['customer_name'],
-			'amount' => $p['amount']
-			);
-		$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+		$sql = $this->db->query("SELECT COUNT(periode) AS c,no FROM tbl_sale_target WHERE a_m = '".$p['am']."' AND periode = '".$p['periode']."'")->row();
+		if($sql->c == 0){
+			$data = array(
+				'a_m' => $p['am'],
+				'periode' => $p['periode'],
+				'operator' => $p['operator'],
+				'customer' => $p['customer_name'],
+				'amount' => $p['amount']
+				);
+			$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+		}else{
+			$data = array(
+				'a_m' => $p['am'],
+				'periode' => $p['periode'],
+				'operator' => $p['operator'],
+				'customer' => $p['customer_name'],
+				'amount' => $p['amount']
+				);
+			$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+			$this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql->no);
+		}
 		$this->session->set_flashdata('data','Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
