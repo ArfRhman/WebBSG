@@ -55,7 +55,7 @@
                      foreach($sql->result() as $s)
                      {
                       ?>
-                      <option value="<?php echo $s->id; ?>"></option>
+                      <option value="<?php echo $s->forwarder_id; ?>"></option>
                       <?php
                     }
                     ?>

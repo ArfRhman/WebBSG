@@ -52,7 +52,23 @@
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Sent By</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="sent_by" placeholder="Sent By" class="form-control" type="text" value="<?php echo $so->row()->sent_by; ?>"></div>																						<label class="col-md-2 control-label" for="email">Received By</label>                                            <div class="col-md-3">                                                <input id="email" name="received_by" placeholder="Received By" class="form-control" type="text" value="<?php echo $so->row()->received_by; ?>"></div>
+                                               <!--  <input id="email" name="sent_by" placeholder="Sent By" class="form-control" type="text" value="<?php echo $so->row()->sent_by; ?>"> -->
+                                                <input type="text" class="form-control" name="sent_by" placeholder="Sent By" list="divisionList">
+                                                <datalist id="divisionList"  value="<?php echo $so->row()->sent_by; ?>">
+
+                                                    <?php
+                                                    $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
+                                                    foreach($sql->result() as $s)
+                                                    {
+                                                      ?>
+                                                      <option value="<?php echo $s->name; ?>"></option>
+                                                      <?php
+                                                  }
+                                                  ?>
+
+
+                                              </datalist>
+                                              </div>																						<label class="col-md-2 control-label" for="email">Received By</label>                                            <div class="col-md-3">                                                <input id="email" name="received_by" placeholder="Received By" class="form-control" type="text" value="<?php echo $so->row()->received_by; ?>"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Received Date</label>

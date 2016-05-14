@@ -1638,10 +1638,47 @@ $data = $this->db->query("SELECT * FROM tbl_sale_so_detail WHERE id_so = $id_so 
 $json = json_encode($data);
 echo $json;
 break;
+case 'getDataInvoice':
+$id = $_POST['id'];
+$data = $this->db->query("SELECT * FROM tbl_sale_so_invoicing WHERE id = $id")->row();
+$json = json_encode($data);
+echo $json;
+break;
+case 'getPsalescom':
+$P = $_POST['id'];
+$id_so = $_POST['id_so'];
+
+$data = $this->mddata->getDataFromTblWhere('tbl_sale_so_detail', 'id_so', $id_so);
+// print_r($data->result());
+$subtotal = 0;
+$disc = 0;
+$deliv = 0;
+foreach($data->result() as $c)
+{
+	$subtotal = $subtotal + $c->total;
+	$disc = $disc + $c->disc;
+	$deliv = $deliv + $c->delivery;
+}
+$nbtax = $subtotal - $disc + $deliv;
+$vat = (10/100) * $nbtax;
+$gran = $nbtax + $vat;
+$hasil = $P / 100 * $gran;
+echo $hasil;
+
+	// $data = $this->db->query("SELECT * FROM tbl_sale_so_invoicing WHERE id = $id")->row();
+	// $json = json_encode($data);
+	// echo $json;
+break;
+case 'setNett':
+$in = $_POST['in'];
+$ext = $_POST['ext'];
+$hasil = $ext - ($in / 100 * $ext);
+echo $hasil;
+break;
 }
 }
 
-	//end so
+//end so
 
 function incoming()
 {
@@ -1728,7 +1765,7 @@ function outgoing()
 		$this->load->view('sales/outgoing_add', $data);								
 		break;
 		case 'save':
-				//select nomor terakhir
+	//select nomor terakhir
 		$nomor = $this->db->query("SELECT * FROM tbl_sale_outgoing_letter_registration ORDER BY no DESC");
 		$tahun = date('Y');
 		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
@@ -1743,7 +1780,7 @@ function outgoing()
 				$fn = $n + 1;
 			}
 		} else {
-					//update tahun 
+//update tahun 
 			$data = array(
 				'tahun' => $tahun,
 				);
@@ -1817,7 +1854,7 @@ function direksi()
 		$this->load->view('sales/direksi_add', $data);								
 		break;
 		case 'save':
-				//select nomor terakhir
+	//select nomor terakhir
 		$nomor = $this->db->query("SELECT * FROM tbl_sale_catatan_direksi ORDER BY no DESC");
 		$tahun = date('Y');
 		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
@@ -1832,7 +1869,7 @@ function direksi()
 				$fn = $n + 1;
 			}
 		} else {
-					//update tahun 
+//update tahun 
 			$data = array(
 				'tahun' => $tahun,
 				);
@@ -1901,7 +1938,7 @@ function LoS()
 		$this->load->view('sales/los_add', $data);								
 		break;
 		case 'save':
-			//select nomor terakhir
+	//select nomor terakhir
 		$nomor = $this->db->query("SELECT * FROM tbl_sale_letter_of_support ORDER BY no DESC");
 		$tahun = date('Y');
 		$sy = $this->mddata->getAllDataTbl('tbl_setting_tahun')->row()->tahun;
@@ -1916,7 +1953,7 @@ function LoS()
 				$fn = $n + 1;
 			}
 		} else {
-					//update tahun 
+//update tahun 
 			$data = array(
 				'tahun' => $tahun,
 				);
@@ -1938,7 +1975,7 @@ function LoS()
 			'signer_title'=>$p['signer_title'],
 			'archive_code'=>$p['archive_code']
 			);
-		
+
 		$this->mddata->insertIntoTbl('tbl_sale_letter_of_support', $data);
 		$this->session->set_flashdata('data', 'Data Has Been Saved');
 		redirect($_SERVER['HTTP_REFERER']);
@@ -2019,7 +2056,7 @@ function visit()
 		$data['res']=$dat;
 		$data['am']=$am;
 		$data['val']=$val;
-		
+
 		$this->load->view('top', $data);
 		$this->load->view('sales/visit_view', $data);
 		break;	
