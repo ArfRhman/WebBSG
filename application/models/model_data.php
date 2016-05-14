@@ -476,4 +476,10 @@ class model_data extends CI_Model {
 			GROUP BY tbl_op_po_tabel.item_code")->result_array();
 		return $query;
 	}
+
+	//Struktur Organisasi
+	function updateStruktur($tbl,$data){
+		$query = $this->db->query("UPDATE $tbl set value = '$data[bagan]'");
+		return $query;
+	}
 }

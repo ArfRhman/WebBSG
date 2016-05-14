@@ -854,6 +854,11 @@ class Sales extends CI_Controller {
 			$this->load->view('top', $data);
 			$this->load->view('sales/brief_view', $data);
 			break;
+			case 'edit':
+			$data['ds'] = $this->mddata->getAllDataTbl('tbl_sale_short_brief')->row();
+			$this->load->view('top', $data);
+			$this->load->view('sales/brief_edit', $data);
+			break;
 			case 'update':
 			$p = $this->input->post();
 			$this->mddata->updateDataBrief($p['brief']);
@@ -867,9 +872,20 @@ class Sales extends CI_Controller {
 		switch($this->uri->segment(3))
 		{
 			case 'view':
-			$data['st'] = $this->mddata->getDataStructureSales();
+			$data['st'] = $this->mddata->getAllDataTbl('tbl_sale_bagan')->row();
 			$this->load->view('top', $data);
 			$this->load->view('sales/structure_view', $data);
+			break;
+			case 'save':
+			$dir = "image/s_organization/";
+			$file = $dir . $_FILES['file']['name'];
+			if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+			{
+				$data['bagan'] = $file;
+			}
+			$this->mddata->updateStruktur('tbl_sale_bagan', $data);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect($_SERVER['HTTP_REFERER']);
 			break;
 		}
 	}

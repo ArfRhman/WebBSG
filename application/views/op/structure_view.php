@@ -1,89 +1,58 @@
-  <link href="<?php echo base_url();?>style/orgchart/jquery.orgchart.css" media="all" rel="stylesheet" type="text/css" />
-	
-  <style type="text/css">
-    #orgChart{
-      width: auto;
-      height: auto;
+  
+<aside class="right-side">
+ <!-- Main content -->
+ <section class="content-header">
+  <h1>Welcome to Dashboard</h1>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-lg-12">
+     <?php
+     if($this->session->flashdata('data') == TRUE)
+     {
+       ?>
+       <div class="panel-heading">
+        <h3 class="panel-title">
+          <?php echo $this->session->flashdata('data');?>
+        </h3>
+      </div>
+      <?php
     }
-
-    #orgChartContainer{
-      width: 1000px;
-      height: 500px;
-      overflow: auto;
-      background: rgba(238, 238, 238, 0.2);
-    }
-   div.orgChart div.node{
-      min-height: 75px;
-      height: auto; 
-         min-width: 100px;
-    width: auto;
-    }
-    div.orgChart div.node h2{
-      margin: 7px;
-    } 
-     div.orgChart div.node p{
-      margin-bottom: 15%;
-    }
-    .org-input{
-      width: auto;
-    }
-    div.orgChart p:hover {
-    background: #fcfaca;
-    cursor: text;
-}
-.org-add-button {
-    width: 12px;
-    height: 12px;
-    float: left;
-    /*bottom: 7px;*/
-    /*left: 5px;*/
-}
-.org-del-button {
-    width: 12px;
-    height: 12px;
-    float: right;
-    /*bottom: 7px;*/
-    /*left: 5px;*/
-}
-.org-add-button, .org-del-button{
-     position: static; 
-    }
-  </style>
-
-  <aside class="right-side">
-   <!-- Main content -->
-   <section class="content-header">
-    <h1>Welcome to Dashboard</h1>
-  </section>
-  <section class="content">
-    <div class="row">
-      <div class="col-lg-12">
-        <?php
-        if($this->mddata->access($this->session->userdata('group'), 'd3')->d3 > 1)
-        {
-          ?>
-          <a href="<?php echo site_url('op/cases/add')?>" class="btn btn-success">Add New Data</a>
-          <?php
-        }
-        ?>
-        <div class="panel panel-primary filterable">
-          <div class="panel-heading clearfix  ">
-            <div class="panel-title pull-left">
-             <div class="caption">
-              <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Organization Structure
-            </div>
-          </div>
+    ?>
+    <div class="panel panel-primary filterable">
+      <div class="panel-heading clearfix  ">
+        <div class="panel-title pull-left">
+         <div class="caption">
+          <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+          Organization Structure
         </div>
-        <div class="panel-body">
-        <?php  $s = json_encode($st);?> 
-         <div id="orgChartContainer">
-          <div id="orgChart"></div>
-        </div>
-      
       </div>
     </div>
+    <div class="panel-body">
+      <?php
+      if($this->session->userdata('group')==2)
+      {
+        ?>
+        <div class="row">
+          <form  enctype="multipart/form-data" action="<?php echo site_url('op/structure/save');?>" method="post">
+            <div class="col-md-7">
+              <input type="file" name="file" class="form-control"> 
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+          <?php } ?>
+        </div>
+        <div class="row">
+          <hr>
+          <img src="<?=base_url()?><?=$st->value?>" style="max-width:1000px;"/>
+        </div>
+      </div>
+
+    </div>
   </div>
+</div>
 </div>
 </section>
 </aside>
@@ -101,34 +70,9 @@
 <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
 <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/orgchart/jquery.orgchart.js" type="text/javascript"></script>
-<script>
-  $(function(){
-    org_chart = $('#orgChart').orgChart({
-      data: <?php echo $s ?>,
-      showControls: true,
-      allowEdit: false,
-      onAddNode: function(node){ 
-        log('Created new node on node '+node.data.id);
-        org_chart.newNode(node.data.id); 
-      },
-      onDeleteNode: function(node){
-        log('Deleted node '+node.data.id);
-        org_chart.deleteNode(node.data.id); 
-      },
-      onClickNode: function(node){
-        log('Clicked node '+node.data.id);
-      }
+<script src="<?php echo base_url();?>style/orgchart/jquery.orgchart-sales.js" type="text/javascript"></script>
 
-    });
-  });
-      // just for example purpose
-      function log(text){
-        $('#consoleOutput').append('<p>'+text+'</p>')
-      }
-    </script>
-    <script type="text/javascript"></script>
-    <!-- end of global js -->
-    <!-- end of page level js -->
-  </body>
-  </html>
+<!-- end of global js -->
+<!-- end of page level js -->
+</body>
+</html>

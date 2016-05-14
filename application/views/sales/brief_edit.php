@@ -12,9 +12,22 @@
             <div class="row">
 
                 <div class="col-lg-12">
-
-
-
+                    <?php
+                    if($this->session->flashdata('data') == TRUE)
+                    {
+                       ?>
+                       <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <?php echo $this->session->flashdata('data');?>
+                        </h3>
+                    </div>
+                    <?php
+                }
+                ?>
+                <?php
+                if($this->mddata->access($this->session->userdata('group'), 'd18')->d18 >= 1)
+                {
+                    ?>
 
                     <div class="panel panel-primary" id="hidepanel1">
 
@@ -43,26 +56,17 @@
                                         <label class="col-md-6 col-md-offset-3 control-label" for="effective" style="text-align:center;">Short Brief</label>
 
                                     </div>
-                                    <hr>
                                     <div class="form-group">
 
                                         <div class="col-md-8 col-md-offset-2">
-                                          <?=$ds->short_brief?>
+                                          <textarea name="brief" class="form-control" rows="10"><?=$ds->short_brief?></textarea>
                                       </div>
                                   </div>
-                                  <?php
-                                  if($this->session->userdata('group')==2)
-                                  {
-                                    ?>
-                                    <div class="form-group">
-                                        <div class="col-md-12 text-right">
-                                            <a href="<?=base_url()?>index.php/sales/brief/edit"><button type="button" class="btn btn-responsive btn-primary btn-sm">Edit</button></a>
-                                        </div>
+                                  <div class="form-group">
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
                                     </div>
-                                    <?php
-                                }
-                                ?>
-
+                                </div>
                             </fieldset>
                         </form>
                     </div>
@@ -128,4 +132,4 @@
 </body>
 
 </html>
-
+<?php } ?>

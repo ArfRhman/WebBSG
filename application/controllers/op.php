@@ -1517,63 +1517,63 @@ $this->session->set_flashdata('data', 'Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
 break;
 case 'table_update':
-		$p=$this->input->post();
-		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no_pl'])->row();
-		$ftc = $p['purchase']*$p['percen_ftc'];
-		$ddp_price = $p['purchase']+$ftc;
-		$currency = strtolower($p['currency']);
-		if($currency=='idr'){
-			$ddp_idr = $ddp_price;
-		}else if($currency=='eur'){
-			$ddp_idr = $ddp_price*$head->eur;	
-		}else if($currency=='sgd'){
-			$ddp_idr = $ddp_price*$head->sgd;	
-		}else if($currency=='usd'){
-			$ddp_idr = $ddp_price*$head->usd;	
-		}
-		
-		$data = array(
-			'item_id'=>$p['item_id'],
-			'division'=>$p['division'],
-			'category'=>$p['category'],
-			'item_name'=>$p['item_nm'],
-			'mou'=>$p['mou'],
-			'brand'=>$p['brand'],
-			'source'=>$p['source'],
-			'incoterm'=>$p['incoterm'],
-			'currency'=>$p['currency'],
-			'purchase_price'=>$p['purchase'],
-			'percen_ftc'=>$p['percen_ftc'],
-			'ftc'=> $ftc,
-			'ddp_price'=>$ddp_price,
-			'ddp_idr'=>$ddp_idr,
-			'percen_crosscomp'=>$p['percen_cross'],
-			'crosscomp_price'=>$ddp_idr/(100/100-$p['percen_cross']/100),
-			'percen_price_list'=>$p['percen_price_list'],
-			'price_list'=>$ddp_idr/(100/-$p['percen_price_list']/100),
-			'percen_cash'=>$p['percen_cash'],
-			'cash'=>$ddp_idr/(100/100-$p['percen_cash']/100),
-			'percen_skbdn'=>$p['percen_skbdn'],
-			'skbdn_price'=>$ddp_idr/(100/100-$p['percen_skbdn']/100),
-			'percen_credit_1_month'=>$p['percen_credit_1m'],
-			'credit_1_month'=>$ddp_idr/(100/100-$p['percen_credit_1m']/100),
-			'percen_credit_2_month'=>$p['percen_credit_2m'],
-			'credit_2_month'=>$ddp_idr/(100/100-$p['percen_credit_2m']/100),
-			'percen_credit_3_month'=>$p['percen_credit_3m'],
-			'credit_3_month'=>$ddp_idr/(100/100-$p['percen_credit_3m']/100),
-			'percen_credit_4_month'=>$p['percen_credit_4m'],
-			'credit_4_month'=>$ddp_idr/(100/100-$p['percen_credit_4m']/100),
-			'special_condition'=>$p['special'],
-			'khs_price'=>$p['khs_price'],
-			'percen_pricelist_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_price_list']/100))/$p['khs_price'],
-			'percen_nett_cash_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_cash']/100))/$p['khs_price'],
-			'competitor_1'=>$p['comp_1'],
-			'competitor_1_name'=>$p['comp_1_name'],
-			'competitor_2'=>$p['comp_2'],
-			'competitor_2_name'=>$p['comp_2_name'],
-			'competitor_3'=>$p['comp_3'],
-			'competitor_3_name'=>$p['comp_3_name']
-			);
+$p=$this->input->post();
+$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no_pl'])->row();
+$ftc = $p['purchase']*$p['percen_ftc'];
+$ddp_price = $p['purchase']+$ftc;
+$currency = strtolower($p['currency']);
+if($currency=='idr'){
+	$ddp_idr = $ddp_price;
+}else if($currency=='eur'){
+	$ddp_idr = $ddp_price*$head->eur;	
+}else if($currency=='sgd'){
+	$ddp_idr = $ddp_price*$head->sgd;	
+}else if($currency=='usd'){
+	$ddp_idr = $ddp_price*$head->usd;	
+}
+
+$data = array(
+	'item_id'=>$p['item_id'],
+	'division'=>$p['division'],
+	'category'=>$p['category'],
+	'item_name'=>$p['item_nm'],
+	'mou'=>$p['mou'],
+	'brand'=>$p['brand'],
+	'source'=>$p['source'],
+	'incoterm'=>$p['incoterm'],
+	'currency'=>$p['currency'],
+	'purchase_price'=>$p['purchase'],
+	'percen_ftc'=>$p['percen_ftc'],
+	'ftc'=> $ftc,
+	'ddp_price'=>$ddp_price,
+	'ddp_idr'=>$ddp_idr,
+	'percen_crosscomp'=>$p['percen_cross'],
+	'crosscomp_price'=>$ddp_idr/(100/100-$p['percen_cross']/100),
+	'percen_price_list'=>$p['percen_price_list'],
+	'price_list'=>$ddp_idr/(100/-$p['percen_price_list']/100),
+	'percen_cash'=>$p['percen_cash'],
+	'cash'=>$ddp_idr/(100/100-$p['percen_cash']/100),
+	'percen_skbdn'=>$p['percen_skbdn'],
+	'skbdn_price'=>$ddp_idr/(100/100-$p['percen_skbdn']/100),
+	'percen_credit_1_month'=>$p['percen_credit_1m'],
+	'credit_1_month'=>$ddp_idr/(100/100-$p['percen_credit_1m']/100),
+	'percen_credit_2_month'=>$p['percen_credit_2m'],
+	'credit_2_month'=>$ddp_idr/(100/100-$p['percen_credit_2m']/100),
+	'percen_credit_3_month'=>$p['percen_credit_3m'],
+	'credit_3_month'=>$ddp_idr/(100/100-$p['percen_credit_3m']/100),
+	'percen_credit_4_month'=>$p['percen_credit_4m'],
+	'credit_4_month'=>$ddp_idr/(100/100-$p['percen_credit_4m']/100),
+	'special_condition'=>$p['special'],
+	'khs_price'=>$p['khs_price'],
+	'percen_pricelist_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_price_list']/100))/$p['khs_price'],
+	'percen_nett_cash_to_khs'=>($p['khs_price']-$ddp_idr/(100/100-$p['percen_cash']/100))/$p['khs_price'],
+	'competitor_1'=>$p['comp_1'],
+	'competitor_1_name'=>$p['comp_1_name'],
+	'competitor_2'=>$p['comp_2'],
+	'competitor_2_name'=>$p['comp_2_name'],
+	'competitor_3'=>$p['comp_3'],
+	'competitor_3_name'=>$p['comp_3_name']
+	);
 $this->mddata->updateDataTbl('tbl_op_pl_tabel',$data,'no',$p['no']);
 $this->session->set_flashdata('data', 'Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
@@ -2245,6 +2245,11 @@ function brief()
 		$this->load->view('top', $data);
 		$this->load->view('op/brief_view', $data);
 		break;
+		case 'edit':
+		$data['ds'] = $this->mddata->getAllDataTbl('tbl_op_short_brief')->row();
+		$this->load->view('top', $data);
+		$this->load->view('op/brief_edit', $data);
+		break;
 		case 'update':
 		$p = $this->input->post();
 		$this->mddata->updateDataBriefOp($p['brief']);
@@ -2258,9 +2263,20 @@ function structure(){
 	switch($this->uri->segment(3))
 	{
 		case 'view':
-		$data['st'] = $this->mddata->getDataStructure();
+		$data['st'] = $this->mddata->getAllDataTbl('tbl_op_bagan')->row();
 		$this->load->view('top', $data);
 		$this->load->view('op/structure_view', $data);
+		break;
+		case 'save':
+		$dir = "image/op_organization/";
+		$file = $dir . $_FILES['file']['name'];
+		if(move_uploaded_file($_FILES['file']['tmp_name'], $file))
+		{
+			$data['bagan'] = $file;
+		}
+		$this->mddata->updateStruktur('tbl_op_bagan', $data);
+		$this->session->set_flashdata('data', 'Data Has Been Saved');
+		redirect($_SERVER['HTTP_REFERER']);
 		break;
 	}
 }

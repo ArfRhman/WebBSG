@@ -5,7 +5,6 @@
         <section class="content-header">
 
             <h1>Welcome to Dashboard</h1>
-
         </section>
 
         <section class="content">
@@ -15,63 +14,69 @@
                 <div class="col-lg-12">
 
 
-                    <?php
-                    if($this->mddata->access($this->session->userdata('group'), 'd18')->d18 >= 1)
-                    {
-                        ?>
 
-                        <div class="panel panel-primary" id="hidepanel1">
 
-                            <div class="panel-heading">
+                    <div class="panel panel-primary" id="hidepanel1">
 
-                                <h3 class="panel-title">
+                        <div class="panel-heading">
 
-                                    <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                            <h3 class="panel-title">
 
-                                    Short Brief
+                                <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
 
-                                </h3>
+                                Short Brief
 
-                                <span class="pull-right">
+                            </h3>
 
-                                    <i class="glyphicon glyphicon-chevron-up clickable"></i>
+                            <span class="pull-right">
 
-                                </span>
+                                <i class="glyphicon glyphicon-chevron-up clickable"></i>
 
-                            </div>
+                            </span>
 
-                            <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/brief/update');?>" method="post">
-                                    <fieldset>
-                                        <div class="form-group"> 
-                                        <label class="col-md-6 col-md-offset-3 control-label" for="effective" style="text-align:center;">Short Brief</label>
-
-                                        </div>
-                                        <div class="form-group">
-
-                                            <div class="col-md-8 col-md-offset-2">
-                                              <textarea name="brief" class="form-control" rows="10"><?=$ds->content?></textarea>
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <div class="col-md-12 text-right">
-                                            <button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
                         </div>
 
-                    </div>
-                </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('sales/brief/update');?>" method="post">
+                                <fieldset>
+                                    <div class="form-group"> 
+                                        <label class="col-md-6 col-md-offset-3 control-label" for="effective" style="text-align:center;">Short Brief</label>
 
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+
+                                        <div class="col-md-8 col-md-offset-2">
+                                          <?=$ds->content?>
+                                      </div>
+                                  </div>
+                                  <?php
+                                  if($this->session->userdata('group')==2)
+                                  {
+                                    ?>
+                                    <div class="form-group">
+                                        <div class="col-md-12 text-right">
+                                            <a href="<?=base_url()?>index.php/op/brief/edit"><button type="button" class="btn btn-responsive btn-primary btn-sm">Edit</button></a>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
             </div>
 
-        </section>
+        </div>
 
-    </aside>
+    </section>
 
-    <!-- right-side -->
+</aside>
+
+<!-- right-side -->
 
 </div>
 
@@ -110,17 +115,17 @@
 
 <!-- end of page level js -->
 <script type="text/javascript">
-        tinymce.init({
-            selector: "textarea",
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-        });
-        </script>
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    });
+</script>
 </body>
 
 </html>
-<?php } ?>
+
