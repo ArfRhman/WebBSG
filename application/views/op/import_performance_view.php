@@ -46,7 +46,7 @@
                     <table class="table">
                         <tr> <th style="font-size: 18px;"> Sea </th> </tr>
                         <tr> <td class="cal-bg"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" title="adasd"><?=$sea['overall']?></span></td> </tr>
+                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="adasd <br> asdasd"><?=$sea['overall']?> </span></td> </tr>
                     </table>
                    
                 </div>
