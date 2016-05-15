@@ -324,17 +324,17 @@ class model_data extends CI_Model {
 	}
 
 	function getCogsYear(){
-		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id")->result_array();
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel,tbl_op_pl_header where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND ((str_to_date(tbl_sale_so.po_date,'%d %M %Y')) between (str_to_date(tbl_op_pl_header.effective_from,'%d %M %Y')) AND (str_to_date(tbl_op_pl_header.effective_fill,'%d %M %Y'))) AND tbl_op_pl_header.no = tbl_op_pl_tabel.pl_no")->result_array();
 		return $query;
 	}
 
 	function getCogsQuarterly($p){
-		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		$query = $this->db->query("SELECT *,QUARTER(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel,tbl_op_pl_header where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND ((str_to_date(tbl_sale_so.po_date,'%d %M %Y')) between (str_to_date(tbl_op_pl_header.effective_from,'%d %M %Y')) AND (str_to_date(tbl_op_pl_header.effective_fill,'%d %M %Y'))) AND tbl_op_pl_header.no = tbl_op_pl_tabel.pl_no AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
 		return $query;
 	}
 
 	function getCogsMonthly($p){
-		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
+		$query = $this->db->query("SELECT *,MONTH(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) as periode from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel,tbl_op_pl_header where tbl_sale_so.id=tbl_sale_so_detail.id_so AND tbl_sale_so_detail.item = tbl_op_pl_tabel.item_id AND ((str_to_date(tbl_sale_so.po_date,'%d %M %Y')) between (str_to_date(tbl_op_pl_header.effective_from,'%d %M %Y')) AND (str_to_date(tbl_op_pl_header.effective_fill,'%d %M %Y'))) AND tbl_op_pl_header.no = tbl_op_pl_tabel.pl_no AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %M %Y')) = $p")->result_array();
 		return $query;
 	}
 
@@ -371,12 +371,12 @@ class model_data extends CI_Model {
 
 	//untuk dashboard customer
 	function getCustomerOperator($id){
-		$query = $this->db->query("SELECT operator,name,sum(qty) as y from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' group by operator order by y DESC")->result_array();
+		$query = $this->db->query("SELECT operator,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' group by operator")->result_array();
 		return $query;
 	}
 
 	function getCustomerCust(){
-		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty) as y from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id order by y DESC")->result_array();
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id")->result_array();
 		return $query;	
 	}
 
@@ -397,12 +397,12 @@ class model_data extends CI_Model {
 
 	//[Sales] untuk dashboard product
 	function getDsProduct(){
-		$query = $this->db->query("SELECT kategori,sum(qty) as y from tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id GROUP BY kategori order by y DESC")->result_array();
+		$query = $this->db->query("SELECT kategori,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id GROUP BY kategori")->result_array();
 		return $query;
 	}
 
 	function getProVsProfit($tahun){
-		$query = $this->db->query("SELECT *, SUM(tbl_sale_so_detail.qty) as jum,
+		$query = $this->db->query("SELECT *, sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost,
 			SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
 			from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
 			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 

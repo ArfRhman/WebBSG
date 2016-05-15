@@ -88,6 +88,7 @@ class Sales extends CI_Controller {
 				$opFo[$f['period']]['data'][$f['operator']]['name']=$f['name'];
 				$opFo[$f['period']]['data'][$f['operator']]['y']=intval($f['y']);
 				$opFo[$f['period']]['data'][$f['operator']]['drilldown']=$f['name'];
+				ksort($opFo[$f['period']]['data']);
 			}
 
 			foreach ($otherFo as $f) {
@@ -109,6 +110,7 @@ class Sales extends CI_Controller {
 				$opSo[$s['period']]['data'][$s['operator']]['name']=$s['name'];
 				$opSo[$s['period']]['data'][$s['operator']]['y']=intval($s['y']);
 				$opSo[$s['period']]['data'][$s['operator']]['drilldown']=$s['name'];
+				ksort($opSo[$s['period']]['data']);
 				$custo[$s['operator']]['name']=$s['name'];
 				$custo[$s['operator']]['type']='pie';
 				$custo[$s['operator']]['id']=$s['name'];
@@ -139,6 +141,7 @@ class Sales extends CI_Controller {
 			
 			$drillOne = array_merge(array_values($opFo),array_values($opSo));
 			$drillOne = array_merge($drillOne,array_values($custo));
+			
 			foreach($drillOne as $key=>$d){
 				$drillOne[$key]['data']=array_values($d['data']);
 			}
@@ -146,6 +149,7 @@ class Sales extends CI_Controller {
 			$data['Fo']=json_encode(array_values($dataFo));
 			$data['So']=json_encode(array_values($dataSo));
 			$data['drill_op']=json_encode(array_values($drillOne));
+
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_forecast_view', $data);
 			break;
@@ -366,8 +370,14 @@ class Sales extends CI_Controller {
 			$dataPro=array();
 			foreach($pro as $p){
 				$dataPro[$p['kategori']]['name']=$p['kategori'];
-				$dataPro[$p['kategori']]['y']=intval($p['y']);
+				$dataPro[$p['kategori']]['y']=floatval((($p['subtotal']-$p['total_discount']+$p['delivery_cost'])*10/100)+($p['subtotal']-$p['total_discount']+$p['delivery_cost']));
 			}
+			function sortByY($a, $b) {
+				return $b['y'] - $a['y'];
+			}
+
+			usort($dataPro, 'sortByY');
+
 			$slice = array_slice($dataPro, 0, 4);
 			$other = array_slice($dataPro, 5, count($dataPro));
 			$new = array(
@@ -388,14 +398,16 @@ class Sales extends CI_Controller {
 			$total=0;
 			$qty=0;
 			foreach($res as $r){
+				$jum=floatval((($r['subtotal']-$r['total_discount']+$r['delivery_cost'])*10/100)+($r['subtotal']-$r['total_discount']+$r['delivery_cost']));
 				$total+=$r['diff'];
-				$qty+=$r['jum'];
+				$qty+=$jum;
 			}
 			foreach($res as $r){
+				$jum=floatval((($r['subtotal']-$r['total_discount']+$r['delivery_cost'])*10/100)+($r['subtotal']-$r['total_discount']+$r['delivery_cost']));
 				$data[$r['item_id']]['name']=$r['item_name'];
 				$data[$r['item_id']]['data']=array();
 				$data[$r['item_id']]['data']['y']=intval($r['diff']);
-				$data[$r['item_id']]['data']['myData']=array(intval($r['jum']),intval($r['diff']),($r['jum']/$qty)*100,($r['diff']/$total)*100);
+				$data[$r['item_id']]['data']['myData']=array($jum,intval($r['diff']),number_format(($jum/$qty)*100,2),number_format(($r['diff']/$total)*100),2);
 			}
 			$slice = array_slice($data,0,8);
 			$other = array_slice($data,9,count($data));
@@ -479,8 +491,15 @@ class Sales extends CI_Controller {
 			$dataOp = array();
 			foreach($op as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
-				$dataOp[$o['operator']]['y']=intval($o['y']);
+				$dataOp[$o['operator']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
 			}
+
+			function sortByY($a, $b) {
+				return $b['y'] - $a['y'];
+			}
+
+			usort($dataOp, 'sortByY');
+
 			$data['op']=json_encode(array_values($dataOp));
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_customer_view', $data);
@@ -490,9 +509,13 @@ class Sales extends CI_Controller {
 			$op = $this->mddata->getCustomerOperator($this->uri->segment(4));
 			foreach($op as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
-				$dataOp[$o['operator']]['y']=intval($o['y']);
+				$dataOp[$o['operator']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
 			}
-			//$data['op']=json_encode(array_values($dataOp));
+			function sortByY($a, $b) {
+				return $b['y'] - $a['y'];
+			}
+
+			usort($dataOp, 'sortByY');
 			print(json_encode(array_values($dataOp)));
 			break;
 			case 'getCustomerCust':
@@ -500,7 +523,7 @@ class Sales extends CI_Controller {
 			$dataCust = array();
 			foreach($customer as $c){
 				$dataCust[$c['customer_id']]['name']=$c['name'];
-				$dataCust[$c['customer_id']]['y']=intval($c['y']);
+				$dataCust[$c['customer_id']]['y']=floatval((($c['subtotal']-$c['total_discount']+$c['delivery_cost'])*10/100)+($c['subtotal']-$c['total_discount']+$c['delivery_cost']));
 			}
 			$slice = array_slice($dataCust, 0, 8);
 			$other = array_slice($dataCust, 9, count($dataCust));
@@ -511,6 +534,12 @@ class Sales extends CI_Controller {
 			foreach($other as $ot){
 				$new['y']+=$ot['y'];
 			}
+			function sortByY($a, $b) {
+				return $b['y'] - $a['y'];
+			}
+
+			usort($dataCust, 'sortByY');
+
 			$slice[]=$new;
 			print(json_encode(array_values($slice)));
 			break;
