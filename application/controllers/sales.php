@@ -429,8 +429,14 @@ class Sales extends CI_Controller {
 			$dataOp = array();
 			foreach($amOp as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
-				$dataOp[$o['operator']]['y']=intval($o['y']);
+				$dataOp[$o['operator']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
 			}
+			function sortByY($a, $b) {
+				return $b['y'] - $a['y'];
+			}
+
+			usort($dataOp, 'sortByY');
+
 			$slice = array_slice($dataOp, 0, 4);
 			$other = array_slice($dataOp, 5, count($dataOp));
 			$new = array(
@@ -446,10 +452,15 @@ class Sales extends CI_Controller {
 			case 'getAmCust':
 			$customer=$this->mddata->getAmCust($this->uri->segment(4));
 			$dataCust = array();
-			foreach($customer as $c){
-				$dataCust[$c['customer_id']]['name']=$c['name'];
-				$dataCust[$c['customer_id']]['y']=intval($c['y']);
+			foreach($customer as $o){
+				$dataCust[$o['customer_id']]['name']=$o['name'];
+				$dataCust[$o['customer_id']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
 			}
+			function sortByY($a, $b) {
+				return $b['y'] - $a['y'];
+			}
+
+			usort($dataCust, 'sortByY');
 			$slice = array_slice($dataCust, 0, 8);
 			$other = array_slice($dataCust, 9, count($dataCust));
 			$new = array(
