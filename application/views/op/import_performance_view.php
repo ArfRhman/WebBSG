@@ -46,7 +46,7 @@
                     <table class="table">
                         <tr> <th style="font-size: 18px;"> Sea </th> </tr>
                         <tr> <td class="cal-bg"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="adasd <br> asdasd"><?=$sea['overall']?> </span></td> </tr>
+                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?=$sea['overall']?> <br> Production: <?=$sea['production']?><br> Shipping: <?=$sea['shipping']?><br>Clearance: <?=$sea['clearance']?>"><?=$sea['overall']?> </span></td> </tr>
                     </table>
                    
                 </div>
@@ -54,7 +54,7 @@
               <table class="table">
                         <tr> <th style="font-size: 18px;"> Air </th> </tr>
                         <tr> <td class="cal-bg"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><?=$air['overall']?></span></td> </tr>
+                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?=$air['overall']?> <br> Production: <?=$air['production']?><br> Shipping: <?=$air['shipping']?><br>Clearance: <?=$air['clearance']?>"><?=$air['overall']?></span></td> </tr>
                     </table>
              </div>
 
