@@ -57,7 +57,7 @@
                      ?>
                      <tr>
                        <td><?php echo $no;$no++; ?></td>
-                       <td><?php echo $c->item; ?></td>
+                       <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $c->id)->row()->code; ?></td>
                        <td><?php echo $c->item_name; ?></td>
                        <td><?php echo $c->brand; ?></td>
                        <td><?php echo $c->mou; ?></td>
@@ -102,11 +102,11 @@
            </tr>
            <tr>
                 <th class="text-right">Vat 10%</th>
-                <th class="text-left"><?php echo number_format($vat,4); ?></th>
+                <th class="text-left"><?php echo number_format($vat,2); ?></th>
            </tr>
            <tr>
                 <th class="text-right">Grand Total</th>
-                <th class="text-left"><?php echo number_format($gran,4); ?></th>
+                <th class="text-left"><?php echo number_format($gran,2); ?></th>
            </tr>
            </table>
        </tr>

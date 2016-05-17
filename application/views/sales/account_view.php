@@ -1,4 +1,4 @@
-    <aside class="right-side">
+<aside class="right-side">
        <!-- Main content -->
        <section class="content-header">
           <h1>Welcome to Dashboard</h1>
@@ -56,8 +56,11 @@
                      $thn = date('Y');
                      $no = 1;
                      $kalk = array();
+                     $kalk_s = array();
+                     $kalk_y = array();
                      foreach($bln as $b)
                      {
+                        $mnth = date('M', mktime(0, 0, 0, $no, 10)); 
                          ?>
                          <tr>
                              <td><?php echo $no?></td>
@@ -74,7 +77,7 @@
                                     tbl_sale_target
                                     WHERE
                                         operator = '.$a->id.'
-                                        AND SUBSTR(periode, 1, 3) = "'.substr($b, 0,3).'"
+                                        AND SUBSTR(periode, 1, 3) = "'.$mnth.'"
                                         AND SUBSTR(periode, 5, 4) = '.$thn
                                         )->row();
                                 $so = $this->db->query('SELECT
@@ -89,7 +92,7 @@
                                         tbl_sale_so
                                         WHERE
                                         am = '.$a->id.'
-                                        AND SUBSTR(so_date, 4, 3) = "'.substr($b, 0,3).'"
+                                        AND SUBSTR(so_date, 4, 3) = "'.$mnth.'"
                                         AND SUBSTR(so_date, 8, 4) = '.$thn.'
                                         )')->row();
                                 $inv = $this->db->query('SELECT
@@ -104,7 +107,7 @@
                                         tbl_sale_so
                                         WHERE
                                         am = '.$a->id.'
-                                        AND SUBSTR(so_date, 4, 3) = "'.substr($b, 0,3).'"
+                                        AND SUBSTR(so_date, 4, 3) = "'.$mnth.'"
                                         AND SUBSTR(so_date, 8, 4) = '.$thn.'
                                         )')->row();
                                         if($so->so_total!=0) $p_inv_so = 100*$inv->inv_total/$so->so_total;
@@ -116,18 +119,15 @@
                                             $p_so= 0;
                                             $p_inv_target=0;
                                         }
-                                        if(isset($kalk[$i]['so'])) {
-                                            $kalk[$i]['target']+=$target->total; 
-                                            $kalk[$i]['so']+=$so->so_total; 
-                                            $kalk[$i]['inv'] +=$inv->inv_total;
+                                        if(!(isset($kalk[$i]['so']))) {
+                                            $kalk[$i]['target'] = 0; 
+                                            $kalk[$i]['so'] = 0; 
+                                            $kalk[$i]['inv'] = 0;
                                             
                                         }
-                                        else {
-                                            $kalk[$i]['target']=0; 
-                                            $kalk[$i]['so']=0; 
-                                            $kalk[$i]['inv'] =0;
-                                        }
-                                         
+                                         $kalk[$i]['target']+=$target->total; 
+                                            $kalk[$i]['so']+=$so->so_total; 
+                                            $kalk[$i]['inv'] +=$inv->inv_total;
                                         ?>
                                         <td align="right"><?php echo number_format($target->total,0)?></td>
                                         <td align="right"><?php echo number_format($so->so_total,0)?></td>
@@ -153,6 +153,7 @@
                                         <td></td>
                                         <td><b>&nbsp;&nbsp;&nbsp;&nbsp;QUARTER  <?php echo $no/3?></b></td>
                                         <?php
+                                        $i = 0;
                                         foreach ($kalk as $k) {
                                         ?>
                                         <?php if($no/3 <= ceil(date('n')/3)) {?>
@@ -162,14 +163,26 @@
                                         <td align="right"><?php echo number_format($k['inv'],0)?></td>
                                         <td align="right"><?php if($k['so']!=0) echo number_format(100*$k['inv']/$k['so'],1,'.','')."%"; else echo "0.0%"?></td>
                                         <td align="right"><?php if($k['target']!=0) echo number_format(100*$k['inv']/$k['target'],1,'.','')."%"; else echo "0.0%";?></td>
-                                        <?php }else{ ?>
+                                        <?php 
+                                         if(!(isset($kalk_s[$i]['so']))) {
+                                            $kalk_s[$i]['target'] = 0; 
+                                            $kalk_s[$i]['so'] = 0; 
+                                            $kalk_s[$i]['inv'] = 0;
+                                            
+                                        }
+                                        $kalk_s[$i]['target'] += $k['target'];
+                                        $kalk_s[$i]['so'] += $k['so'];
+                                        $kalk_s[$i]['inv'] += $k['inv'];
+                                        }else{ ?>
                                         <td></td><td></td><td></td><td></td><td></td><td></td>
                                            <?php } ?>
                                         <?php
+                                        $i++;
                                         }
                                         ?>
                                     </tr>
                                     <?php
+                                    $kalk = array();
                                 }
                                 if($no  %6 == 0){
                                     ?>
@@ -177,7 +190,8 @@
                                         <td></td>
                                         <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER <?php echo $no/6?></b></td>
                                         <?php
-                                        foreach ($kalk as $k) {
+                                        $i = 0;
+                                        foreach ($kalk_s as $k) {
                                         ?>
                                         <?php if($no/6 <= ceil(date('n')/6)) {?>
                                        <td align="right"><?php echo number_format($k['target'],0)?></td>
@@ -186,10 +200,21 @@
                                         <td align="right"><?php echo number_format($k['inv'],0)?></td>
                                         <td align="right"><?php if($k['so']!=0) echo number_format(100*$k['inv']/$k['so'],1,'.','')."%"; else echo "0.0%"?></td>
                                         <td align="right"><?php if($k['target']!=0) echo number_format(100*$k['inv']/$k['target'],1,'.','')."%"; else echo "0.0%";?></td>
-                                        <?php }else{ ?>
+                                        <?php 
+                                        if(!(isset($kalk_y[$i]['so']))) {
+                                            $kalk_y[$i]['target'] = 0; 
+                                            $kalk_y[$i]['so'] = 0; 
+                                            $kalk_y[$i]['inv'] = 0;
+                                            
+                                        }
+                                        $kalk_y[$i]['target'] += $k['target'];
+                                        $kalk_y[$i]['so'] += $k['so'];
+                                        $kalk_y[$i]['inv'] += $k['inv'];
+                                        }else{ ?>
                                         <td></td><td></td><td></td><td></td><td></td><td></td>
                                            <?php } ?>
                                         <?php
+                                        $i++;
                                         }
                                         ?>
                                     </tr>
@@ -205,18 +230,16 @@
                                 <td></td>
                                 <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</b></td>
                                 <?php
-                                        foreach ($kalk as $k) {
+                                        foreach ($kalk_y as $k) {
                                         ?>
-                                        <?php if($no/12 <= ceil(date('n')/12)) {?>
+                                        
                                         <td align="right"><?php echo number_format($k['target'],0)?></td>
                                         <td align="right"><?php echo number_format($k['so'],0) ?></td>
                                         <td align="right"><?php if($k['target']!=0) echo number_format(100*$k['so']/$k['target'],1,'.','')."%"; else echo "0.0%";?></td>
                                         <td align="right"><?php echo number_format($k['inv'],0)?></td>
                                         <td align="right"><?php if($k['so']!=0) echo number_format(100*$k['inv']/$k['so'],1,'.','')."%"; else echo "0.0%"?></td>
                                         <td align="right"><?php if($k['target']!=0) echo number_format(100*$k['inv']/$k['target'],1,'.','')."%"; else echo "0.0%";?></td>
-                                        <?php }else{ ?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td>
-                                           <?php } ?>
+                                       
                                         <?php
                                         }
                                         ?>

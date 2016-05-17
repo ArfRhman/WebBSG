@@ -2506,7 +2506,7 @@ function forecast()
 		break;	
 		case 'getCustomer':
 		$id = $_POST['id'];
-		$data = $this->mddata->getDataFromTblWhere('tbl_sale_target', 'operator', $id)->result();
+		$data = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$id.' GROUP BY customer')->result();
 		foreach ($data as $d) {
 			$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $d->customer)->row();
 			echo "<option value=".$cust->id.">".$cust->name."</option>";
@@ -2538,7 +2538,7 @@ function forecast()
 		echo json_encode($data);
 		break;	
 		case'getDataForecast':
-		$in = $this->mddata->getDataFromTblWhere('tbl_sale_target','operator',$_POST['id']);
+		$in = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$_POST['id'].' GROUP BY customer');
 		$no = 1;
 		if(count($in)>0){
 			foreach($in->result() as $c)
@@ -2546,7 +2546,7 @@ function forecast()
 				$am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
 				$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
 				$opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
-				$so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$c->customer,'operator'=>$c->operator))->row();
+				$so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$cust->customer_id,'operator'=>$c->operator))->row();
 				$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
 
 				?>
@@ -2571,6 +2571,7 @@ function forecast()
 		break;	
 	}
 }
+
 function period()
 {
 	$data['ac'] = "s_period";
@@ -2728,11 +2729,8 @@ function loss()
 				WHERE
 				dt.id_so = so.id
 				)
-		<<<<<<< 7e99e78e14d952afc8195cd8a85a2f9f749d5175
-		) AS total_purchase
-		=======
+		
 		) AS total_purchase, so.adjustment
-		>>>>>>> 3ad40c454d4089378082ed8fa9401272cd5e727a
 		FROM
 		tbl_sale_so so
 		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so

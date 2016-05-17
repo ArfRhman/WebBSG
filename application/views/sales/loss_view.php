@@ -1,4 +1,4 @@
-    <aside class="right-side">
+<aside class="right-side">
        <!-- Main content -->
        <section class="content-header">
           <h1>Welcome to Dashboard</h1>
@@ -40,22 +40,23 @@
                      $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
                      $thn = date('Y');
                      $no = 1;
-                     $total_so = 0;
-                     $total_inv = 0;
-                     $total_target = 0;
-                     $total_cogs = 0;
-                     $total_gross = 0;
-                     $total_direct = 0;
-                     $total_adjustment = 0;
-                     $total_enp = 0;
+                     $total_so = 0; $total_so_s = 0; $total_so_y = 0;
+                     $total_inv = 0; $total_inv_s = 0;  $total_inv_y = 0;
+                     $total_target = 0; $total_target_s = 0; $total_target_y = 0;
+                     $total_cogs = 0; $total_cogs_s = 0; $total_cogs_y = 0;
+                     $total_gross = 0; $total_gross_s = 0;  $total_gross_y = 0;
+                     $total_direct = 0; $total_direct_s = 0; $total_direct_y = 0;
+                     $total_adjustment = 0; $total_adjustment_s = 0; $total_adjustment_y = 0;
+                     $total_enp = 0; $total_enp_s = 0; $total_enp_y = 0;
 
 
                      foreach($bln as $b)
                      {
-                        $target = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_target WHERE SUBSTR(periode,1,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(periode,5,4)=".$thn)->row();
+                        $mnth = date('M', mktime(0, 0, 0, $no, 10)); 
+                        $target = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_target WHERE SUBSTR(periode,1,3) = '".$mnth."' AND SUBSTR(periode,5,4)=".$thn)->row();
                         $so = $this->db->query("SELECT SUM(grand_total) as total, SUM(qty) AS qty FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
-                        $sale = $this->db->query("SELECT SUM(adjustment) as adjustment FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn)->row();
-                        $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                        $sale = $this->db->query("SELECT SUM(adjustment) as adjustment FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn)->row();
+                        $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $cogs = $this->db->query("SELECT
                             SUM(DDP_IDR) as ddp
                             FROM
@@ -73,7 +74,7 @@
                                     FROM
                                     tbl_sale_so
                                     WHERE
-                                    SUBSTR(so_date, 4, 3) = 'Mar''".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn."
+                                    SUBSTR(so_date, 4, 3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn."
                                     )
                         )")->row();
                         $direct = $this->db->query("SELECT
@@ -92,7 +93,7 @@
                                 FROM
                                 tbl_sale_so
                                 WHERE
-                                '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn."
+                                '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn."
                                 )")->row();
                         $dir_cost = $direct->sales + $direct->extcom + $direct->bank +$direct->transport + $direct->adm +$direct->other;    
                         $ddp = $cogs->ddp*$so->qty;
@@ -105,27 +106,29 @@
                             <td align="right"><?php echo number_format($target->total,0)?></td>
                             <td align="right"><?php echo number_format($so->total,0)?></td>
                             <td align="right"><?php echo number_format($inv->total,0)?></td>
-                            <td><?php echo number_format($ddp,0)?></td>
-                            <td><?php echo number_format($gross,0)?></td>
-                            <td><?php echo number_format($dir_cost,0)?></td>
-                            <td><?php echo number_format($sale->adjustment,0)?></td>
-                            <td><?php $enp = $gross - $dir_cost + $sale->adjustment;
+                            <td align="right"><?php echo number_format($ddp,0)?></td>
+                            <td align="right"><?php echo number_format($gross,0)?></td>
+                            <td align="right"><?php echo number_format($dir_cost,0)?></td>
+                            <td align="right"><?php echo number_format($sale->adjustment,0)?></td>
+                            <td align="right"><?php $enp = $gross - $dir_cost + $sale->adjustment;
                                 echo number_format($enp,0);
                                 ?></td>
                                 <td><?php echo $inv->total!=0?number_format($enp/$inv->total,2,'.',''):'0'?>%</td>
-                                <?php }else{ ?>
+                                <?php
+                                $total_so +=$so->total;
+                                $total_inv +=$inv->total;
+                                $total_target +=$target->total;
+                                $total_cogs +=$ddp;
+                                $total_gross +=$gross;
+                                $total_direct +=$dir_cost;
+                                $total_adjustment +=$sale->adjustment;
+                                $total_enp +=$enp;
+                                }else{ ?>
                                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                 <?php } ?>
                             </tr>
                             <?php
-                            $total_so +=$so->total;
-                            $total_inv +=$inv->total;
-                            $total_target +=$target->total;
-                            $total_cogs +=$ddp;
-                            $total_gross +=$gross;
-                            $total_direct +=$dir_cost;
-                            $total_adjustment +=$sale->adjustment;
-                            $total_enp +=$enp;
+                            
                             if($no  %3 == 0){
                                 ?>
                                 <tr style="font-weight:bold">
@@ -141,9 +144,20 @@
                                     <td align="right"><?php echo number_format($total_adjustment,0)?></td>
                                     <td align="right"><?php echo number_format($total_enp,0)?></td>
                                     <td><?php echo $inv->total!=0?number_format($total_enp/$total_inv,2,'.',''):'0'?>%</td>
-                                    <?php }else{ ?>
+                                    <?php 
+                                    $total_so_s += $total_so; $total_so = 0;
+                                    $total_inv_s += $total_inv; $total_inv = 0; 
+                                    $total_target_s += $total_target; $total_target = 0;
+                                    $total_cogs_s += $total_cogs; $total_cogs = 0; 
+                                    $total_gross_s += $total_gross; $total_gross = 0; 
+                                    $total_direct_s += $total_direct; $total_direct = 0;
+                                    $total_adjustment_s += $total_adjustment; $total_adjustment = 0; 
+                                    $total_enp_s += $total_enp; $total_enp = 0;
+                                    }else{ ?>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                                    <?php } ?>
+                                    <?php 
+                                    
+                                    } ?>
                                 </tr>
                                 <?php
                             }
@@ -153,16 +167,25 @@
                                     <td></td>
                                     <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER <?php echo $no/6?></b></td>
                                     <?php if($no/6 <= ceil(date('n')/6)) {?>
-                                    <td align="right"><?php echo number_format($total_target,0)?></td>
-                                    <td align="right"><?php echo number_format($total_so,0)?></td>
-                                    <td align="right"><?php echo number_format($total_inv,0)?></td>
-                                    <td align="right"><?php echo number_format($total_cogs,0)?></td>
-                                    <td align="right"><?php echo number_format($total_gross,0)?></td>
-                                    <td align="right"><?php echo number_format($total_direct,0)?></td>
-                                    <td align="right"><?php echo number_format($total_adjustment,0)?></td>
-                                    <td align="right"><?php echo number_format($total_enp,0)?></td>
-                                    <td><?php echo $inv->total!=0?number_format($total_enp/$total_inv,2,'.',''):'0'?>%</td>
-                                    <?php }else{ ?>
+                                    <td align="right"><?php echo number_format($total_target_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_so_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_inv_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_cogs_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_gross_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_direct_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_adjustment_s,0)?></td>
+                                    <td align="right"><?php echo number_format($total_enp_s,0)?></td>
+                                    <td><?php echo $inv->total!=0?number_format($total_enp_s/$total_inv_s,2,'.',''):'0'?>%</td>
+                                    <?php 
+                                    $total_so_y += $total_so_s; $total_so_s = 0;
+                                    $total_inv_y += $total_inv_s; $total_inv_s = 0; 
+                                    $total_target_y += $total_target_s; $total_target_s = 0;
+                                    $total_cogs_y += $total_cogs_s; $total_cogs_s = 0; 
+                                    $total_gross_y += $total_gross_s; $total_gross_s = 0; 
+                                    $total_direct_y += $total_direct_s; $total_direct_s = 0;
+                                    $total_adjustment_y += $total_adjustment_s; $total_adjustment_s = 0; 
+                                    $total_enp_y += $total_enp_s; $total_enp_s = 0;
+                                    }else{ ?>
                                     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                                     <?php } ?>
 
@@ -175,19 +198,17 @@
                         <tr>
                             <td></td>
                             <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</b></td>
-                            <?php if($no/12 <= ceil(date('n')/12)) {?>
-                            <td align="right"><?php echo number_format($total_target,0)?></td>
-                            <td align="right"><?php echo number_format($total_so,0)?></td>
-                            <td align="right"><?php echo number_format($total_inv,0)?></td>
-                            <td align="right"><?php echo number_format($total_cogs,0)?></td>
-                            <td align="right"><?php echo number_format($total_gross,0)?></td>
-                            <td align="right"><?php echo number_format($total_direct,0)?></td>
-                            <td align="right"><?php echo number_format($total_adjustment,0)?></td>
-                            <td align="right"><?php echo number_format($total_enp,0)?></td>
-                            <td><?php echo $inv->total!=0?number_format($total_enp/$total_inv,2,'.',''):'0'?>%</td>
-                            <?php }else{ ?>
-                            <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            <?php } ?>
+                            
+                            <td align="right"><?php echo number_format($total_target_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_so_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_inv_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_cogs_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_gross_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_direct_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_adjustment_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_enp_y,0)?></td>
+                            <td><?php echo $inv->total!=0?number_format($total_enp_y/$total_inv_y,2,'.',''):'0'?>%</td>
+                            
                         </tr>
 
                     </tbody>

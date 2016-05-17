@@ -1,4 +1,4 @@
-	<aside class="right-side">
+<aside class="right-side">
      <!-- Main content -->
      <section class="content-header">
       <h1>Welcome to Dashboard</h1>
@@ -38,10 +38,15 @@
                    $total_so = 0;
                    $total_inv = 0;
                    $total_target = 0;
-                   
+                   $total_so_s = 0;
+                   $total_inv_s = 0;
+                   $total_target_s = 0; 
+                   $total_so_y = 0;
+                   $total_inv_y = 0;
+                   $total_target_y = 0;                   
                    foreach($bln as $b)
                    {
-
+                    $mnth = date('M', mktime(0, 0, 0, $no, 10)); 
                     $so = $this->db->query('SELECT SUM(grand_total) as total from tbl_sale_so_detail WHERE id_so IN (SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3)="'.SUBSTR($b,0,3).'" AND SUBSTR(so_date,8,4)='.$thn.')')->row();
                     $target = $this->db->query('SELECT SUM(amount) as total from tbl_sale_target WHERE SUBSTR(periode,1,3)="'.SUBSTR($b,0,3).'" AND SUBSTR(periode,5,4)='.$thn)->row();
                     $inv = $this->db->query('SELECT
@@ -55,7 +60,7 @@
                                                 FROM
                                                 tbl_sale_so
                                                 WHERE
-                                                SUBSTR(so_date, 4, 3) = "'.SUBSTR($b,0,3).'" AND SUBSTR(so_date,8,4)='.$thn.'
+                                                SUBSTR(so_date, 4, 3) = "'.$mnth.'" AND SUBSTR(so_date,8,4)='.$thn.'
                                                 )')->row();
                             if($so->total!=0){
                                 $pers_inv = 100*$inv->total/$so->total;
@@ -77,20 +82,19 @@
                                 <?php if($no <= date('n')) {?>
                                 <td align="right"><?php echo number_format($target->total, 0)?></td>
                                 <td align="right"><?php echo number_format($so->total, 0)?></td>
-                                <td align="center"><?php  echo number_format($pers_so,1,'.','')."%"?></td>
+                                <td align="center"><?php  echo number_format($pers_so,2,'.','')."%"?></td>
                                 <td align="right"><?php echo number_format($inv->total,0)?></td>
-                                <td align="center"><?php  echo number_format($pers_inv,1,'.','')."%"?></td>
-                                <td align="center"><?php  echo number_format($pers_inv_t,1,'.','')."%"?></td>
-                                <?php }else{ ?>
+                                <td align="center"><?php  echo number_format($pers_inv,2,'.','')."%"?></td>
+                                <td align="center"><?php  echo number_format($pers_inv_t,2,'.','')."%"?></td>
+                                <?php 
+                                $total_so +=$so->total;
+                            $total_inv +=$inv->total;
+                            $total_target +=$target->total;
+                                }else{ ?>
                             <td></td><td></td><td></td><td></td><td></td><td></td>
                                <?php } ?>
                             </tr>
-                            <?php
-                            $total_so +=$so->total;
-                            $total_inv +=$inv->total;
-                            $total_target +=$target->total;
-
-                            
+                            <?php                            
                             if($no  %3 == 0){
                                 if($total_so!=0){
                                 $t_pers_inv = 100*$total_inv/$total_so;
@@ -98,7 +102,7 @@
                                     $t_pers_inv = 0;
                                 }
                                 if($total_target!=0){
-                                    $t_pers_so= 100*$total_so/$total_target;
+                                    $t_pers_so = 100*$total_so/$total_target;
                                     $t_pers_inv_t= 100*$total_inv/$total_target;
                                 }else{
                                     $t_pers_so = 0;
@@ -111,11 +115,18 @@
                             <?php if($no/3 <= ceil(date('n')/3)) {?>
                             <td align="right"><?php echo number_format($total_target,0)?></td>
                             <td align="right"><?php echo number_format($total_so,0)?></td>
-                            <td align="center"><?php  echo number_format($t_pers_so,1,'.','')."%"?></td>
+                            <td align="center"><?php  echo number_format($t_pers_so,2,'.','')."%"?></td>
                             <td align="right"><?php echo number_format($total_inv,0)?></td>
-                            <td align="center"><?php  echo number_format($t_pers_inv,1,'.','')."%"?></td>
-                            <td align="center"><?php  echo number_format($t_pers_inv_t,1,'.','')."%"?></td>
-                            <?php }else{ ?>
+                            <td align="center"><?php  echo number_format($t_pers_inv,2,'.','')."%"?></td>
+                            <td align="center"><?php  echo number_format($t_pers_inv_t,2,'.','')."%"?></td>
+                            <?php 
+                            $total_so_s +=  $total_so;
+                            $total_inv_s += $total_inv;
+                            $total_target_s += $total_target;
+                            $total_so = 0;
+                            $total_inv = 0;
+                            $total_target = 0;
+                            }else{ ?>
                             <td></td><td></td><td></td><td></td><td></td><td></td>
                                <?php } ?>
 
@@ -124,18 +135,37 @@
 
                             }
                             if($no % 6 ==0){
+                                if($total_so_s!=0){
+                                $t_pers_inv = 100*$total_inv_s/$total_so_s;
+                                }else{
+                                    $t_pers_inv = 0;
+                                }
+                                if($total_target_s!=0){
+                                    $t_pers_so = 100*$total_so_s/$total_target_s;
+                                    $t_pers_inv_t= 100*$total_inv_s/$total_target_s;
+                                }else{
+                                    $t_pers_so = 0;
+                                    $t_pers_inv_t = 0;
+                                }
                                 ?>
                         <tr style="font-weight:bold">
                             <td></td>
                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER <?php echo $no/6?></td>
                             <?php if($no/6 <= ceil(date('n')/6)) {?>
-                            <td align="right"><?php echo number_format($total_target,0)?></td>
-                            <td align="right"><?php echo number_format($total_so,0)?></td>
-                            <td align="center"><?php  echo number_format($t_pers_so,1,'.','')."%"?></td>
-                            <td align="right"><?php echo number_format($total_inv,0)?></td>
-                            <td align="center"><?php  echo number_format($t_pers_inv,1,'.','')."%"?></td>
-                            <td align="center"><?php  echo number_format($t_pers_inv_t,1,'.','')."%"?></td>
-                            <?php }else{ ?>
+                            <td align="right"><?php echo number_format($total_target_s,0)?></td>
+                            <td align="right"><?php echo number_format($total_so_s,0)?></td>
+                            <td align="center"><?php  echo number_format($t_pers_so,2,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_inv_s,0)?></td>
+                            <td align="center"><?php  echo number_format($t_pers_inv,2,'.','')."%"?></td>
+                            <td align="center"><?php  echo number_format($t_pers_inv_t,2,'.','')."%"?></td>
+                            <?php 
+                            $total_so_y +=  $total_so_s;
+                            $total_inv_y += $total_inv_s;
+                            $total_target_y += $total_target_s;
+                            $total_so_s = 0;
+                            $total_inv_s = 0;
+                            $total_target_s = 0;
+                            }else{ ?>
                             <td></td><td></td><td></td><td></td><td></td><td></td>
                                <?php } ?>
 
@@ -148,16 +178,27 @@
                         <tr style="font-weight:bold">
                             <td></td>
                             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</td>
-                           <?php if($no/12 <= ceil(date('n')/12)) {?>
-                            <td align="right"><?php echo number_format($total_target,0)?></td>
-                            <td align="right"><?php echo number_format($total_so,0)?></td>
-                            <td align="center"><?php  echo number_format($t_pers_so,1,'.','')."%"?></td>
-                            <td align="right"><?php echo number_format($total_inv,0)?></td>
-                            <td align="center"><?php  echo number_format($t_pers_inv,1,'.','')."%"?></td>
-                            <td align="center"><?php  echo number_format($t_pers_inv_t,1,'.','')."%"?></td>
-                            <?php }else{ ?>
-                            <td></td><td></td><td></td><td></td><td></td><td></td>
-                               <?php } ?>
+                           <?php 
+                             if($total_so_y!=0){
+                                $t_pers_inv = 100*$total_inv_y/$total_so_y;
+                                }else{
+                                    $t_pers_inv = 0;
+                                }
+                                if($total_target_y!=0){
+                                    $t_pers_so = 100*$total_so_y/$total_target_y;
+                                    $t_pers_inv_t= 100*$total_inv_y/$total_target_y;
+                                }else{
+                                    $t_pers_so = 0;
+                                    $t_pers_inv_t = 0;
+                                }
+                            ?>
+                            <td align="right"><?php echo number_format($total_target_y,0)?></td>
+                            <td align="right"><?php echo number_format($total_so_y,0)?></td>
+                            <td align="center"><?php  echo number_format($t_pers_so,2,'.','')."%"?></td>
+                            <td align="right"><?php echo number_format($total_inv_y,0)?></td>
+                            <td align="center"><?php  echo number_format($t_pers_inv,2,'.','')."%"?></td>
+                            <td align="center"><?php  echo number_format($t_pers_inv_t,2,'.','')."%"?></td>
+                            
                         </tr>
 
                     </tbody>
@@ -191,8 +232,8 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>     <script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+<!-- end of page level js -->       <script>        $(document).ready(function(){           $('.delete').on('click',function(){             var btn = $(this);              bootbox.confirm('Are you sure to delete this record?', function(result){                    if(result ==true){                      window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');                   }               });         });     }); </script>
 </body>
 </html>

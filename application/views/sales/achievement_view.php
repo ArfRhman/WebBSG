@@ -1,4 +1,4 @@
-	<aside class="right-side">
+<aside class="right-side">
      <!-- Main content -->
      <section class="content-header">
       <h1>Welcome to Dashboard</h1>
@@ -48,10 +48,11 @@
                    $total_payment = 0;
                    foreach($bln as $b)
                    {
-                     $target = $this->db->query('SELECT SUM(amount) as total from tbl_sale_target WHERE SUBSTR(periode,1,3)="'.SUBSTR($b,0,3).'" AND SUBSTR(periode,5,4)='.$thn)->row();
-                     $payment = $this->db->query('SELECT SUM(amount) as total from tbl_sale_so_payment WHERE SUBSTR(payment_date,4,3)="'.SUBSTR($b,0,3).'" AND SUBSTR(payment_date,8,4)='.$thn)->row();
-                     $so = $this->db->query("SELECT SUM(grand_total) as total FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
-                     $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                    $mnth = date('M', mktime(0, 0, 0, $no, 10)); 
+                     $target = $this->db->query('SELECT SUM(amount) as total from tbl_sale_target WHERE SUBSTR(periode,1,3)="'.$mnth.'" AND SUBSTR(periode,5,4)='.$thn)->row();
+                     $payment = $this->db->query('SELECT SUM(amount) as total from tbl_sale_so_payment WHERE SUBSTR(payment_date,4,3)="'.$mnth.'" AND SUBSTR(payment_date,8,4)='.$thn)->row();
+                     $so = $this->db->query("SELECT SUM(grand_total) as total FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                     $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                      $d = $this->db->query("SELECT
                         other_status,
                         inv.amount,
@@ -61,7 +62,7 @@
                         LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
                         LEFT JOIN tbl_sale_so_payment p ON p.id_so = so.id
                         WHERE
-                        SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".date('Y'))->result();
+                        SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".date('Y'))->result();
                      $total_penalty = 0;
                      $total_net_claim = 0;
                      foreach ($d as $c) {
@@ -86,7 +87,7 @@
                         FROM
                         tbl_sale_so_cost 
                         JOIN tbl_sale_so ON tbl_sale_so_cost.id_so = tbl_sale_so.id
-                        WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                        WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                     $pc = $this->db->query("
                         SELECT
                         SUM(DDP_IDR) as total_purchase
@@ -99,7 +100,7 @@
                             FROM
                             tbl_sale_so_detail dt
                             WHERE
-                            dt.id_so IN (SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".SUBSTR($b,0,3)."' AND SUBSTR(so_date,8,4)=".$thn.")
+                            dt.id_so IN (SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")
                             )
                     ")->row();
                     $gross = $so->total - $pc->total_purchase;
@@ -193,8 +194,8 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>     <script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+<!-- end of page level js -->       <script>        $(document).ready(function(){           $('.delete').on('click',function(){             var btn = $(this);              bootbox.confirm('Are you sure to delete this record?', function(result){                    if(result ==true){                      window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');                   }               });         });     }); </script>
 </body>
 </html>

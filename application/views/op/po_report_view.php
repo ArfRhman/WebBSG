@@ -1,117 +1,108 @@
-	<aside class="right-side">
-   <!-- Main content -->
-   <section class="content-header">
-    <h1>Welcome to Dashboard</h1>
-  </section>
-  <section class="content">
-    <div class="row">
-      <div class="col-lg-12">
-        <?php
-        // if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
-        // {
-          ?>						
-          	<!-- <a href="<?php echo site_url('op/po/report_add')?>" class="btn btn-success">Add New Data</a> -->
-          <?php
-        // }
-        ?>
-        <div class="panel panel-primary filterable">
-          <div class="panel-heading clearfix  ">
-            <div class="panel-title pull-left">
-             <div class="caption">
-              <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Default Report
-            </div>
-          </div>
-        </div>
-        <div class="panel-body">
-          <table class="table table-striped table-responsive" id="table1">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>PO No</th>
-                <th>PO Date</th>
-                <th>Pureq No</th>
-                <th>Invoice No</th>
-                <th>Supplier</th>
-                <th>Forwarder</th>
-                <th>Moda</th>
-                <th>Currency</th>
-                <th>Amount</th>
-                <th>GR No</th>
-                <th>GR Date</th>
-                <th>Payment Type</th>
-                <th>Payment Date</th>                        
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-             <?php
-             $no = 1;
-             foreach($in->result() as $c)
-             {
-               ?>
-               <tr>
-                <td><?=$no;$no++;?></td>
-                <td><?=$c->po_no?></td>
-                <td><?=$c->po_date?></td>
-                <td><?=$c->pureq_no?></td>
-                <td><?=$c->invoice_no?></td>
-                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></td>
-                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name; ?></td>
-                <td><?=$c->moda?></td>
-                <td><?=$c->currency?></td>
-                <td><?=$c->amount?></td>
-                <td><?=$c->gr_no?></td>
-                <td><?=$c->gr_date?></td>
-                <td><?=$c->payment_type?></td>
-                <td><?=$c->payment_date?></td>
+<html>
+<head>
+<title>Analisa Profit</title>
+  <style type="text/css">
+    table {
+      border-collapse: collapse;
+    }
 
-                <td>                                                                                                       
-                  <div class='btn-group'>
-                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
-                    <ul class='dropdown-menu pull-right' role='menu'>
-                      <li><a href='<?php echo site_url('op/po/report_edit/'.$c->no)?>' >Edit</a></li>
-                      <li><a href='<?php echo site_url('op/po/report_delete/'.$c->no)?>' class="delete">Delete</a></li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-</aside>
-<!-- right-side -->
-</div>
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
-  <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
-</a>
-<!-- global js -->
-<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-<!--livicons-->
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-<!-- end of global js -->
-<!-- begining of page level js -->
-<!-- Back to Top-->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-<!--   maps -->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
-</body>
-</html>
+    #tbl{
+      border: none;
+    }
+
+    .header th {
+    text-align: left;
+}
+.header td {
+    text-align: left;
+}
+  </style>
+</head>
+<body>
+  <center><h3>Analisa Profit</h3></center>
+  <table width="50%" class="table header">
+    <tr>
+      <th width="3%">Customer</th>
+      <td width="*"> : 
+       2
+     </td>
+     </tr>
+     <tr>
+     <th width="3%">SO NO</th>
+     <td width="15%">: 3</td>
+     <th width="3%">SO Date</th>
+     <td width="15%">: 3</td>
+   </tr>
+ </table>
+ <br />
+ <table width="100%" border="1">
+  <tr>
+    <td>Budget Code</td>
+    <td>Main Budget</td>
+    <td>Vendor</td>
+    <td>Currency Type</td>
+    <td>Amount</td>
+    <td>Description</td>
+    <td>Invoice No</td>
+    <td>Remark</td>
+  </tr>
+  <tr>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+    <td>21</td>
+  </tr>
+  <?php
+    // $no = 0;
+    // foreach($tabel as $c)
+    // {
+  ?>
+     <!--  <tr>
+        <td><?php echo $c->budget_code; ?> -</td>
+        <td><?php echo $c->main_budget; ?> -</td>
+        <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'forwarder_id', $c->vendor)->row()->name; ?></td>
+        <td><?php echo $c->currency_type; ?></td>
+        <td align="right"><?php echo number_format($c->amount,"2",".",","); $total += $c->amount; ?></td>
+        <td><?php echo $c->description; ?></td>
+        <td><?php echo $c->invoice_no; ?></td>
+        <td><?php echo $c->remark; ?></td>
+      </tr>  -->
+      <?php
+    // }
+      ?>
+      <tr>
+        <td colspan="4"><b>Subtotal</b></td>
+        <td align="right"><b>337</b></td>
+        <td colspan="3"></td>
+      </tr>
+    </table>
+    <p>Kerangan<br />
+      * Nilai tersebut diatas belum termasuk Bank Charge<br />
+      * Apabila pembayaran akan dilaksanakan dalam IDR atau menggunakan system tertentu (giro/tunai/cek), agar menghubungi accounting principal/forwarder tsb<br />
+      Mohon agar pembayaran tersebut dapat dilaksanakan pada tanggal <b><?php //echo $memo->row()->tempo; ?> - </b> secara <b><?php //cho $memo->row()->pembayaran; ?> - </b><br />
+      Demikian kami sampaikan. Atas perhatiannya, kami ucapkan terima kasih.</p>
+      <p>Hormat kami,</p>
+      <br /><br>
+      <table id="tbl" width="100%">
+        <tr>
+          <td>
+            <p>
+              <b><?php //echo $memo->row()->diajukan; ?> _______</b>
+              
+            </p>
+          </td>
+
+          <td>
+            <p>
+              <b><u><?php //echo $memo->row()->diajukan; ?> ________ </u></b>
+              <br/>GM Operational
+            </p>
+          </td>
+        </tr>
+
+      </table>
+
+    </body>
+    </html>
