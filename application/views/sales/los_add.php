@@ -174,7 +174,7 @@
                 data: "id=" + $(".signer_name").val(),
                 success: function(data){
                  var obj = JSON.parse(data);
-                 $('.signer_title').val(obj.position);
+                 $('.signer_title').val(obj.pos);
              }
          }); 
           }

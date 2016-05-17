@@ -1139,7 +1139,7 @@ function personnel()
 		break;
 		case 'get_field':
 		$id = $_POST['id'];
-		$data = $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $id)->row();
+		$data = $this->mddata->getPositionPersonel($id)->row();
 		$json = json_encode($data);
 		echo $json;
 		break;

@@ -757,7 +757,8 @@ class Op extends CI_Controller {
 				'overall'=>0,
 				'shipping'=>0,
 				'clearance'=>0,
-				'production'=>0
+				'production'=>0,
+				'jum'=>0
 				);
 			$tempSea=$tempAir;
 			foreach($air as $a){
@@ -765,6 +766,7 @@ class Op extends CI_Controller {
 				$tempAir['shipping']+=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
 				$tempAir['clearance']+=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
 				$tempAir['production']+=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
+				$tempAir['jum']+=1;
 			}
 			
 			foreach($sea as $a){
@@ -772,6 +774,13 @@ class Op extends CI_Controller {
 				$tempSea['shipping']+=(strtotime($a['atf_vessel_arrival'])-strtotime($a['atf_vessel_depart']))/(60*60*24);
 				$tempSea['clearance']+=(strtotime($a['atf_clearance'])-strtotime($a['atf_vessel_arrival']))/(60*60*24);
 				$tempSea['production']+=(strtotime($a['atf_production'])-strtotime($a['po_date']))/(60*60*24);
+				$tempSea['jum']+=1;
+			}
+			if($tempAir['jum']==0){
+				$tempAir['jum'];
+			}
+			if($tempSea['jum']==0){
+				$tempSea['jum'];
 			}
 			
 			$data['sea']=$tempSea;

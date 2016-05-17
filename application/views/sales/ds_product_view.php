@@ -24,7 +24,7 @@
               </select>
             </div>
             <div class="col-md-2">
-              <select class="form-control" id="tahun" style="display:none;">
+              <select class="form-control" id="tahun">
                 <option>-- Pilih Tahun --</option>
                 <?php 
                 for($i=2016;$i<=date('Y');$i++){
@@ -65,31 +65,42 @@
 <!-- end of page level js -->
 <script type="text/javascript">
   $(document).ready(function () {
-    var data1 = <?=$data?>;
     var title = 'Sales By Product (Year to Date)';
-    graphic(data1,title);
+    //graphic(data1,title);
     $("#categories").change(function(){
       var cat = $("#categories").val();
                 if(cat == "1"){ // year to date SO
-                 $("#tahun").hide();
-                 $("#tahun").val($("#tahun option:first").val());
+                 //$("#tahun").hide();
+                 //$("#tahun").val($("#tahun option:first").val());
                  title = 'Sales By Product (Year to Date)';
+                 $.get('<?=base_url()?>index.php/sales/dashboard/product_year/'+$("#tahun").val(),function(data){
+                  graphic(JSON.parse(data),title);
+                });
                  graphic(data1,title);
                 }else if(cat == "2"){ // pareto
-                  $("#tahun").show();
+                 // $("#tahun").show();
                   title = 'Pareto :Product vs Profit ' + $("#tahun").val(); // default title
                   var categories = [$("#tahun").val()]; // json default period
-                  
-                  $("#tahun").change(function(){
-                 // data quartal
-                 title = ' Pareto :Product vs Profit '+ $("#tahun").val();
-                 categories = [$("#tahun").val()];
-                 $.get('<?=base_url()?>index.php/sales/dashboard/product_profit/'+$("#tahun").val(),function(data){
-                  graphicBar(categories,title,JSON.parse(data));
-                });
-               });
+                  $.get('<?=base_url()?>index.php/sales/dashboard/product_profit/'+$("#tahun").val(),function(data){
+                    graphicBar(categories,title,JSON.parse(data));
+                  });
                 }
               });
+    $("#tahun").change(function(){
+     categories = [$("#tahun").val()];
+     var cat = $("#categories").val();
+     if(cat == "1"){
+      title = 'Sales By Product (Year to Date)';
+      $.get('<?=base_url()?>index.php/sales/dashboard/product_year/'+$("#tahun").val(),function(data){
+        graphic(JSON.parse(data),title);
+      });
+    }else{
+      title = ' Pareto :Product vs Profit '+ $("#tahun").val();
+      $.get('<?=base_url()?>index.php/sales/dashboard/product_profit/'+$("#tahun").val(),function(data){
+        graphicBar(categories,title,JSON.parse(data));
+      });
+    }
+  });
   });
   function graphic(data1,title){
         // Build the chart
@@ -172,7 +183,7 @@ function graphicBar(categories,title,data){
     }
   },
   series: data
-    });
+});
 }
 </script>
 </body>

@@ -75,7 +75,7 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($so as $s){
-				$dataSo[$s['period']]['y']+=intval($s['qty']);
+				$dataSo[$s['period']]['y']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 			}
 			
 			$forecastOp = $this->mddata->getForecastOp();
@@ -108,7 +108,7 @@ class Sales extends CI_Controller {
 			
 			foreach($sliceSo as $s){
 				$opSo[$s['period']]['data'][$s['operator']]['name']=$s['name'];
-				$opSo[$s['period']]['data'][$s['operator']]['y']=intval($s['y']);
+				$opSo[$s['period']]['data'][$s['operator']]['y']=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 				$opSo[$s['period']]['data'][$s['operator']]['drilldown']=$s['name'];
 				ksort($opSo[$s['period']]['data']);
 				$custo[$s['operator']]['name']=$s['name'];
@@ -119,13 +119,13 @@ class Sales extends CI_Controller {
 				$sliceResOp = array_slice($resOperator, 0, 4);
 				$otherResOp = array_slice($resOperator, 5, count($resOperator));
 				foreach($sliceResOp as $sop){
-					$custo[$s['operator']]['data'][]=array($sop['customer_name'],intval($sop['y']));
+					$custo[$s['operator']]['data'][]=array($sop['customer_name'],floatval((($sop['subtotal']-$sop['total_discount']+$sop['delivery_cost'])*10/100)+($sop['subtotal']-$sop['total_discount']+$sop['delivery_cost'])));
 				}
 				foreach($otherResOp as $oop){
 					$custo[$s['operator']]['data']['Other']=array('Other',0);
 				}
 				foreach($otherResOp as $oop){
-					$custo[$s['operator']]['data']['Other'][1]+=intval($sop['y']);
+					$custo[$s['operator']]['data']['Other'][1]+=floatval((($sop['subtotal']-$sop['total_discount']+$sop['delivery_cost'])*10/100)+($sop['subtotal']-$sop['total_discount']+$sop['delivery_cost']));
 				}
 			}
 
@@ -136,7 +136,7 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($otherSo as $s){
-				$opSo[$s['period']]['data']['Others']['y']+=intval($s['y']);
+				$opSo[$s['period']]['data']['Others']['y']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 			}
 			
 			$drillOne = array_merge(array_values($opFo),array_values($opSo));
@@ -173,8 +173,7 @@ class Sales extends CI_Controller {
 						);
 				}
 				$kateg[]=$p['tahun'];
-			}
-
+			}		
 
 			foreach($target as $t){
 				if(array_key_exists($t['periode'], $end)){
@@ -184,7 +183,7 @@ class Sales extends CI_Controller {
 
 			foreach($so as $s){
 				if(array_key_exists($s['periode'], $end)){
-					$end[$s['periode']]['so']+=$s['grand_total'];
+					$end[$s['periode']]['so']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 				}
 			}
 			
@@ -258,7 +257,7 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($so as $s){
-				$end[$s['periode']]['so']+=$s['grand_total'];
+				$end[$s['periode']]['so']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 			}
 
 			foreach($invoice as $i){
@@ -322,7 +321,7 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($so as $s){
-				$end[$s['periode']]['so']+=$s['grand_total'];
+				$end[$s['periode']]['so']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 			}
 
 			foreach($invoice as $i){
@@ -365,8 +364,36 @@ class Sales extends CI_Controller {
 			print(json_encode(array_values($res)));
 			break;
 			case 'product':
+			// $data['ac'] = "s_ds_product";
+			// $pro = $this->mddata->getDsProduct();
+			// $dataPro=array();
+			// foreach($pro as $p){
+			// 	$dataPro[$p['kategori']]['name']=$p['kategori'];
+			// 	$dataPro[$p['kategori']]['y']=floatval((($p['subtotal']-$p['total_discount']+$p['delivery_cost'])*10/100)+($p['subtotal']-$p['total_discount']+$p['delivery_cost']));
+			// }
+			// function sortByY($a, $b) {
+			// 	return $b['y'] - $a['y'];
+			// }
+
+			// usort($dataPro, 'sortByY');
+
+			// $slice = array_slice($dataPro, 0, 4);
+			// $other = array_slice($dataPro, 5, count($dataPro));
+			// $new = array(
+			// 	'name' => 'Others',
+			// 	'y'=>0
+			// 	);
+			// foreach($other as $ot){
+			// 	$new['y']+=$ot['y'];
+			// }
+			// $slice[]=$new;
+			// $data['data']=json_encode(array_values($slice));
+			$this->load->view('top', $data);
+			$this->load->view('sales/ds_product_view', $data);
+			break;
+			case 'product_year':
 			$data['ac'] = "s_ds_product";
-			$pro = $this->mddata->getDsProduct();
+			$pro = $this->mddata->getDsProduct($this->uri->segment(4));
 			$dataPro=array();
 			foreach($pro as $p){
 				$dataPro[$p['kategori']]['name']=$p['kategori'];
@@ -388,9 +415,7 @@ class Sales extends CI_Controller {
 				$new['y']+=$ot['y'];
 			}
 			$slice[]=$new;
-			$data['data']=json_encode(array_values($slice));
-			$this->load->view('top', $data);
-			$this->load->view('sales/ds_product_view', $data);
+			print(json_encode(array_values($slice)));
 			break;
 			case 'product_profit':
 			$res = $this->mddata->getProVsProfit($this->uri->segment(4));
