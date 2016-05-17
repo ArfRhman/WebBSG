@@ -264,7 +264,10 @@ class Op extends CI_Controller {
 			break;
 			case 'table_view':
 			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_header', 'kasbon_id', $this->uri->segment(4))->row();
-			$data['opt'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'pc_no', $this->uri->segment(4));
+			// $data['opt'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'pc_no', $this->uri->segment(4));
+
+		$data['opt'] = $this->db->query('SELECT * FROM tbl_op_pc_tabel WHERE pc_no='. $this->uri->segment(4).' ORDER BY acc_id ASC');
+
 			$this->load->view('top', $data);
 			$this->load->view('op/petty_table_view', $data);
 			break;
@@ -1321,6 +1324,7 @@ redirect($_SERVER['HTTP_REFERER']);
 break;
 case"report":
 $data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_report');
+$this->load->view('top', $data);
 $this->load->view('op/po_report_view', $data);
 break;
 case"report_add":							
@@ -1464,7 +1468,7 @@ function price()
 		case 'table_save':
 		$p=$this->input->post();
 		$head = $this->mddata->getDataFromTblWhere('tbl_op_pl_header', 'no', $p['no'])->row();
-		$ftc = $p['purchase']*$p['percen_ftc'];
+		$ftc = $p['purchase']*$p['percen_ftc'] / 100;
 		$ddp_price = $p['purchase']+$ftc;
 		$currency = strtolower($p['currency']);
 		if($currency=='idr'){

@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="type">Acc ID</label>
                         <div class="col-md-3">
-                        <select name="acc_id" class="form-control"> 
+                        <select name="acc_id" class="form-control" onchange="setAccount(this)"> 
                         <option>0009 - Adjusment</option>
                         <option>0004 - ATK</option>
                         <option>0003 - Entertain</option>
@@ -52,7 +52,7 @@
                         </div>
                             <label class="col-md-2 control-label" for="document">Account</label>
                             <div class="col-md-3">
-                                <input id="date" name="account" placeholder="Account" class="form-control" type="text"></div>
+                                <input id="account" readonly name="account" placeholder="Account" class="form-control" type="text"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Tanggal</label>
@@ -143,6 +143,10 @@
                         <!-- end of page level js -->
 
                         <script>
+                        function setAccount(e){
+                            var a = e.value.split(' - ');
+                            document.getElementById('account').value = a[1];
+                        }
                             $(document).ready(function(){
                                 $('.datepicker').datepicker({
                                     format:'dd M yyyy'

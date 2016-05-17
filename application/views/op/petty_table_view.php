@@ -66,16 +66,16 @@
                         <div class="form-group">
                           <label class="col-md-2 control-label" for="no">Tanggal Bayar Kasbon</label>
                           <div class="col-md-3">
-                            <input value="<?=$op->tanggal_bayar_kasbon?>" id="date" name="tgl_byr_kasbon" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
+                            <input value="<?=$op->tanggal_bayar_kasbon?>" id="tglByr" name="tgl_byr_kasbon" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
                           </div>
                           <label class="col-md-2 control-label" for="date">Tanggal Warning</label>
                           <div class="col-md-3">
-                            <input value="<?=$op->tanggal_warning?>" id="date" name="tgl_warning" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+                            <input value="<?=$op->tanggal_warning?>" id="tglWrn" name="tgl_warning" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" readonly></div>
                           </div>
                           <div class="form-group">
                             <label class="col-md-2 control-label" for="no">Tanggal Overdue Realisasi</label>
                             <div class="col-md-3">
-                              <input value="<?=$op->tanggal_overdue_realisasi?>" id="date" name="tgl_over_realisasi" placeholder="dd MMM YYYY" class="form-control datepicker" type="text">
+                              <input value="<?=$op->tanggal_overdue_realisasi?>" id="tglOvr" name="tgl_over_realisasi" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" readonly>
                             </div>
                             <label class="col-md-2 control-label" for="date">Tanggal Realisasi</label>
                             <div class="col-md-3">
@@ -210,7 +210,25 @@
             <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
             <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
             <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-            <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-            <!-- end of page level js -->		<script>		$(document).ready(function(){			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+
+                            <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+
+
+            <!-- end of page level js -->		<script>		$(document).ready(function(){
+               $('.datepicker').datepicker({
+                                        format:'dd M yyyy'
+                                    });
+               $('#tglByr').change(function() {
+                                      var date2 = $('#tglByr').datepicker('getDate', '+1d'); 
+                                      date2.setDate(date2.getDate()+7); 
+                                      $('#tglWrn').datepicker('setDate', date2);
+
+                                       var date3 = $('#tglByr').datepicker('getDate', '+1d'); 
+                                      date3.setDate(date3.getDate()+14); 
+                                      $('#tglOvr').datepicker('setDate', date3);
+
+                                  });
+
+            			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
           </body>
           </html>
