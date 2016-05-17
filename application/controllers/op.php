@@ -1312,7 +1312,6 @@ redirect($_SERVER['HTTP_REFERER']);
 break;
 case"report":
 $data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_report');
-$this->load->view('top', $data);
 $this->load->view('op/po_report_view', $data);
 break;
 case"report_add":							

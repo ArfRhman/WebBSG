@@ -113,7 +113,7 @@
                         data: "id=" + $("#invRef").val(),
                         success: function(data){
                          var obj = JSON.parse(data);
-                         $('#dueDate').val(obj.date);
+                         $('#dueDate').val(obj.due);
 
                      }
                  }); 

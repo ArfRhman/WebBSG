@@ -76,7 +76,7 @@
 										</div>
 										<div class="col-md-12">
 											<label class="col-md-4 control-label" for="email">Operator</label>
-											<div class="col-md-8"><?php echo $so->row()->operator; ?></div>
+											<div class="col-md-8"><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_operator', 'id', $so->row()->operator)->row()->name; ?></div>
                                         </div>
 										<div class="col-md-12">
                                             <label class="col-md-4 control-label" for="email">Project Name</label>
