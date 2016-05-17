@@ -1586,6 +1586,12 @@ $this->mddata->updateDataTbl('tbl_op_pl_tabel',$data,'no',$p['no']);
 $this->session->set_flashdata('data', 'Data Has Been Saved');
 redirect($_SERVER['HTTP_REFERER']);
 break;
+case 'getItemPrice':
+$id = $_POST['id'];
+$data = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'item_id', $id)->row();
+$json = json_encode($data);
+echo $json;
+break;
 }
 }
 function payment()
