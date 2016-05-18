@@ -577,7 +577,12 @@ class Op extends CI_Controller {
 			}
 			
 			$in = implode(',', $kat);
-			$import = $this->mddata->getImportCostVal(2016,$in);
+			if(empty($kat)){
+				$import = array();
+			}else{
+				$import = $this->mddata->getImportCostVal(2016,$in);
+			}
+			
 			$res = array();
 			$total_tax=0;
 			$total_duty_taxes=0;
@@ -680,8 +685,12 @@ class Op extends CI_Controller {
 					$res[$g['tahun']]['transport_cost']+=$g['transport'];
 				}
 			}
+			if(!empty($do)){
+				$debitNote = $this->mddata->getGraphDebitNote(implode(',', $do));	
+			}else{
+				$debitNote = array();
+			}
 			
-			$debitNote = $this->mddata->getGraphDebitNote(implode(',', $do));
 			$resDebitNote=array();
 			foreach($debitNote as $dn){
 				if(!array_key_exists($dn['tahun'], $resDebitNote)){
@@ -691,7 +700,12 @@ class Op extends CI_Controller {
 				}
 			}
 
-			$doAmount = $this->mddata->getGraphDelivery(implode(',', $do));
+			if(!empty($do)){
+				$doAmount = $this->mddata->getGraphDelivery(implode(',', $do));	
+			}else{
+				$doAmount = array();
+			}
+			
 			$resAmount=array();
 
 			foreach($doAmount as $doa){
@@ -748,8 +762,13 @@ class Op extends CI_Controller {
 				$kat[$k['kat']]='\''.$k['kat'].'\'';
 			}
 			$in = implode(',', $kat);
-			$sea = $this->mddata->getImportLeadTimePerformanceSea($in);
-			$air = $this->mddata->getImportLeadTimePerformanceAir($in);
+			if(!empty($in)){
+				$sea = $this->mddata->getImportLeadTimePerformanceSea($in);
+				$air = $this->mddata->getImportLeadTimePerformanceAir($in);
+			}else{
+				$sea = array();
+				$air = array();
+			}
 			
 			$arSea=array();
 			$arAir=array();
@@ -777,10 +796,10 @@ class Op extends CI_Controller {
 				$tempSea['jum']+=1;
 			}
 			if($tempAir['jum']==0){
-				$tempAir['jum'];
+				$tempAir['jum']=1;
 			}
 			if($tempSea['jum']==0){
-				$tempSea['jum'];
+				$tempSea['jum']=1;
 			}
 			
 			$data['sea']=$tempSea;

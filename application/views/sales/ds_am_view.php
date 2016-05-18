@@ -38,6 +38,18 @@
                 ?>
               </select>
             </div>
+            <div class="col-md-3">
+              <select class="form-control" id="tahun" style="display:none;">
+                <option>-- Pilih Tahun --</option>
+                <?php 
+                for($i=2016;$i<=date('Y');$i++){
+                  ?>
+                  <option><?=$i?></option>
+                  <?php 
+                }
+                ?>
+              </select>
+            </div>
           </div>
           <div id="containers" style="width:100%;height:auto;margin-top:5%;"></div>
         </div>
@@ -71,24 +83,29 @@
     var data1;
     var amsplit;
     var am;
+    var tahun;
     var title;
-    $("#categories,#am").change(function(){
+    $("#categories,#am,#tahun").change(function(){
       var cat = $("#categories").val();
             if(cat == "1"){ // data operator
              $("#am").show();
+             $("#tahun").show();
              amsplit = $("#am").val().split('-');
+             tahun = $("#tahun").val();
              am = amsplit[1];
              title = 'Year to Date of Operators ('+am+')';
-             $.get('<?=base_url()?>index.php/sales/dashboard/getAmOp/'+amsplit[0],function(data){
+             $.get('<?=base_url()?>index.php/sales/dashboard/getAmOp/'+amsplit[0]+'/'+tahun,function(data){
               graphic(JSON.parse(data),title);
             });
 
            }else if(cat == "2"){ // data customer
              $("#am").show();
+             $("#tahun").show();
              amsplit = $("#am").val().split('-');
+             tahun = $("#tahun").val();
              am = amsplit[1];
              title = 'Year to Date of Customer ('+am+')';
-             $.get('<?=base_url()?>index.php/sales/dashboard/getAmCust/'+amsplit[0],function(data){
+             $.get('<?=base_url()?>index.php/sales/dashboard/getAmCust/'+amsplit[0]+'/'+tahun,function(data){
               graphic(JSON.parse(data),title);
             });
            }

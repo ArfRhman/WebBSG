@@ -370,28 +370,30 @@ class model_data extends CI_Model {
 
 
 	//untuk dashboard customer
-	function getCustomerOperator($id){
-		$query = $this->db->query("SELECT operator,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' group by operator")->result_array();
+	function getCustomerOperator($id,$tahun){
+		$query = $this->db->query("SELECT operator,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_operator,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.operator = tbl_dm_operator.id AND tbl_sale_so.customer_id = '$id' AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = '$tahun' group by operator")->result_array();
 		return $query;
 	}
 
-	function getCustomerCust(){
-		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id group by customer_id")->result_array();
+	function getCustomerCust($tahun){
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = '$tahun' group by customer_id")->result_array();
 		return $query;	
 	}
 
 	//untuk dashboard sales by AM
-	function getAmOperator($id){
+	function getAmOperator($id,$tahun){
 		$query = $this->db->query("SELECT operator, name, sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost  
 			FROM tbl_sale_so, tbl_dm_operator, tbl_sale_so_detail
 			WHERE tbl_sale_so_detail.id_so = tbl_sale_so.id
 			AND tbl_sale_so.operator = tbl_dm_operator.id
-			AND am ='$id' GROUP BY operator")->result_array();
+			AND am ='$id' 
+			AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
+			GROUP BY operator")->result_array();
 		return $query;
 	}
 
-	function getAmCust($id){
-		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id  AND am = '$id' group by customer_id")->result_array();
+	function getAmCust($id,$tahun){
+		$query = $this->db->query("SELECT tbl_sale_so.customer_id,name,sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost from tbl_sale_so,tbl_dm_customer,tbl_sale_so_detail where tbl_sale_so_detail.id_so=tbl_sale_so.id AND tbl_sale_so.customer_id = tbl_dm_customer.customer_id  AND am = '$id' AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun group by customer_id")->result_array();
 		return $query;
 	}
 

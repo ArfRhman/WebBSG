@@ -45,7 +45,7 @@
                    <div class="col-md-6 text-center">
                     <table class="table">
                         <tr> <th style="font-size: 18px;"> Sea </th> </tr>
-                        <tr> <td class="cal-bg"> 
+                        <tr> <td class="cal-bg" align="center"> 
                         <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?=round($sea['overall']/$sea['jum'])?> <br> Production: <?=$sea['production']?><br> Shipping: <?=$sea['shipping']?><br>Clearance: <?=$sea['clearance']?>"><?=round($sea['overall']/$sea['jum'])?> </span></td> </tr>
                     </table>
                    

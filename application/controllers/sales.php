@@ -462,7 +462,7 @@ class Sales extends CI_Controller {
 			$this->load->view('sales/ds_am_view', $data);
 			break;
 			case 'getAmOp':
-			$amOp=$this->mddata->getAmOperator($this->uri->segment(4));
+			$amOp=$this->mddata->getAmOperator($this->uri->segment(4),$this->uri->segment(5));
 			$dataOp = array();
 			foreach($amOp as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
@@ -487,7 +487,7 @@ class Sales extends CI_Controller {
 			print(json_encode(array_values($slice)));
 			break;
 			case 'getAmCust':
-			$customer=$this->mddata->getAmCust($this->uri->segment(4));
+			$customer=$this->mddata->getAmCust($this->uri->segment(4),$this->uri->segment(5));
 			$dataCust = array();
 			foreach($customer as $o){
 				$dataCust[$o['customer_id']]['name']=$o['name'];
@@ -512,26 +512,26 @@ class Sales extends CI_Controller {
 			break;
 			case 'customer':
 			$data['ac'] = "s_customer_am";
-			$op = $this->mddata->getCustomerOperator($this->uri->segment(4));
-			$dataOp = array();
-			foreach($op as $o){
-				$dataOp[$o['operator']]['name']=$o['name'];
-				$dataOp[$o['operator']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
-			}
+			// $op = $this->mddata->getCustomerOperator($this->uri->segment(4));
+			// $dataOp = array();
+			// foreach($op as $o){
+			// 	$dataOp[$o['operator']]['name']=$o['name'];
+			// 	$dataOp[$o['operator']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
+			// }
 
-			function sortByY($a, $b) {
-				return $b['y'] - $a['y'];
-			}
+			// function sortByY($a, $b) {
+			// 	return $b['y'] - $a['y'];
+			// }
 
-			usort($dataOp, 'sortByY');
+			// usort($dataOp, 'sortByY');
 
-			$data['op']=json_encode(array_values($dataOp));
+			// $data['op']=json_encode(array_values($dataOp));
 			$this->load->view('top', $data);
 			$this->load->view('sales/ds_customer_view', $data);
 			break;
 			case 'getCustomerOp':
 			$dataOp = array();
-			$op = $this->mddata->getCustomerOperator($this->uri->segment(4));
+			$op = $this->mddata->getCustomerOperator($this->uri->segment(4),$this->uri->segment(5));
 			foreach($op as $o){
 				$dataOp[$o['operator']]['name']=$o['name'];
 				$dataOp[$o['operator']]['y']=floatval((($o['subtotal']-$o['total_discount']+$o['delivery_cost'])*10/100)+($o['subtotal']-$o['total_discount']+$o['delivery_cost']));
@@ -544,7 +544,7 @@ class Sales extends CI_Controller {
 			print(json_encode(array_values($dataOp)));
 			break;
 			case 'getCustomerCust':
-			$customer = $this->mddata->getCustomerCust();
+			$customer = $this->mddata->getCustomerCust($this->uri->segment(4));
 			$dataCust = array();
 			foreach($customer as $c){
 				$dataCust[$c['customer_id']]['name']=$c['name'];
@@ -601,7 +601,7 @@ class Sales extends CI_Controller {
 
 			foreach($so as $s){
 				if(array_key_exists($s['periode'], $end)){
-					$end[$s['periode']]['so']+=$s['grand_total'];
+					$end[$s['periode']]['so']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 				}
 			}
 
@@ -652,10 +652,10 @@ class Sales extends CI_Controller {
 				$res['so']['data'][$k]['y']=intval($e['so']);
 				$res['invoice']['data'][$k]['y']=intval($e['invoice']);
 				$res['cogs']['data'][$k]['y']=intval($e['cogs']);
-				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
 			}
 			
 			foreach($res as $k=>$re){
@@ -690,7 +690,7 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($so as $s){
-				$end[$s['periode']]['so']+=$s['grand_total'];
+				$end[$s['periode']]['so']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 			}
 
 			foreach($invoice as $i){
@@ -732,10 +732,10 @@ class Sales extends CI_Controller {
 				$res['so']['data'][$k]['y']=intval($e['so']);
 				$res['invoice']['data'][$k]['y']=intval($e['invoice']);
 				$res['cogs']['data'][$k]['y']=intval($e['cogs']);
-				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
 			}
 			
 			foreach($res as $k=>$re){
@@ -767,7 +767,7 @@ class Sales extends CI_Controller {
 			}
 
 			foreach($so as $s){
-				$end[$s['periode']]['so']+=$s['grand_total'];
+				$end[$s['periode']]['so']+=floatval((($s['subtotal']-$s['total_discount']+$s['delivery_cost'])*10/100)+($s['subtotal']-$s['total_discount']+$s['delivery_cost']));
 			}
 
 			foreach($invoice as $i){
@@ -809,10 +809,10 @@ class Sales extends CI_Controller {
 				$res['so']['data'][$k]['y']=intval($e['so']);
 				$res['invoice']['data'][$k]['y']=intval($e['invoice']);
 				$res['cogs']['data'][$k]['y']=intval($e['cogs']);
-				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($d['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
 			}
 			
 			foreach($res as $k=>$re){
