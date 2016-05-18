@@ -42,7 +42,7 @@
                                   foreach($sql->result() as $s)
                                   {
                                     ?>
-                                    <option value="<?php echo $s->id; ?>" <?=$budget->budget_code == $s->id ? 'selected' : ''?>><?php echo $s->code ?></option>
+                                    <option value="<?php echo $s->id; ?>" <?=$budget->budget_code == $s->id ? 'selected' : ''?>><?php echo $s->code ?> - <?php echo $s->level2 ?></option>
                                     <?php
                                 }
                                 ?>
@@ -61,7 +61,7 @@
                             <div class="form-group">
                                <label class="col-md-2 control-label" for="email">Periode</label>
                                <div class="col-md-3">
-                                <input id="email" value="<?=$budget->periode;?>" name="periode" placeholder="Periode" class="form-control" type="text"></div>                                                                                       
+                                <input id="email" value="<?=$budget->periode;?>" name="periode" placeholder="Periode" class="form-control datepicker" type="text"></div>                                                                                       
                                 <label class="col-md-2 control-label" for="email">Amount</label>
                                 <div class="col-md-3">
                                     <input id="email" value="<?=$budget->amount;?>" name="amount" placeholder="Amount" class="form-control" type="text"></div>
@@ -105,7 +105,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>     <!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-<!-- end of page level js -->       <script>        $(document).ready(function(){           $('.datepicker').datepicker({               format:'dd M yyyy'          });     
+<!-- end of page level js -->       <script>        $(document).ready(function(){           $('.datepicker').datepicker({               format:'M yyyy'          });     
     $("#budgetCd").change(function(){
       if($("#budgetCd").val()!=""){
           $.ajax({

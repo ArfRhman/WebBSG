@@ -1642,6 +1642,7 @@ $data['data'] = $this->db->query("SELECT
 	division,
 	so_date,
 	customer_id,
+	customer_name,
 	po_no,
 	po_date,
 	inv.amount,
@@ -1653,11 +1654,16 @@ $data['data'] = $this->db->query("SELECT
 	inv. NO AS inv_no,
 	payment_date,
 	sales,
+	sales_com,
+	extcom,
 	extcom_pro,
+	bank_interest,
 	bank,
 	transport,
 	adm,
 	other,
+	pn,
+	description,
 	(
 		SELECT
 		SUM(grand_total)
@@ -1668,9 +1674,9 @@ $data['data'] = $this->db->query("SELECT
 		) AS total_so,
 (
 	SELECT
-	SUM(DDP_IDR)
+	SUM(ddp_idr)
 	FROM
-	tbl_op_price_list pl
+	tbl_op_pl_tabel pl
 	WHERE
 	pl.item_id IN (
 		SELECT
@@ -1686,7 +1692,8 @@ tbl_sale_so so
 LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
 LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
 WHERE so.id = ".$this->uri->segment(4)."")->row();
-$this->load->view('top', $data);
+// $this->load->view('top', $data);
+$data['item'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_detail', 'id_so', $this->uri->segment(4))->result();
 $this->load->view('sales/so_profit_analisis', $data);
 break;
 case 'update_adjusment':

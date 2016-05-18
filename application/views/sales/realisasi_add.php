@@ -41,7 +41,7 @@
                                       foreach($sql->result() as $s)
                                       {
                                         ?>
-                                        <option value="<?php echo $s->id; ?>"><?php echo $s->code ?></option>
+                                        <option value="<?php echo $s->id; ?>"><?php echo $s->code ?> - <?php echo $s->level2 ?></option>
                                         <?php
                                     }
                                     ?>

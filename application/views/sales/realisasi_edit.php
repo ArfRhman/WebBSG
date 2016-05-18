@@ -42,7 +42,7 @@
                                       foreach($sql->result() as $s)
                                       {
                                         ?>
-                                        <option value="<?php echo $s->id; ?>" <?=$realisasi->budget_code == $s->id ? 'selected' : ''?>><?php echo $s->code ?></option>
+                                        <option value="<?php echo $s->id; ?>" <?=$realisasi->budget_code == $s->id ? 'selected' : ''?>><?php echo $s->code ?> - <?php echo $s->level2 ?></option>
                                         <?php
                                     }
                                     ?>

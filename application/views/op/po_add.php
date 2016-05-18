@@ -97,7 +97,7 @@
 
 												<div class="col-md-3">
 
-													<input id="po_date" name="po_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="po_date" name="po_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text" onchange="diffDate()"></div>
 												<label class="col-md-2 control-label" for="convertion">Convertion</label>
 
 												<div class="col-md-3">
@@ -368,7 +368,7 @@
 
 												<div class="col-md-3">
 
-													<input id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" onchange="diffDateAct()" ></div>
 
 											</div>
 
@@ -378,13 +378,13 @@
 
 												<div class="col-md-3">
 
-													<input id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" onchange="diffDate()"></div>
 
 												<label class="col-md-2 control-label" for="actual">Actual Lead Time (days)</label>
 
 												<div class="col-md-3">
 
-													<input id="actual" name="actual" placeholder="Actual Lead Time (days)" class="form-control" type="text"></div>
+													<input id="actual" name="actual" placeholder="Actual Lead Time (days)" class="form-control" type="text" readonly></div>
 
 											</div>
 
@@ -395,7 +395,7 @@
 
 												<div class="col-md-3">
 
-													<input id="estimated" name="estimated" placeholder="Estimated Lead Time (days)" class="form-control" type="text"></div>
+													<input id="estimated" name="estimated" placeholder="Estimated Lead Time (days)" class="form-control" type="text" readonly></div>
 
 												<label class="col-md-2 control-label" for="deviation">Deviation (days)</label>
 
@@ -1019,6 +1019,44 @@
     <!-- end of page level js -->
 	
 	<script>
+		function diffDateAct(){
+			var atf = 0;
+			var po = 0;
+			atf = document.getElementById('atf_wh').value;
+			po = document.getElementById('po_date').value;
+			var firstDate = new Date(atf);
+			var secondDate = new Date(po);
+
+		 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+
+		 var difference_ms = Math.abs(firstDate.getTime() - secondDate.getTime());
+
+    // Convert back to days and return
+    var diffDays = Math.round(difference_ms/oneDay);
+    var e = document.getElementById('actual');
+    e.value = diffDays;
+
+}
+function diffDate(){
+	var etf = 0;
+	var po = 0;
+	etf = document.getElementById('etf_wh').value;
+	po = document.getElementById('po_date').value;
+	var firstDate = new Date(etf);
+	var secondDate = new Date(po);
+
+		 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+
+		 var difference_ms = Math.abs(firstDate.getTime() - secondDate.getTime());
+
+    // Convert back to days and return
+    var diffDays = Math.round(difference_ms/oneDay);
+    var e = document.getElementById('estimated');
+    e.value = diffDays;
+    diffDateAct();
+}
+
+
 	function CalPCT(e){
 		var a;
 		var tc;
@@ -1026,7 +1064,7 @@
 		document.getElementById('total_cost').value!='' ? tc=document.getElementById('total_cost').value : tc=0
 
 		var p = document.getElementById('percen_total');
-		document.getElementById('amount').value!='' ? p.value = parseInt(tc) / parseInt(a) * 100 : p.value = 0
+		document.getElementById('amount').value!='' ? p.value = (parseInt(tc) / parseInt(a) * 100).toFixed(2) : p.value = 0
 	}
 
 	function CalPCTV(e){
@@ -1036,7 +1074,7 @@
 		document.getElementById('total_without_vat').value!='' ? tc=document.getElementById('total_without_vat').value : tc=0
 
 		var p = document.getElementById('percen_without_vat');
-		document.getElementById('amount').value!='' ? p.value = parseInt(tc) / parseInt(a) * 100 : p.value = 0
+		document.getElementById('amount').value!='' ? p.value = (parseInt(tc) / parseInt(a) * 100).toFixed(2) : p.value = 0
 	}
 	
 	function TotalCost(e){
@@ -1068,7 +1106,7 @@
 		document.getElementById('total_clearance').value!='' ? tc=document.getElementById('total_clearance').value : tc=0
 
 		var p = document.getElementById('percen_clearance');
-		document.getElementById('amount').value!='' ? p.value = parseInt(tc) / parseInt(a) * 100 : p.value = 0
+		document.getElementById('amount').value!='' ? p.value = (parseInt(tc) / parseInt(a) * 100).toFixed(2) : p.value = 0
 	}
 
 	function CalPDuty(e){
@@ -1078,7 +1116,7 @@
 		document.getElementById('duty_tax').value!='' ? d=document.getElementById('duty_tax').value : d=0
 
 		var p = document.getElementById('duty');
-		document.getElementById('amount').value!='' ? p.value = parseInt(d) / parseInt(a) * 100 : p.value = 0
+		document.getElementById('amount').value!='' ? p.value = (parseInt(d) / parseInt(a) * 100).toFixed(2) : p.value = 0
 		CalPCl(1);
 		CalPCT(1);
 		CalPCTV(1);

@@ -127,13 +127,13 @@
          var obj = JSON.parse(data);
          $('#mou').val(obj.mou);
          $('#brand').val(obj.brand);
-         $('#unit_price').val(obj.DDP_IDR);
+         // $('#unit_price').val(obj.DDP_IDR);
        }
      }); 
     }else{
       $('#mou').val('');
       $('#brand').val('');
-      $('#unit_price').val('');
+      // $('#unit_price').val('');
     } 
   });
  });		</script>

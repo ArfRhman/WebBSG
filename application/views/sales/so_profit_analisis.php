@@ -1,148 +1,238 @@
-	<aside class="right-side">
-     <!-- Main content -->
-     <section class="content-header">
-      <h1>Welcome to Dashboard</h1>
-  </section>
-  <section class="content">
-    <div class="row">
-        <div class="col-lg-12">
-           <?php
-           if($this->session->flashdata('data') == TRUE)
-           {
-               ?>
-               <div class="panel-heading">
-                <h3 class="panel-title">
-                    <?php echo $this->session->flashdata('data');?>
-                </h3>
-            </div>
-            <?php
-        }
-        ?>
-        <div class="panel panel-primary" id="hidepanel1">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Profit Analisis Per Sales Order
-                </h3>
-                <span class="pull-right">
-                    <i class="glyphicon glyphicon-chevron-up clickable"></i>
-                </span>
-            </div>
-            <div class="panel-body">
-                <?php  $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$data->am)->row();
-                $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$data->customer_id)->row(); ?>
-                <fieldset>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Div</label>
-                        <div class="col-md-3"> : <?php echo $data->division ?></div>
-                        <label class="col-md-2 control-label" for="name">A/M</label>
-                        <div class="col-md-3"> : <?php echo $am->name?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">SO Date</label>
-                        <div class="col-md-3"> : <?php echo  $data->so_date ?></div>
-                        <label class="col-md-2 control-label" for="name">SO No</label>
-                        <div class="col-md-3"> : <?php echo $data->so_no?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Inv No</label>
-                        <div class="col-md-3"> : <?php echo $data->inv_no ?></div>
-                        <label class="col-md-2 control-label" for="name">Customer</label>
-                        <div class="col-md-3"> : <?php echo isset($cust->name)?$cust->name:'-'?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Total Sales</label>
-                        <div class="col-md-3"> : <?php echo number_format($data->total_so,0) ?></div>
-                        <label class="col-md-2 control-label" for="name">Total Purchaser</label>
-                        <div class="col-md-3"> : <?php echo number_format($data->total_purchase,0)?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Gross Profit</label>
-                        <div class="col-md-3"> : <?php $gross = $data->total_so - $data->total_purchase; echo $gross ?></div>
-                        <label class="col-md-2 control-label" for="name">Salescom</label>
-                        <div class="col-md-3"> : <?php echo $data->sales?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Extcom</label>
-                        <div class="col-md-3"> : <?php echo $data->extcom_pro ?></div>
-                        <label class="col-md-2 control-label" for="name">Interest</label>
-                        <div class="col-md-3"> : <?php echo $data->bank?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Transport</label>
-                        <div class="col-md-3"> : <?php echo $data->transport ?></div>
-                        <label class="col-md-2 control-label" for="name">Adm </label>
-                        <div class="col-md-3"> : <?php echo $data->adm?></div>
-                    </div>
-                    <div class="col-md-12" style="margin-bottom: 1%;">
-                        <label class="col-md-2 control-label" for="name">Other</label>
-                        <div class="col-md-3"> : <?php echo $data->other ?></div>
-                        <label class="col-md-2 control-label" for="name">Total Cost</label>
-                        <div class="col-md-3"> : <?php $total_cost = $data->sales + $data->extcom_pro + $data->bank + $data->transport + $data->adm + $data->other;
-                            echo number_format($total_cost,0); ?></div>
-                        </div>
-                         <form  enctype="multipart/form-data" action="<?php echo site_url('sales/so/update_adjusment/'.$this->uri->segment(4));?>" method="post">
-                        <div class="col-md-12" style="margin-bottom: 1%;">
-                            <label class="col-md-2 control-label" for="name">E.N.P 1</label>
-                            <div class="col-md-3"> : <?php $enp1 = $gross - $total_cost; echo number_format($enp1,0); ?></div>
-                            <div class="form-group">
-                              <label class="col-md-2 control-label" for="name">Adjustment</label>
-                              <div class="col-md-3">
-                                 <input name="adjustment" placeholder="Adjustment" class="form-control" type="text" value="<?php echo $data->adjustment ?>"><input type="hidden" name="id" value="<?php echo $this->uri->segment(4) ?>"></div>                                                                                                   </div>
-                             </div>
-                             <div class="col-md-12" style="margin-bottom: 1%;">
-                                <label class="col-md-2 control-label" for="name">E.N.P 2</label>
-                                <div class="col-md-3"> : <?php if(isset($data->adjustment)){$enp2 = $enp1 +  $data->adjustment; echo number_format($enp2,0);}else{echo '-';}?></div>
-                                <label class="col-md-2 control-label" for="name">% E.N.P </label>
-                                <div class="col-md-3"> :                                
-                                    <?php
-                                     if(isset($data->adjustment)){
-                                        if($data->total_so!=0){
-                                            echo number_format(100 * $enp2/$data->total_so,2,'.','.').' %';
-                                        }else{
-                                            echo '0';}
-                                        }else{
-                                    echo '-';} ?></div>
-                                    </div>
-                                      <div class="form-group">
-                                                        <div class="col-md-12 text-right">
-                                                            <button type="submit" class="btn btn-responsive btn-primary btn-sm">Save</button>
-                                                        </div>
-                                                    </div>
-                                    </form>
-                                </fieldset>
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </aside>
-    <!-- right-side -->
-</div>
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
-    <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
-</a>
-<!-- global js -->
-<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-<!--livicons-->
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-<!-- end of global js -->
-<!-- begining of page level js -->
-<!-- Back to Top-->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-<!--   maps -->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>	    <!--<script type="text/javascript" src="<?php //echo base_url();?>style/js/pages/table-advanced.js"></script>-->
-<!-- end of page level js -->		<script>		$(document).ready(function(){			$('.datepicker').datepicker({				format:'dd M yyyy'			});		});		</script>
+<html>
+<head>
+  <title>Analisa Profit</title>
+  <style type="text/css">
+    table {
+      border-collapse: collapse;
+    }
+
+    #tbl{
+      border: none;
+    }
+
+    .header th {
+      text-align: left;
+    }
+    .header td {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <center><h3>Analisa Profit</h3></center>
+  <table width="56%" border="0" class="table header">
+    <tr>
+      <th width="3%">CUSTOMER</th>
+      <td width="*" colspan="3"> : <?php echo $data->customer_name ?></td>
+    </tr>
+    <tr>
+     <th width="3%">SO NO</th>
+     <td width="20%">: <?php echo $data->so_no?></td>
+     <th width="3%">SO Date</th>
+     <td width="20%">: <?php echo $data->so_date?></td>
+   </tr>
+   <tr>
+     <th width="3%">PO NO</th>
+     <td width="20%">: <?php echo $data->po_no?></td>
+     <th width="3%">PO Date</th>
+     <td width="20%">: <?php echo $data->po_date?></td>
+   </tr>
+   <tr>
+     <th width="3%">INV NO</th>
+     <td width="20%">: <?php echo $data->inv_no?></td>
+     <th width="3%">INV Date</th>
+     <td width="20%">: <?php echo $data->inv_date?></td>
+   </tr>
+   <tr>
+     <th width="3%">AM</th>
+     <td width="20%">: <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$data->am)->row()->name; ?></td>
+     <th width="3%">DIVISION</th>
+     <td width="20%">: <?php echo $data->division?></td>
+   </tr>
+   <tr>
+     <th width="3%">PROJECT</th>
+     <td width="20%" colspan="3">: <?php echo $data->pn?></td>
+   </tr>
+   <tr>
+     <th width="3%">DESCRIPTION</th>
+     <td width="20%" colspan="3">: <?php echo $data->description?></td>
+   </tr>
+ </table>
+ <br>
+
+ <table width="100%" border="1">
+  <tr>
+   <th>No</th>
+   <th>Item Name</th>
+   <th>Mou</th>
+   <th>Qty</th>
+   <th>Unit Price</th>
+   <th>Disc</th>
+   <th>Total Price</th>
+   <th>Purchase <br> Price</th>
+   <th>Total <br> Purchase</th>
+   <th>Profit</th>
+   <th>Total Profit</th>
+   <th>%</th>
+ </tr>
+ <?php
+ $no = 1;
+ $jml_up = 0;
+ $jml_tp = 0;
+ $jml_tpro = 0;
+ $jml_per = 0;
+ foreach($item as $c)
+ {
+  ?>
+  <tr>
+    <td><?php echo $no; ?></td>
+    <td><?php echo $c->item_name; ?> -</td>
+    <td><?php echo $c->mou; ?></td>
+    <td><?php echo $c->qty; ?></td>
+    <td align="right"><?php echo ($c->price!=0)?number_format($c->price,"0",",","."):'0'; $jml_up += $c->price?></td>
+    <td align="right"><?php echo number_format($c->disc,"0",",","."); ?></td>
+    <td align="right"><?php echo number_format($c->total,"0",",","."); $jml_tp += $c->total?></td>
+    <?php $purchase_price = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'item_id', $c->item)->row()->ddp_idr; ?>
+    <td align="right"><?php echo number_format($purchase_price,"0",",","."); ?></td>
+    <td align="right"><?php echo number_format($c->qty * $purchase_price,"0",",","."); ?></td>
+    <td align="right"><?php echo number_format($c->price - $purchase_price,"0",",","."); ?></td>  
+    <?php $total_profit = $c->total - ($c->qty * $purchase_price) ?>
+    <td align="right"><?php echo number_format($total_profit,"0",",","."); $jml_tpro += $total_profit?></td>  
+    <?php ($c->total!=0) ? $per = $total_profit / $c->total * 100 : $per = 0; ?>
+    <td align="right"><?php echo $per; $jml_per += $per ?> %</td>  
+
+  </tr> 
+  <?php
+  $no++;
+}
+?>
+<tr>
+ <th colspan="2">Subtotal</th>
+ <th></th>
+ <th></th>
+ <th></th>
+ <th></th>
+ <th align="right"><?php echo number_format($jml_up,"0",",","."); ?></th>
+ <th></th>
+ <th align="right"><?php echo number_format($jml_up,"0",",","."); ?></th>
+ <th></th>
+ <th align="right"><?php echo number_format($jml_tpro,"0",",","."); ?></th>
+ <th align="right"><?php echo $jml_per ?> % </th>
+</tr>
+<tr style="
+height: 30px;
+border: 1px solid #fff;
+border-top: 1px solid #000;
+">
+<td colspan="12" ></td>
+</tr>
+<tr style="border:1px solid #fff;">
+ <td colspan="7">Remark :</td>
+ <td colspan="2"> Sales Com</td>
+ <td align="right"><?php echo $data->sales_com ?> %</td>
+ <td align="right"><?php echo ($data->sales!='')? number_format($data->sales,"2",",","."):'-' ?></td>
+ <td> </td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td>1. </td>
+  <td colspan="6">All price in IDR</td>
+  <td colspan="2"> ExtCom</td>
+  <td align="right"><?php echo $data->extcom ?> %</td>
+  <td align="right"><?php echo ($data->extcom_pro!='')?number_format($data->extcom_pro,"2",",","."):'-' ?></td>
+  <td></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td>2. </td>
+  <td colspan="6">All price refer to currency conversion as started in Price list, it is 1 USD = IDR</td>
+  <td colspan="2"> Bank Interest</td>
+  <td align="right"><?php echo $data->bank_interest ?> %</td>
+  <td align="right"><?php echo number_format($data->bank,"2",",",".") ?></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2"> Transport Cost</td>
+  <td></td>
+  <td align="right"><?php echo ($data->transport!='')?number_format($data->transport,"2",",","."):'-' ?></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2"> Adm Cost</td>
+  <td></td>
+  <td align="right"><?php echo ($data->adm!='')?number_format($data->adm,"2",",","."):'-' ?></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2"> Other Cost</td>
+  <td></td>
+  <td align="right"><?php echo ($data->other!='')?number_format($data->other,"2",",","."):'-' ?></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2"> Total Cost</td>
+  <td></td>
+  <?php 
+  $s = $data->sales;
+  $total_cost = $s + $data->extcom_pro + $data->bank + $data->transport + $data->adm + $data->other; ?>
+  <td align="right"><?php echo number_format($total_cost,"2",",",".");  ?></td>
+  <td align="right"><?php echo number_format($total_cost / $jml_tp * 100,"2",",",".") ?> % </td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2"> E.N.P</td>
+  <td></td>
+  <td align="right"><?php echo number_format($jml_tpro - $total_cost,"2",",",".") ?></td>
+  <td align="right"><?php echo number_format(($jml_tpro - $total_cost) / $jml_tp * 100,"2",",",".") ?> % </td>
+
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2">Cost / Profit Adjustment</td>
+  <td></td>
+  <td><?php echo $data->other ?></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td colspan="7"></td>
+  <td colspan="2">E.N.P Final</td>
+  <td></td>
+  <td><?php echo $data->other ?></td>
+</tr>
+</table>
+<br>
+<table  width="100%">
+ <tr>
+  <td>
+    <p>
+      <b>Issued By,</b>
+
+    </p>
+  </td>
+
+  <td>
+    <p>
+      <b>Approved By,</b>
+
+    </p>
+  </td>
+</tr>
+<tr style="height: 40px;">
+  <td></td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <b>_______</b>
+
+    </p>
+  </td>
+
+  <td>
+    <p>
+      <b>________</b>
+
+    </p>
+  </td>
+  </tr>
+</table>
+<br>
 </body>
 </html>
