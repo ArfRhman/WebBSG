@@ -1,4 +1,4 @@
-<aside class="right-side">
+    <aside class="right-side">
        <!-- Main content -->
        <section class="content-header">
           <h1>Welcome to Dashboard</h1>
@@ -16,7 +16,33 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="width:99%;overflow-x:scroll">
+               <form class="form-horizontal" enctype="multipart/form-data" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="name">Pilih Tahun :</label>
+                            <div class="col-md-3">
+                                <select name="tahun" class="form-control">
+                                    <?php
+                                    for($i = date('Y');$i>=date('Y')-5;$i--){
+                                        if(isset($_POST['tahun']) AND $_POST['tahun']==$i){
+                                         ?>
+                                        <option value="<?php echo $i?>" selected><?php echo $i?></option>
+                                        <?php   
+                                        }else{
+                                            ?>
+                                        <option value="<?php echo $i?>"><?php echo $i?></option>
+                                        <?php
+                                        }
+                                        
+                                    }
+                                    ?>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2"><input type="submit" value="Pilih" class="btn btn-responsive btn-primary btn-sm"></div>
+                        </fieldset>
+                    </form>
                 <table class="table table-striped table-responsive">
                     <thead>
                         <tr>
@@ -53,7 +79,7 @@
                     <tbody>
                      <?php
                      $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
-                     $thn = date('Y');
+                     $thn = isset($_POST['tahun'])?$_POST['tahun']:date('Y');
                      $no = 1;
                      $kalk = array();
                      $kalk_s = array();
@@ -70,31 +96,40 @@
                              $i = 0;
 
                              foreach ($am->result() as $a) {
-                                if($no <= date('n')) {
+                                
                                 $target = $this->db->query('SELECT
-                                    SUM(amount) as total
+                                    amount as total
                                     FROM
                                     tbl_sale_target
                                     WHERE
-                                        operator = '.$a->id.'
+                                        a_m = "'.$a->id.'"
                                         AND SUBSTR(periode, 1, 3) = "'.$mnth.'"
-                                        AND SUBSTR(periode, 5, 4) = '.$thn
-                                        )->row();
-                                $so = $this->db->query('SELECT
-                                    SUM(grand_total) as so_total
-                                    FROM
-                                    tbl_sale_so_detail
-                                    WHERE
-                                    id_so IN (
-                                        SELECT
-                                        id
-                                        FROM
-                                        tbl_sale_so
-                                        WHERE
-                                        am = '.$a->id.'
-                                        AND SUBSTR(so_date, 4, 3) = "'.$mnth.'"
-                                        AND SUBSTR(so_date, 8, 4) = '.$thn.'
-                                        )')->row();
+                                        AND SUBSTR(periode, 5, 4) = '.$thn.'
+                                        ORDER BY no DESC LIMIT 1')->row();
+                                // $so = $this->db->query('SELECT
+                                //     SUM(grand_total) as so_total
+                                //     FROM
+                                //     tbl_sale_so_detail
+                                //     WHERE
+                                //     id_so IN (
+                                //         SELECT
+                                //         id
+                                //         FROM
+                                //         tbl_sale_so
+                                //         WHERE
+                                //         am = '.$a->id.'
+                                //         AND SUBSTR(so_date, 4, 3) = "'.$mnth.'"
+                                //         AND SUBSTR(so_date, 8, 4) = '.$thn.'
+                                //         )')->row();
+                                 $so = $this->db->query("SELECT SUM(total) as sub_total,
+                            SUM(disc) as total_disc,
+                            SUM(delivery) as total_delivery
+                            FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so 
+                                WHERE am = ".$a->id." AND SUBSTR(so_date,4,3) = '".$mnth."' 
+                                AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                        $nett = $so->sub_total - $so->total_disc + $so->total_delivery;
+                        $vat = 0.1 * $nett;
+                        $grand_total_so = $nett + $vat;
                                 $inv = $this->db->query('SELECT
                                     SUM(amount) as inv_total
                                     FROM
@@ -110,10 +145,11 @@
                                         AND SUBSTR(so_date, 4, 3) = "'.$mnth.'"
                                         AND SUBSTR(so_date, 8, 4) = '.$thn.'
                                         )')->row();
-                                        if($so->so_total!=0) $p_inv_so = 100*$inv->inv_total/$so->so_total;
+                                
+                                        if($grand_total_so!=0) $p_inv_so = 100*$inv->inv_total/$grand_total_so;
                                         else $p_inv_so = 0;
-                                        if($target->total!=0){
-                                            $p_so=100*$so->so_total/$target->total;
+                                        if(isset($target->total)){
+                                            $p_so=100*$grand_total_so/$target->total;
                                             $p_inv_target=100*$inv->inv_total/$target->total;
                                         }else{
                                             $p_so= 0;
@@ -125,23 +161,19 @@
                                             $kalk[$i]['inv'] = 0;
                                             
                                         }
-                                         $kalk[$i]['target']+=$target->total; 
-                                            $kalk[$i]['so']+=$so->so_total; 
+                                         $kalk[$i]['target']+=isset($target->total)?$target->total:0; 
+                                            $kalk[$i]['so']+=$grand_total_so; 
                                             $kalk[$i]['inv'] +=$inv->inv_total;
                                         ?>
-                                        <td align="right"><?php echo number_format($target->total,0)?></td>
-                                        <td align="right"><?php echo number_format($so->so_total,0)?></td>
+                                        <td align="right"><?php echo isset($target->total)?number_format($target->total,0):0?></td>
+                                        <td align="right"><?php echo number_format($grand_total_so,0)?></td>
                                         <td align="right"><?php echo number_format($p_so,1,'.','')."%"?></td>
                                         <td align="right"><?php echo number_format($inv->inv_total,0)?></td>
                                         <td align="right"><?php echo number_format($p_inv_so,1,'.','')."%"?></td>
                                         <td align="right"><?php echo number_format($p_inv_target,1,'.','')."%"?></td>
                                         <?php
                                         $i++;
-                                        }else{
-                                            ?>
-                                            <td></td><td></td><td></td><td></td><td></td><td></td>
-                                        <?php 
-                                        }
+                                        
                                     }
                                     //array_push($kalk,array("so"=>$so_total,"inv"=>$inv_total,"p_inv_so"=>$p_inv_so_total));
                                     ?>
@@ -156,7 +188,7 @@
                                         $i = 0;
                                         foreach ($kalk as $k) {
                                         ?>
-                                        <?php if($no/3 <= ceil(date('n')/3)) {?>
+                                        
                                         <td align="right"><?php echo number_format($k['target'],0)?></td>
                                         <td align="right"><?php echo number_format($k['so'],0) ?></td>
                                         <td align="right"><?php if($k['target']!=0) echo number_format(100*$k['so']/$k['target'],1,'.','')."%"; else echo "0.0%";?></td>
@@ -173,9 +205,7 @@
                                         $kalk_s[$i]['target'] += $k['target'];
                                         $kalk_s[$i]['so'] += $k['so'];
                                         $kalk_s[$i]['inv'] += $k['inv'];
-                                        }else{ ?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td>
-                                           <?php } ?>
+                                        ?>
                                         <?php
                                         $i++;
                                         }
@@ -193,7 +223,7 @@
                                         $i = 0;
                                         foreach ($kalk_s as $k) {
                                         ?>
-                                        <?php if($no/6 <= ceil(date('n')/6)) {?>
+                                       
                                        <td align="right"><?php echo number_format($k['target'],0)?></td>
                                         <td align="right"><?php echo number_format($k['so'],0) ?></td>
                                         <td align="right"><?php if($k['target']!=0) echo number_format(100*$k['so']/$k['target'],1,'.','')."%"; else echo "0.0%";?></td>
@@ -210,16 +240,14 @@
                                         $kalk_y[$i]['target'] += $k['target'];
                                         $kalk_y[$i]['so'] += $k['so'];
                                         $kalk_y[$i]['inv'] += $k['inv'];
-                                        }else{ ?>
-                                        <td></td><td></td><td></td><td></td><td></td><td></td>
-                                           <?php } ?>
+                                       ?>
                                         <?php
                                         $i++;
                                         }
                                         ?>
                                     </tr>
                                     <?php
-
+                                    $kalk_s = array();
                                 }
                                 $no++;
                             }

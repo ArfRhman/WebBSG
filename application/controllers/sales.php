@@ -2509,74 +2509,91 @@ function forecast()
 	{
 		case 'view':
 		$this->load->view('top', $data);
+		$data['data'] = $this->mddata->getAllDataTbl('tbl_dm_operator');
+		$this->load->view('sales/forecast_header', $data);
+		break;	
+		case 'detail':
+		$data['in'] = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$this->uri->segment(4).' GROUP BY customer');
+		$this->load->view('top', $data);
+		
 		$this->load->view('sales/forecast_view', $data);
-		break;	
-		case 'getCustomer':
-		$id = $_POST['id'];
-		$data = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$id.' GROUP BY customer')->result();
-		foreach ($data as $d) {
-			$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $d->customer)->row();
-			echo "<option value=".$cust->id.">".$cust->name."</option>";
-		}
 		break;
-		case 'getOtherData':
-		$id = $_POST['id'];
-		$target = $this->db->query('SELECT
-			SUM(amount) as total
-			FROM
-			tbl_sale_target
-			WHERE
-			operator = '.$id
-			)->row();
-		$so = $this->db->query('SELECT
-			SUM(qty) as total
-			FROM
-			tbl_sale_so_detail
-			WHERE
-			id_so IN (
-				SELECT
-				id
-				FROM
-				tbl_sale_so
-				WHERE
-				operator ='.$id.'
-				)')->row();
-		$data = array('forecast'=>$target->total,'order'=>$so->total,'percentage'=>number_format(100*$so->total/$target->total,2,'.','').'%');
-		echo json_encode($data);
-		break;	
-		case'getDataForecast':
-		$in = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$_POST['id'].' GROUP BY customer');
-		$no = 1;
-		if(count($in)>0){
-			foreach($in->result() as $c)
-			{
-				$am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
-				$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
-				$opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
-				$so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$cust->customer_id,'operator'=>$c->operator))->row();
-				$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
-
-				?>
-				<tr>
-					<td><?php echo $no; $no++;?></td>
-					<td><?php echo $opr->name?></td>
-					<td><?php echo $cust->name?></td>
-					<td><?php echo $am->name?></td>
-					<td><?php echo isset($so->so_no)?$so->so_no:''?></td>
-					<td><?php echo isset($so->so_date)?$so->so_date:''?></td>
-					<td><?php echo isset($inv->no)?$inv->no:''?></td>
-					<td><?php echo isset($inv->amount)?$inv->amount:''?></td>
-
-				</tr>
-				<?php
-			}
-		}else
-		{
-			echo"<tr><td colspan=8>Tidak Ada Data</td></tr>";
-		}
-
-		break;	
+		
 	}
+
+	// $data['ac'] = "s_forecast";
+	// switch($this->uri->segment(3))		
+	// {
+	// 	case 'view':
+	// 	$this->load->view('top', $data);
+	// 	$this->load->view('sales/forecast_view', $data);
+	// 	break;	
+	// 	case 'getCustomer':
+	// 	$id = $_POST['id'];
+	// 	$data = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$id.' GROUP BY customer')->result();
+	// 	foreach ($data as $d) {
+	// 		$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer', 'id', $d->customer)->row();
+	// 		echo "<option value=".$cust->id.">".$cust->name."</option>";
+	// 	}
+	// 	break;
+	// 	case 'getOtherData':
+	// 	$id = $_POST['id'];
+	// 	$target = $this->db->query('SELECT
+	// 		SUM(amount) as total
+	// 		FROM
+	// 		tbl_sale_target
+	// 		WHERE
+	// 		operator = '.$id
+	// 		)->row();
+	// 	$so = $this->db->query('SELECT
+	// 		SUM(qty) as total
+	// 		FROM
+	// 		tbl_sale_so_detail
+	// 		WHERE
+	// 		id_so IN (
+	// 			SELECT
+	// 			id
+	// 			FROM
+	// 			tbl_sale_so
+	// 			WHERE
+	// 			operator ='.$id.'
+	// 			)')->row();
+	// 	$data = array('forecast'=>$target->total,'order'=>$so->total,'percentage'=>number_format(100*$so->total/$target->total,2,'.','').'%');
+	// 	echo json_encode($data);
+	// 	break;	
+	// 	case'getDataForecast':
+	// 	$in = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$_POST['id'].' GROUP BY customer');
+	// 	$no = 1;
+	// 	if(count($in)>0){
+	// 		foreach($in->result() as $c)
+	// 		{
+	// 			$am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
+	// 			$cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
+	// 			$opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
+	// 			$so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$cust->customer_id,'operator'=>$c->operator))->row();
+	// 			$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
+
+	// 			?>
+	// 			<!-- <tr>
+	// 				<td><?php echo $no; $no++;?></td>
+	// 				<td><?php echo $opr->name?></td>
+	// 				<td><?php echo $cust->name?></td>
+	// 				<td><?php echo $am->name?></td>
+	// 				<td><?php echo isset($so->so_no)?$so->so_no:''?></td>
+	// 				<td><?php echo isset($so->so_date)?$so->so_date:''?></td>
+	// 				<td><?php echo isset($inv->no)?$inv->no:''?></td>
+	// 				<td><?php echo isset($inv->amount)?$inv->amount:''?></td> -->
+
+	<!-- // 			</tr> -->
+				<?php
+	// 		}
+	// 	}else
+	// 	{
+	// 		echo"<tr><td colspan=8>Tidak Ada Data</td></tr>";
+	// 	}
+
+	// 	break;	
+	// }
 }
 
 function period()
@@ -2683,6 +2700,71 @@ function customer()
 }
 function loss()
 {
+// 	$data['ac'] = "s_loss";
+// 	switch($this->uri->segment(3))		
+// 	{
+// 		case 'view':
+// 		//$data['in'] = $this->mddata->getAllDataTbl('tbl_sale_sales_sop');
+// 		$this->load->view('top', $data);
+// 		$this->load->view('sales/loss_view', $data);
+// 		break;	
+// 		case 'detail':
+// 		$data['data'] = $this->db->query("SELECT
+// 			so_no,
+// 			am,
+// 			division,
+// 			so_date,
+// 			customer_id,
+// 			po_no,
+// 			po_date,
+// 			inv.amount,
+// 			NO,
+// 			date,
+// 			due,
+// 			received_date,
+// 			inv.date AS inv_date,
+// 			inv. NO AS inv_no,
+// 			payment_date,
+// 			sales,
+// 			extcom_pro,
+// 			bank,
+// 			transport,
+// 			adm,
+// 			other,
+// 			(
+// 				SELECT
+// 				SUM(grand_total)
+// 				FROM
+// 				tbl_sale_so_detail d
+// 				WHERE
+// 				d.id_so = so.id
+// 				) AS total_so,
+// 		(
+// 			SELECT
+// 			SUM(DDP_IDR)
+// 			FROM
+// 			tbl_op_price_list pl
+// 			WHERE
+// 			pl.item_id IN (
+// 				SELECT
+// 				item
+// 				FROM
+// 				tbl_sale_so_detail dt
+// 				WHERE
+// 				dt.id_so = so.id
+// 				)
+		
+// 		) AS total_purchase, so.adjustment
+// 		FROM
+// 		tbl_sale_so so
+// 		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
+// 		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
+// 		WHERE
+// 		SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y'));
+// $this->load->view('top', $data);
+// $this->load->view('sales/loss_detail', $data);
+// break;		
+// }
 	$data['ac'] = "s_loss";
 	switch($this->uri->segment(3))		
 	{

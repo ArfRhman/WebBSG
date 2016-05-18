@@ -45,7 +45,7 @@
                      foreach($data->result() as $c)
                      {
                         $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
-                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer_id)->row();
+                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','customer_id',$c->customer_id)->row();
                         ?>
                         <tr>
                             <td><?php echo $no; $no++;?></td>

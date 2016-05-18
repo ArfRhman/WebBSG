@@ -40,7 +40,7 @@
                                                         foreach($this->mddata->getAllDataTbl('tbl_dm_budget')->result() as $c)
                                                         {
                                                         ?>
-                                                        <option value="<?php echo $c->id; ?>" <?=$c->id==$re->budget_code ? 'selected' : ''?>><?php echo $c->code; ?></option>    
+                                                        <option value="<?php echo $c->id; ?>" <?=$c->id==$re->budget_code ? 'selected' : ''?>><?php echo $c->code; ?> - <?php echo $c->level2; ?></option>    
                                                         <?php
                                                         }
                                                     ?>
