@@ -266,6 +266,7 @@
 
                             <div class="col-md-3">
                               <input name="comp_1" placeholder="Competitor 1" class="form-control" type="text">
+                             
                             </div>
 
                           </div>
@@ -273,7 +274,11 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 1 Name</label>
 
                             <div class="col-md-3">
-                              <input name="comp_1_name" placeholder="Competitor 1 Name" class="form-control" type="text">
+                               <select name="comp_1_name" placeholder="Competitor 1 Name" class="form-control" type="text">
+                                <?php foreach ($competitor->result() as $c) { ?>
+                                  <option><?php echo $c->name?></option>
+                                <?php } ?>
+                              </select>
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 2</label>
 
@@ -286,7 +291,11 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 2 Name</label>
 
                             <div class="col-md-3">
-                              <input name="comp_2_name" placeholder="Competitor 2 Name" class="form-control" type="text">
+                              <select name="comp_2_name" placeholder="Competitor 2 Name" class="form-control" type="text">
+                                <?php foreach ($competitor->result() as $c) { ?>
+                                  <option><?php echo $c->name?></option>
+                                <?php } ?>
+                              </select>
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 3</label>
 
@@ -299,7 +308,12 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 3 Name</label>
 
                             <div class="col-md-3">
-                              <input name="comp_3_name" placeholder="Competitor 3 Name" class="form-control" type="text">
+                            
+                              <select name="comp_3_name" placeholder="Competitor 3 Name" class="form-control" type="text">
+                                <?php foreach ($competitor->result() as $c) { ?>
+                                  <option><?php echo $c->name?></option>
+                                <?php } ?>
+                              </select>
                             </div>
 
                           </div>

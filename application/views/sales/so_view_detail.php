@@ -57,7 +57,7 @@
                      ?>
                      <tr>
                        <td><?php echo $no;$no++; ?></td>
-                       <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $c->id)->row()->code; ?></td>
+                       <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $c->item)->row()->code; ?></td>
                        <td><?php echo $c->item_name; ?></td>
                        <td><?php echo $c->brand; ?></td>
                        <td><?php echo $c->mou; ?></td>
