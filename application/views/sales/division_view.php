@@ -17,11 +17,37 @@
                         </div>
                     </div>
                     <div class="panel-body">
+                    <form class="form-horizontal" enctype="multipart/form-data" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="name">Pilih Tahun :</label>
+                            <div class="col-md-3">
+                                <select name="tahun" class="form-control">
+                                    <?php
+                                    for($i = date('Y');$i>=date('Y')-5;$i--){
+                                        if(isset($_POST['tahun']) AND $_POST['tahun']==$i){
+                                         ?>
+                                        <option value="<?php echo $i?>" selected><?php echo $i?></option>
+                                        <?php   
+                                        }else{
+                                            ?>
+                                        <option value="<?php echo $i?>"><?php echo $i?></option>
+                                        <?php
+                                        }
+                                        
+                                    }
+                                    ?>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2"><input type="submit" value="Pilih" class="btn btn-responsive btn-primary btn-sm"></div>
+                        </fieldset>
+                    </form>
                         <div style="overflow:auto;">
                             <?php 
                             $bln = array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
                             $bln2 = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-                            $thn = date('Y');?>
+                            $thn = isset($_POST['tahun'])?$_POST['tahun']:date('Y');?>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>

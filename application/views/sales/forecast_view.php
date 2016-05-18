@@ -12,54 +12,12 @@
             <div class="panel-title pull-left">
              <div class="caption">
               <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Forecast vs Sales: (1) Year to date
+              Forecast vs Sales - Detail
             </div>
           </div>
         </div>
         <div class="panel-body">
-          <form method="POST"  class="form-horizontal" >
-            <fieldset>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="name">Operator</label>
-                <div class="col-md-3">
-                  <select name="los_customer_support" class="form-control" id="operator"><option>--Pilih--</option>
-                    <?php
-                    $sql = $this->mddata->getAllDataTbl('tbl_dm_operator');
-                    foreach($sql->result() as $s)
-                    {
-                      ?>
-                      <option value="<?php echo $s->id; ?>"><?php echo $s->name ?></option>
-                      <?php
-                    }
-                    ?>
-                  </select>
-                </div>                                                                                      
-                <label class="col-md-2 control-label" for="email">Order Amount</label>   
-                <div class="col-md-3" id="order">                                              
-
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="name">Customer</label>
-                <div class="col-md-3">
-                  <select name="los_customer_support" class="form-control" id="cust"><option>--Pilih--</option>
-
-                  </select>
-                </div>                                                                                      
-                <label class="col-md-2 control-label" for="email">% (percentage)</label>   
-                <div class="col-md-3" id="percentage">                                              
-                  -
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="name">Forcast Amount</label>
-                <div class="col-md-3" id="forecast">
-                  -
-                </div>                                                                                      
-               
-              </div>
-            </fieldset>
-          </form>
+          
           <table class="table table-striped table-responsive">
             <thead>
               <tr>
@@ -75,7 +33,38 @@
               </tr>
             </thead>
             <tbody id="data">
+             <?php
              
+    $no = 1;
+    if(count($in)>0){
+      foreach($in->result() as $c)
+      {
+        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
+        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
+        $opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
+        $so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$cust->customer_id,'operator'=>$c->operator))->row();
+        $inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
+        $id = isset($so->id)?$so->id:'';
+        $so_d = $this->db->query('SELECT SUM(grand_total) as total from tbl_sale_so_detail WHERE id_so="'.$id.'"')->row();
+        ?>
+        <tr>
+          <td><?php echo $no; $no++;?></td>
+          <td><?php echo $opr->name?></td>
+          <td><?php echo $cust->name?></td>
+          <td><?php echo $am->name?></td>
+          <td><?php echo isset($so->so_no)?$so->so_no:''?></td>
+          <td><?php echo isset($so->so_date)?$so->so_date:''?></td>
+          <td><?php echo isset($inv->no)?$inv->no:''?></td>
+          <td><?php echo isset($so_d->total)?$so_d->total:''?></td>
+
+        </tr>
+        <?php
+      }
+    }else
+    {
+      echo"<tr><td colspan=8>Tidak Ada Data</td></tr>";
+    }
+             ?>
           </tbody>
         </table>
       </div>

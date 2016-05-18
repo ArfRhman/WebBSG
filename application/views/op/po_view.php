@@ -69,7 +69,7 @@
                     $cost=$this->mddata->getDataFromTblWhere('tbl_op_po_costing', 'no_po', $c->no)->row();
                     ?>
                     <tr>
-                        <td><?=$no?></td>
+                        <td><?=$no; $no++;?></td>
                         <td><?=$c->po_no?></td>
                         <td><?=$c->po_date?></td>
                         <td><?=$c->pureq_no?></td>
