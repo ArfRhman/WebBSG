@@ -1,68 +1,75 @@
 	<aside class="right-side">
-       <!-- Main content -->
-       <section class="content-header">
-          <h1>Welcome to Dashboard</h1>
-      </section>
-      <section class="content">
-        <div class="row">
-            <div class="col-lg-12">
+     <!-- Main content -->
+     <section class="content-header">
+      <h1>Welcome to Dashboard</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+        <div class="col-lg-12">
 
-              <div class="panel panel-primary filterable">
-                <div class="panel-heading clearfix  ">
-                    <div class="panel-title pull-left">
-                     <div class="caption">
-                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        External Commision Report
-                    </div>
+          <div class="panel panel-primary filterable">
+            <div class="panel-heading clearfix  ">
+                <div class="panel-title pull-left">
+                   <div class="caption">
+                    <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                    External Commision Report
                 </div>
             </div>
-            <div class="panel-body">
-                <table class="table table-striped table-responsive" id="table1">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Div</th>
-                            <th>A/M</th>
-                            <th>SO Date</th>
-                            <th>SO No</th>
-                            <th>Inv No</th>
-                            <th>Customer</th>
-                            <th>Total Sales</th>
-                            <th>%Extcom Prop.</th>
-                            <th>Extcom Prop.</th>
-                            <th>Nett after Tax Prop</th>
-                            <th>Nett Approved</th>
-                            <th>Payment Date</th>
-                            <th>Payment Through</th>
-                            <th>Status</th>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-responsive" id="table1">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Div</th>
+                        <th>A/M</th>
+                        <th>SO Date</th>
+                        <th>SO No</th>
+                        <th>Inv No</th>
+                        <th>Customer</th>
+                        <th>Total Sales</th>
+                        <th>%Extcom Prop.</th>
+                        <th>Extcom Prop.</th>
+                        <th>Nett after Tax Prop</th>
+                        <th>Nett Approved</th>
+                        <th>Payment Date</th>
+                        <th>Payment Through</th>
+                        <th>Status</th>
 
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                     <?php
-                     $no = 1;
-                     foreach($data->result() as $c)
-                     {
-                        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
-                        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','customer_id',$c->customer_id)->row();
-                        ?>
-                        <tr>
-                            <td><?php echo $no; $no++;?></td>
-                            <td><?php echo $c->division?></td>
-                            <td><?php echo $am->name?></td>
-                            <td><?php echo $c->so_date?></td>
-                            <td><?php echo $c->so_no?></td>
-                            <td><?php echo $c->inv_no?></td>
-                            <td><?php echo isset($cust->name)?$cust->name:'-'?></td>
-                            <td><?php echo $c->total_so?></td>
-                            <td><?php echo $c->extcom?></td>
-                            <td><?php echo $c->extcom_pro?></td>
-                            <td><?php echo $c->nett?></td>
-                            <td><?php echo $c->approved?></td>
-                            <td><?php echo $c->payment_date?></td>
-                            <td><?php echo $c->through?></td>
-                            <td><?php 
+                    </tr>
+                </thead>
+                <tbody>
+                   <?php
+                   $no = 1;
+                   foreach($data->result() as $c)
+                   {
+                    $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
+                    $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','customer_id',$c->customer_id)->row();
+                    $so_t = $this->db->query("SELECT SUM(total) as sub_total,
+                        SUM(disc) as total_disc,
+                        SUM(delivery) as total_delivery
+                        FROM tbl_sale_so_detail WHERE id_so=".$c->id)->row();
+                    $nett = $so_t->sub_total - $so_t->total_disc + $so_t->total_delivery;
+                    $vat = 0.1 * $nett;
+                    $grand_total_so = $nett + $vat;
+                    ?>
+                    <tr>
+                        <td><?php echo $no; $no++;?></td>
+                        <td><?php echo $c->division?></td>
+                        <td><?php echo $am->name?></td>
+                        <td><?php echo $c->so_date?></td>
+                        <td><?php echo $c->so_no?></td>
+                        <td><?php echo $c->inv_no?></td>
+                        <td><?php echo isset($cust->name)?$cust->name:'-'?></td>
+                        <td><?php echo number_format($grand_total_so,0)?></td>
+                        <td><?php echo $c->extcom?></td>
+                        <td><?php echo $c->extcom_pro?></td>
+                        <td><?php echo $c->nett?></td>
+                        <td><?php echo $c->approved?></td>
+                        <td><?php echo $c->payment_date?></td>
+                        <td><?php echo $c->through?></td>
+                        <td><?php 
                             $now = time(); // or your date as well
                             $your_date = strtotime($c->payment_date);
                             $datediff = floor(($now - $your_date)/(60*60*24));

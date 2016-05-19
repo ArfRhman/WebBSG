@@ -39,13 +39,20 @@
     if(count($in)>0){
       foreach($in->result() as $c)
       {
-        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->a_m)->row();
-        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id',$c->customer)->row();
+        $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$c->am)->row();
+        $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','customer_id',$c->customer_id)->row();
         $opr = $this->mddata->getDataFromTblWhere('tbl_dm_operator','id',$c->operator)->row();
         $so = $this->mddata->getDataMultiWhere('tbl_sale_so',array('customer_id'=>$cust->customer_id,'operator'=>$c->operator))->row();
         $inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
         $id = isset($so->id)?$so->id:'';
-        $so_d = $this->db->query('SELECT SUM(grand_total) as total from tbl_sale_so_detail WHERE id_so="'.$id.'"')->row();
+        //$so_d = $this->db->query('SELECT SUM(grand_total) as total from tbl_sale_so_detail WHERE id_so="'.$id.'"')->row();
+        $so_t = $this->db->query("SELECT SUM(total) as sub_total,
+                            SUM(disc) as total_disc,
+                            SUM(delivery) as total_delivery
+                            FROM tbl_sale_so_detail WHERE id_so=".$id)->row();
+        $nett = $so_t->sub_total - $so_t->total_disc + $so_t->total_delivery;
+        $vat = 0.1 * $nett;
+        $grand_total_so = $nett + $vat;
         ?>
         <tr>
           <td><?php echo $no; $no++;?></td>
@@ -55,7 +62,7 @@
           <td><?php echo isset($so->so_no)?$so->so_no:''?></td>
           <td><?php echo isset($so->so_date)?$so->so_date:''?></td>
           <td><?php echo isset($inv->no)?$inv->no:''?></td>
-          <td><?php echo isset($so_d->total)?$so_d->total:''?></td>
+          <td align="right"><?php echo isset($grand_total_so)?$grand_total_so:''?></td>
 
         </tr>
         <?php

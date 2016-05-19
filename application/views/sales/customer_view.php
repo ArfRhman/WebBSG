@@ -109,26 +109,26 @@
                         $nett = $so->sub_total - $so->total_disc + $so->total_delivery;
                         $vat = 0.1 * $nett;
                         $grand_total_so = $nett + $vat;
-                        if($n <= ceil(date('n'))) echo "<td align='right'>". number_format($grand_total_so,0)."</th>"; 
-                        else echo "<td></td>";   
+                        echo "<td align='right'>". number_format($grand_total_so,0)."</td>"; 
+                          
                         $total_so +=$grand_total_so;
                         if($n%3==0){
-                            if($n/3 <= ceil(date('n')/3)) echo "<td align='right'>".number_format($total_so,0)."</th>"; 
-                            else echo "<td></td>"; 
+                            echo "<td align='right' style='font-weight:bold'>".number_format($total_so,0)."</td>"; 
+                            
                             $total_so_s += $total_so;
                             $total_so = 0;  
                         }
                         if($n%6==0){
-                            if($n/6 <= ceil(date('n')/6)) echo "<td align='right'>".number_format($total_so_s,0)."</th>"; 
-                            else echo "<td></td>"; 
+                            echo "<td align='right' style='font-weight:bold'>".number_format($total_so_s,0)."</td>"; 
+                            
                             $total_so_y += $total_so_s;
                             $total_so_s = 0;    
                         }
 
                         $n++;
                     }
-                    if($n/12 <= ceil(date('n')/12)) echo "<td align='right'>". number_format($total_so_y,0)."</th>"; 
-                    else echo "<td></td>";  
+                    echo "<td align='right' style='font-weight:bold'>". number_format($total_so_y,0)."</td>"; 
+                    
                     ?>
 
 

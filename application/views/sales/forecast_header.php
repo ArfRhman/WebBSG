@@ -12,7 +12,7 @@
                 <div class="panel-title pull-left">
                    <div class="caption">
                     <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Budget
+                    Forecast vs Sales
                 </div>
             </div>
         </div>
@@ -40,26 +40,39 @@
                         WHERE
                         operator = '.$id
                         )->row();
-                    $so = $this->db->query('SELECT
-                        SUM(qty) as total
-                        FROM
-                        tbl_sale_so_detail
-                        WHERE
-                        id_so IN (
-                            SELECT
-                            id
-                            FROM
-                            tbl_sale_so
-                            WHERE
-                            operator ='.$id.'
-                            )')->row();
-
+                    // $so = $this->db->query('SELECT
+                    //     SUM(qty) as total
+                    //     FROM
+                    //     tbl_sale_so_detail
+                    //     WHERE
+                    //     id_so IN (
+                    //         SELECT
+                    //         id
+                    //         FROM
+                    //         tbl_sale_so
+                    //         WHERE
+                    //         operator ='.$id.'
+                    //         )')->row();
+                    $so_t = $this->db->query("SELECT SUM(total) as sub_total,
+                            SUM(disc) as total_disc,
+                            SUM(delivery) as total_delivery
+                            FROM tbl_sale_so_detail WHERE id_so IN (
+                             SELECT
+                             id
+                             FROM
+                             tbl_sale_so
+                             WHERE
+                             operator ='".$id."'
+                             )")->row();
+                    $nett = $so_t->sub_total - $so_t->total_disc + $so_t->total_delivery;
+                    $vat = 0.1 * $nett;
+                    $grand_total_so = $nett + $vat;
                             ?>
                             <tr>
                                <td><?php echo $no;?></td>
                                <td><a href="<?php echo site_url('sales/forecast/detail/'.$c->id)?>"><?php echo $c->name ?></td>
                                <td align="right"><?php echo number_format($target->total); ?></td>
-                               <td align="right"><?php echo number_format($so->total); ?></td>
+                               <td align="right"><?php echo number_format($grand_total_so); ?></td>
 
                            </tr>
                            <?php

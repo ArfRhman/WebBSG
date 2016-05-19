@@ -74,8 +74,15 @@
                      foreach($bln as $b)
                      {
                         $mnth = date('M', mktime(0, 0, 0, $no, 10)); 
-                        $so = $this->db->query('SELECT SUM(grand_total) as total from tbl_sale_so_detail WHERE id_so IN (SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3)="'.$mnth.'" AND SUBSTR(so_date,8,4)='.$thn.')')->row();
+                        //$so = $this->db->query('SELECT SUM(grand_total) as total from tbl_sale_so_detail WHERE id_so IN (SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3)="'.$mnth.'" AND SUBSTR(so_date,8,4)='.$thn.')')->row();
                         //$target = $this->db->query('SELECT SUM(amount) as total from tbl_sale_target WHERE SUBSTR(periode,1,3)="'.$mnth.'" AND SUBSTR(periode,5,4)='.$thn)->row();
+                         $so = $this->db->query("SELECT SUM(total) as sub_total,
+                            SUM(disc) as total_disc,
+                            SUM(delivery) as total_delivery
+                            FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                        $nett = $so->sub_total - $so->total_disc + $so->total_delivery;
+                        $vat = 0.1 * $nett;
+                        $grand_total_so = $nett + $vat;
                         $target = $this->db->query('
                             select
                             SUM(a.amount) as total
@@ -100,13 +107,13 @@
                                 WHERE
                                 SUBSTR(so_date, 4, 3) = "'.$mnth.'" AND SUBSTR(so_date,8,4)='.$thn.'
                                 )')->row();
-                        if($so->total!=0){
-                            $pers_inv = 100*$inv->total/$so->total;
+                        if($grand_total_so!=0){
+                            $pers_inv = 100*$inv->total/$grand_total_so;
                         }else{
                             $pers_inv = 0;
                         }
                         if($target->total!=0){
-                            $pers_so= 100*$so->total/$target->total;
+                            $pers_so= 100*$grand_total_so/$target->total;
                             $pers_inv_t= 100*$inv->total/$target->total;
                         }else{
                             $pers_so = 0;
@@ -117,20 +124,18 @@
                         <tr>
                             <td><?php echo $no?></td>
                             <td><?php echo $b?></td>
-                            <?php if(isset($target->total) OR isset($so->total) OR isset($inv->total)) {?>
+                            
                             <td align="right"><?php echo number_format($target->total, 0)?></td>
-                            <td align="right"><?php echo number_format($so->total, 0)?></td>
+                            <td align="right"><?php echo number_format($grand_total_so, 0)?></td>
                             <td align="center"><?php  echo number_format($pers_so,2,'.','')."%"?></td>
                             <td align="right"><?php echo number_format($inv->total,0)?></td>
                             <td align="center"><?php  echo number_format($pers_inv,2,'.','')."%"?></td>
                             <td align="center"><?php  echo number_format($pers_inv_t,2,'.','')."%"?></td>
                             <?php 
-                            $total_so +=$so->total;
+                            $total_so +=$grand_total_so;
                             $total_inv +=$inv->total;
                             $total_target +=$target->total;
-                        }else{ ?>
-                        <td></td><td></td><td></td><td></td><td></td><td></td>
-                        <?php } ?>
+                         ?>
                     </tr>
                     <?php                            
                     if($no  %3 == 0){
@@ -150,7 +155,7 @@
                         <tr style="font-weight:bold">
                             <td></td>
                             <td>&nbsp;&nbsp;&nbsp;&nbsp;QUARTER <?php echo $no/3?></td>
-                            <?php if($total_target !=0 OR $total_so !=0 OR $total_inv !=0) {?>
+                            
                             <td align="right"><?php echo number_format($total_target,0)?></td>
                             <td align="right"><?php echo number_format($total_so,0)?></td>
                             <td align="center"><?php  echo number_format($t_pers_so,2,'.','')."%"?></td>
@@ -164,9 +169,7 @@
                             $total_so = 0;
                             $total_inv = 0;
                             $total_target = 0;
-                        }else{ ?>
-                        <td></td><td></td><td></td><td></td><td></td><td></td>
-                        <?php } ?>
+                        ?>
 
                     </tr>
                     <?php
@@ -189,7 +192,7 @@
                     <tr style="font-weight:bold">
                         <td></td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEMESTER <?php echo $no/6?></td>
-                        <?php if($total_target_s !=0 OR $total_so_s !=0 OR $total_inv_s !=0) {?>
+                        
                         <td align="right"><?php echo number_format($total_target_s,0)?></td>
                         <td align="right"><?php echo number_format($total_so_s,0)?></td>
                         <td align="center"><?php  echo number_format($t_pers_so,2,'.','')."%"?></td>
@@ -203,9 +206,7 @@
                         $total_so_s = 0;
                         $total_inv_s = 0;
                         $total_target_s = 0;
-                    }else{ ?>
-                    <td></td><td></td><td></td><td></td><td></td><td></td>
-                    <?php } ?>
+                    ?>
 
                 </tr>
                 <?php

@@ -49,7 +49,7 @@
                    foreach($detail->result() as $d)
                    {
                     $am = $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id', $d->am)->row();
-                    $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','id', $d->customer_id)->row();
+                    $cust = $this->mddata->getDataFromTblWhere('tbl_dm_customer','customer_id', $d->customer_id)->row();
                    ?>
                 <tr>
                     <td><?php echo $no; $no++;?></td>
@@ -70,9 +70,9 @@
                     ?></td>
                     <td><?php echo $d->due_date?></td>
                     <td><?php echo $d->payment?></td>
-                    <td><?php echo $d->overdue?></td>
+                    <td><?php echo ($d->overdue!="")?$d->overdue:0?></td>
 
-                    <td><?php if($d->overdue<=0) $penalty =  "YES"; else $penalty = "NO";
+                    <td><?php if($d->overdue<=0 AND $d->overdue!="") $penalty =  "YES"; else $penalty = "NO";
                     echo $penalty;
                     ?></td>
                     <td><?php if($penalty=="YES") $pen_amount = ($d->overdue/180) * $net; 

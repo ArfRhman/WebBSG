@@ -100,9 +100,9 @@
                         $sale = $this->db->query("SELECT SUM(adjustment) as adjustment FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn)->row();
                         $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $cogs = $this->db->query("SELECT
-                            SUM(DDP_IDR) as ddp
+                            SUM(ddp_idr) as ddp
                             FROM
-                            tbl_op_price_list
+                            tbl_op_pl_tabel
                             WHERE
                             item_id IN (
                                 SELECT
@@ -138,7 +138,7 @@
                                 '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn."
                                 )")->row();
                         $dir_cost = $direct->sales + $direct->extcom + $direct->bank +$direct->transport + $direct->adm +$direct->other;    
-                        $ddp = $cogs->ddp*$so->qty;
+                        $ddp = $cogs->ddp * $so->qty;
                         $gross = $inv->total - $ddp;
 
                         $nett = $so->sub_total - $so->total_disc + $so->total_delivery;
@@ -152,14 +152,14 @@
                             <td align="right"><?php echo number_format($target->total,0)?></td>
                             <td align="right"><?php echo number_format($grand_total_so,0)?></td>
                             <td align="right"><?php echo number_format($inv->total,0)?></td>
-                            <td align="right"><?php echo number_format($ddp,0)?></td>
+                            <td align="right"><?php echo number_format($cogs->ddp,0)?></td>
                             <td align="right"><?php echo number_format($gross,0)?></td>
                             <td align="right"><?php echo number_format($dir_cost,0)?></td>
                             <td align="right"><?php echo number_format($sale->adjustment,0)?></td>
                             <td align="right"><?php $enp = $gross - $dir_cost + $sale->adjustment;
                                 echo number_format($enp,0);
                                 ?></td>
-                                <td><?php echo $inv->total!=0?number_format($enp/$inv->total,2,'.',''):'0'?>%</td>
+                                <td><?php echo ($inv->total!=0)?number_format(100 * $enp/$inv->total,2,'.',''):'0'?>%</td>
                                 <?php
                                 $total_so +=$grand_total_so;
                                 $total_inv +=$inv->total;

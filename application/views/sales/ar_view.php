@@ -107,15 +107,15 @@
                             FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $payment = $this->db->query("SELECT SUM(amount) as total,
-                            AVG(DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y'))) AS avg_overdue FROM tbl_sale_so_payment WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
-                        $outstanding = $payment->total - $inv->total;
+                            AVG(DATEDIFF(STR_TO_DATE(payment_date, '%d/%m/%Y'),STR_TO_DATE(due_date, '%d/%m/%Y'))) AS avg_overdue FROM tbl_sale_so_payment WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                        $outstanding = abs($payment->total - $inv->total);
                         
                         $nett = $so->sub_total - $so->total_disc + $so->total_delivery;
                         $vat = 0.1 * $nett;
                         $grand_total_so = $nett + $vat;
                         if($inv->total !=0 ) {
-                            $p_inv = $payment->total/$inv->total;
-                            $p_out = $outstanding/$inv->total;
+                            $p_inv = 100*($payment->total/$inv->total);
+                            $p_out = 100*($outstanding/$inv->total);
                         }else{
                             $p_inv = 0;
                             $p_out = 0;
@@ -146,8 +146,8 @@
                         
                         if($no  %3 == 0){
                             if($total_inv !=0 ) {
-                                $p_inv_t = $total_payment/$total_inv;
-                                $p_out_t = $total_out/$total_inv;
+                                $p_inv_t =  100*($total_payment/$total_inv);
+                                $p_out_t =  100*($total_out/$total_inv);
                             }else{
                                 $p_inv_t = 0;
                                 $p_out_t = 0;
@@ -186,8 +186,8 @@
                         }
                         if($no  %6 == 0){
                             if($total_inv_s !=0 ) {
-                                $p_inv_t = $total_payment_s/$total_inv_s;
-                                $p_out_t = $total_out_s/$total_inv_s;
+                                $p_inv_t =  100*($total_payment_s/$total_inv_s);
+                                $p_out_t =  100*($total_out_s/$total_inv_s);
                             }else{
                                 $p_inv_t = 0;
                                 $p_out_t = 0;
@@ -232,8 +232,8 @@
                         <td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR TO DATE</b></td>
                         <?php 
                         if($total_inv_y !=0 ) {
-                            $p_inv_t = $total_payment_y/$total_inv_y;
-                            $p_out_t = $total_out_y/$total_inv_y;
+                            $p_inv_t =  100*($total_payment_y/$total_inv_y);
+                            $p_out_t =  100*($total_out_y/$total_inv_y);
                         }else{
                             $p_inv_t = 0;
                             $p_out_t = 0;
