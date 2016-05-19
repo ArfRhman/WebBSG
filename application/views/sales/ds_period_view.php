@@ -86,7 +86,7 @@
                 graphic(data,title,categories,persen);
               }else if(cat == "2"){
                $("#tahun").show();
-               title = ' Sales By Period (Quarterly)';
+               title = ' Sales By Period ('+$("#tahun").val()+')';
                 // data quartal
                 categories = ['Q1', 'Q2', 'Q3', 'Q4']; 
                 $.get('<?=base_url()?>index.php/sales/dashboard/period_quarterly/'+$("#tahun").val(),function(data){
@@ -94,7 +94,7 @@
                 });
               }else if(cat == "3"){
                $("#tahun").show();
-               title = ' Sales By Period (Monthly)';
+               title = ' Sales By Period ('+$("#tahun").val()+')';
                 // data monthly
                 categories = ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
                 $.get('<?=base_url()?>index.php/sales/dashboard/period_monthly/'+$("#tahun").val(),function(data){
@@ -149,8 +149,7 @@
         series: {
           borderWidth: 0,
           dataLabels: {
-            enabled: true,
-            format: '{point.y}'
+            
           }
         }
       },

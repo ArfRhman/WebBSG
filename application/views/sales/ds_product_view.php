@@ -65,14 +65,14 @@
 <!-- end of page level js -->
 <script type="text/javascript">
   $(document).ready(function () {
-    var title = 'Sales By Product (Year to Date)';
+    var title = 'Sales By Product ('+$("#tahun").val()+')';
     //graphic(data1,title);
     $("#categories").change(function(){
       var cat = $("#categories").val();
                 if(cat == "1"){ // year to date SO
                  //$("#tahun").hide();
                  //$("#tahun").val($("#tahun option:first").val());
-                 title = 'Sales By Product (Year to Date)';
+                 title = 'Sales By Product ('+$("#tahun").val()+')';
                  $.get('<?=base_url()?>index.php/sales/dashboard/product_year/'+$("#tahun").val(),function(data){
                   graphic(JSON.parse(data),title);
                 });

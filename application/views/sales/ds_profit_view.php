@@ -69,27 +69,27 @@
  $(document).ready(function () {
         // default tahunan
         var categories = <?=$kateg?> // json period sales disini
-        var title = ' Year to Date';
+        var title = 'Sales Profit & Loss Summary (Year to Date)';
         var dataTahun= <?=$year?>;
         graphicNew(title,categories,dataTahun);
         $("#categories").change(function(){
           var cat = $("#categories").val();
           if(cat == "1"){ // tahun
             $("#tahun").hide();
-            title = ' Year to Date'; 
+            title = 'Sales Profit & Loss Summary (Year to Date)'; 
                 // data tahunan
                 categories = <?=$kateg?>;
                 graphicNew(title,categories,dataTahun);
               }else if(cat == "2"){
                $("#tahun").show();
-               title = ' Quarterly ' + $("#tahun").val();
+               title = 'Sales Profit & Loss Summary (' + $("#tahun").val()+')';
                categories = ['Q1', 'Q2', 'Q3', 'Q4'];
                $.get('<?=base_url()?>index.php/sales/dashboard/profit_quarterly/'+$("#tahun").val(),function(data){
                 graphicNew(title,categories,JSON.parse(data));
               });
              }else if(cat == "3"){
                $("#tahun").show();
-               title = ' Monthly '  + $("#tahun").val();
+               title = 'Sales Profit & Loss Summary ('  + $("#tahun").val()+')';
                 // data monthly
                 categories = ['Jan', 'Feb', 'Mar', 'Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
                 $.get('<?=base_url()?>index.php/sales/dashboard/profit_monthly/'+$("#tahun").val(),function(data){
@@ -145,8 +145,8 @@ function graphicNew(title,categ,data) {
       series: {
         borderWidth: 0,
         dataLabels: {
-          enabled: true,
-          format: '{point.y}'
+          // enabled: true,
+          // format: '{point.y}'
         }
       }
     },

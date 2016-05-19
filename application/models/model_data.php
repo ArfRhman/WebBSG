@@ -403,12 +403,21 @@ class model_data extends CI_Model {
 		return $query;
 	}
 
+	// function getProVsProfit($tahun){
+	// 	$query = $this->db->query("SELECT *, sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost,
+	// 		SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
+	// 		from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel,tbl_op_pl_header where 
+	// 		AND ((str_to_date(tbl_sale_so.po_date,'%d %M %Y')) between (str_to_date(tbl_op_pl_header.effective_from,'%d %M %Y')) AND (str_to_date(tbl_op_pl_header.effective_fill,'%d %M %Y'))) 
+	// 		AND tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
+	// 		AND tbl_sale_so.id = tbl_sale_so_detail.id_so GROUP BY tbl_sale_so_detail.item
+	// 		")->result_array();
+	// 	return $query;
+	// }
+
 	function getProVsProfit($tahun){
-		$query = $this->db->query("SELECT *, sum(qty*price) as subtotal, sum(discount) as total_discount, sum(delivery) as delivery_cost,
-			SUM(tbl_sale_so_detail.price)-tbl_op_pl_tabel.ddp_idr AS diff
-			from tbl_sale_so,tbl_sale_so_detail,tbl_op_pl_tabel where 
-			tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = $tahun 
-			AND tbl_sale_so.id = tbl_sale_so_detail.id_so GROUP BY tbl_sale_so_detail.item
+		$query = $this->db->query("SELECT * from tbl_sale_so,tbl_op_pl_tabel,tbl_op_pl_header,tbl_sale_so_detail where 
+			((str_to_date(tbl_sale_so.po_date,'%d %M %Y')) between (str_to_date(tbl_op_pl_header.effective_from,'%d %M %Y')) AND (str_to_date(tbl_op_pl_header.effective_fill,'%d %M %Y'))) 
+			AND tbl_sale_so_detail.item=tbl_op_pl_tabel.item_id AND YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) = '$tahun' AND tbl_sale_so.id = tbl_sale_so_detail.id_so group by tbl_sale_so_detail.id
 			")->result_array();
 		return $query;
 	}
@@ -476,10 +485,8 @@ class model_data extends CI_Model {
 
 	//[Sales] Stock Performance
 	function getStockPerformance(){
-		$query = $this->db->query("SELECT item, SUM( tbl_op_po_tabel.qty ) AS amount, DATEDIFF( CURDATE( ) , MAX( STR_TO_DATE( tbl_op_po_documentation.gr_date,  '%d %b %Y' ) ) ) AS geer
-			FROM tbl_op_po_tabel, tbl_op_po_documentation
-			WHERE tbl_op_po_tabel.no_po = tbl_op_po_documentation.no_po
-			GROUP BY tbl_op_po_tabel.item_code")->result_array();
+		$query = $this->db->query("SELECT *, DATEDIFF( CURDATE( ) ,  STR_TO_DATE( tbl_op_st_header.document_date,  '%d %b %Y' ) ) AS geer FROM tbl_op_po_tabel, tbl_op_st_header, tbl_op_st_tabel 
+			WHERE tbl_op_st_header.no=tbl_op_st_tabel.st_no AND tbl_op_po_tabel.item_code = tbl_op_st_tabel.item_code")->result_array();
 		return $query;
 	}
 

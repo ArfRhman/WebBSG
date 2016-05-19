@@ -61,18 +61,18 @@
                                 <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></a></td>
                                 <td><a href="<?=base_url()?>index.php/op/import_cost/sum/<?=$kat?>"><?php echo  $kat?></a></td>
                                 <td><?php echo $tabel->item?></td>
-                                <td>-</td>
+                                <td><?php echo $c->no?></td>
                                 <td><?php echo $c->moda ?></td>
                                 <td><?php echo $c->po_no ?></td>
                                 <td><?php echo $c->po_date ?></td>
-                                <td>-</td>
+                                <td><?php echo $doc->pib_date?></td>
                                 <td><?php echo $tabel->qty ?></td>
                                 <td><?php echo $c->currency ?></td>
                                 <td><?php echo $costing->po_amount ?></td>
-                                <td><?php echo $costing->adm_cost ?></td>
-                                <td><?php echo $costing->percentage_cost_without_vat ?></td>
-                                <td><?php echo $costing->total_duty_taxes ?> - <?php echo $costing->percentage_duty_taxes ?></td>
-                                <td><?php echo $costing->total_clearance ?> - <?=$costing->percentage_clearance?></td>
+                                <td><?php echo $costing->total_cost?> (<?=($costing->total_cost/$costing->po_amount)*100?>%)</td>
+                                <td><?php echo $costing->total_cost_without_vat?> (<?=($costing->total_cost_without_vat/$costing->po_amount)*100?>%)</td>
+                                <td><?php echo $costing->total_tax?> (<?=($costing->total_tax/$costing->po_amount)*100?>%)</td>
+                                <td><?php echo $costing->total_clearance ?> (<?=($costing->total_clearance/$costing->po_amount)*100?>%)</td>
                                 <td><?=$c->forwarder?></td>
                             </tr>
                             <?php

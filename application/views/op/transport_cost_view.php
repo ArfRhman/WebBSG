@@ -52,6 +52,10 @@
                                 $transport+=$z->transport;
                             }
                         }
+                        $total=$debit+$nett;
+                        if(empty($total)){
+                            $total=1;
+                        }
                         ?>
                         <tr>
                             <td><?php echo $no; $no++; ?></td>
@@ -60,9 +64,9 @@
                             <td><?php echo $c->so_no ?></td>
                             <td><?php echo $c->so_date ?></td>
                             <td><?php echo $c->customer_name ?></td>
-                            <td><?php echo $nett?></td>
-                            <td><?php echo $debit ?></td>
-                            <td><?php echo $transport ?></td>
+                            <td><?php echo $total?></td>
+                            <td><?php echo $debit?> (<?=number_format($debit/$total*100,2)?> %)</td>
+                            <td><?php echo $nett?> (<?=number_format($nett/$total*100,2)?> %)</td>
 
                         </tr>
                         <?php

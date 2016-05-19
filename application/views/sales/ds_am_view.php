@@ -28,7 +28,7 @@
               <select class="form-control" id="am" style="display:none;">
                 <option value="">-- Pilih Account Manager --</option>
                 <?php
-                $sql = $this->mddata->getAllDataTbl('tbl_dm_personnel');
+                $sql = $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'position', '1');
                 foreach($sql->result() as $s)
                 {
                   ?>

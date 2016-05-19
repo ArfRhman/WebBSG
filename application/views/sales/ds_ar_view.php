@@ -92,7 +92,12 @@
         data: <?=$invoice?>
       }, {
         name: 'Paid',
-        data: <?=$paid?>
+        data: <?=$paid?>,
+        tooltip: {
+          formatter:function(){
+            return "jgjhgjgjhg";          
+          },
+        }
       }, {
         name: 'Outstanding',
         data: <?=$out?>
