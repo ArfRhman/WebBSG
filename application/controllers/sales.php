@@ -2571,7 +2571,7 @@ function forecast()
 		$this->load->view('sales/forecast_header', $data);
 		break;	
 		case 'detail':
-		$data['in'] = $this->db->query('SELECT * FROM tbl_sale_target WHERE operator='.$this->uri->segment(4).' GROUP BY customer');
+		$data['in'] = $this->db->query('SELECT * FROM tbl_sale_so WHERE operator='.$this->uri->segment(4).' GROUP BY customer_id');
 		$this->load->view('top', $data);
 		
 		$this->load->view('sales/forecast_view', $data);
@@ -2632,7 +2632,7 @@ function forecast()
 	// 			$inv = $this->mddata->getDataFromTblWhere('tbl_sale_so_invoicing','id_so',isset($so->id)?$so->id:'')->row();
 
 	// 			?>
-	// 			<!-- <tr>
+	 			<!-- <tr>
 	// 				<td><?php echo $no; $no++;?></td>
 	// 				<td><?php echo $opr->name?></td>
 	// 				<td><?php echo $cust->name?></td>
@@ -2884,10 +2884,10 @@ function loss()
 		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
 		WHERE
 		SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y'));
-		$this->load->view('top', $data);
-		$this->load->view('sales/loss_detail', $data);
-		break;		
-	}
+$this->load->view('top', $data);
+$this->load->view('sales/loss_detail', $data);
+break;		
+}
 }
 function ar()
 {
@@ -3057,6 +3057,7 @@ function external()
 	{
 		case 'view':
 		$data['data'] = $this->db->query("SELECT
+			so.id,
 			so_no,
 			am,
 			division,
@@ -3077,8 +3078,8 @@ function external()
 			approved,
 			through,
 			extcom,
-			extcom_pro,
-			(SELECT SUM(grand_total) FROM tbl_sale_so_detail d WHERE d.id_so =so.id) as total_so
+			extcom_pro
+			
 			FROM
 			tbl_sale_so so
 			LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so

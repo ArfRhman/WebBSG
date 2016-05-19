@@ -66,10 +66,11 @@
                       $total_sales += $h->total_qty * $h->avg;
                        $total_profit +=$profit_amount;
 
-                       $qty_inv = $inv->total/$h->avg;
+                       $qty_inv = ($h->avg!=0)?($inv->total/$h->avg):0;
                        $total_inv += $qty_inv*$h->avg;
                        array_push($item_no, $h->item);
                    }
+                   if(count($q->result())>0){
                    $o = $this->db->query('SELECT
                                                 "REST BALANCE" as nama,
                                                 SUM(qty) AS total_qty,
@@ -90,14 +91,14 @@
                         <td align="right"><?php echo number_format($c->total_qty,0)?></td>
                         <td align="right"><?php echo number_format($c->avg,0)?></td>
                         <td align="right"><?php $ts = $c->total_qty * $c->avg; echo number_format($ts,0)?></td>
-                        <td align="right"><?php echo number_format( 100*$ts/$total_sales,1)."%"?></td>
-                        <td><?php $qty_inv = $inv->total/$c->avg; echo number_format($qty_inv,0)?></td>
-                        <td><?php echo number_format($c->avg,0)?></td>
-                        <td><?php $inv_sales = $qty_inv * $c->avg; echo number_format($inv_sales,0)?></td>
-                        <td><?php echo number_format( 100*$inv_sales/$total_inv,2)."%"?></td>
+                        <td align="right"><?php echo ($total_sales!=0)?number_format( 100*$ts/$total_sales,1):'0'?>%</td>
+                        <td align="right"><?php $qty_inv = ($c->avg!=0)?($inv->total/$c->avg):0; echo number_format($qty_inv,0)?></td>
+                        <td align="right"><?php echo number_format($c->avg,0)?></td>
+                        <td align="right"><?php $inv_sales = $qty_inv * $c->avg; echo number_format($inv_sales,0)?></td>
+                        <td align="right"><?php echo ($total_inv!=0)?number_format( 100*$inv_sales/$total_inv,2):0?>%</td>
                         <td align="right"><?php echo number_format( $profit_amount,0)?></td>
-                        <td><?php echo ($inv_sales!=0)?number_format( 100*$profit_amount/$inv_sales,2):0?>%</td>
-                        <td align="right"><?php echo number_format( 100*$profit_amount/$total_profit,1)."%"?></td>
+                        <td align="right"><?php echo ($inv_sales!=0)?number_format( 100*$profit_amount/$inv_sales,2):0?>%</td>
+                        <td align="right"><?php echo ($total_profit!=0)?number_format( 100*$profit_amount/$total_profit,1):0 ?>%</td>
                     </tr>
 
                     <?php
@@ -120,13 +121,13 @@
                         <td align="right"><?php echo number_format( $o->total_qty,0)?></td>
                         <td align="right"><?php echo number_format( $o->avg,0)?></td>
                         <td align="right"><?php $ts = $o->total_qty * $o->avg; echo number_format($ts,0)?></td>
-                        <td><?php echo number_format( 100*$ts/$total_sales,1)."%"?></td>
-                        <td><?php $o_qty_inv = $o_inv->total/$o->avg; echo number_format($o_qty_inv,0)?></td>
-                        <td><?php echo number_format($o->avg,0)?><</td>
-                        <td><?php $o_inv_sales = $o_qty_inv * $o->avg; echo number_format($o_inv_sales,0)?></td>
-                        <td><?php echo number_format( 100*$o_inv_sales/$total_inv,2)."%"?></td>
+                        <td align="right"><?php echo number_format( 100*$ts/$total_sales,1)."%"?></td>
+                        <td align="right"><?php $o_qty_inv = $o_inv->total/$o->avg; echo number_format($o_qty_inv,0)?></td>
+                        <td align="right"><?php echo number_format($o->avg,0)?><</td>
+                        <td align="right"><?php $o_inv_sales = $o_qty_inv * $o->avg; echo number_format($o_inv_sales,0)?></td>
+                        <td align="right"><?php echo number_format( 100*$o_inv_sales/$total_inv,2)."%"?></td>
                         <td align="right"><?php echo number_format( $o_profit_amount,0)?></td>
-                        <td><?php echo ($o_inv_sales!=0)?number_format( 100*$o_profit_amount/$o_inv_sales,2):0?>%</td>
+                        <td align="right"><?php echo ($o_inv_sales!=0)?number_format( 100*$o_profit_amount/$o_inv_sales,2):0?>%</td>
                         <td align="right"><?php echo number_format( 100*$o_profit_amount/$total_profit,1)."%"?></td>
                     </tr>
                     <?php } ?>
@@ -146,6 +147,9 @@
                         <th><?php echo ($total_inv!=0)?number_format( 100*$total_profit/$total_inv,2):0?>%</th>
                         <th class="text-right">100%</th>
                     </tr>
+                    <?php }else{
+                      echo"<td colspan='13' align='center'>Data Kosong</td>";
+                      } ?>
                 </tbody>
             </table>
         </div>
