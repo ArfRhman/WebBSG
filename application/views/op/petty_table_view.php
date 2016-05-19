@@ -52,7 +52,7 @@
                       </div>
                       <label class="col-md-2 control-label" for="date">Jumlah Diapprove</label>
                       <div class="col-md-3">
-                        <input value="<?=$op->jumlah_diapprove?>" id="date" name="jml_approve" placeholder="Jumlah Diapprove" class="form-control" type="text"></div>
+                        <input value="<?=$op->jumlah_diapprove?>" id="jml_approve" name="jml_approve" placeholder="Jumlah Diapprove" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="JumlahSelisih(this)"></div>
                       </div>
                       <div class="form-group">
                         <label class="col-md-2 control-label" for="no">Tanggal Diapprove</label>
@@ -88,12 +88,12 @@
                               </div>
                               <label class="col-md-2 control-label" for="date">Jumlah Net Realisasi</label>
                               <div class="col-md-3">
-                                <input value="<?=$op->jumlah_net_realisasi?>" id="date" name="jml_net_realisasi" placeholder="Jumlah Net Realisasi" class="form-control" type="text"></div>
+                                <input value="<?=$op->jumlah_net_realisasi?>" id="jml_net" name="jml_net_realisasi" placeholder="Jumlah Net Realisasi" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="JumlahSelisih(this)"></div>
                               </div>
                               <div class="form-group">
                                 <label class="col-md-2 control-label" for="no">Jumlah Selisih</label>
                                 <div class="col-md-3">
-                                  <input value="<?=$op->jumlah_selisih?>" id="date" name="jml_selisih" placeholder="Jumlah Selisih" class="form-control" type="text">
+                                  <input value="<?=$op->jumlah_selisih?>" id="jml_selisih" name="jml_selisih" placeholder="Jumlah Selisih" class="form-control" type="text" readonly>
                                 </div>
                                 <label class="col-md-2 control-label" for="date">Tanggal Bayar / Kembali</label>
                                 <div class="col-md-3">
@@ -209,26 +209,37 @@
             <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
             <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
             <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-            <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		<script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+            <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		
 
-                            <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+            <script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
 
 
-            <!-- end of page level js -->		<script>		$(document).ready(function(){
-               $('.datepicker').datepicker({
-                                        format:'dd M yyyy'
-                                    });
-               $('#tglByr').change(function() {
-                                      var date2 = $('#tglByr').datepicker('getDate', '+1d'); 
-                                      date2.setDate(date2.getDate()+7); 
-                                      $('#tglWrn').datepicker('setDate', date2);
+            <!-- end of page level js -->		
+            <script>		
+            function JumlahSelisih(e){
+              var a;
+              var b;
+              document.getElementById('jml_approve').value!='' ? a=document.getElementById('jml_approve').value : a=0
+              document.getElementById('jml_net').value!='' ? b=document.getElementById('jml_net').value : b=0
+              // alert(a);
+              var p = document.getElementById('jml_selisih');
+              p.value = a - b;
+            }
+            $(document).ready(function(){
+             $('.datepicker').datepicker({
+              format:'dd M yyyy'
+            });
+             $('#tglByr').change(function() {
+              var date2 = $('#tglByr').datepicker('getDate', '+1d'); 
+              date2.setDate(date2.getDate()+7); 
+              $('#tglWrn').datepicker('setDate', date2);
 
-                                       var date3 = $('#tglByr').datepicker('getDate', '+1d'); 
-                                      date3.setDate(date3.getDate()+14); 
-                                      $('#tglOvr').datepicker('setDate', date3);
+              var date3 = $('#tglByr').datepicker('getDate', '+1d'); 
+              date3.setDate(date3.getDate()+14); 
+              $('#tglOvr').datepicker('setDate', date3);
 
-                                  });
+            });
 
-            			$('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
-          </body>
-          </html>
+             $('.delete').on('click',function(){				var btn = $(this);				bootbox.confirm('Are you sure to delete this record?', function(result){					if(result ==true){						window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id');					}				});			});		});	</script>
+           </body>
+           </html>

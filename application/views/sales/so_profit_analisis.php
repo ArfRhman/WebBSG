@@ -86,7 +86,7 @@
   ?>
   <tr>
     <td><?php echo $no; ?></td>
-    <td><?php echo $c->item_name; ?> -</td>
+    <td><?php echo $c->item; ?> -</td>
     <td><?php echo $c->mou; ?></td>
     <td><?php echo $c->qty; ?></td>
     <td align="right"><?php echo ($c->price!=0)?number_format($c->price,"0",",","."):'0'; $jml_up += $c->price?></td>

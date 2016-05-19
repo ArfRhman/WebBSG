@@ -274,7 +274,11 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 1 Name</label>
 
                             <div class="col-md-3">
-                              <input value="<?=$c->competitor_1_name?>" name="comp_1_name" placeholder="Competitor 1 Name" class="form-control" type="text">
+                               <select name="comp_1_name" placeholder="Competitor 1 Name" class="form-control" type="text">
+                                <?php foreach ($competitor->result() as $cs) { ?>
+                                  <option <?php echo ($c->competitor_1_name == $cs->name)?'selected':''?>><?php echo $cs->name?></option>
+                                <?php } ?>
+                              </select>
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 2</label>
 
@@ -287,7 +291,11 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 2 Name</label>
 
                             <div class="col-md-3">
-                              <input value="<?=$c->competitor_2_name?>" name="comp_2_name" placeholder="Competitor 2 Name" class="form-control" type="text">
+                             <select name="comp_2_name" placeholder="Competitor 2 Name" class="form-control" type="text">
+                                <?php foreach ($competitor->result() as $cs) { ?>
+                                  <option <?php echo ($c->competitor_2_name==$cs->name)?' selected ':''?>><?php echo $cs->name?></option>
+                                <?php } ?>
+                              </select>
                             </div>
                              <label class="col-md-2 control-label" for="presented">Competitor 3</label>
 
@@ -300,7 +308,11 @@
                              <label class="col-md-2 control-label" for="presented">Competitor 3 Name</label>
 
                             <div class="col-md-3">
-                              <input value="<?=$c->competitor_3_name?>" name="comp_3_name" placeholder="Competitor 3 Name" class="form-control" type="text">
+                            <select name="comp_3_name" placeholder="Competitor 3 Name" class="form-control" type="text">
+                                <?php foreach ($competitor->result() as $cs) { ?>
+                                  <option <?php echo ($c->competitor_3_name==$cs->name)?' selected ':''?>><?php echo $cs->name?></option>
+                                <?php } ?>
+                              </select>
                             </div>
 
                           </div>
