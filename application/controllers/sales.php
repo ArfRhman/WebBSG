@@ -1758,7 +1758,8 @@ $id = $this->input->post('id');
 $data = array('adjustment' => $this->input->post('adjustment'));
 $this->mddata->updateDataTbl('tbl_sale_so', $data, 'id', $id);
 $this->session->set_flashdata('data','Data Has Been Saved');
-redirect($_SERVER['HTTP_REFERER']);
+// redirect($_SERVER['HTTP_REFERER']);
+redirect('/sales/so/profit_analisis/'.$id); 
 break;
 case 'getItemPrice':
 $id = $_POST['id'];

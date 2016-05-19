@@ -266,7 +266,7 @@ class Op extends CI_Controller {
 			$data['op'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_header', 'kasbon_id', $this->uri->segment(4))->row();
 			// $data['opt'] = $this->mddata->getDataFromTblWhere('tbl_op_pc_tabel', 'pc_no', $this->uri->segment(4));
 
-		$data['opt'] = $this->db->query('SELECT * FROM tbl_op_pc_tabel WHERE pc_no='. $this->uri->segment(4).' ORDER BY acc_id ASC');
+			$data['opt'] = $this->db->query('SELECT * FROM tbl_op_pc_tabel WHERE pc_no='. $this->uri->segment(4).' ORDER BY acc_id ASC');
 
 			$this->load->view('top', $data);
 			$this->load->view('op/petty_table_view', $data);
@@ -1475,7 +1475,17 @@ function price()
 		$this->mddata->deleteGeneral('tbl_op_pl_tabel','no', $this->uri->segment(4));
 		redirect($_SERVER['HTTP_REFERER']);
 		break;
-		case 'table_add':								
+		case 'table_add':
+		$data['competitor'] = $this->db->query('SELECT name FROM
+			(
+				SELECT name FROM tbl_dm_customer
+				UNION
+				SELECT supplier FROM tbl_dm_supplier
+				UNION
+				SELECT name FROM tbl_dm_forwarder
+				UNION
+				SELECT name FROM tbl_dm_agent
+				) A');								
 		$this->load->view('top', $data);				
 		$this->load->view('op/price_table_add', $data);								
 		break;

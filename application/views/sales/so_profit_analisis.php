@@ -20,42 +20,42 @@
 </head>
 <body>
   <center><h3>Analisa Profit</h3></center>
-  <table width="56%" border="0" class="table header">
+  <table width="75%" border="0" class="table header">
     <tr>
       <th width="3%">CUSTOMER</th>
       <td width="*" colspan="3"> : <?php echo $data->customer_name ?></td>
     </tr>
     <tr>
      <th width="3%">SO NO</th>
-     <td width="20%">: <?php echo $data->so_no?></td>
+     <td width="39%">: <?php echo $data->so_no?></td>
      <th width="3%">SO Date</th>
-     <td width="20%">: <?php echo $data->so_date?></td>
+     <td width="39%">: <?php echo $data->so_date?></td>
    </tr>
    <tr>
      <th width="3%">PO NO</th>
-     <td width="20%">: <?php echo $data->po_no?></td>
+     <td width="39%">: <?php echo $data->po_no?></td>
      <th width="3%">PO Date</th>
-     <td width="20%">: <?php echo $data->po_date?></td>
+     <td width="39%">: <?php echo $data->po_date?></td>
    </tr>
    <tr>
      <th width="3%">INV NO</th>
-     <td width="20%">: <?php echo $data->inv_no?></td>
+     <td width="39%">: <?php echo $data->inv_no?></td>
      <th width="3%">INV Date</th>
-     <td width="20%">: <?php echo $data->inv_date?></td>
+     <td width="39%">: <?php echo $data->inv_date?></td>
    </tr>
    <tr>
      <th width="3%">AM</th>
-     <td width="20%">: <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$data->am)->row()->name; ?></td>
+     <td width="39%">: <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel','id',$data->am)->row()->name; ?></td>
      <th width="3%">DIVISION</th>
-     <td width="20%">: <?php echo $data->division?></td>
+     <td width="39%">: <?php echo $data->division?></td>
    </tr>
    <tr>
      <th width="3%">PROJECT</th>
-     <td width="20%" colspan="3">: <?php echo $data->pn?></td>
+     <td width="39%" colspan="3">: <?php echo $data->pn?></td>
    </tr>
    <tr>
      <th width="3%">DESCRIPTION</th>
-     <td width="20%" colspan="3">: <?php echo $data->description?></td>
+     <td width="39%" colspan="3">: <?php echo $data->description?></td>
    </tr>
  </table>
  <br>
@@ -185,16 +185,35 @@ border-top: 1px solid #000;
 
 </tr>
 <tr style="border:1px solid #fff;">
-  <td colspan="7"></td>
-  <td colspan="2">Cost / Profit Adjustment</td>
-  <td></td>
-  <td><?php echo $data->other ?></td>
+  <td colspan="6"></td>
+  <td align="right">
+    <a href="<?php echo site_url('sales/so/profit_analisis/'.$this->uri->segment(4).'') ?>/edit"><img src='<?php echo base_url() ?>style/img/edit.png' style="opacity: 0.8;width: 15px;"></a></td>
+    <td colspan="2">Cost / Profit Adjustment</td>
+    <td></td>
+
+
+    <?php if($this->uri->segment(5)=='edit'){ ?>
+    <td colspan="2" align="left">
+     <form enctype="multipart/form-data" action="<?php echo site_url('sales/so/update_adjusment/'.$this->uri->segment(4));?>" method="post">
+      <input type='text' name='adjustment' value="<?php echo ($data->adjustment!='')?$data->adjustment:0 ?>">
+      <input type='hidden' value="<?php echo $this->uri->segment(4) ?>" name="id">
+      <button type="submit"> Save </button>
+    </form>
+  </td>
+  <?php } else {?>
+  <td align="right">
+    <?php echo ($data->adjustment!='')?number_format($data->adjustment,"2",",","."):'-' ?>
+  </td>
+  <?php } ?>
+
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
   <td colspan="2">E.N.P Final</td>
   <td></td>
-  <td><?php echo $data->other ?></td>
+  <td align="right"><?php echo number_format($data->adjustment + ($jml_tpro - $total_cost),"2",",",".") ?></td>
+  <td align="right"><?php echo number_format(($data->adjustment + ($jml_tpro - $total_cost)) / $jml_tp * 100,"2",",",".") ?> % </td>
+
 </tr>
 </table>
 <br>
@@ -231,7 +250,7 @@ border-top: 1px solid #000;
 
     </p>
   </td>
-  </tr>
+</tr>
 </table>
 <br>
 </body>
