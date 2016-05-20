@@ -485,8 +485,8 @@ class model_data extends CI_Model {
 
 	//[Sales] Stock Performance
 	function getStockPerformance(){
-		$query = $this->db->query("SELECT *, DATEDIFF( CURDATE( ) ,  STR_TO_DATE( tbl_op_st_header.document_date,  '%d %b %Y' ) ) AS geer FROM tbl_op_po_tabel, tbl_op_st_header, tbl_op_st_tabel 
-			WHERE tbl_op_st_header.no=tbl_op_st_tabel.st_no AND tbl_op_po_tabel.item_code = tbl_op_st_tabel.item_code")->result_array();
+		$query = $this->db->query("SELECT *, DATEDIFF( CURDATE( ) ,  STR_TO_DATE( tbl_op_st_header.document_date,  '%d %b %Y' ) ) AS geer FROM tbl_op_st_header, tbl_op_st_tabel 
+			WHERE tbl_op_st_header.no=tbl_op_st_tabel.st_no")->result_array();
 		return $query;
 	}
 

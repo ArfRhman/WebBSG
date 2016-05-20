@@ -145,8 +145,8 @@ function graphicNew(title,categ,data) {
       series: {
         borderWidth: 0,
         dataLabels: {
-          // enabled: true,
-          // format: '{point.y}'
+           //enabled: true,
+           //format: '{point.y}'
         }
       }
     },
@@ -155,7 +155,7 @@ function graphicNew(title,categ,data) {
       formatter: function () {
        var s = [];
        $.each(this.points, function(i, point) {
-         s = 'Gross Profit : <b>' + this.point.myData[0] + '</b><br>Direct Cost : <b>' + this.point.myData[1] + '</b><br>Adjusment : <b>' + this.point.myData[2] + '</b><br>ENP : <b>' + this.point.myData[3] + '</b><br>';
+         s = 'Target : <b>'+this.point.myData[0]+'</b><br>SO : <b>'+this.point.myData[1]+'</b><br>Invoice : <b>'+this.point.myData[2]+'</b><br>COGS : <b>'+this.point.myData[3]+'</b><br>Gross Profit : <b>' + this.point.myData[4] + '</b><br>Direct Cost : <b>' + this.point.myData[5] + '</b><br>Adjusment : <b>' + this.point.myData[6] + '</b><br>ENP : <b>' + this.point.myData[7] + '</b><br>';
        });
        return s;
      },

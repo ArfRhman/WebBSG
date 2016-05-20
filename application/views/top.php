@@ -789,6 +789,12 @@ if($this->session->userdata('active') == FALSE)
 											<span class="title">Budget Account</span>
 										</a>
 									</li>
+									<li <?php if($ac == "dm_kpi") echo "class='active'"; ?>>
+										<a href="<?php echo site_url('dm/kpi/view');?>">
+											<i class="livicon" data-name="kpi" data-c="#418BCA" data-hc="#418BCA" data-size="18" data-loop="true"></i>
+											<span class="title">KPI</span>
+										</a>
+									</li>
 								</ul>
 							</li>
 							<?php

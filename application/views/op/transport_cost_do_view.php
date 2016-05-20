@@ -12,7 +12,7 @@
                     <div class="panel-title pull-left">
                        <div class="caption">
                         <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Transport Cost Report
+                        Transport Cost Report (DO)
                     </div>
                 </div>
             </div>
@@ -21,14 +21,11 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Division</th>
-                            <th>A/M</th>
-                            <th>SO No</th>
-                            <th>SO Date</th>
-                            <th>Customer</th>
+                            <th>DO No</th>
+                            <th>DO Date</th>
                             <th>DO Amount</th>
-                            <th>Debit Note (Amount & percentage)</th>
-                            <th>Nett Transport Cost (Amount & percentage)</th>
+                            <th>Debit Note Amount</th>
+                            <th>Nett Delivery Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,22 +33,8 @@
                        $no = 1;
                        foreach($data->result() as $c)
                        {
-                        $transport=0;
-                        $nett=0;
-                        $debit=0;
-                        $deliv = $this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id_so', $c->id)->result();
-                        if(!empty($deliv)){
-                            foreach($deliv as $d){
-                                $debit+=$d->debit_note_amount;
-                                $nett+=$d->nett;
-                            }
-                        }
-                        $cost = $this->mddata->getDataFromTblWhere('tbl_sale_so_cost', 'id_so', $c->id)->result();
-                        if(!empty($cost)){
-                            foreach($cost as $z){
-                                $transport+=$z->transport;
-                            }
-                        }
+                        $nett=$c->nett;
+                        $debit=$c->debit_note_amount;
                         $total=$debit+$nett;
                         if(empty($total)){
                             $total=1;
@@ -59,11 +42,8 @@
                         ?>
                         <tr>
                             <td><?php echo $no; $no++; ?></td>
-                            <td><?php echo $c->division ?></td>
-                            <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_personnel', 'id', $c->am)->row()->name; ?></td>
-                            <td><a href="<?=base_url()?>index.php/op/transport_cost/do/<?=$c->id?>"><?php echo $c->so_no ?></a></td>
-                            <td><?php echo $c->so_date ?></td>
-                            <td><?php echo $c->customer_name ?></td>
+                            <td><?php echo $c->do_no ?></td>
+                            <td><?php echo $c->do_date ?></td>
                             <td><?php echo $total?></td>
                             <td><?php echo $debit?> (<?=number_format($debit/$total*100,2)?> %)</td>
                             <td><?php echo $nett?> (<?=number_format($nett/$total*100,2)?> %)</td>

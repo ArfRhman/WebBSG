@@ -39,7 +39,17 @@
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Last Position</label>
                                             <div class="col-md-3">
-                                                <input id="position" name="position" placeholder="Last Position" class="form-control" type="text" value="<?php echo $personnel->row()->position; ?>" />
+                                                <select name="position">
+												<?php
+													$sql = $this->mddata->getAllDataTbl('tbl_position');
+													foreach($sql->result() as $s)
+													{
+														?>
+														<option <?php if($personnel->row()->position == $s->id) echo "selected"; ?> value="<?php echo $s->id; ?>"><?php echo $s->position ?></option>
+														<?php
+													}
+												?>
+												</select>
 												</div>																						<label class="col-md-2 control-label" for="email">Join Date</label>                                            <div class="col-md-3">                                                <input id="email" name="join_date" value="<?php echo $personnel->row()->join_date; ?>"  placeholder="Join Date" class="form-control datepicker" type="text"></div>
                                         </div>
 										<div class="form-group">

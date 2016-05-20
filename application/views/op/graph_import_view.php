@@ -105,7 +105,7 @@
 },
 tooltip: {
     formatter: function () {
-        return 'Import Without VAT : <b>' + this.point.myData[0] + '</b><br>Import Without VAT : <b>' + this.point.myData[1] + '</b><br>Taxes & Duties : <b>' + this.point.myData[2] + '</b><br>Custom Clearance : <b>' + this.point.myData[3] + '</b><br>';
+        return 'All Import Cost : <b>' + this.point.myData[0] + '</b><br>Import Without VAT : <b>' + this.point.myData[1] + '</b><br>Taxes & Duties : <b>' + this.point.myData[2] + '</b><br>Custom Clearance : <b>' + this.point.myData[3] + '</b><br>';
     }
 },
 legend: {

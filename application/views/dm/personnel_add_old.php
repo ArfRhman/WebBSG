@@ -29,38 +29,48 @@
                                 </span>
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('dm/personnel/update/'.$this->uri->segment(4));?>" method="post">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('dm/personnel/save');?>" method="post">
                                     <fieldset>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="name">Personnel ID</label>
                                             <div class="col-md-3">
-                                                <input id="name" value="<?php echo $personnel->row()->id_personnel; ?>" name="id_personnel" placeholder="Personnel ID" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Personnel Name</label>											<div class="col-md-3">                                                <input id="name" value="<?php echo $personnel->row()->name; ?>"  name="name" placeholder="Personnel Name" class="form-control" type="text"></div>
+                                                <input id="name" name="id_personnel" placeholder="Personnel ID" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Personnel Name</label>											<div class="col-md-3">                                                <input id="name" name="name" placeholder="Personnel Name" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Last Position</label>
                                             <div class="col-md-3">
-                                                <input id="position" name="position" placeholder="Last Position" class="form-control" type="text" value="<?php echo $personnel->row()->position; ?>" />
-												</div>																						<label class="col-md-2 control-label" for="email">Join Date</label>                                            <div class="col-md-3">                                                <input id="email" name="join_date" value="<?php echo $personnel->row()->join_date; ?>"  placeholder="Join Date" class="form-control datepicker" type="text"></div>
+                                                <select name="position">
+												<?php
+													$sql = $this->mddata->getAllDataTbl('tbl_position');
+													foreach($sql->result() as $s)
+													{
+														?>
+														<option value="<?php echo $s->id; ?>"><?php echo $s->position ?></option>
+														<?php
+													}
+												?>
+												</select>
+												</div>																						<label class="col-md-2 control-label" for="email">Join Date</label>                                            <div class="col-md-3">                                                <input id="email" name="join_date" placeholder="Join Date" class="form-control datepicker" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Join Date in Div</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="join_date_div" placeholder="Join Date In Div" value="<?php echo $personnel->row()->join_date_div; ?>"  class="form-control datepicker" type="text"></div>																						<label class="col-md-2 control-label" for="email">Residence</label>                                            <div class="col-md-3">                                                <input id="email" value="<?php echo $personnel->row()->residence; ?>"  name="residence" placeholder="Residence" class="form-control" type="text"></div>
+                                                <input id="email" name="join_date_div" placeholder="Join Date In Div" class="form-control datepicker" type="text"></div>																						<label class="col-md-2 control-label" for="email">Residence</label>                                            <div class="col-md-3">                                                <input id="email" name="residence" placeholder="Residence" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Phone</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="phone" placeholder="Phone" value="<?php echo $personnel->row()->phone; ?>"  class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Mobile 1</label>                                            <div class="col-md-3">                                                <input id="email" name="mobile1" placeholder="Mobile 1" value="<?php echo $personnel->row()->mobile1; ?>"  class="form-control" type="text"></div>
+                                                <input id="email" name="phone" placeholder="Phone" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Mobile 1</label>                                            <div class="col-md-3">                                                <input id="email" name="mobile1" placeholder="Mobile 1" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">Mobile 2</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="mobile2" placeholder="Mobile 2" value="<?php echo $personnel->row()->mobile2; ?>"  class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Whatsapp</label>                                            <div class="col-md-3">                                                <input id="email" name="whatsapp" placeholder="Whatsapp No" value="<?php echo $personnel->row()->whatsapp; ?>"  class="form-control" type="text"></div>
+                                                <input id="email" name="mobile2" placeholder="Mobile 2" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Whatsapp</label>                                            <div class="col-md-3">                                                <input id="email" name="whatsapp" placeholder="Whatsapp No" class="form-control" type="text"></div>
                                         </div>
 										<div class="form-group">
                                             <label class="col-md-2 control-label" for="email">BBM Pin</label>
                                             <div class="col-md-3">
-                                                <input id="email" name="bbm" placeholder="BBM Pin" value="<?php echo $personnel->row()->bbm; ?>"  class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Photo</label>                                            <div class="col-md-3">                                                <input id="email" name="image" type="file">											*leave blank if won't change</div>												
+                                                <input id="email" name="bbm" placeholder="BBM Pin" class="form-control" type="text"></div>																						<label class="col-md-2 control-label" for="email">Photo</label>                                            <div class="col-md-3">                                                <input id="email" name="image" type="file"></div>
                                         </div>
 										<div class="form-group">
                                             <div class="col-md-12 text-right">

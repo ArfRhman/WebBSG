@@ -569,13 +569,14 @@ class Op extends CI_Controller {
 			case 'view':
 			$this->load->view('top', $data);
 			$all = $this->mddata->getImportCost(2016);
+			
 			$end=array();
 
 			$kat = array();
 			foreach($all as $k){
 				$end[$k['kat']]['name']=$k['kat'];
 				$end[$k['kat']]['data']=array();
-				$end[$k['kat']]['data']['y']=intval($k['jumlah_kat']);
+				$end[$k['kat']]['data']['y']=0;
 				$kat[$k['kat']]='\''.$k['kat'].'\'';
 			}
 			
@@ -587,29 +588,23 @@ class Op extends CI_Controller {
 			}
 			
 			$res = array();
-			$total_tax=0;
-			$total_duty_taxes=0;
-			$total_clearance=0;
 
 			foreach($import as $im){
-				$total_tax = $im['import_tax']+$im['vat_import']+$im['wht_import'];
-				$total_duty_taxes= $total_tax + $im['adm_cost'] + $im['notul'];
-				$total_clearance = $im['freight_cost']+$im['yellow_handling']+$im['red_handling']+$im['do']+$im['storage']+$im['demurrage']+$im['lift_on_lift_off']+$im['mechanic']+$im['undertable']+$im['trucking']+$im['other_cost'];
-				
 				if(!array_key_exists($im['kategori'], $res)){
-					$res[$im['kategori']]['all']=$total_duty_taxes+$total_clearance;
-					$res[$im['kategori']]['vat']=($total_duty_taxes+$total_clearance)-$im['vat_import'];
-					$res[$im['kategori']]['taxes']=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['all']=intval($im['total_cost']);;
+					$res[$im['kategori']]['vat']=intval($im['total_cost_without_vat']);
+					$res[$im['kategori']]['taxes']=intval($im['total_tax']);
 					$res[$im['kategori']]['custom']=intval($im['total_clearance']);
 				}else{
-					$res[$im['kategori']]['all']+=$total_duty_taxes+$total_clearance;
-					$res[$im['kategori']]['vat']+=($total_duty_taxes+$total_clearance)-$im['vat_import'];
-					$res[$im['kategori']]['taxes']+=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['all']+=intval($im['total_cost']);;
+					$res[$im['kategori']]['vat']+=intval($im['total_cost_without_vat']);
+					$res[$im['kategori']]['taxes']+=intval($im['total_tax']);
 					$res[$im['kategori']]['custom']+=intval($im['total_clearance']);
 				}
 			}
 
 			foreach($all as $k){
+				$end[$k['kat']]['data']['y']=$res[$k['kat']]['all'];
 				$end[$k['kat']]['data']['myData']=array_values($res[$k['kat']]);
 				$end[$k['kat']]['data']=array($end[$k['kat']]['data']);
 			}
@@ -624,7 +619,7 @@ class Op extends CI_Controller {
 			foreach($all as $k){
 				$end[$k['kat']]['name']=$k['kat'];
 				$end[$k['kat']]['data']=array();
-				$end[$k['kat']]['data']['y']=intval($k['jumlah_kat']);
+				$end[$k['kat']]['data']['y']=0;
 				$kat[$k['kat']]='\''.$k['kat'].'\'';
 			}
 			
@@ -635,29 +630,23 @@ class Op extends CI_Controller {
 				$import=array();
 			}
 			$res = array();
-			$total_tax=0;
-			$total_duty_taxes=0;
-			$total_clearance=0;
 
 			foreach($import as $im){
-				$total_tax = $im['import_tax']+$im['vat_import']+$im['wht_import'];
-				$total_duty_taxes= $total_tax + $im['adm_cost'] + $im['notul'];
-				$total_clearance = $im['freight_cost']+$im['yellow_handling']+$im['red_handling']+$im['do']+$im['storage']+$im['demurrage']+$im['lift_on_lift_off']+$im['mechanic']+$im['undertable']+$im['trucking']+$im['other_cost'];
-				
 				if(!array_key_exists($im['kategori'], $res)){
-					$res[$im['kategori']]['all']=$total_duty_taxes+$total_clearance;
-					$res[$im['kategori']]['vat']=($total_duty_taxes+$total_clearance)-$im['vat_import'];
-					$res[$im['kategori']]['taxes']=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['all']=intval($im['total_cost']);;
+					$res[$im['kategori']]['vat']=intval($im['total_cost_without_vat']);
+					$res[$im['kategori']]['taxes']=intval($im['total_tax']);
 					$res[$im['kategori']]['custom']=intval($im['total_clearance']);
 				}else{
-					$res[$im['kategori']]['all']+=$total_duty_taxes+$total_clearance;
-					$res[$im['kategori']]['vat']+=($total_duty_taxes+$total_clearance)-$im['vat_import'];
-					$res[$im['kategori']]['taxes']+=intval($im['total_duty_taxes']);
+					$res[$im['kategori']]['all']+=intval($im['total_cost']);;
+					$res[$im['kategori']]['vat']+=intval($im['total_cost_without_vat']);
+					$res[$im['kategori']]['taxes']+=intval($im['total_tax']);
 					$res[$im['kategori']]['custom']+=intval($im['total_clearance']);
 				}
 			}
 
 			foreach($all as $k){
+				$end[$k['kat']]['data']['y']=$res[$k['kat']]['all'];
 				$end[$k['kat']]['data']['myData']=array_values($res[$k['kat']]);
 				$end[$k['kat']]['data']=array($end[$k['kat']]['data']);
 			}
@@ -889,6 +878,10 @@ class Op extends CI_Controller {
 			$this->load->view('top', $data);
 			$this->load->view('op/import_cost_sum_average', $data);
 			break;
+
+			case 'summary':
+			
+			break;
 		}
 	}
 
@@ -901,6 +894,11 @@ class Op extends CI_Controller {
 			$data['data'] = $this->mddata->getAllDataTbl('tbl_sale_so');
 			$this->load->view('top', $data);
 			$this->load->view('op/transport_cost_view', $data);
+			break;
+			case 'do':
+			$data['data'] = $this->mddata->getDataFromTblWhere('tbl_sale_so_delivery', 'id_so', $this->uri->segment(4));
+			$this->load->view('top', $data);
+			$this->load->view('op/transport_cost_do_view', $data);
 			break;
 		}
 	}

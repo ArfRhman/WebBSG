@@ -429,33 +429,33 @@ class Sales extends CI_Controller {
 			$qty=0;
 			foreach($res as $k=>$r){
 				$subtotal = $r['qty']*$r['price'];
-				$diff = $subtotal-$r['ddp_idr'];
+				$diff =  ($r['price']-$r['ddp_idr'])*$r['qty'];
 				$jum=floatval((($subtotal-$r['discount']+$r['delivery'])*10/100)+($subtotal-$r['discount']+$r['delivery']));
 				$total+=$diff;
-				$qty+=$jum;
+				$qty+=$subtotal;
 			}
 			
 			foreach($res as $r){
 				if(!array_key_exists($r['item_id'], $data)){
 					$subtotal = $r['qty']*$r['price'];
-					$diff = $subtotal-$r['ddp_idr'];
+					$diff =  ($r['price']-$r['ddp_idr'])*$r['qty'];
 					$jum=floatval((($subtotal-$r['discount']+$r['delivery'])*10/100)+($subtotal-$r['discount']+$r['delivery']));
 					$data[$r['item_id']]['name']=$r['item_name'];
 					$data[$r['item_id']]['data']=array();
 					$data[$r['item_id']]['data']['y']=intval($diff);
-					$data[$r['item_id']]['data']['myData'][0]=$jum;
+					$data[$r['item_id']]['data']['myData'][0]=$subtotal;
 					$data[$r['item_id']]['data']['myData'][1]=intval($diff);
-					$data[$r['item_id']]['data']['myData'][2]=intval($jum);
+					$data[$r['item_id']]['data']['myData'][2]=intval($subtotal);
 					$data[$r['item_id']]['data']['myData'][3]=intval($diff);
 				}else{
 					$subtotal = $r['qty']*$r['price'];
-					$diff = $subtotal-$r['ddp_idr'];
+					$diff =  ($r['price']-$r['ddp_idr'])*$r['qty'];
 					$jum=floatval((($subtotal-$r['discount']+$r['delivery'])*10/100)+($subtotal-$r['discount']+$r['delivery']));
 					$data[$r['item_id']]['name']=$r['item_name'];
 					$data[$r['item_id']]['data']['y']+=intval($diff);
-					$data[$r['item_id']]['data']['myData'][0]+=$jum;
+					$data[$r['item_id']]['data']['myData'][0]+=$subtotal;
 					$data[$r['item_id']]['data']['myData'][1]+=intval($diff);
-					$data[$r['item_id']]['data']['myData'][2]+=intval($jum);
+					$data[$r['item_id']]['data']['myData'][2]+=intval($subtotal);
 					$data[$r['item_id']]['data']['myData'][3]+=intval($diff);
 				}
 			}
@@ -688,12 +688,12 @@ class Sales extends CI_Controller {
 				$res['so']['data'][$k]['y']=intval($e['so']);
 				$res['invoice']['data'][$k]['y']=intval($e['invoice']);
 				$res['cogs']['data'][$k]['y']=intval($e['cogs']);
-				$res['target']['data'][$k]['myData']=array(intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['so']['data'][$k]['myData']=array(intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['invoice']['data'][$k]['myData']=array(intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['cogs']['data'][$k]['myData']=array(intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['target']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['so']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['invoice']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['cogs']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
 			}
-			
+
 			foreach($res as $k=>$re){
 				$res[$k]['data']=array_values($re['data']);
 			}
@@ -888,6 +888,7 @@ class Sales extends CI_Controller {
 			case 'stock':
 			$data['ac'] = "s_stock_am";
 			$res = $this->mddata->getStockPerformance();
+
 			$dat=array();
 			foreach($res as $r){
 				if(!array_key_exists($r['item_code'], $dat)){
@@ -897,14 +898,18 @@ class Sales extends CI_Controller {
 					}else if($r['type']=="Out" || $r['type']=="Adj out"){
 						$dat[$r['item_code']]['jum']=0-$r['qty'];
 					}
-					$dat[$r['item_code']]['geer']=$r['geer'];
+					if($r['document']=='GR'){
+						$dat[$r['item_code']]['geer']=$r['geer'];
+					}else{
+						$dat[$r['item_code']]['geer']=0;
+					}
 				}else{
 					if($r['type']=="In" || $r['type']=="Adj in"){
 						$dat[$r['item_code']]['jum']+=$r['qty'];	
 					}else if($r['type']=="Out" || $r['type']=="Adj out"){
 						$dat[$r['item_code']]['jum']-=$r['qty'];
 					}
-					if($dat[$r['item_code']]['geer']>$r['geer']){
+					if($r['document']=='GR'){
 						$dat[$r['item_code']]['geer']=$r['geer'];
 					}
 				}
@@ -2884,10 +2889,10 @@ function loss()
 		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id
 		WHERE
 		SUBSTR(so_date,4,3) = '".date('M',strtotime($this->uri->segment(4)."/1/".date('Y')))."' AND SUBSTR(so_date,8,4)=".date('Y'));
-$this->load->view('top', $data);
-$this->load->view('sales/loss_detail', $data);
-break;		
-}
+		$this->load->view('top', $data);
+		$this->load->view('sales/loss_detail', $data);
+		break;		
+	}
 }
 function ar()
 {

@@ -1335,4 +1335,83 @@ function budget()
 		break;
 	}
 }
+function kpi()
+{
+	$data['ac'] = "dm_kpi";
+	switch($this->uri->segment(3))
+	{
+		case 'view':
+		$data['kpi'] = $this->mddata->getAllDataTbl('tbl_dm_kpi');
+		$this->load->view('top', $data);
+		$this->load->view('dm/kpi_view', $data);
+		break;
+		case 'add':
+		$this->load->view('top', $data);
+		$this->load->view('dm/kpi_add', $data);
+		break;
+		case 'save':
+		$item = $this->input->post('item');
+		$kpi = $this->input->post('kpi');
+		$other = $this->input->post('other_item');
+		if($item == 4) {
+			if($other == "") {
+				$this->session->set_flashdata('data','Other Item Must Filled');
+				redirect($_SERVER['HTTP_REFERER']);
+			} else {
+				$array = array(
+					'item' => $other,
+					'kpi' => $kpi,
+					);
+				$this->mddata->insertIntoTbl('tbl_dm_kpi', $array);
+				$this->session->set_flashdata('data', 'Data Has Been Saved');
+				redirect(site_url('dm/kpi/view'));
+			}
+		} else {
+			$array = array(
+				'item' => $item,
+				'kpi' => $kpi,
+				);
+			$this->mddata->insertIntoTbl('tbl_dm_kpi', $array);
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect(site_url('dm/kpi/view'));
+		}
+		break;
+		case 'edit':
+		$data['kpi'] = $this->mddata->getDataFromTblWhere('tbl_dm_kpi', 'id', $this->uri->segment(4));
+		$this->load->view('top', $data);
+		$this->load->view('dm/kpi_edit', $data);
+		break;
+		case 'delete':
+		$this->mddata->deleteTblData('tbl_dm_kpi', $this->uri->segment(4));
+		redirect($_SERVER['HTTP_REFERER']);
+		break;
+		case 'update':
+		$item = $this->input->post('item');
+		$kpi = $this->input->post('kpi');
+		$other = $this->input->post('other_item');
+		if($item == 4) {
+			if($other == "") {
+				$this->session->set_flashdata('data','Other Item Must Filled');
+				redirect($_SERVER['HTTP_REFERER']);
+			} else {
+				$array = array(
+					'item' => $other,
+					'kpi' => $kpi,
+					);
+				$this->mddata->updateDataTbl('tbl_dm_kpi', $array, 'id', $this->uri->segment(4));
+				$this->session->set_flashdata('data', 'Data Has Been Saved');
+				redirect(site_url('dm/kpi/view'));
+			}
+		} else {
+			$array = array(
+				'item' => $item,
+				'kpi' => $kpi,
+				);
+			$this->mddata->updateDataTbl('tbl_dm_kpi', $array, 'id', $this->uri->segment(4));
+			$this->session->set_flashdata('data', 'Data Has Been Saved');
+			redirect(site_url('dm/kpi/view'));
+		}
+		break;
+	}
+}
 }
