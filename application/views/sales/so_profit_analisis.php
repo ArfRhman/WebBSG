@@ -81,25 +81,26 @@
  $jml_tp = 0;
  $jml_tpro = 0;
  $jml_per = 0;
+ $jml_tpu = 0;
  foreach($item as $c)
  {
   ?>
   <tr>
     <td><?php echo $no; ?></td>
-    <td><?php echo $c->item; ?> -</td>
+    <td><?php echo $c->item_name; ?></td>
     <td><?php echo $c->mou; ?></td>
     <td><?php echo $c->qty; ?></td>
     <td align="right"><?php echo ($c->price!=0)?number_format($c->price,"0",",","."):'0'; $jml_up += $c->price?></td>
-    <td align="right"><?php echo number_format($c->disc,"0",",","."); ?></td>
-    <td align="right"><?php echo number_format($c->total,"0",",","."); $jml_tp += $c->total?></td>
+    <td align="right"><?php echo ($c->disc!="")?number_format($c->disc,"0",",","."):0; ?></td>
+    <td align="right"><?php echo ($c->total!="")?number_format($c->total,"0",",","."):0; $jml_tp += $c->total?></td>
     <?php $purchase_price = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'item_id', $c->item)->row()->ddp_idr; ?>
-    <td align="right"><?php echo number_format($purchase_price,"0",",","."); ?></td>
-    <td align="right"><?php echo number_format($c->qty * $purchase_price,"0",",","."); ?></td>
+    <td align="right"><?php echo number_format($purchase_price,"0",",",".");?></td>
+    <td align="right"><?php echo number_format($c->qty * $purchase_price,"0",",",".");  $jml_tpu +=$c->qty * $purchase_price;?></td>
     <td align="right"><?php echo number_format($c->price - $purchase_price,"0",",","."); ?></td>  
     <?php $total_profit = $c->total - ($c->qty * $purchase_price) ?>
     <td align="right"><?php echo number_format($total_profit,"0",",","."); $jml_tpro += $total_profit?></td>  
     <?php ($c->total!=0) ? $per = $total_profit / $c->total * 100 : $per = 0; ?>
-    <td align="right"><?php echo $per; $jml_per += $per ?> %</td>  
+    <td align="right"><?php echo number_format($per,2,".",""); $jml_per += $per ?> %</td>  
 
   </tr> 
   <?php
@@ -112,12 +113,12 @@
  <th></th>
  <th></th>
  <th></th>
- <th align="right"><?php echo number_format($jml_up,"0",",","."); ?></th>
+ <th align="right"><?php echo number_format($jml_tp,"0",",","."); ?></th>
  <th></th>
- <th align="right"><?php echo number_format($jml_up,"0",",","."); ?></th>
+ <th align="right"><?php echo number_format($jml_tpu,"0",",","."); ?></th>
  <th></th>
  <th align="right"><?php echo number_format($jml_tpro,"0",",","."); ?></th>
- <th align="right"><?php echo $jml_per ?> % </th>
+ <th align="right"><?php echo ($jml_tpu!=0)?number_format(100* $jml_tpro / $jml_tpu,2,".",""):0; ?> % </th>
 </tr>
 <tr style="
 height: 30px;

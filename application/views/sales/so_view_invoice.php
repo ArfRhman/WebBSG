@@ -23,11 +23,13 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body" style="overflow-x:auto">
                                 <table class="table table-striped table-responsive" id="table1">
                                     <thead>
                                         <tr>
                                             <th>Inv. NO</th>
+                                            <th>DO NO</th>
+                                            <th>Item</th>
                                             <th>Inv. Date</th>
                                             <th>Inv. Amount</th>
                                             <th>Inv. Desc</th>
@@ -48,7 +50,10 @@
 									{
 									?>
                                         <tr>
-											<td><?php echo $c->no; ?></td>
+                                            <td><?php echo $c->no; ?></td>
+
+                                            <td><?php echo $c->do_no; ?></td>
+                                            <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $c->item_id)->row()->nama; ?></td>
 											<td><?php echo $c->date; ?></td>
 											<td><?php echo $c->amount; ?></td>
 											<td><?php echo $c->desc; ?></td>
