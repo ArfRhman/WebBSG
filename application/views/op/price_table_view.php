@@ -25,14 +25,14 @@
         </div>
         <div class="panel-body">
           <div style="overflow-x:auto;"> 
-            <table class="table table-striped table-responsive" id="table1">
+            <table class="table table-striped table-responsive" id="table1" style="width:350%">
               <thead>
                 <tr>
                  <th>No</th>
                  <th>Item ID</th>
                  <th>Division</th>
                  <th>Category</th>
-                 <th>Item Name </th>
+                 <th style="width:100px !important">Item Name </th>
                  <th>MOU</th>
                  <th>Brand</th>
                  <th>Source</th>

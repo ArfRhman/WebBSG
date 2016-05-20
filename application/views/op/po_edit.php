@@ -97,7 +97,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->po_date?>" id="po_date" name="po_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->po_date?>" id="po_date" name="po_date" placeholder="dd MM YYYY" class="form-control datepicker" type="text" onchange="diffDate()"></div>
 												<label class="col-md-2 control-label" for="convertion">Convertion</label>
 
 												<div class="col-md-3">
@@ -265,7 +265,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->mou?>" id="mou" name="mou" placeholder="MoU" class="form-control" type="text"></div>
+													<input value="<?=$d->mou?>" id="mou" name="mou" placeholder="MoU" class="form-control" type="text" readonly></div>
 												<label class="col-md-2 control-label" for="total">Total Price</label>
 
 												<div class="col-md-3">
@@ -328,7 +328,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->etf_vessel_depart?>" id="etf_depart" name="etf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_vessel_depart?>" id="etf_depart" name="etf_depart" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" ></div>
 
 												<label class="col-md-2 control-label" for="atf_arrival">ATF Vessel Arrival</label>
 
@@ -367,7 +367,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->atf_wh_arrival?>" id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->atf_wh_arrival?>" id="atf_wh" name="atf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"  onchange="diffDateAct()"></div>
 
 											</div>
 
@@ -377,13 +377,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->etf_wh_arrival?>" id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text"></div>
+													<input value="<?=$d->etf_wh_arrival?>" id="etf_wh" name="etf_wh" placeholder="dd MMM YYYY" class="form-control datepicker" type="text" onchange="diffDate()"></div>
 
 												<label class="col-md-2 control-label" for="actual">Actual Lead Time (days)</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->actual_lead_time?>" id="actual" name="actual" placeholder="Actual Lead Time (days)" class="form-control" type="text"></div>
+													<input value="<?=$d->actual_lead_time?>" id="actual" name="actual" placeholder="Actual Lead Time (days)" class="form-control" type="text" readonly></div>
 
 											</div>
 
@@ -394,7 +394,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->estimated_lead_time?>" id="estimated" name="estimated" placeholder="Estimated Lead Time (days)" class="form-control" type="text"></div>
+													<input value="<?=$d->estimated_lead_time?>" id="estimated" name="estimated" placeholder="Estimated Lead Time (days)" class="form-control" type="text" readonly></div>
 
 												<label class="col-md-2 control-label" for="deviation">Deviation (days)</label>
 
@@ -690,7 +690,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->po_amount?>" id="amount" name="amount" placeholder="PO Amount " class="form-control" type="text"></div>
+													<input value="<?=$d->po_amount?>" id="amount" name="amount" placeholder="PO Amount " class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalPDuty(this)"></div>
 
 												<label class="col-md-2 control-label" for="bc_rate">BC Rate</label>
 
@@ -733,13 +733,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->import_tax?>" id="import_tax" name="import_tax" placeholder="Import Tax" class="form-control" type="text"></div>
+													<input value="<?=$d->import_tax?>" id="import_tax" name="import_tax" placeholder="Import Tax" class="form-control" type="text" onkeyup="CalTax(this)" onkeypress='return event.charCode >= 48 && event.charCode <= 57'></div>
 
 												<label class="col-md-2 control-label" for="notul">Notul</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->notul?>" id="notul" name="notul" placeholder="Notul" class="form-control" type="text"></div>
+													<input value="<?=$d->notul?>" id="notul" name="notul" placeholder="Notul" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalDuty(this)"></div>
 
 											</div>
 											<div class="form-group">
@@ -748,7 +748,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->vat_import?>" id="vat" name="vat" placeholder="VAT Import" class="form-control" type="text"></div>
+													<input value="<?=$d->vat_import?>" id="vat" name="vat" placeholder="VAT Import" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalTax(this)"></div>
 
 												<label class="col-md-2 control-label" for="notul_desc">Notul Desc</label>
 
@@ -763,13 +763,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->wht_import?>" id="wht" name="wht" placeholder="WHT Import" class="form-control" type="text"></div>
+													<input value="<?=$d->wht_import?>" id="wht" name="wht" placeholder="WHT Import" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalTax(this)"></div>
 
 												<label class="col-md-2 control-label" for="duty_tax">Total Duty & Taxes</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->total_duty_taxes?>" id="duty_tax" name="duty_tax" placeholder="Total Duty & Taxes" class="form-control" type="text"></div>
+													<input value="<?=$d->total_duty_taxes?>" id="duty_tax" name="duty_tax" placeholder="Total Duty & Taxes" class="form-control" type="text" readonly></div>
 
 											</div>
 											<div class="form-group">
@@ -778,13 +778,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->total_tax?>" id="total_tax" name="total_tax" placeholder="Total Tax" class="form-control" type="text"></div>
+													<input value="<?=$d->total_tax?>" id="total_tax" name="total_tax" placeholder="Total Tax" class="form-control" type="text" readonly></div>
 
 												<label class="col-md-2 control-label" for="duty">% Duty & Taxes</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->percentage_duty_taxes?>" id="duty" name="duty" placeholder="% Duty & Taxes" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_duty_taxes?>" id="duty" name="duty" placeholder="% Duty & Taxes" class="form-control" type="text" readonly></div>
 
 											</div>
 											<div class="form-group">
@@ -793,7 +793,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->adm_cost?>" id="adm" name="adm" placeholder="Adm Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->adm_cost?>" id="adm" name="adm" placeholder="Adm Cost" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalDuty(this)"></div>
 
 											</div>
 
@@ -804,13 +804,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->freight_cost?>" id="freight_cost" name="freight_cost" placeholder="Freight Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->freight_cost?>" id="freight_cost" name="freight_cost" placeholder="Freight Cost" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="mechanic">Mechanic</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->mechanic?>" id="mechanic" name="mechanic" placeholder="Mechanic" class="form-control" type="text"></div>
+													<input value="<?=$d->mechanic?>" id="mechanic" name="mechanic" placeholder="Mechanic" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 											</div>
 											<div class="form-group">
@@ -819,13 +819,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->yellow_handling?>" id="yellow_handling" name="yellow_handling" placeholder="Yellow Handling" class="form-control" type="text"></div>
+													<input value="<?=$d->yellow_handling?>" id="yellow_handling" name="yellow_handling" placeholder="Yellow Handling" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="undertable">Undertable</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->undertable?>" id="undertable" name="undertable" placeholder="Undertable" class="form-control" type="text"></div>
+													<input value="<?=$d->undertable?>" id="undertable" name="undertable" placeholder="Undertable" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 											</div>
 											<div class="form-group">
@@ -834,13 +834,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->red_handling?>" id="red_handing" name="red_handing" placeholder="Red Handing" class="form-control" type="text"></div>
+													<input value="<?=$d->red_handling?>" id="red_handing" name="red_handing" placeholder="Red Handing" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="trucking">Trucking</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->trucking?>" id="trucking" name="trucking" placeholder="Trucking" class="form-control" type="text"></div>
+													<input value="<?=$d->trucking?>" id="trucking" name="trucking" placeholder="Trucking" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 											</div>
 											<div class="form-group">
@@ -849,13 +849,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->do?>" id="do" name="do" placeholder="DO" class="form-control" type="text"></div>
+													<input value="<?=$d->do?>" id="do" name="do" placeholder="DO" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="other_cost">Other Cost</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->other_cost?>" id="other_cost" name="other_cost" placeholder="Other Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->other_cost?>" id="other_cost" name="other_cost" placeholder="Other Cost" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 											</div>
 											<div class="form-group">
@@ -864,7 +864,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->storage?>" id="storage" name="storage" placeholder="Storage" class="form-control" type="text"></div>
+													<input value="<?=$d->storage?>" id="storage" name="storage" placeholder="Storage" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="cost_desc">Other Cost Desc.</label>
 
@@ -879,13 +879,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->demurrage?>" id="demurrage" name="demurrage" placeholder="Demurrage" class="form-control" type="text"></div>
+													<input value="<?=$d->demurrage?>" id="demurrage" name="demurrage" placeholder="Demurrage" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="total_clearance">Total Clearance</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->total_clearance?>" id="total_clearance" name="total_clearance" placeholder="Total Clearance" class="form-control" type="text"></div>
+													<input value="<?=$d->total_clearance?>" id="total_clearance" name="total_clearance" placeholder="Total Clearance" class="form-control" type="text" readonly></div>
 
 											</div>
 											<div class="form-group">
@@ -894,13 +894,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->lift_on_lift_off?>" id="lift" name="lift" placeholder="Lift On Lift Of" class="form-control" type="text"></div>
+													<input value="<?=$d->lift_on_lift_off?>" id="lift" name="lift" placeholder="Lift On Lift Of" class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="TotalClearance(this)"></div>
 
 												<label class="col-md-2 control-label" for="percen_clearance">% Clearance</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->percentage_clearance?>" id="percen_clearance" name="percen_clearance" placeholder="% Clearance" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_clearance?>" id="percen_clearance" name="percen_clearance" placeholder="% Clearance" class="form-control" type="text" readonly></div>
 
 											</div>
 
@@ -912,13 +912,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->total_cost?>" id="total_cost" name="total_cost" placeholder="Total Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->total_cost?>" id="total_cost" name="total_cost" placeholder="Total Cost" class="form-control" type="text" readonly></div>
 
 												<label class="col-md-2 control-label" for="total_without_vat">Total Cost without VAT</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->total_cost_without_vat?>" id="total_without_vat" name="total_without_vat" placeholder="Total Cost without VAT" class="form-control" type="text"></div>
+													<input value="<?=$d->total_cost_without_vat?>" id="total_without_vat" name="total_without_vat" placeholder="Total Cost without VAT" class="form-control" type="text" readonly></div>
 
 											</div>
 											<div class="form-group">
@@ -927,13 +927,13 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->percentage_total_cost?>" id="percen_total" name="percen_total" placeholder="% Total Cost" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_total_cost?>" id="percen_total" name="percen_total" placeholder="% Total Cost" class="form-control" type="text" readonly></div>
 
 												<label class="col-md-2 control-label" for="percen_without_vat">% Cost without VAT</label>
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->percentage_cost_without_vat?>" id="percen_without_vat" name="percen_without_vat" placeholder="% Cost without VAT" class="form-control" type="text"></div>
+													<input value="<?=$d->percentage_cost_without_vat?>" id="percen_without_vat" name="percen_without_vat" placeholder="% Cost without VAT" class="form-control" type="text" readonly></div>
 
 											</div>
 
@@ -1017,6 +1017,169 @@
     <!-- end of page level js -->
 	
 	<script>
+	function diffDateAct(){
+			var atf = 0;
+			var po = 0;
+			atf = document.getElementById('atf_wh').value;
+			po = document.getElementById('po_date').value;
+			var firstDate = new Date(atf);
+			var secondDate = new Date(po);
+
+		 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+
+		 var difference_ms = Math.abs(firstDate.getTime() - secondDate.getTime());
+
+    // Convert back to days and return
+    var diffDays = Math.round(difference_ms/oneDay);
+    var e = document.getElementById('actual');
+    e.value = diffDays;
+
+}
+function diffDate(){
+	var etf = 0;
+	var po = 0;
+	etf = document.getElementById('etf_wh').value;
+	po = document.getElementById('po_date').value;
+	var firstDate = new Date(etf);
+	var secondDate = new Date(po);
+
+		 var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+
+		 var difference_ms = Math.abs(firstDate.getTime() - secondDate.getTime());
+
+    // Convert back to days and return
+    var diffDays = Math.round(difference_ms/oneDay);
+    var e = document.getElementById('estimated');
+    e.value = diffDays;
+    diffDateAct();
+}
+
+
+	function CalPCT(e){
+		var a;
+		var tc;
+		document.getElementById('amount').value!='' ? a=document.getElementById('amount').value : a=0
+		document.getElementById('total_cost').value!='' ? tc=document.getElementById('total_cost').value : tc=0
+
+		var p = document.getElementById('percen_total');
+		document.getElementById('amount').value!='' ? p.value = (parseInt(tc) / parseInt(a) * 100).toFixed(2) : p.value = 0
+	}
+
+	function CalPCTV(e){
+		var a;
+		var tc;
+		document.getElementById('amount').value!='' ? a=document.getElementById('amount').value : a=0
+		document.getElementById('total_without_vat').value!='' ? tc=document.getElementById('total_without_vat').value : tc=0
+
+		var p = document.getElementById('percen_without_vat');
+		document.getElementById('amount').value!='' ? p.value = (parseInt(tc) / parseInt(a) * 100).toFixed(2) : p.value = 0
+	}
+	
+	function TotalCost(e){
+			
+			var t = 0;
+			var d = 0;
+			document.getElementById('total_clearance').value!='' ? t=document.getElementById('total_clearance').value : t=0
+			document.getElementById('duty_tax').value!='' ? d=document.getElementById('duty_tax').value : d=0
+			
+			var tc = document.getElementById('total_cost');
+			tc.value = parseInt(t) + parseInt(d);
+
+			var v;
+			document.getElementById('vat').value!='' ? v=document.getElementById('vat').value : v=0
+
+			var tcv = document.getElementById('total_without_vat');
+			tcv.value = parseInt(t) + parseInt(d) - parseInt(v);
+
+			CalPCT(1);
+			CalPCTV(1);
+		}
+
+	
+
+	function CalPCl(e){
+		var a;
+		var tc;
+		document.getElementById('amount').value!='' ? a=document.getElementById('amount').value : a=0
+		document.getElementById('total_clearance').value!='' ? tc=document.getElementById('total_clearance').value : tc=0
+
+		var p = document.getElementById('percen_clearance');
+		document.getElementById('amount').value!='' ? p.value = (parseInt(tc) / parseInt(a) * 100).toFixed(2) : p.value = 0
+	}
+
+	function CalPDuty(e){
+		var a;
+		var d;
+		document.getElementById('amount').value!='' ? a=document.getElementById('amount').value : a=0
+		document.getElementById('duty_tax').value!='' ? d=document.getElementById('duty_tax').value : d=0
+
+		var p = document.getElementById('duty');
+		document.getElementById('amount').value!='' ? p.value = (parseInt(d) / parseInt(a) * 100).toFixed(2) : p.value = 0
+		CalPCl(1);
+		CalPCT(1);
+		CalPCTV(1);
+	}
+
+	
+
+	function CalDuty(e){
+			
+			var t = 0;
+			var a = 0;
+			var n = 0;
+			document.getElementById('total_tax').value!='' ? t=document.getElementById('total_tax').value : t=0
+			document.getElementById('adm').value!='' ? a=document.getElementById('adm').value : a=0
+			document.getElementById('notul').value!='' ? n=document.getElementById('notul').value : n=0
+			
+			var d = document.getElementById('duty_tax');
+			d.value = parseInt(t) + parseInt(a) + parseInt(n);	
+			CalPDuty(1);
+			
+
+		}
+
+		function CalTax(e){
+			
+			var i = 0;
+			var v = 0;
+			var w = 0;
+			document.getElementById('import_tax').value!='' ? i=document.getElementById('import_tax').value : i=0
+			document.getElementById('vat').value!='' ? v=document.getElementById('vat').value : v=0
+			document.getElementById('wht').value!='' ? w=document.getElementById('wht').value : w=0
+			
+			var t = document.getElementById('total_tax');
+			t.value = parseInt(i) + parseInt(v) + parseInt(w);	
+			CalDuty(1);
+			CalPDuty(1);
+			TotalCost(1);
+			CalPCT(1);
+		CalPCTV(1);
+
+		}
+		
+
+		function TotalClearance(e){
+			
+			var f = 0;var y = 0;var r = 0;var d = 0;var s = 0;var dem = 0;var l = 0;
+			var m = 0;var u = 0;var t = 0;var o = 0;
+			document.getElementById('freight_cost').value!='' ? f=document.getElementById('freight_cost').value : f=0
+			document.getElementById('yellow_handling').value!='' ? y=document.getElementById('yellow_handling').value : y=0
+			document.getElementById('red_handing').value!='' ? r=document.getElementById('red_handing').value : r=0
+			document.getElementById('do').value!='' ? d=document.getElementById('do').value : d=0
+			document.getElementById('storage').value!='' ? s=document.getElementById('storage').value : s=0
+			document.getElementById('demurrage').value!='' ? dem=document.getElementById('demurrage').value : dem=0
+			document.getElementById('lift').value!='' ? l=document.getElementById('lift').value : l=0
+			document.getElementById('mechanic').value!='' ? m=document.getElementById('mechanic').value : m=0
+			document.getElementById('undertable').value!='' ? u=document.getElementById('undertable').value : u=0
+			document.getElementById('trucking').value!='' ? t=document.getElementById('trucking').value : t=0
+			document.getElementById('other_cost').value!='' ? o=document.getElementById('other_cost').value : o=0
+			
+			var tc = document.getElementById('total_clearance');
+			tc.value = parseInt(f) + parseInt(y) + parseInt(r) + parseInt(d)+ parseInt(s) + parseInt(dem) + parseInt(l) + parseInt(m) + parseInt(u) + parseInt(t) + parseInt(o); 
+			CalPCl(1);
+			TotalCost(1);
+		}
+
 		$(document).ready(function(){
 			$('.datepicker').datepicker({
 				format:'dd M yyyy'
@@ -1030,11 +1193,15 @@
                             success: function(data){
                                var obj = JSON.parse(data);
                                $('#item').val(obj.nama);
+                               $('#mou').val(obj.sat);
+
                            }
                        }); 
 
                       }else{
                         $('#item').val('');
+                               $('#mou').val('');
+
                     } 
             });
               

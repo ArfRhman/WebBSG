@@ -72,7 +72,7 @@
                     <td><?php echo $d->payment?></td>
                     <td><?php echo ($d->overdue!="")?$d->overdue:0?></td>
 
-                    <td><?php if($d->overdue<=0 AND $d->overdue!="") $penalty =  "YES"; else $penalty = "NO";
+                    <td><?php if($d->overdue>0 AND $d->overdue!="") $penalty =  "YES"; else $penalty = "NO";
                     echo $penalty;
                     ?></td>
                     <td><?php if($penalty=="YES") $pen_amount = ($d->overdue/180) * $net; 
