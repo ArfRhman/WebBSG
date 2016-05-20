@@ -107,7 +107,7 @@
                             FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $inv = $this->db->query("SELECT SUM(amount) as total FROM tbl_sale_so_invoicing WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $payment = $this->db->query("SELECT SUM(amount) as total,
-                            AVG(DATEDIFF(STR_TO_DATE(payment_date, '%d/%m/%Y'),STR_TO_DATE(due_date, '%d/%m/%Y'))) AS avg_overdue FROM tbl_sale_so_payment WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
+                            AVG(DATEDIFF(STR_TO_DATE(payment_date, '%d %M %Y'),STR_TO_DATE(due_date, '%d %M %Y'))) AS avg_overdue FROM tbl_sale_so_payment WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                         $outstanding = abs($payment->total - $inv->total);
                         
                         $nett = $so->sub_total - $so->total_disc + $so->total_delivery;
