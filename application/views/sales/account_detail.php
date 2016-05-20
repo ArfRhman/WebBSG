@@ -77,8 +77,8 @@
                     ?></td>
                     <td><?php if($penalty=="YES") $pen_amount = ($d->overdue/180) * $net; 
                     else $pen_amount = 0;
-                    echo $pen_amount?></td>
-                    <td><?php echo $net - $pen_amount?></td>
+                    echo number_format($pen_amount,2)?></td>
+                    <td><?php echo number_format($net - $pen_amount,2)?></td>
                 </tr>
                
                 <?php

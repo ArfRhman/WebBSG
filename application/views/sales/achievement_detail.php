@@ -69,13 +69,13 @@
                     <td><?php echo $d->due_date?></td>
                     <td><?php echo $d->payment?></td>
                     <td><?php echo $d->overdue?></td>
-                    <td><?php if($d->overdue<=0) $penalty =  "YES"; else $penalty = "NO";
+                    <td><?php if($d->overdue>0 AND $d->overdue!="") $penalty =  "YES"; else $penalty = "NO";
                     echo $penalty;
                     ?></td>
                     <td><?php if($penalty=="YES") $pen_amount = ($d->overdue/180) * $net; 
                     else $pen_amount = 0;
-                    echo $pen_amount?></td>
-                    <td><?php echo $net - $pen_amount?></td>
+                    echo number_format($pen_amount,2)?></td>
+                    <td><?php echo number_format($net - $pen_amount,2)?></td>
                 </tr>
                 <?php
 				}

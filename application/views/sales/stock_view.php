@@ -1,3 +1,10 @@
+    <head>
+      <style type="text/css">
+      tr.accordion-toggle{
+        cursor: pointer;
+      }
+      </style>
+    </head>
     <aside class="right-side">
      <!-- Main content -->
      <section class="content-header">
@@ -202,7 +209,7 @@
     $grand_amount = $total_amount + $total_amount2 + $total_amount3;
     $grand_com = $total_com + $total_com2 + $total_com3;
     ?>
-    <tr style="font-weight:bold" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails1">
+    <tr style="font-weight:bold;cursor:pointer';" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails1">
       <td>1.</td>
       <td>ACTIVE / FAST MOVING </td>
       <td></td>
@@ -246,7 +253,7 @@
          <?php
        }
        ?>
-       <tr style="font-weight:bold" id="package2" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails2">
+       <tr style="font-weight:bold;cursor:pointer';" id="package2" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails2">
         <td>2.</td>
         <td>SLOW MOVING </td>
         <td></td>
@@ -290,7 +297,7 @@
            <?php
          }
          ?>
-         <tr style="font-weight:bold"  id="package3" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails3">
+         <tr style="font-weight:bold;"  id="package3" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails3">
           <td>3.</td>
           <td>DEAD STOCK</td>
           <td></td>
