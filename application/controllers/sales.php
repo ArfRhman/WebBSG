@@ -2538,7 +2538,7 @@ function target()
 				'customer' => $p['customer_name'],
 				'amount' => $p['amount']
 				);
-			$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+			// $this->mddata->insertIntoTbl('tbl_sale_target',$data);
 			$this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql->no);
 		}
 		$this->session->set_flashdata('data','Data Has Been Saved');
