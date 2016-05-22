@@ -10,7 +10,6 @@
          if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
          {
           ?>
-          <a href="<?php echo site_url('op/import_cost/analysis')?>" class="btn btn-success">Import Analysis</a>
           <a href="<?php echo site_url('op/import_cost/summary')?>" class="btn btn-success">Summary Import Cost</a>
           <?php
       }
@@ -76,7 +75,7 @@
                         <td><?php echo $tabel->item?></td>
                         <td><?php echo $no;$no++;?></td>
                         <td><?php echo $c->moda ?></td>
-                        <td><?php echo $c->po_no ?></td>
+                        <td><a href="<?=base_url()?>index.php/op/import_cost/analysis/<?=$c->po_no?>"><?php echo $c->po_no ?></a></td>
                         <td><?php echo $c->po_date ?></td>
                         <td><?php echo $doc->pib_date?></td>
                         <td><?php echo $tabel->qty ?></td>

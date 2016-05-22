@@ -189,7 +189,7 @@ class model_data extends CI_Model {
 	//===========================
 
 	function getSupplyDetailPerformance(){
-		$query = $this->db->query("SELECT * from tbl_sale_so_delivery,tbl_sale_so_detail,tbl_dm_item where tbl_sale_so_detail.item = tbl_dm_item.id AND tbl_sale_so_detail.id_so = tbl_sale_so_delivery.id_so")->result_array();
+		$query = $this->db->query("SELECT * from tbl_sale_so,tbl_sale_so_delivery where tbl_sale_so.id = tbl_sale_so_delivery.id_so")->result_array();
 		return $query;
 	}
 

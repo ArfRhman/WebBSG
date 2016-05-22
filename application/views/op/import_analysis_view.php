@@ -20,7 +20,42 @@
           <div class="form-group">
             <label class="col-md-2 control-label" for="type">Supplier</label>
             <div class="col-md-3">
-              asdasdsa
+              <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $in->supplier)->row()->supplier; ?>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="type">PO No</label>
+            <div class="col-md-3">
+              <?=$in->po_no;?>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="type">PO Date</label>
+            <div class="col-md-3">
+              <?=$in->po_date;?>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="type">PIB Date</label>
+            <div class="col-md-3">
+              <?php echo $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $in->no)->row()->pib_date; ?>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="type">Forwarder</label>
+            <div class="col-md-3">
+              <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $in->forwarder)->row()->name; ?>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="type">Moda</label>
+            <div class="col-md-3">
+              <?=$in->moda;?>
             </div>
           </div>
         </div>
@@ -39,24 +74,20 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Acc. ID</th>
-                  <th>Account</th>
-                  <th>Tanggal</th>
-                  <th>Realisasi No</th>
-                  <th>Kwitansi No</th>
-                  <th>Uraian Realisasi</th>
-                  <th>Realisasi</th>
-                  <th>Adjustment</th>
-                  <th>Action</th>
+                  <th>Item Name</th>
+                  <th>Qty</th>
+                  <th>Total Purchase</th>
+                  <th>All Import Cost</th>
+                  <th>%</th>
                 </tr>
               </thead>
               <tbody>
                <?php
                $no = 1;
                $total=0;
+               $tabel=$this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $in->no);
                $opt=array();
-               foreach($opt as $c)
-               {
+               foreach($opt as $c){
                  $total+=$c->realisasi;
                  ?>
                  <tr>

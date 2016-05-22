@@ -829,34 +829,34 @@ class Op extends CI_Controller {
 		{
 			case 'view':
 			$all = $this->mddata->getSupplyDetailPerformance();
-			$cat = array();
-			$val = array();
-			$kat = array();
+			$air=array(
+				'total'=>0,
+				'y'=>0
+				);
+			$sea=array(
+				'total'=>0,
+				'y'=>0
+				);
+
 			foreach($all as $a){
-				$date1 = new DateTime($a['received']);
-				$date2 = new DateTime($a['depart']);
-				$diff = $date1->diff($date2);
-				if(!array_key_exists($a['kategori'],$cat)){
-					$cat[$a['kategori']]['cat']=$a['kategori'];
-					$cat[$a['kategori']]['y']=$diff->days;
-				}else{
-					$cat[$a['kategori']]['y']+=$diff->days;
+				$diff = (strtotime($a['received'])-strtotime($a['depart']))/(60*60*24);
+				if($a['method']=='Air'){
+					$air['total']+=1;
+					$air['y']+=$diff;
+				}else if($a['method']=='Sea'){
+					$sea['total']+=1;
+					$sea['y']+=$diff;
 				}
+				
 			}
-
-			function cmp_by_y($a, $b) {
-				return $a["y"] + $b["y"];
+			if($sea['total']==0){
+				$sea['total']=1;
 			}
-
-			usort($cat, "cmp_by_y");
-			array_slice($cat,10);
-			foreach($cat as $c){
-				$kat[]=$c['cat'];
-				$val[]['y']=$c['y'];
+			if($air['total']==0){
+				$air['total']=1;
 			}
-			
-			$data['kat']=$kat;
-			$data['y']=array_values($val);
+			$data['air']=$air;
+			$data['sea']=$sea;
 			$this->load->view('top', $data);
 			$this->load->view('op/supply_view', $data);
 			break;
@@ -905,7 +905,7 @@ class Op extends CI_Controller {
 			$this->load->view('op/import_summary_cost_view', $data);
 			break;
 			case 'analysis':
-			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_header');
+			$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_po_header', 'po_no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/import_analysis_view',$data);
 		}
@@ -979,7 +979,7 @@ class Op extends CI_Controller {
 			$this->load->view('op/cases_add', $data);
 			break;
 			case 'edit':	
-			$data['cs'] = $this->mddata->getDataFromTblWhere('tbl_op_cases', 'no', $this->uri->segment(4))->row();							
+			$data['cs'] = $this->mddata->getDataFromTblWhere('tbl_op_cases', 'no', $this->uri->segment(4))->row();
 			$this->load->view('top', $data);
 			$this->load->view('op/cases_edit', $data);
 			break;
