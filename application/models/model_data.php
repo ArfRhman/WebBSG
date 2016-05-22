@@ -425,7 +425,7 @@ class model_data extends CI_Model {
 	//[OP] untuk Supply Report
 
 	function getSupplyReport(){
-		$query = $this->db->query("SELECT *,tbl_sale_so_delivery.delivery as deli_date from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery where  tbl_sale_so.id = tbl_sale_so_detail.id_so AND tbl_sale_so.id=tbl_sale_so_delivery.id_so");
+		$query = $this->db->query("SELECT * from tbl_sale_so,tbl_sale_so_delivery where  tbl_sale_so.id=tbl_sale_so_delivery.id_so");
 		return $query;
 	}
 
@@ -452,7 +452,7 @@ class model_data extends CI_Model {
 
 	//[OP] untuk dashboard grafik transport cost
 	function getGraphTransport(){
-		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery,tbl_sale_so_cost where 
+		$query = $this->db->query("SELECT *,tbl_sale_so_delivery.nett as devcos, YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_detail,tbl_sale_so_delivery,tbl_sale_so_cost where 
 			tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
 			tbl_sale_so.id=tbl_sale_so_detail.id_so AND
 			tbl_sale_so.id=tbl_sale_so_cost.id_so 
@@ -462,9 +462,9 @@ class model_data extends CI_Model {
 	}
 
 	function getGraphDelivery($id){
-		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun, tbl_sale_so_detail.delivery as do from tbl_sale_so,tbl_sale_so_detail where 
-			tbl_sale_so.id=tbl_sale_so_detail.id_so AND 
-			tbl_sale_so_detail.id_so IN ($id)
+		$query = $this->db->query("SELECT *,YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as tahun from tbl_sale_so,tbl_sale_so_delivery where 
+			tbl_sale_so.id=tbl_sale_so_delivery.id_so AND 
+			tbl_sale_so_delivery.id_so IN ($id)
 			")->result_array();
 		return $query;	
 	}

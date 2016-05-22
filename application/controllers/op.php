@@ -665,18 +665,28 @@ class Op extends CI_Controller {
 			$periode=array();
 			$res=array();
 			$do=array();
-			
+			$totalTransport=array();
 			foreach($graph as $g){
 				if(!array_key_exists($g['tahun'], $res)){
 					$periode[$g['tahun']]=$g['tahun'];
 					$res[$g['tahun']]['debit_note']=0;
-					$res[$g['tahun']]['transport_cost']=$g['transport'];
+					$res[$g['tahun']]['transport_cost']=$g['devcos'];
+					$totalTransport[$g['tahun']]['total']=1;
 					$do[]=$g['id_so'];
 				}else{
 					//$res[$g['tahun']]['debit_note']+=$g['debit_note_amount'];
-					$res[$g['tahun']]['transport_cost']+=$g['transport'];
+					$res[$g['tahun']]['transport_cost']+=$g['devcos'];
+					$totalTransport[$g['tahun']]['total']+=1;
 				}
 			}
+			foreach ($res as $key => $r) {
+				$tAmount = $totalTransport[$key]['total'];
+				if($tAmount==0){
+					$tAmount=1;
+				}
+				$res[$key]['transport_cost']=$res[$key]['transport_cost']/$tAmount;
+			}
+
 			if(!empty($do)){
 				$debitNote = $this->mddata->getGraphDebitNote(implode(',', $do));	
 			}else{
@@ -699,13 +709,23 @@ class Op extends CI_Controller {
 			}
 			
 			$resAmount=array();
-
+			$totalAmount=array();
 			foreach($doAmount as $doa){
 				if(!array_key_exists($doa['tahun'], $resAmount)){
-					$resAmount[$doa['tahun']]['y']=$doa['do'];
+					$resAmount[$doa['tahun']]['y']=$doa['debit_note_amount']+$doa['nett'];
+					$totalAmount[$doa['tahun']]['total']=1;
 				}else{
-					$resAmount[$doa['tahun']]['y']+=$doa['do'];
+					$resAmount[$doa['tahun']]['y']+=$doa['debit_note_amount']+$doa['nett'];
+					$totalAmount[$doa['tahun']]['total']+=1;
 				}
+			}
+			
+			foreach ($resAmount as $key => $r) {
+				$tAmount = $totalAmount[$key]['total'];
+				if($tAmount==0){
+					$tAmount=1;
+				}
+				$resAmount[$key]['y']=$resAmount[$key]['y']/$tAmount;
 			}
 
 			$kpires="";
@@ -726,7 +746,7 @@ class Op extends CI_Controller {
 			foreach (array_values($periode) as $pe){
 				$resAmount[$pe]['y']=intval($resAmount[$pe]['y']);
 				$resAmount[$pe]['myData']=array_values($res[$pe]);
-				$resNett[$pe]['y']=intval($res[$pe]['transport_cost']-$res[$pe]['debit_note']);
+				$resNett[$pe]['y']=intval($res[$pe]['transport_cost']);
 				$resNett[$pe]['myData']=array_values($res[$pe]);
 				$resKPI[$pe]['y']=intval($kpi['kpi']);
 				$resKPI[$pe]['myData']=array_values($res[$pe]);
@@ -880,8 +900,14 @@ class Op extends CI_Controller {
 			break;
 
 			case 'summary':
-			
+			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_header');
+			$this->load->view('top', $data);
+			$this->load->view('op/import_summary_cost_view', $data);
 			break;
+			case 'analysis':
+			$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_header');
+			$this->load->view('top', $data);
+			$this->load->view('op/import_analysis_view',$data);
 		}
 	}
 

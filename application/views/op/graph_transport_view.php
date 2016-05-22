@@ -77,7 +77,7 @@
         formatter: function () {
             var topData = ' ';
             if(this.point.myData[4] !== undefined){  topData = 'Total: <b>' + this.point.myData[4] + '</b>'; }
-            return 'Total Debit Note : <b>' + this.point.myData[0] + '</b><br>Nett Transpot Cost : <b>' + this.point.myData[1] + '</b><br>Saving / Inefficiency : <b>' + this.point.myData[2] + '</b><br>KPI Result : <b>' + this.point.myData[3] + '</b><br>' + topData;
+            return 'Total Debit Note : <b>' + this.point.myData[0] + '</b><br>Nett Transport Cost : <b>' + this.point.myData[1] + '</b><br>Saving / Inefficiency : <b>' + this.point.myData[2] + '</b><br>KPI Result : <b>' + this.point.myData[3] + '</b><br>' + topData;
         }
     },
     legend: {
@@ -88,7 +88,7 @@
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{series.name} <br> ({point.y}) '
+                format: '({point.y}) '
                  // formatter: function () { 
                  //    var topData;
                     

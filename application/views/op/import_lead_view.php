@@ -1,22 +1,23 @@
 	<aside class="right-side">
-       <!-- Main content -->
-       <section class="content-header">
-          <h1>Welcome to Dashboard</h1>
-      </section>
-      <section class="content">
-        <div class="row">
-            <div class="col-lg-12">
+     <!-- Main content -->
+     <section class="content-header">
+      <h1>Welcome to Dashboard</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+        <div class="col-lg-12">
 
-                <div class="panel panel-primary filterable">
-                    <div class="panel-heading clearfix  ">
-                        <div class="panel-title pull-left">
-                         <div class="caption">
-                            <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                            Import Lead Time Report
-                        </div>
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading clearfix  ">
+                    <div class="panel-title pull-left">
+                       <div class="caption">
+                        <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                        Import Lead Time Report
                     </div>
                 </div>
-                <div class="panel-body">
+            </div>
+            <div class="panel-body">
+                <div style="overflow-x:scroll">
                     <table class="table table-striped table-responsive" id="table1">
                         <thead>
                             <tr>
@@ -41,15 +42,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                         <?php
-                         $no = 1;
-                         foreach($in->result() as $c)
-                         {
+                           <?php
+                           $no = 1;
+                           foreach($in->result() as $c)
+                           {
                             $tabel = $this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $c->no)->row();
                             $doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $c->no)->row();
                             $lead = $this->mddata->getDataFromTblWhere('tbl_op_po_lead_time', 'no_po', $c->no)->row();
-                             ?>
-                             <tr>
+                            ?>
+                            <tr>
                                 <td><?php echo $no; $no++; ?></td>
                                 <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $tabel->item_code)->row()->kategori; ?></td>
                                 <td><?php echo $tabel->item ?></td>
@@ -77,6 +78,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </section>
 </aside>

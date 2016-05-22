@@ -768,15 +768,17 @@ class Sales extends CI_Controller {
 				$res['so']['data'][$k]['y']=intval($e['so']);
 				$res['invoice']['data'][$k]['y']=intval($e['invoice']);
 				$res['cogs']['data'][$k]['y']=intval($e['cogs']);
-				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['target']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['so']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['invoice']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['cogs']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
 			}
-			
+		
 			foreach($res as $k=>$re){
 				$res[$k]['data']=array_values($re['data']);
 			}
+
+			
 			print(json_encode(array_values($res)));
 			break;
 			case 'profit_monthly':
@@ -845,10 +847,10 @@ class Sales extends CI_Controller {
 				$res['so']['data'][$k]['y']=intval($e['so']);
 				$res['invoice']['data'][$k]['y']=intval($e['invoice']);
 				$res['cogs']['data'][$k]['y']=intval($e['cogs']);
-				$res['target']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['so']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['invoice']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
-				$res['cogs']['data'][$k]['myData']=array(intval($e['cogs']-$e['so']),intval($e['direct']),intval($e['adjustment']),intval(($e['cogs']-$e['so'])-$e['direct']+$e['adjustment']));
+				$res['target']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['so']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['invoice']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
+				$res['cogs']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
 			}
 			
 			foreach($res as $k=>$re){

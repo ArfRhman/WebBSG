@@ -10,6 +10,7 @@
          if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
          {
           ?>
+          <a href="<?php echo site_url('op/import_cost/analysis')?>" class="btn btn-success">Import Analysis</a>
           <a href="<?php echo site_url('op/import_cost/summary')?>" class="btn btn-success">Summary Import Cost</a>
           <?php
       }
@@ -85,7 +86,7 @@
                         <td><?php echo $costing->total_cost_without_vat?> (<?=($costing->total_cost_without_vat/$amount)*100?>%)</td>
                         <td><?php echo $costing->total_tax?> (<?=($costing->total_tax/$amount)*100?>%)</td>
                         <td><?php echo $costing->total_clearance ?> (<?=($costing->total_clearance/$amount)*100?>%)</td>
-                        <td><?=$c->forwarder?></td>
+                        <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name; ?></a></td>
                     </tr>
                     <?php
                 }
