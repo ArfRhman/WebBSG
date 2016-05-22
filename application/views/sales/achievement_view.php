@@ -87,7 +87,7 @@
                         if($c->other_status == "Maintain") $net = $c->amount * 50/100;
                         else $net = $c->amount;
 
-                        if($c->overdue < 0) $pen = ($c->overdue/180) * $net;
+                        if($c->overdue>0 AND $c->overdue!="") $pen = ($c->overdue/180) * $net;
                         else $pen= 0;
                         $total_penalty +=$pen;
                         $total_net_claim += $net - $pen;
@@ -132,16 +132,16 @@
                         $prc_achievement = 0;
                     }
                     if($prc_achievement >=71 AND $prc_achievement<=90){
-                        if($prc_enp>=15 AND $prc_enp<-19.99)  $prc_salescom = 60 * 1.4;
-                        elseif($prc_enp>=20) $prc_salescom = 60 * 1.6;
+                        if($prc_enp>=15 AND $prc_enp<=19.99)  $prc_salescom = 0.6 * 0.014;
+                        elseif($prc_enp>=20) $prc_salescom = 0.6 * 0.016;
                         else $prc_salescom = 0;
                     }elseif($prc_achievement > 90 AND $prc_achievement<=100){
-                        if($prc_enp>=15 AND $prc_enp<-19.99)  $prc_salescom = 60 * 1.7;
-                        elseif($prc_enp>=20) $prc_salescom = 60 * 1.8;
+                        if($prc_enp>=15 AND $prc_enp<=19.99)  $prc_salescom = 0.6 * 0.017;
+                        elseif($prc_enp>=20) $prc_salescom = 0.6 * 0.018;
                         else $prc_salescom = 0;
                     }elseif($prc_achievement > 100){
-                        if($prc_enp>=15 AND $prc_enp<-19.99)  $prc_salescom = 60 * 2;
-                        elseif($prc_enp>=20) $prc_salescom = 60 * 2.1;
+                        if($prc_enp>=15 AND $prc_enp<=19.99)  $prc_salescom = 0.6 * 0.02;
+                        elseif($prc_enp>=20) $prc_salescom = 0.6 * 0.021;
                         else $prc_salescom = 0;
                     }else{
                         $prc_salescom = 0;
@@ -149,7 +149,7 @@
                     ?>
                     <tr>
                         <td><?php echo $no?></td>
-                        <td><a href='<?php echo site_url('sales/achievement/detail/'.$no)?>' ><?php echo $b?></a></td>
+                        <td><a href='<?php echo site_url('sales/achievement/detail/'.$no)?>' style="cursor:pointer';color:blue"><?php echo $b?></a></td>
                         <td><?php echo number_format($target->total, 0)?></td>
                         <td><?php echo number_format($grand_total_so, 0)?></td>
                         <td><?php echo ($target->total!=0)?number_format(100*$grand_total_so/$target->total, 2,'.',''):'0'?>%</td>
@@ -159,9 +159,9 @@
                             echo number_format($prc_achievement, 2,'.','');
                             ?>%</td>
                             <td><?php echo number_format(abs($inv->total-$grand_total_so), 0)?></td>
-                            <td><?php echo number_format($total_penalty, 0)?></td>
+                            <td><?php echo number_format($total_penalty, 2)?></td>
                             <td><?php echo number_format($total_net_claim, 0)?></td>
-                            <td><?php echo number_format($prc_salescom,2,'.','')?>%</td>
+                            <td><?php echo number_format($prc_salescom * 100,2,'.','')?>%</td>
                             <td><?php $sc_amount = $total_net_claim * $prc_salescom/100; echo number_format($sc_amount, 0)?></td>
                             <td><?php echo number_format($payment->total, 0)?></td>
                             <td><?php $sc_paid = $payment->total * $prc_salescom/100; echo number_format($sc_paid, 0)?></td>

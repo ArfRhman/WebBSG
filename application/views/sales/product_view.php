@@ -103,11 +103,12 @@
                 WHERE
                 SUBSTR(effective_fill, 8, 4) = ".$thn.")")->row();
             $inv = $this->db->query("SELECT SUM(amount) as total from tbl_sale_so_invoicing WHERE item_id='".$h->item."' AND id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,8,4)='".$thn."')")->row();
-            $profit_amount = ($h->avg - $profit->avg) * $h->total_qty;
+             if($h->avg!=0) $qty_inv = $inv->total / $h->avg;
+            else $qty_inv = 0;
+            $profit_amount = ($h->avg - $profit->avg) * $qty_inv;
             $total_sales += $h->total_qty * $h->avg;
             $total_profit +=$profit_amount;
-            if($h->avg!=0) $qty_inv = $inv->total / $h->avg;
-            else $qty_inv = "-";
+           
 
             $total_inv += $qty_inv*$h->avg;
             array_push($item_no, $h->item);
@@ -139,7 +140,8 @@
                 SUBSTR(effective_fill, 8, 4) = ".$thn."
                 )")->row();
             $inv = $this->db->query("SELECT SUM(amount) as total from tbl_sale_so_invoicing WHERE item_id='".$c->item."' AND id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,8,4)='".$thn."')")->row();
-            $profit_amount = ($c->avg - $profit->avg) * $c->total_qty;
+            $qty_inv = ($c->avg!=0)?($inv->total/$c->avg):0;
+            $profit_amount = ($c->avg - $profit->avg) * $qty_inv;
             ?>
             <tr>
               <td align="right"><?php echo $no?></td>
@@ -148,7 +150,7 @@
               <td align="right"><?php echo number_format($c->avg,0)?></td>
               <td align="right"><?php $ts = $c->total_qty * $c->avg; echo number_format($ts,0)?></td>
               <td align="right"><?php echo ($total_sales!=0)?number_format( 100*$ts/$total_sales,1):'0'?>%</td>
-              <td align="right"><?php $qty_inv = ($c->avg!=0)?($inv->total/$c->avg):0; echo number_format($qty_inv,0)?></td>
+              <td align="right"><?php echo number_format($qty_inv,0)?></td>
               <td align="right"><?php echo number_format($c->avg,0)?></td>
               <td align="right"><?php $inv_sales = $qty_inv * $c->avg; echo number_format($inv_sales,0)?></td>
               <td align="right"><?php echo ($total_inv!=0)?number_format( 100*$inv_sales/$total_inv,2):0?>%</td>
@@ -172,8 +174,9 @@
             $o_inv = $this->db->query("SELECT SUM(amount) as total from tbl_sale_so_invoicing WHERE item_id NOT IN(".implode(',',$item_no).") AND id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,8,4)='".$thn."')")->row();
             $o_profit_amount = ($o->avg - $o_profit->avg) * $o->total_qty;
             $o_qty_inv = $o_inv->total/$o->avg;
+            $o_qty_inv = ($o->avg!=0)?($o_inv->total/$o->avg):0;
             $total_inv += $o_qty_inv*$o->avg;
-            $o_profit_amount = ($o->avg - $o_profit->avg) * $o->total_qty;
+            $o_profit_amount = ($o->avg - $o_profit->avg) * $o_qty_inv;
             $total_profit +=$o_profit_amount;
             ?>
 
@@ -184,7 +187,7 @@
               <td align="right"><?php echo number_format( $o->avg,0)?></td>
               <td align="right"><?php $ts = $o->total_qty * $o->avg; echo number_format($ts,0)?></td>
               <td align="right"><?php echo ($total_sales!=0)?number_format( 100*$ts/$total_sales,1):0?>%</td>
-              <td align="right"><?php $o_qty_inv = ($o->avg!=0)?($o_inv->total/$o->avg):0; echo number_format($o_qty_inv,0)?></td>
+              <td align="right"><?php  echo number_format($o_qty_inv,0)?></td>
               <td align="right"><?php echo number_format($o->avg,0)?></td>
               <td align="right"><?php $o_inv_sales = $o_qty_inv * $o->avg; echo number_format($o_inv_sales,0)?></td>
               <td align="right"><?php echo ($total_inv!=0)?number_format( 100*$o_inv_sales/$total_inv,2):0;?>%</td>

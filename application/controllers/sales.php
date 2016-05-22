@@ -1452,6 +1452,8 @@ if($_FILES['file']['size'] > 0){
 }
 $data = array(
 	'id_so' => $this->uri->segment(4), 
+	'item_id' => $this->input->post('item'), 
+	'do_no' =>$this->input->post('do_no'), 
 	'no' => $this->input->post('no'), 
 	'date' => $this->input->post('date'), 
 	'amount' => $this->input->post('amount'), 
@@ -1623,7 +1625,9 @@ if($_FILES['file']['size'] > 0){
 	$file = $this->input->post('old_file');
 }
 $data = array(
-	'no' => $this->input->post('no'), 
+	'no' => $this->input->post('no'),
+	'item_id' => $this->input->post('item'), 
+	'do_no' =>$this->input->post('do_no'),  
 	'date' => $this->input->post('date'), 
 	'amount' => $this->input->post('amount'), 
 	'desc' => $this->input->post('desc'), 
@@ -2536,7 +2540,7 @@ function target()
 				'customer' => $p['customer_name'],
 				'amount' => $p['amount']
 				);
-			$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+			// $this->mddata->insertIntoTbl('tbl_sale_target',$data);
 			$this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql->no);
 		}
 		$this->session->set_flashdata('data','Data Has Been Saved');
@@ -3003,57 +3007,9 @@ function profit()
 	switch($this->uri->segment(3))		
 	{
 		case 'view':
-		$data['data'] = $this->db->query("SELECT
-			so_no,
-			am,
-			division,
-			so_date,
-			customer_id,
-			po_no,
-			po_date,
-			inv.amount,
-			NO,
-			date,
-			due,
-			received_date,
-			inv.date AS inv_date,
-			inv. NO AS inv_no,
-			payment_date,
-			sales,
-			extcom_pro,
-			bank,
-			transport,
-			adm,
-			other,
-			(
-				SELECT
-				SUM(grand_total)
-				FROM
-				tbl_sale_so_detail d
-				WHERE
-				d.id_so = so.id
-				) AS total_so,
-		(
-			SELECT
-			SUM(DDP_IDR)
-			FROM
-			tbl_op_price_list pl
-			WHERE
-			pl.item_id IN (
-				SELECT
-				item
-				FROM
-				tbl_sale_so_detail dt
-				WHERE
-				dt.id_so = so.id
-				)
-		) AS total_purchase, adjustment
-		FROM
-		tbl_sale_so so
-		LEFT JOIN tbl_sale_so_invoicing inv ON so.id = inv.id_so
-		LEFT JOIN tbl_sale_so_cost c ON c.id_so = so.id");
+		$data['so'] = $this->mddata->getAllDataTbl('tbl_sale_so');
 		$this->load->view('top', $data);
-		$this->load->view('sales/profit_view', $data);
+		$this->load->view('sales/profit_header', $data);
 		break;			
 	}
 }
