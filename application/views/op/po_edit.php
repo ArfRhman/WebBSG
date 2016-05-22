@@ -81,14 +81,13 @@
 												<label class="col-md-2 control-label" for="curr">Currency</label>
 
 												<div class="col-md-3">
-												<input value="<?=$d->currency?>" type="text" class="form-control" placeholder="Currency" name="curr" list="currList">
-                                          			<datalist id="currList">
-	                                                	<option value="IDR">
-	                                                 	<option value="USD">
-	                                                 	<option value="SGD">
-	                                                 	<option value="EUR">
-
-                                                  	</datalist>
+												<select class="form-control" placeholder="Currency" name="curr" id='currencyD'>
+                                          				<option value="">-- Pilih Currency --</option>
+	                                                	<option value="idr">IDR</option>
+	                                                 	<option value="usd">USD</option>
+	                                                 	<option value="sgd">SGD</option>
+	                                                 	<option value="eur">EUR</option>
+                                                  	</select>
 												</div>		
 											</div>
 
@@ -102,7 +101,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->convertion?>" id="convertion" name="convertion" placeholder="Convertion" class="form-control" type="text"></div>										
+													<input value="<?=$d->convertion?>" id="convertion" name="convertion" placeholder="Convertion" class="form-control" type="text" readonly></div>										
 												
 											</div>
 
@@ -253,7 +252,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->unit_price?>" id="unit" name="unit" placeholder="Unit Price" class="form-control" type="text"></div>
+													<input value="<?=$d->unit_price?>" id="unit" name="unit" placeholder="Unit Price" class="form-control" type="text"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalTotalPrice()"></div>
 
 												
 											</div>
@@ -270,7 +269,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->total_price?>" id="total" name="total" placeholder="Total Price" class="form-control" type="text"></div>
+													<input value="<?=$d->total_price?>" id="total" name="total" placeholder="Total Price" class="form-control" type="text" readonly></div>
 
 												
 											</div>
@@ -281,7 +280,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->qty?>" id="qty" name="qty" placeholder="Qty" class="form-control" type="text"></div>
+													<input value="<?=$d->qty?>" id="qty" name="qty" placeholder="Qty" class="form-control" type="text"  onkeypress='return event.charCode >= 48 && event.charCode <= 57' onkeyup="CalTotalPrice()"></div>
 
 												
 												
@@ -400,7 +399,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->deviation?>" id="deviation" name="deviation" placeholder="Deviation (days)" class="form-control" type="text"></div>
+													<input value="<?=$d->deviation?>" id="deviation" name="deviation" placeholder="Deviation (days)" class="form-control" type="text" readonly></div>
 
 											</div>
 
@@ -417,7 +416,7 @@
 
 												<div class="col-md-3">
 
-													<input value="<?=$d->forecast_level?>" id="forecast" name="forecast" placeholder="Forecast Level" class="form-control" type="text"></div>
+													<input value="<?=$d->forecast_level?>" id="forecast" name="forecast" placeholder="Forecast Level" class="form-control" type="text" readonly></div>
 
 											</div>
 
@@ -1017,6 +1016,29 @@
     <!-- end of page level js -->
 	
 	<script>
+	function devAndForecast() {
+		 var e = document.getElementById('estimated').value;
+		 var a = document.getElementById('actual').value;
+		 var de = parseInt(a) -  parseInt(e);
+		 var forc = '-';
+		 document.getElementById('deviation').value = de;
+		 if(de==0){
+		 	forc = 'GOOD';
+		 }else if(de>0){
+		 	forc='LATE';
+		 }else if(de<0){
+		 	forc='GREAT';
+		 }
+		  document.getElementById('forecast').value = forc;
+	}
+	function  CalTotalPrice () {
+			var u = 0;
+			var q = 0;
+			u = document.getElementById('unit').value;
+			q = document.getElementById('qty').value;
+			document.getElementById('total').value =  parseInt(u) +  parseInt(q);
+	}
+
 	function diffDateAct(){
 			var atf = 0;
 			var po = 0;
@@ -1033,7 +1055,7 @@
     var diffDays = Math.round(difference_ms/oneDay);
     var e = document.getElementById('actual');
     e.value = diffDays;
-
+devAndForecast();
 }
 function diffDate(){
 	var etf = 0;
@@ -1184,26 +1206,55 @@ function diffDate(){
 			$('.datepicker').datepicker({
 				format:'dd M yyyy'
 			});
-			 $("#item_code").change(function(){
-                      if($("#item_code").val()!=""){
+			$("#currencyD").change(function(){
+				// alert($('#po_date').val);
+				  if($("#currencyD").val()!="" && $('#po_date').val()!=""){
                           $.ajax({
                             type:'POST',
-                            url: "<?php echo site_url('dm/item/get_field') ?>",
-                            data: "id=" + $("#item_code").val(),
+                            url: "<?php echo site_url('op/price/getConvert') ?>",
+                            data: "date=" + $("#po_date").val() + "&cur=" + $("#currencyD").val(),
                             success: function(data){
-                               var obj = JSON.parse(data);
-                               $('#item').val(obj.nama);
-                               $('#mou').val(obj.sat);
 
+                               $('#convertion').val(data);
                            }
                        }); 
 
                       }else{
-                        $('#item').val('');
-                               $('#mou').val('');
-
+                        $('#convertion').val('');
                     } 
-            });
+			});
+			
+				$("#item_code").change(function(){
+				if($("#item_code").val()!=""){
+					$.ajax({
+						type:'POST',
+						url: "<?php echo site_url('dm/item/get_field') ?>",
+						data: "id=" + $("#item_code").val(),
+						success: function(data){
+							var obj = JSON.parse(data);
+							$('#item').val(obj.nama);
+							$('#mou').val(obj.sat);
+						}
+					}); 
+					if($('#po_date').val()!=""){
+						$.ajax({
+							type:'POST',
+							url: "<?php echo site_url('op/price/get_field_cur') ?>",
+							data: "date=" + $("#po_date").val() + "&cur=" + $("#currencyD").val() + "&id=" +  $("#item_code").val(),
+							success: function(data){
+			 					// var obj = JSON.parse(data);
+			 					// alert(data);
+			 					$('#currency').val(data);
+			 				}
+			 			}); 
+					}else{
+						$('#currency').val('');
+					}
+				}else{
+					$('#item').val('');
+							$('#mou').val('');
+				} 
+			});
               
 		});
 		
