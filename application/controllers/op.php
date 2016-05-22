@@ -1659,6 +1659,32 @@ $data = $this->mddata->getDataFromTblWhere('tbl_op_pl_tabel', 'item_id', $id)->r
 $json = json_encode($data);
 echo $json;
 break;
+case 'getConvert':
+$date = $_POST['date'];
+$cur = $_POST['cur'];
+$data = $this->db->query("SELECT $cur FROM tbl_op_pl_header WHERE (str_to_date(effective_from,'%d %M %Y')) <= str_to_date('".$date."','%d %M %Y') && (str_to_date(effective_fill,'%d %M %Y')) >= str_to_date('".$date."','%d %M %Y')")->row();
+if(!empty($data)){
+	echo $data->$cur;
+}else{
+	echo "";
+}
+break;
+case 'get_field_cur':
+$date = $_POST['date'];
+$cur = $_POST['cur'];
+$id = $_POST['id'];
+// echo $date."/".$id;
+$data = $this->db->query("SELECT tb.currency AS cr FROM tbl_op_pl_header AS hd,tbl_op_pl_tabel AS tb WHERE 
+	(str_to_date(hd.effective_from,'%d %M %Y')) <= str_to_date('".$date."','%d %M %Y') && 
+	(str_to_date(hd.effective_fill,'%d %M %Y')) >= str_to_date('".$date."','%d %M %Y') && 
+	 tb.item_id = '".$id."' &&
+	 hd.no = tb.pl_no")->row();
+if(!empty($data)){
+	echo $data->cr;
+}else{
+	echo "-";
+}
+break;
 }
 }
 function payment()
