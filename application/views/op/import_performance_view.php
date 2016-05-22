@@ -18,7 +18,7 @@
 .cal-bg{
     background: url('<?php echo base_url()?>style/img/cal.png') no-repeat 140px;
     height: 220px;
-    padding-top:50px !important;
+    padding-top:90px !important;
     cursor:pointer;
 }
 </style>
@@ -46,7 +46,7 @@
                     <table class="table">
                         <tr> <th style="font-size: 18px;"> Sea </th> </tr>
                         <tr> <td class="cal-bg" align="center"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?=round($sea['overall']/$sea['jum'])?> <br> Production: <?=$sea['production']?><br> Shipping: <?=$sea['shipping']?><br>Clearance: <?=$sea['clearance']?>"><?=round($sea['overall']/$sea['jum'])?> </span></td> </tr>
+                        <span style="font-size: 50px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?= number_format(round($sea['overall']/$sea['jum']),'2')?> <br> Production: <?= number_format($sea['production'],'2')?><br> Shipping: <?= number_format($sea['shipping'],'2')?><br>Clearance: <?= number_format($sea['clearance'],'2')?>"><?=round($sea['overall']/$sea['jum'])?> </span></td> </tr>
                     </table>
                    
                 </div>
@@ -54,7 +54,7 @@
               <table class="table">
                         <tr> <th style="font-size: 18px;"> Air </th> </tr>
                         <tr> <td class="cal-bg"> 
-                        <span style="font-size: 110px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?=round($air['overall']/$air['jum'])?> <br> Production: <?=$air['production']?><br> Shipping: <?=$air['shipping']?><br>Clearance: <?=$air['clearance']?>"><?=round($air['overall']/$air['jum'])?></span></td> </tr>
+                        <span style="font-size: 50px;" data-toggle="tooltip" data-placement="left" data-html="true" title="Overall: <?= number_format(round($air['overall']/$air['jum']),'2')?> <br> Production: <?= number_format($air['production'],'2')?><br> Shipping: <?= number_format($air['shipping'],'2')?><br>Clearance: <?= number_format($air['clearance'],'2')?>"><?=round($air['overall']/$air['jum'])?></span></td> </tr>
                     </table>
              </div>
 
