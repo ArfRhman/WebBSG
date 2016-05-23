@@ -16,6 +16,9 @@
     .header td {
       text-align: left;
     }
+    .border-white{
+      border:1px solid #fff
+    }
   </style>
 </head>
 <body>
@@ -127,74 +130,74 @@ border-top: 1px solid #000;
 ">
 <td colspan="12" ></td>
 </tr>
-<tr style="border:1px solid #fff;">
- <td colspan="7">Remark :</td>
- <td colspan="2"> Sales Com</td>
- <td align="right"><?php echo $data->sales_com ?> %</td>
- <td align="right"><?php echo ($data->sales!='')? number_format($data->sales,"2",",","."):'-' ?></td>
+<tr class="border-white">
+ <td colspan="7" class="border-white">Remark :</td>
+ <td colspan="2" class="border-white"> Sales Com</td>
+ <td align="right" class="border-white"><?php echo $data->sales_com ?> %</td>
+ <td align="right" class="border-white"><?php echo ($data->sales!='')? number_format($data->sales,"2",",","."):'-' ?></td>
  <td> </td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td>1. </td>
-  <td colspan="6">All price in IDR</td>
-  <td colspan="2"> ExtCom</td>
-  <td align="right"><?php echo $data->extcom ?> %</td>
-  <td align="right"><?php echo ($data->extcom_pro!='')?number_format($data->extcom_pro,"2",",","."):'-' ?></td>
+  <td colspan="6" class="border-white">All price in IDR</td>
+  <td colspan="2" class="border-white"> ExtCom</td>
+  <td align="right" class="border-white"><?php echo $data->extcom ?> %</td>
+  <td align="right" class="border-white"><?php echo ($data->extcom_pro!='')?number_format($data->extcom_pro,"2",",","."):'-' ?></td>
   <td></td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td>2. </td>
-  <td colspan="6">All price refer to currency conversion as started in Price list, it is 1 USD = IDR</td>
-  <td colspan="2"> Bank Interest</td>
-  <td align="right"><?php echo $data->bank_interest ?> %</td>
-  <td align="right"><?php echo number_format($data->bank,"2",",",".") ?></td>
+  <td colspan="6" class="border-white">All price refer to currency conversion as started in Price list, it is 1 USD = IDR</td>
+  <td colspan="2" class="border-white"> Bank Interest</td>
+  <td align="right" class="border-white"><?php echo $data->bank_interest ?> %</td>
+  <td align="right" class="border-white"><?php echo number_format($data->bank,"2",",",".") ?></td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
-  <td colspan="2"> Transport Cost</td>
+  <td colspan="2" class="border-white"> Transport Cost</td>
   <td></td>
-  <td align="right"><?php echo ($data->transport!='')?number_format($data->transport,"2",",","."):'-' ?></td>
+  <td align="right" class="border-white"><?php echo ($data->transport!='')?number_format($data->transport,"2",",","."):'-' ?></td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
-  <td colspan="2"> Adm Cost</td>
+  <td colspan="2" class="border-white"> Adm Cost</td>
   <td></td>
-  <td align="right"><?php echo ($data->adm!='')?number_format($data->adm,"2",",","."):'-' ?></td>
+  <td align="right" class="border-white"><?php echo ($data->adm!='')?number_format($data->adm,"2",",","."):'-' ?></td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
-  <td colspan="2"> Other Cost</td>
+  <td colspan="2" class="border-white"> Other Cost</td>
   <td></td>
-  <td align="right"><?php echo ($data->other!='')?number_format($data->other,"2",",","."):'-' ?></td>
+  <td align="right" class="border-white"><?php echo ($data->other!='')?number_format($data->other,"2",",","."):'-' ?></td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
-  <td colspan="2"> Total Cost</td>
+  <td colspan="2" class="border-white"> Total Cost</td>
   <td></td>
   <?php 
   $s = $data->sales;
   $total_cost = $s + $data->extcom_pro + $data->bank + $data->transport + $data->adm + $data->other; ?>
-  <td align="right"><?php echo number_format($total_cost,"2",",",".");  ?></td>
-  <td align="right"><?php echo number_format($total_cost / $jml_tp * 100,"2",",",".") ?> % </td>
+  <td align="right" class="border-white"><?php echo number_format($total_cost,"2",",",".");  ?></td>
+  <td align="right" class="border-white"><?php echo number_format($total_cost / $jml_tp * 100,"2",",",".") ?> % </td>
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
-  <td colspan="2"> E.N.P</td>
+  <td colspan="2" class="border-white"> E.N.P</td>
   <td></td>
-  <td align="right"><?php echo number_format($jml_tpro - $total_cost,"2",",",".") ?></td>
-  <td align="right"><?php echo number_format(($jml_tpro - $total_cost) / $jml_tp * 100,"2",",",".") ?> % </td>
+  <td align="right" class="border-white"><?php echo number_format($jml_tpro - $total_cost,"2",",",".") ?></td>
+  <td align="right" class="border-white"><?php echo number_format(($jml_tpro - $total_cost) / $jml_tp * 100,"2",",",".") ?> % </td>
 
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="6"></td>
-  <td align="right">
+  <td align="right" class="border-white">
     <a href="<?php echo site_url('sales/so/profit_analisis/'.$this->uri->segment(4).'') ?>/edit"><img src='<?php echo base_url() ?>style/img/edit.png' style="opacity: 0.8;width: 15px;"></a></td>
-    <td colspan="2">Cost / Profit Adjustment</td>
+    <td colspan="2" class="border-white">Cost / Profit Adjustment</td>
     <td></td>
 
 
     <?php if($this->uri->segment(5)=='edit'){ ?>
-    <td colspan="2" align="left">
+    <td colspan="2" align="left" class="border-white">
      <form enctype="multipart/form-data" action="<?php echo site_url('sales/so/update_adjusment/'.$this->uri->segment(4));?>" method="post">
       <input type='text' name='adjustment' value="<?php echo ($data->adjustment!='')?$data->adjustment:0 ?>">
       <input type='hidden' value="<?php echo $this->uri->segment(4) ?>" name="id">
@@ -202,7 +205,7 @@ border-top: 1px solid #000;
     </form>
   </td>
   <?php } else {?>
-  <td align="right">
+  <td align="right" class="border-white">
     <?php echo ($data->adjustment!='')?number_format($data->adjustment,"2",",","."):'-' ?>
   </td>
   <?php } ?>
@@ -210,10 +213,10 @@ border-top: 1px solid #000;
 </tr>
 <tr style="border:1px solid #fff;">
   <td colspan="7"></td>
-  <td colspan="2">E.N.P Final</td>
+  <td colspan="2" class="border-white">E.N.P Final</td>
   <td></td>
-  <td align="right"><?php echo number_format($data->adjustment + ($jml_tpro - $total_cost),"2",",",".") ?></td>
-  <td align="right"><?php echo number_format(($data->adjustment + ($jml_tpro - $total_cost)) / $jml_tp * 100,"2",",",".") ?> % </td>
+  <td align="right" class="border-white"><?php echo number_format($data->adjustment + ($jml_tpro - $total_cost),"2",",",".") ?></td>
+  <td align="right" class="border-white"><?php echo number_format(($data->adjustment + ($jml_tpro - $total_cost)) / $jml_tp * 100,"2",",",".") ?> % </td>
 
 </tr>
 </table>

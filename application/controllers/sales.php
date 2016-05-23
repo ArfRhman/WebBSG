@@ -773,7 +773,7 @@ class Sales extends CI_Controller {
 				$res['invoice']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
 				$res['cogs']['data'][$k]['myData']=array(intval($e['total_target']),intval($e['so']),intval($e['invoice']),intval($e['cogs']),intval($e['so']-$e['cogs']),intval($e['direct']),intval($e['adjustment']),intval(($e['so']-$e['cogs'])-$e['direct']+$e['adjustment']));
 			}
-		
+
 			foreach($res as $k=>$re){
 				$res[$k]['data']=array_values($re['data']);
 			}
@@ -2522,16 +2522,31 @@ function target()
 		break;
 		case 'save':
 		$p = $this->input->post();
-		$sql = $this->db->query("SELECT COUNT(periode) AS c,no FROM tbl_sale_target WHERE a_m = '".$p['am']."' AND periode = '".$p['periode']."'")->row();
+		$sql = $this->db->query("SELECT COUNT(periode) AS c,no FROM tbl_sale_target WHERE a_m = '".$p['am']."' AND periode = '".$p['periode']."' AND operator ='".$p['operator']."' AND customer = '".$p['customer_name']."'")->row();
 		if($sql->c == 0){
-			$data = array(
+			$sql2 = $this->db->query("SELECT COUNT(periode) AS c,no,amount FROM tbl_sale_target WHERE a_m = '".$p['am']."' AND periode = '".$p['periode']."' AND (operator ='".$p['operator']."' OR customer = '".$p['customer_name']."')")->row();
+
+			if($sql2->c == 0){
+				$data = array(
+					'a_m' => $p['am'],
+					'periode' => $p['periode'],
+					'operator' => $p['operator'],
+					'customer' => $p['customer_name'],
+					'amount' => $p['amount']
+					);
+				$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+				// echo "disini 1"; die();
+			}else{
+				$data = array(
 				'a_m' => $p['am'],
 				'periode' => $p['periode'],
 				'operator' => $p['operator'],
 				'customer' => $p['customer_name'],
-				'amount' => $p['amount']
+				'amount' => $p['amount'] + $sql2->amount
 				);
-			$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+				$this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql2->no);
+				// echo "disini 2"; die();
+			}
 		}else{
 			$data = array(
 				'a_m' => $p['am'],
