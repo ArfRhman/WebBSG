@@ -53,7 +53,7 @@
                 }
                 ?>
                 <tr>
-                  <td><?php echo $no; ?></td>
+                  <td><?php echo $no;$no++; ?></td>
                   <td><?php echo $c->po_no; ?></td>
                   <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></a></td>
                   <td><?php echo $kat?></td>

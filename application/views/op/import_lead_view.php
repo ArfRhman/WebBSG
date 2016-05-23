@@ -61,14 +61,14 @@
                                 <td><?php echo $doc->gr_date ?></td>
                                 <td><?php echo $c->moda ?></td>
                                 <td><?= $c->moda=='Sea' ? $lead->actual_lead_time : '-' ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->atf_production : '-' ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->atf_vessel_arrival : '-' ?></td>
-                                <td><?= $c->moda=='Sea' ? $lead->atf_clearance : '-' ?></td>
+                                <td><?= $c->moda=='Sea' ? (strtotime($lead->atf_production)-strtotime($c->po_date))/(60*60*24) : '-' ?> Days</td>
+                                <td><?= $c->moda=='Sea' ? (strtotime($lead->atf_vessel_arrival)-strtotime($lead->atf_vessel_depart))/(60*60*24) : '-' ?> Days</td>
+                                <td><?= $c->moda=='Sea' ? (strtotime($lead->atf_clearance)-strtotime($lead->atf_vessel_arrival))/(60*60*24) : '-' ?> Days</td>
                                 <td><?= $c->moda=='Air' ? $lead->actual_lead_time : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->atf_production : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->atf_vessel_arrival : '-' ?></td>
-                                <td><?= $c->moda=='Air' ? $lead->atf_clearance : '-' ?></td>
-                                <td><?php echo $c->forwarder?></td>
+                                <td><?= $c->moda=='Air' ? (strtotime($lead->atf_production)-strtotime($c->po_date))/(60*60*24) : '-' ?> Days</td>
+                                <td><?= $c->moda=='Air' ? (strtotime($lead->atf_vessel_arrival)-strtotime($lead->atf_vessel_depart))/(60*60*24) : '-' ?> Days</td>
+                                <td><?= $c->moda=='Air' ? (strtotime($lead->atf_clearance)-strtotime($lead->atf_vessel_arrival))/(60*60*24) : '-' ?> Days</td>
+                                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name; ?></td>
                             </tr>
                             <?php
                         }

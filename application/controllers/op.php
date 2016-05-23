@@ -829,34 +829,22 @@ class Op extends CI_Controller {
 		{
 			case 'view':
 			$all = $this->mddata->getSupplyDetailPerformance();
-			$air=array(
-				'total'=>0,
-				'y'=>0
-				);
-			$sea=array(
+
+			$da=array(
 				'total'=>0,
 				'y'=>0
 				);
 
 			foreach($all as $a){
 				$diff = (strtotime($a['received'])-strtotime($a['depart']))/(60*60*24);
-				if($a['method']=='Air'){
-					$air['total']+=1;
-					$air['y']+=$diff;
-				}else if($a['method']=='Sea'){
-					$sea['total']+=1;
-					$sea['y']+=$diff;
-				}
-				
+				$da['total']+=1;
+				$da['y']+=$diff;
 			}
-			if($sea['total']==0){
-				$sea['total']=1;
+			if($da['total']==0){
+				$da['total']=1;
 			}
-			if($air['total']==0){
-				$air['total']=1;
-			}
-			$data['air']=$air;
-			$data['sea']=$sea;
+
+			$data['data']=$da;
 			$this->load->view('top', $data);
 			$this->load->view('op/supply_view', $data);
 			break;
@@ -1677,8 +1665,8 @@ $id = $_POST['id'];
 $data = $this->db->query("SELECT tb.currency AS cr FROM tbl_op_pl_header AS hd,tbl_op_pl_tabel AS tb WHERE 
 	(str_to_date(hd.effective_from,'%d %M %Y')) <= str_to_date('".$date."','%d %M %Y') && 
 	(str_to_date(hd.effective_fill,'%d %M %Y')) >= str_to_date('".$date."','%d %M %Y') && 
-	 tb.item_id = '".$id."' &&
-	 hd.no = tb.pl_no")->row();
+	tb.item_id = '".$id."' &&
+	hd.no = tb.pl_no")->row();
 if(!empty($data)){
 	echo $data->cr;
 }else{
