@@ -1,161 +1,166 @@
-	<aside class="right-side">
-   <!-- Main content -->
-   <section class="content-header">
-    <h1>Welcome to Dashboard</h1>
-  </section>
-  <section class="content">
-    <div class="row">
-      <div class="col-lg-12">
-       <div class="panel panel-primary" id="hidepanel1">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <i style="width: 16px; height: 16px;" id="livicon-46" class="livicon" data-name="clock" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-            Analisa Import - Header
-          </h3>
-          <span class="pull-right">
-            <i class="glyphicon glyphicon-chevron-up clickable"></i>
-          </span>
-        </div>
-        <div class="panel-body">
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="type">Supplier</label>
-            <div class="col-md-3">
-              <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $in->supplier)->row()->supplier; ?>
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="type">PO No</label>
-            <div class="col-md-3">
-              <?=$in->po_no;?>
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="type">PO Date</label>
-            <div class="col-md-3">
-              <?=$in->po_date;?>
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="type">PIB Date</label>
-            <div class="col-md-3">
-              <?php echo $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $in->no)->row()->pib_date; ?>
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="type">Forwarder</label>
-            <div class="col-md-3">
-              <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $in->forwarder)->row()->name; ?>
-            </div>
-          </div>
-          <br>
-          <div class="form-group">
-            <label class="col-md-2 control-label" for="type">Moda</label>
-            <div class="col-md-3">
-              <?=$in->moda;?>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-primary filterable">
-          <div class="panel-heading clearfix  ">
-            <div class="panel-title pull-left">
-             <div class="caption">
-              <i class="livicon" data-name="camera-alt" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-              Analisa Import - Table
-            </div>
-          </div>
-        </div>
-        <div class="panel-body">
-          <div style="overflow-x:auto">
-            <table class="table table-striped table-responsive">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Item Name</th>
-                  <th>Qty</th>
-                  <th>Total Purchase</th>
-                  <th>All Import Cost</th>
-                  <th>%</th>
-                </tr>
-              </thead>
-              <tbody>
-               <?php
-               $no = 1;
-               $total=0;
-               $tabel=$this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $in->no);
-               $opt=array();
-               foreach($opt as $c){
-                 $total+=$c->realisasi;
-                 ?>
-                 <tr>
-                   <td><?=$no;$no++;?></td>
-                   <td><?=$c->acc_id?></td>
-                   <td><?=$c->account?></td>
-                   <td><?=$c->tanggal?></td>
-                   <td><?=$c->realisasi_no?></td>
-                   <td><?=$c->kwitansi_no?></td>
-                   <td><?=$c->uraian_realisasi?></td>
-                   <td><?=$c->realisasi?></td>
-                   <td><?=$c->adjustment?></td>
-                   <td>                                                                                                       
-                    <div class='btn-group'>                                                     
-                      <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>    
-                      <ul class='dropdown-menu pull-right' role='menu'>       
-                        <li><a href='<?php echo site_url('op/petty/table_edit/'.$c->no)?>' >Edit</a></li>         
-                        <li><a href='<?php echo site_url('op/petty/table_delete/'.$c->no)?>' >Delete</a></li>         
-                      </ul>                                                 
-                    </div>
-                  </td>
-                </tr>
+<html>
+<head>
+  <title>Analisa Profit</title>
+  <style type="text/css">
+    table {
+      border-collapse: collapse;
+    }
 
-                <?php
-              }
-              ?>
-              <tr>
-                <th colspan="7"> Subtotal </th>
-                <td colspan="3"> <?=$total?></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-</aside>
-<!-- right-side -->
-</div>
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
-  <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
-</a>
-<!-- global js -->
-<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-<!--livicons-->
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-<!-- end of global js -->
-<!-- begining of page level js -->
-<!-- Back to Top-->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-<!--   maps -->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>		
+    #tbl{
+      border: none;
+    }
 
-<script type="text/javascript" src="<?php echo base_url();?>style/js/bootstrap-datepicker.min.js"></script>
+    .header th {
+      text-align: left;
+    }
+    .header td {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <center><h3>Analisa Import</h3></center>
+  <table width="75%" border="0" class="table header">
+    <tr>
+      <th width="3%">Supplier</th>
+        <td width="*" colspan="3"> : <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $in->supplier)->row()->supplier; ?></td>
+      </tr>
+      <tr>
+       <th width="3%">PO No</th>
+       <td width="39%">: <?=$in->po_no;?></td>
+     </tr>
+     <tr>
+       <th width="3%">PO Date</th>
+       <td width="39%">: <?=$in->po_date;?></td>
+     </tr>
+     <tr>
+       <th width="3%">PIB Date</th>
+       <td width="39%">: <?php echo $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $in->no)->row()->pib_date; ?></td>
+     </tr>
+     <tr>
+       <th width="3%">Forwarder</th>
+       <td width="39%">: <?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $in->forwarder)->row()->name; ?></td>
+     </tr>
+     <tr>
+       <th width="3%">Moda</th>
+       <td width="39%" colspan="3">: <?=$in->moda;?></td>
+     </tr>
+   </table>
+   <br>
 
+   <table width="100%" border="1">
+    <tr>
+      <th>No</th>
+      <th>Item Name</th>
+      <th>Qty</th>
+      <th>Total Purchase</th>
+      <th>All Import Cost</th>
+      <th>%</th>
+    </tr>
+    <?php
+    $tQty=0;
+    $tTp=0;
+    $tAllImportCost=0;
+    $costWithoutVat=0;
+    $tax=0;
+    $clearance=0;
+    $no = 1;
+    $total=0;
+    $tabel=$this->mddata->getDataFromTblWhere('tbl_op_po_tabel', 'no_po', $in->no);
+    $opt=array();
+    foreach($tabel->result() as $c){
+      $costing = $this->mddata->getDataFromTblWhere('tbl_op_po_costing', 'no_po', $c->no_po)->row();
+      $tQty+=$c->qty;
+      $tTp+=$c->qty*$c->unit_price;
+      $tAllImportCost+=$costing->total_cost;
+      $costWithoutVat+=$costing->total_cost_without_vat;
+      $tax+=$costing->total_tax;
+      $clearance+=$costing->total_clearance;
+      ?>
+      <tr>
+       <td><?=$no;$no++;?></td>
+       <td><?=$c->item;?></td>
+       <td><?=$c->qty;?></td>
+       <td><?=$c->qty*$c->unit_price;?></td>
+       <td><?=$costing->total_cost?></td>
+       <td>(<?=($costing->total_cost/($c->qty*$c->unit_price))*100?>%)</td>
+     </tr>
+     <?php
+   }
+   ?>
+   <tr>
+     <th colspan="2">Subtotal</th>
+     <th><?=$tQty?></th>
+     <th><?=$tTp?></th>
+     <th><?=$tAllImportCost?></th>
+     <th></th>
+   </tr>
+   <tr style="
+   height: 30px;
+   border: 1px solid #fff;
+   border-top: 1px solid #000;
+   ">
+   <td colspan="6" ></td>
+ </tr>
+ <tr style="border:1px solid #fff;">
+   <td colspan="4">Remark :</td>
+   <td>Import Cost Without VAT (% and amount)</td>
+   <td align="right"><?=$costWithoutVat?> (<?=($costWithoutVat/$tTp)*100?>%)</td>
+   <td align="right"></td>
+   <td> </td>
+ </tr>
+ <tr style="border:1px solid #fff;">
+  <td>1. </td>
+  <td colspan="3">All price in IDR</td>
+  <td>Taxes & Duties (% and amount)</td>
+  <td align="right"><?=$tax?> (<?=($tax/$tTp)*100?>%)</td>
+  <td align="right"></td>
+  <td></td>
+</tr>
+<tr style="border:1px solid #fff;">
+  <td>2. </td>
+  <td colspan="3">All price refer to currency conversion as started in Price list, it is 1 USD = IDR</td>
+  <td>Custom Clearance (% and amount)</td>
+  <td align="right"><?=$clearance?> (<?=($clearance/$tTp)*100?>%)</td>
+  <td align="right"></td>
+</tr>
+</table>
+<br>
+<table  width="100%">
+ <tr>
+  <td>
+    <p>
+      <b>Issued By,</b>
 
-<!-- end of page level js -->		
+    </p>
+  </td>
 
+  <td>
+    <p>
+      <b>Approved By,</b>
+
+    </p>
+  </td>
+</tr>
+<tr style="height: 40px;">
+  <td></td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <b>_______</b>
+
+    </p>
+  </td>
+
+  <td>
+    <p>
+      <b>________</b>
+
+    </p>
+  </td>
+</tr>
+</table>
+<br>
 </body>
 </html>

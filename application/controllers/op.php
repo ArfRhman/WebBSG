@@ -906,7 +906,7 @@ class Op extends CI_Controller {
 			break;
 			case 'analysis':
 			$data['in'] = $this->mddata->getDataFromTblWhere('tbl_op_po_header', 'po_no', $this->uri->segment(4))->row();
-			$this->load->view('top', $data);
+			//$this->load->view('top', $data);
 			$this->load->view('op/import_analysis_view',$data);
 		}
 	}
