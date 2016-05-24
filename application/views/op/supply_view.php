@@ -43,10 +43,13 @@
           <div class="panel-body">
            <!-- <div id="containers" style="width:100%; height:auto;"></div> -->
            <div class="col-md-12 text-center">
-           <table class="table">
+           <table class="table" style="
+    width: 49%;
+    margin: auto;
+">
               <tr>
               <td class="cal-bg" align="center"> 
-                <span style="font-size: 50px;" data-toggle="tooltip" data-placement="left" data-html="true"><?=round($data['y']/$data['total'])?> </span></td> </tr>
+                <span style="font-size: 50px;" data-toggle="tooltip" data-placement="left" data-html="true" title="123"><?=round($data['y']/$data['total'])?> </span></td> </tr>
                 
               </table>
 

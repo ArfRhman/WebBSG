@@ -61,7 +61,7 @@
                             AND SUBSTR(periode, 5, 4) = "'.$thn.'" group by a_m) as b on
                     a.no = b.maxid
                     ')->row();
-                    $payment = $this->db->query('SELECT SUM(amount) as total from tbl_sale_so_payment WHERE SUBSTR(payment_date,4,3)="'.$mnth.'" AND SUBSTR(payment_date,8,4)='.$thn)->row();
+                    $payment = $this->db->query('SELECT SUM(amount) as total from tbl_sale_so_payment WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = "'.$mnth.'" AND SUBSTR(so_date,8,4)='.$thn.')')->row();
                      //$so = $this->db->query("SELECT SUM(grand_total) as total FROM tbl_sale_so_detail WHERE id_so IN(SELECT id FROM tbl_sale_so WHERE SUBSTR(so_date,4,3) = '".$mnth."' AND SUBSTR(so_date,8,4)=".$thn.")")->row();
                     $so = $this->db->query("SELECT SUM(total) as sub_total,
                         SUM(disc) as total_disc,
@@ -127,7 +127,7 @@
                     $enp2 = $enp1 +  $ap->adjustment;
                     $prc_enp = ($grand_total_so != 0)?100* $enp2/$grand_total_so:0;
                     if($target->total!=0){
-                        $prc_achievement = 100*$inv->total/$target->total;
+                        $prc_achievement = 100 * $inv->total / $target->total;
                     }else{
                         $prc_achievement = 0;
                     }
@@ -152,7 +152,7 @@
                         <td><a href='<?php echo site_url('sales/achievement/detail/'.$no)?>' style="cursor:pointer';color:blue"><?php echo $b?></a></td>
                         <td><?php echo number_format($target->total, 0)?></td>
                         <td><?php echo number_format($grand_total_so, 0)?></td>
-                        <td><?php echo ($target->total!=0)?number_format(100*$grand_total_so/$target->total, 2,'.',''):'0'?>%</td>
+                        <td><?php echo ($target->total!=0)?number_format(100 * $grand_total_so/$target->total, 2,'.',''):'0'?>%</td>
                         <td><?php echo number_format($inv->total, 0)?></td>
                         <td><?php 
 
@@ -162,10 +162,10 @@
                             <td><?php echo number_format($total_penalty, 2)?></td>
                             <td><?php echo number_format($total_net_claim, 0)?></td>
                             <td><?php echo number_format($prc_salescom * 100,2,'.','')?>%</td>
-                            <td><?php $sc_amount = $total_net_claim * $prc_salescom/100; echo number_format($sc_amount, 0)?></td>
+                            <td><?php $sc_amount = $total_net_claim * $prc_salescom; echo number_format($sc_amount, 0)?></td>
                             <td><?php echo number_format($payment->total, 0)?></td>
-                            <td><?php $sc_paid = $payment->total * $prc_salescom/100; echo number_format($sc_paid, 0)?></td>
-                            <td><?php echo number_format($sc_paid - $sc_paid, 0)?></td>
+                            <td><?php $sc_paid = $payment->total * $prc_salescom; echo number_format($sc_paid, 0)?></td>
+                            <td><?php echo number_format($sc_amount - $sc_paid, 0)?></td>
 
                             <td>                                                                                                       
                                 <div class='btn-group'>                                                     
