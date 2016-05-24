@@ -88,7 +88,7 @@
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{point.y} '
+                format: '{point.y}   '
                  // formatter: function () { 
                  //    var topData;
                     
