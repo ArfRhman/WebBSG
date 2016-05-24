@@ -2542,9 +2542,11 @@ function target()
 				'periode' => $p['periode'],
 				'operator' => $p['operator'],
 				'customer' => $p['customer_name'],
-				'amount' => $p['amount'] + $sql2->amount
+				'amount' => $p['amount']
 				);
-				$this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql2->no);
+				$this->mddata->insertIntoTbl('tbl_sale_target',$data);
+
+				// $this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql2->no);
 				// echo "disini 2"; die();
 			}
 		}else{
