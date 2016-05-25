@@ -1,8 +1,8 @@
     <head>
       <style type="text/css">
-      tr.accordion-toggle{
-        cursor: pointer;
-      }
+        tr.accordion-toggle{
+          cursor: pointer;
+        }
       </style>
     </head>
     <aside class="right-side">
@@ -47,373 +47,303 @@
               <tbody>
                 <?php
                 $q = $this->db->query("SELECT
-                  po_tbl.item_code,
-                  po_tbl.item,
-                  st_tbl.mou,
-                  (
-                    SELECT
-                    DATEDIFF(
-                      CURDATE(),
-                      STR_TO_DATE(gr_date, '%d %M %Y')
-                      )
+  *, DATEDIFF(
+                  CURDATE(),
+                  STR_TO_DATE(
+                    tbl_op_st_header.document_date,
+                    '%d %b %Y'
+                    )
+                ) AS geer
                 FROM
-                tbl_op_po_documentation pd
+                tbl_op_st_header,
+                tbl_op_st_tabel
                 WHERE
-                pd.no_po = po_tbl.no_po
-                ) AS aging,
-                (
-                    SELECT
-                   gr_date
-                FROM
-                tbl_op_po_documentation pd
-                WHERE
-                pd.no_po = po_tbl.no_po
-                ) AS gr_date,
-                IF (
-                  st_hdr.type = 'In'
-                  OR st_hdr.type = 'Adj In',
-                  st_tbl.qty,
-                  po_tbl.qty - st_tbl.qty
-                  ) AS qty_balance
-                FROM
-                tbl_op_po_tabel po_tbl
-                LEFT JOIN tbl_op_st_tabel st_tbl ON po_tbl.item_code = st_tbl.item_code
-                LEFT JOIN tbl_op_st_header st_hdr ON st_hdr. NO = st_tbl.st_no
-                WHERE
-                po_tbl.no_po IN (
-                  SELECT
-                  no_po
-                  FROM
-                  tbl_op_po_documentation
-                  WHERE
-                  DATEDIFF(
-                    CURDATE(),
-                    STR_TO_DATE(gr_date, '%d %M %Y'))<=180)")->result();
-    $total_amount = 0;
-    $total_com = 0;
-    foreach ($q as $d) {
-      $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d->item_code)->row();
-      $amount = $pl->average_cost * $d->qty_balance;
-      $com = (0.012 / 30) * $d->aging * $amount;
-      $total_amount += $amount;
-      $total_com +=$com;
-    }
+                tbl_op_st_header. NO = tbl_op_st_tabel.st_no
+                ")->result_array();
 
-    $q2 = $this->db->query("SELECT
-                  po_tbl.item_code,
-                  po_tbl.item,
-                  st_tbl.mou,
-                  (
-                    SELECT
-                    DATEDIFF(
-                      CURDATE(),
-                      STR_TO_DATE(gr_date, '%d %M %Y')
-                      )
-                FROM
-                tbl_op_po_documentation pd
-                WHERE
-                pd.no_po = po_tbl.no_po
-                ) AS aging,
-                (
-                    SELECT
-                   gr_date
-                FROM
-                tbl_op_po_documentation pd
-                WHERE
-                pd.no_po = po_tbl.no_po
-                ) AS gr_date,
-                IF (
-                  st_hdr.type = 'In'
-                  OR st_hdr.type = 'Adj In',
-                  st_tbl.qty,
-                  po_tbl.qty - st_tbl.qty
-                  ) AS qty_balance
-                FROM
-                tbl_op_po_tabel po_tbl
-                LEFT JOIN tbl_op_st_tabel st_tbl ON po_tbl.item_code = st_tbl.item_code
-                LEFT JOIN tbl_op_st_header st_hdr ON st_hdr. NO = st_tbl.st_no
-                WHERE
-                po_tbl.no_po IN (
-                  SELECT
-                  no_po
-                  FROM
-                  tbl_op_po_documentation
-      WHERE
-      DATEDIFF(
-        CURDATE(),
-        STR_TO_DATE(gr_date, '%d %M %Y'))>180 AND DATEDIFF(
-        CURDATE(),
-        STR_TO_DATE(gr_date, '%d %M %Y'))<=300)")->result();
-    $total_amount2 = 0;
-    $total_com2 = 0;
-    foreach ($q2 as $d) {
-      $pl = $this->db->query("SELECT AVG(DDP_IDR) as average_cost FROM tbl_op_price_list WHERE item_id=".$d->item_code)->row();
-      $amount = $pl->average_cost * $d->qty_balance;
-      $com = (0.012 / 30) * $d->aging * $amount;
-      $total_amount2 += $amount;
-      $total_com2 +=$com;
-    }
+                $total_amount = 0;
+                $total_com = 0;
+                $total_amount2 = 0;
+                $total_com2 = 0;
+                $total_amount3 = 0;
+                $total_com3 = 0;
+                $dat=array();
+                foreach ($q as $r) {
+                  if(!array_key_exists($r['item_code'], $dat)){
+                    $dat[$r['item_code']]['code'] = $r['item_code'];
+                    $dat[$r['item_code']]['item'] = $r['item'];
+                    $dat[$r['item_code']]['mou']=$r['mou'];
+                    $dat[$r['item_code']]['g_r']=$r['document_date'];
+                    if($r['type']=="In" || $r['type']=="Adj in"){
+                      $dat[$r['item_code']]['jum']=$r['qty']; 
+                    }else if($r['type']=="Out" || $r['type']=="Adj out"){
+                      $dat[$r['item_code']]['jum']=0-$r['qty'];
+                    }
+                    if($r['document']=='GR'){
+                      $dat[$r['item_code']]['geer']=$r['geer'];
+                    }else{
+                      $dat[$r['item_code']]['geer']=0;
+                    }
+                  }else{
+                    if($r['type']=="In" || $r['type']=="Adj in"){
+                      $dat[$r['item_code']]['jum']+=$r['qty'];  
+                    }else if($r['type']=="Out" || $r['type']=="Adj out"){
+                      $dat[$r['item_code']]['jum']-=$r['qty'];
+                    }
+                    if($r['document']=='GR'){
+                      $dat[$r['item_code']]['geer']=$r['geer'];
+                    }
+                  }
+                }
 
-    $q3 = $this->db->query("SELECT
-                  po_tbl.item_code,
-                  po_tbl.item,
-                  st_tbl.mou,
-                  (
-                    SELECT
-                    DATEDIFF(
-                      CURDATE(),
-                      STR_TO_DATE(gr_date, '%d %M %Y')
-                      )
-                FROM
-                tbl_op_po_documentation pd
-                WHERE
-                pd.no_po = po_tbl.no_po
-                ) AS aging,
-                (
-                    SELECT
-                   gr_date
-                FROM
-                tbl_op_po_documentation pd
-                WHERE
-                pd.no_po = po_tbl.no_po
-                ) AS gr_date,
-                IF (
-                  st_hdr.type = 'In'
-                  OR st_hdr.type = 'Adj In',
-                  st_tbl.qty,
-                  po_tbl.qty - st_tbl.qty
-                  ) AS qty_balance
-                FROM
-                tbl_op_po_tabel po_tbl
-                LEFT JOIN tbl_op_st_tabel st_tbl ON po_tbl.item_code = st_tbl.item_code
-                LEFT JOIN tbl_op_st_header st_hdr ON st_hdr. NO = st_tbl.st_no
-                WHERE
-                po_tbl.no_po IN (
-                  SELECT
-                  no_po
-                  FROM
-                  tbl_op_po_documentation
-      WHERE
-      DATEDIFF(
-        CURDATE(),
-        STR_TO_DATE(gr_date, '%d %M %Y'))>300)")->result();
-    $total_amount3 = 0;
-    $total_com3 = 0;
-    foreach ($q3 as $d) {
-      $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d->item_code)->row();
-      $amount = $pl->average_cost * $d->qty_balance;
-      $com = (0.012 / 30) * $d->aging * $amount;
-      $total_amount3 += $amount;
-      $total_com3 +=$com;
-    }
-    $grand_amount = $total_amount + $total_amount2 + $total_amount3;
-    $grand_com = $total_com + $total_com2 + $total_com3;
-    ?>
-    <tr style="font-weight:bold;cursor:pointer';" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails1">
-      <td>1.</td>
-      <td>ACTIVE / FAST MOVING </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><?php echo number_format($total_amount,0)?></td>
-      <td></td>
-      <td></td>
-      <td><?php echo number_format($total_com,0)?></td>
-    </tr>
+                $active=array();
+                $slow=array();
+                $dead=array();
+                foreach($dat as $r){
+                  $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$r['code'])->row();
+                  $amount = $pl->average_cost * $r['jum'];
+                  $com = (0.012 / 30) * $r['geer'] * $amount;
 
-    <?php
-    foreach ($q as $d) {
-      $item = $this->mddata->getDataFromTblWhere('tbl_dm_item','id',$d->item_code)->row();
-      $brand = $this->mddata->getDataFromTblWhere('tbl_dm_brand','id',$item->merk)->row();
-      $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d->item_code)->row();
-      ?>
-      <tr class="accordion-body collapse packageDetails1" id="accordion1">
-        <td></td>
-        <td><?php echo $item->nama?></td>
-        <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
-        <td><?php echo $d->mou?></td>
-        <td><?php echo $d->qty_balance?></td>
-        <td><?php echo $d->gr_date?></td>
-        <td><?php echo $d->aging?></td>
-        <td>Active</td>
-        <td><?php echo number_format($pl->average_cost,0)?></td>
-        <td><?php 
-          $amount = $pl->average_cost * $d->qty_balance;
-          echo number_format($amount,0)
-          ?></td>
-          <td><?php echo number_format(100 * $amount/$grand_amount,2,'.','')?>%</td>
-          <td><?php echo ($item->storaging_cost!="")?number_format($item->storaging_cost,0):0?></td>
-          <td><?php $com = (0.012 / 30) * $d->aging * $amount;
-           echo number_format($com,0)?></td>
-         </tr>
-         <?php
-       }
-       ?>
-       <tr style="font-weight:bold;cursor:pointer';" id="package2" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails2">
-        <td>2.</td>
-        <td>SLOW MOVING </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><?php echo number_format($total_amount2,0)?></td>
-        <td></td>
-        <td></td>
-        <td><?php echo number_format($total_com2,0)?></td>
-      </tr>
+                  if($r['geer']<=90){
+                    $active[$r['item']]['code']=$r['code'];
+                    $active[$r['item']]['name']=$r['item'];
+                    $active[$r['item']]['total']=$r['jum'];
+                    $active[$r['item']]['aging']=$r['geer'];
+                    $active[$r['item']]['mou']=$r['mou'];
+                    $active[$r['item']]['g_r']=$r['g_r'];
+                    $total_amount += $amount;
+                    $total_com +=$com;
+                  }else if($r['geer']>90 && $r['geer']<=180){
+                    $slow[$r['item']]['code']=$r['code'];
+                    $slow[$r['item']]['name']=$r['item'];
+                    $slow[$r['item']]['total']=$r['jum'];
+                    $slow[$r['item']]['aging']=$r['geer'];
+                    $slow[$r['item']]['mou']=$r['mou'];
+                    $slow[$r['item']]['g_r']=$r['g_r'];
+                    $total_amount2 += $amount;
+                    $total_com2 +=$com;
+                  }else if($r['geer']>180){
+                    $dead[$r['item']]['code']=$r['code'];
+                    $dead[$r['item']]['name']=$r['item'];
+                    $dead[$r['item']]['total']=$r['jum'];
+                    $dead[$r['item']]['aging']=$r['geer'];
+                    $dead[$r['item']]['mou']=$r['mou'];
+                    $dead[$r['item']]['g_r']=$r['g_r'];
+                    $total_amount3 += $amount;
+                    $total_com3 +=$com;
+                  }
+                }
 
-      <?php
-      foreach ($q2 as $d) {
-        $item = $this->mddata->getDataFromTblWhere('tbl_dm_item','id',$d->item_code)->row();
-        $brand = $this->mddata->getDataFromTblWhere('tbl_dm_brand','id',$item->merk)->row();
-        $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d->item_code)->row();
-        ?>
-        <tr class="accordion-body collapse packageDetails2" id="accordion2">
-          <td></td>
-          <td><?php echo $item->nama?></td>
-          <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
-          <td><?php echo $d->mou?></td>
-          <td><?php echo $d->qty_balance?></td>
-          <td><?php echo $d->gr_date?></td>
-          <td><?php echo $d->aging?></td>
-          <td>Active</td>
-          <td><?php echo number_format($pl->average_cost,0)?></td>
-          <td><?php 
-            $amount = $pl->average_cost * $d->qty_balance;
-            echo number_format($amount,0)
-            ?></td>
-            <td><?php echo number_format(100 * $amount/$grand_amount,2,'.','')?>%</td>
-            <td><?php echo ($item->storaging_cost!="")?number_format($item->storaging_cost,0):0?></td>
-            <td><?php $com = (0.012 / 30) * $d->aging * $amount;
-             echo number_format($com,0)?></td>
-           </tr>
-           <?php
-         }
-         ?>
-         <tr style="font-weight:bold;"  id="package3" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails3">
-          <td>3.</td>
-          <td>DEAD STOCK</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><?php echo number_format($total_amount2,0)?></td>
-          <td></td>
-          <td></td>
-          <td><?php echo number_format($total_com2,0)?></td>
-        </tr>
 
-        <?php
-        foreach ($q3 as $d) {
-          $item = $this->mddata->getDataFromTblWhere('tbl_dm_item','id',$d->item_code)->row();
-          $brand = $this->mddata->getDataFromTblWhere('tbl_dm_brand','id',$item->merk)->row();
-          $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d->item_code)->row();
-          ?>
-          <tr class="accordion-body collapse packageDetails3" id="accordion3">
-            <td></td>
-            <td><?php echo $item->nama?></td>
-            <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
-            <td><?php echo $d->mou?></td>
-            <td><?php echo $d->qty_balance?></td>
-            <td><?php echo $d->gr_date?></td>
-            <td><?php echo $d->aging?></td>
-            <td>Active</td>
-            <td><?php echo number_format($pl->average_cost,0)?></td>
-            <td><?php 
-              $amount = $pl->average_cost * $d->qty_balance;
-              echo number_format($amount,0)
-              ?></td>
-              <td><?php echo number_format(100 * $amount/$grand_amount,2,'.','')?>%</td>
-              <td><?php echo ($item->storaging_cost!="")?number_format($item->storaging_cost,0):0?></td>
-              <td><?php $com = (0.012 / 30) * $d->aging * $amount;
-               echo number_format($com,0)?></td>
-             </tr>
-             <?php
-           }
-           ?>
-           <tr style="font-weight:bold">
-             <td></td>
-             <td>TOTAL</td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td><?php echo number_format($grand_amount,0)?></td>
-             <td></td>
-             <td></td>
-             <td><?php echo number_format($grand_com,0)?></td>
-           </tr>
 
-         </tbody>
-       </table>
-     </div>
+                $grand_amount = $total_amount + $total_amount2 + $total_amount3;
+                $grand_com = $total_com + $total_com2 + $total_com3;
+                ?>
+                <tr style="font-weight:bold;cursor:pointer';" id="package1" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails1">
+                  <td>1.</td>
+                  <td>ACTIVE / FAST MOVING </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><?php echo number_format($total_amount,0)?></td>
+                  <td></td>
+                  <td></td>
+                  <td><?php echo number_format($total_com,0)?></td>
+                </tr>
+
+                <?php
+                foreach ($active as $d) {
+                  $item = $this->mddata->getDataFromTblWhere('tbl_dm_item','id',$d['code'])->row();
+                  $brand = $this->mddata->getDataFromTblWhere('tbl_dm_brand','id',$item->merk)->row();
+                  $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d['code'])->row();
+                  ?>
+                  <tr class="accordion-body collapse packageDetails1" id="accordion1">
+                   <td></td>
+                       <td><?php echo $item->nama?></td>
+                       <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
+                       <td><?php echo isset($d['mou'])?$d['mou']:''?></td>
+                       <td><?php echo isset($d['total'])?number_format($d['total'],0):'0'?></td>
+                       <td><?php echo isset($d['g_r'])?$d['g_r']:''?></td>
+                       <td><?php echo isset($d['aging'])?number_format($d['aging'],0):0?></td>
+                       <td>Active</td>
+                       <td><?php echo number_format($pl->average_cost,0)?></td>
+                       <td><?php 
+                        $amount = isset($d['total'])?($pl->average_cost * $d['total']):0;
+                        echo number_format($amount,0)
+                        ?></td>
+                        <td><?php echo number_format(100 * $amount/$grand_amount,2,'.','')?>%</td>
+                        <td><?php echo ($item->storaging_cost!="")?number_format($item->storaging_cost,0):0?></td>
+                        <td><?php $com = isset($d['aging'])?((0.012 / 30) * $d['aging'] * $amount):0;
+                         echo number_format($com,0)?></td>
+                     </tr>
+                     <?php
+                   }
+                   ?>
+                   <tr style="font-weight:bold;cursor:pointer';" id="package2" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails2">
+                    <td>2.</td>
+                    <td>SLOW MOVING </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo number_format($total_amount2,0)?></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo number_format($total_com2,0)?></td>
+                  </tr>
+
+                  <?php
+                  foreach ($slow as $d) {
+                    $item = $this->mddata->getDataFromTblWhere('tbl_dm_item','id',$d['code'])->row();
+                    $brand = $this->mddata->getDataFromTblWhere('tbl_dm_brand','id',$item->merk)->row();
+                    $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d['code'])->row();
+                    ?>
+                    <tr class="accordion-body collapse packageDetails2" id="accordion1">
+                      <td></td>
+                       <td><?php echo $item->nama?></td>
+                       <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
+                       <td><?php echo isset($d['mou'])?$d['mou']:''?></td>
+                       <td><?php echo isset($d['total'])?number_format($d['total'],0):'0'?></td>
+                       <td><?php echo isset($d['g_r'])?$d['g_r']:''?></td>
+                       <td><?php echo isset($d['aging'])?number_format($d['aging'],0):0?></td>
+                       <td>Active</td>
+                       <td><?php echo number_format($pl->average_cost,0)?></td>
+                       <td><?php 
+                        $amount = isset($d['total'])?($pl->average_cost * $d['total']):0;
+                        echo number_format($amount,0)
+                        ?></td>
+                        <td><?php echo number_format(100 * $amount/$grand_amount,2,'.','')?>%</td>
+                        <td><?php echo ($item->storaging_cost!="")?number_format($item->storaging_cost,0):0?></td>
+                        <td><?php $com = isset($d['aging'])?((0.012 / 30) * $d['aging'] * $amount):0;
+                         echo number_format($com,0)?></td>
+                       </tr>
+                       <?php
+                     }
+                     ?>
+                     <tr style="font-weight:bold;"  id="package3" class="accordion-toggle" data-toggle="collapse" data-parent="#OrderPackages" data-target=".packageDetails3">
+                      <td>3.</td>
+                      <td>DEAD STOCK</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><?php echo number_format($total_amount3,0)?></td>
+                      <td></td>
+                      <td></td>
+                      <td><?php echo number_format($total_com3,0)?></td>
+                    </tr>
+
+                    <?php
+                    foreach ($dead as $d) {
+                      $item = $this->mddata->getDataFromTblWhere('tbl_dm_item','id',$d['code'])->row();
+                      $brand = $this->mddata->getDataFromTblWhere('tbl_dm_brand','id',$item->merk)->row();
+                      $pl = $this->db->query("SELECT AVG(ddp_idr) as average_cost FROM tbl_op_pl_tabel WHERE item_id=".$d['code'])->row();
+                      ?>
+                      <tr class="accordion-body collapse packageDetails3" id="accordion3">
+                       <td></td>
+                       <td><?php echo $item->nama?></td>
+                       <td><?php echo isset($brand->brand)?$brand->brand:'' ?></td>
+                       <td><?php echo isset($d['mou'])?$d['mou']:''?></td>
+                       <td><?php echo isset($d['total'])?number_format($d['total'],0):'0'?></td>
+                       <td><?php echo isset($d['g_r'])?$d['g_r']:''?></td>
+                       <td><?php echo isset($d['aging'])?number_format($d['aging'],0):0?></td>
+                       <td>Active</td>
+                       <td><?php echo number_format($pl->average_cost,0)?></td>
+                       <td><?php 
+                        $amount = isset($d['total'])?($pl->average_cost * $d['total']):0;
+                        echo number_format($amount,0)
+                        ?></td>
+                        <td><?php echo number_format(100 * $amount/$grand_amount,2,'.','')?>%</td>
+                        <td><?php echo ($item->storaging_cost!="")?number_format($item->storaging_cost,0):0?></td>
+                        <td><?php $com = isset($d['aging'])?((0.012 / 30) * $d['aging'] * $amount):0;
+                         echo number_format($com,0)?></td>
+                       </tr>
+                       <?php
+                     }
+                     ?>
+                     <tr style="font-weight:bold">
+                       <td></td>
+                       <td>TOTAL</td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td></td>
+                       <td><?php echo number_format($grand_amount,0)?></td>
+                       <td></td>
+                       <td></td>
+                       <td><?php echo number_format($grand_com,0)?></td>
+                     </tr>
+
+                   </tbody>
+                 </table>
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+     </aside>
+     <!-- right-side -->
    </div>
- </div>
-</div>
-</section>
-</aside>
-<!-- right-side -->
-</div>
-<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
-  <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
-</a>
-<!-- global js -->
-<script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
-<!--livicons-->
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
-<script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
-<!-- end of global js -->
-<!-- begining of page level js -->
-<!-- Back to Top-->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
-<!--   maps -->
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>     <script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
-<!-- end of page level js -->       <script>        
-$(document).ready(function(){          
- $('.delete').on('click',function(){        
-  var btn = $(this);             
-  bootbox.confirm('Are you sure to delete this record?', function(result){        
-   if(result ==true){                   
-    window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id'); 
-  }             
-});        
-}); 
- $('#accordion1').on('shown.bs.collapse', function () {
-  $("#package1 i.indicator").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-});
- $('#accordion1').on('hidden.bs.collapse', function () {
-  $("#package1 i.indicator").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-});
+   <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Return to top" data-toggle="tooltip" data-placement="left">
+    <i class="livicon" data-name="plane-up" data-size="18" data-loop="true" data-c="#fff" data-hc="white"></i>
+  </a>
+  <!-- global js -->
+  <script src="<?php echo base_url();?>style/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+  <script src="<?php echo base_url();?>style/js/bootstrap.min.js" type="text/javascript"></script>
+  <!--livicons-->
+  <script src="<?php echo base_url();?>style/vendors/livicons/minified/raphael-min.js" type="text/javascript"></script>
+  <script src="<?php echo base_url();?>style/vendors/livicons/minified/livicons-1.4.min.js" type="text/javascript"></script>
+  <script src="<?php echo base_url();?>style/js/josh.js" type="text/javascript"></script>
+  <script src="<?php echo base_url();?>style/js/metisMenu.js" type="text/javascript"> </script>
+  <script src="<?php echo base_url();?>style/vendors/holder-master/holder.js" type="text/javascript"></script>
+  <!-- end of global js -->
+  <!-- begining of page level js -->
+  <!-- Back to Top-->
+  <script type="text/javascript" src="<?php echo base_url();?>style/vendors/countUp/countUp.js"></script>
+  <!--   maps -->
+  <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.tableTools.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.colReorder.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.scroller.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>style/vendors/datatables/dataTables.bootstrap.js"></script>     <script type="text/javascript" src="<?php echo base_url();?>style/js/bootbox.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url();?>style/js/pages/table-advanced.js"></script>
+  <!-- end of page level js -->       <script>        
+  $(document).ready(function(){          
+   $('.delete').on('click',function(){        
+    var btn = $(this);             
+    bootbox.confirm('Are you sure to delete this record?', function(result){        
+     if(result ==true){                   
+      window.location = "<?php echo site_url('op/incoming/delete');?>/"+btn.data('id'); 
+    }             
+  });        
+  }); 
+   $('#accordion1').on('shown.bs.collapse', function () {
+    $("#package1 i.indicator").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+  });
+   $('#accordion1').on('hidden.bs.collapse', function () {
+    $("#package1 i.indicator").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+  });
 
- $('#accordion2').on('shown.bs.collapse', function () {
-  $("#package2 i.indicator").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-});
- $('#accordion2').on('hidden.bs.collapse', function () {
-  $("#package2 i.indicator").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-});  
-}); 
-</script>
+   $('#accordion2').on('shown.bs.collapse', function () {
+    $("#package2 i.indicator").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+  });
+   $('#accordion2').on('hidden.bs.collapse', function () {
+    $("#package2 i.indicator").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+  });  
+ }); 
+  </script>
 </body>
 </html>

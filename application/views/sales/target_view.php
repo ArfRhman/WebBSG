@@ -144,7 +144,7 @@
          <td><?php echo $b ?></td>
          <?php 
          foreach ($am_Code as $aC) { 
-           $amountTarget = $this->db->query("SELECT amount FROM tbl_sale_target 
+           $amountTarget = $this->db->query("SELECT SUM(amount) AS amount FROM tbl_sale_target 
             WHERE a_m = '".$aC."' 
             AND SUBSTR(periode,1,3) = '".$bln2[$no]."' 
             AND SUBSTR(periode,5,4) = '".$thn."'")->row(); ?>
