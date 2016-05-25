@@ -40,8 +40,7 @@
                 <th>GR No</th>
                 <th>GR Date</th>
                 <th>Payment Type</th>
-                <th>Payment Date</th>                        
-                <th>Action</th>
+                <th>Payment Date</th>
               </tr>
             </thead>
             <tbody>
@@ -65,16 +64,6 @@
                 <td><?=$c->gr_date?></td>
                 <td><?=$c->payment_type?></td>
                 <td><?=$c->payment_date?></td>
-
-                <td>                                                                                                       
-                  <div class='btn-group'>
-                    <button type='button' class='btn btn-sm dropdown-toggle' data-toggle='dropdown'><i class='fa fa-cogs'></i></button>
-                    <ul class='dropdown-menu pull-right' role='menu'>
-                      <li><a href='<?php echo site_url('op/po/report_edit/'.$c->no)?>' >Edit</a></li>
-                      <li><a href='<?php echo site_url('op/po/report_delete/'.$c->no)?>' class="delete">Delete</a></li>
-                    </ul>
-                  </div>
-                </td>
               </tr>
               <?php
             }

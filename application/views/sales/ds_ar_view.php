@@ -83,7 +83,9 @@
           borderWidth: 0,
           dataLabels: {
             enabled: true,
-            format: '{point.y}'
+            formatter: function(){
+              return this.y;
+            }
           }
         }
       },
@@ -93,11 +95,6 @@
       }, {
         name: 'Paid',
         data: <?=$paid?>,
-        tooltip: {
-          formatter:function(){
-            return "jgjhgjgjhg";          
-          },
-        }
       }, {
         name: 'Outstanding',
         data: <?=$out?>
