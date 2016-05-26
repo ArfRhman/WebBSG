@@ -165,7 +165,7 @@
                             <td><?php $sc_amount = $total_net_claim * $prc_salescom; echo number_format($sc_amount, 0)?></td>
                             <td><?php echo number_format($payment->total, 0)?></td>
                             <td><?php $sc_paid = $payment->total * $prc_salescom; echo number_format($sc_paid, 0)?></td>
-                            <td><?php echo number_format($sc_amount - $sc_paid, 0)?></td>
+                            <td><?php echo number_format(abs($sc_amount - $sc_paid), 0)?></td>
 
                             <td>                                                                                                       
                                 <div class='btn-group'>                                                     
