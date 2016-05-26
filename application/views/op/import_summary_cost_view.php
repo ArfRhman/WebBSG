@@ -40,9 +40,9 @@
                 $doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $c->no)->row();
                 $lead = $this->mddata->getDataFromTblWhere('tbl_op_po_lead_time', 'no_po', $c->no)->row();
                 $costing = $this->mddata->getDataFromTblWhere('tbl_op_po_costing', 'no_po', $c->no)->row();
-
-                if(!empty($tabel)){
-                  $kat = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $tabel->item_code)->row()->kategori;
+                $kate = $this->mddata->getDataFromTblWhere('tbl_dm_item', 'id', $tabel->item_code)->row();
+                if(!empty($kate)){
+                  $kat = $kate->kategori;
                 }else{
                   $kat ="";
                 }
@@ -54,25 +54,38 @@
                 ?>
                 <tr>
                   <td><?php echo $no;$no++; ?></td>
-                  <td><?php echo $c->po_no; ?></td>
-                  <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></a></td>
+                  <td><a href="<?=base_url()?>index.php/op/import_cost/analysis/<?=$c->po_no?>"><?php echo $c->po_no; ?></a></td>
+                  <td>
+                    <?php 
+                    $supp = $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row();
+                    if(!empty($supp)){
+                      echo $supp->supplier; 
+                    }
+                    ?>
+                  </td>
                   <td><?php echo $kat?></td>
                   <td><?php echo $tabel->item?></td>
-                  <td><?php echo $tabel->qty?></td>
+                  <td><?php echo $tabel->qty*$tabel->unit_price?></td>
                   <td><?php echo $c->moda ?></td>
-                  <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name; ?></a></td>
-                  <td><?php echo $costing->total_cost?></td>
-                </tr>
-                <?php
-              }
-              ?>
-            </tbody>
-          </table>
+                  <td>
+                    <?php 
+                    $forwarder_name = $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row();
+                    if(!empty($forwarder_name)){
+                      echo $forwarder_name->name; 
+                    }
+                    ?></td>
+                    <td><?php echo $costing->total_cost?></td>
+                  </tr>
+                  <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </section>
 </aside>
 <!-- right-side -->

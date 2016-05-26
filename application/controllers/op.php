@@ -1354,7 +1354,7 @@ $this->mddata->deleteGeneral('tbl_op_po_payment_information','no', $this->uri->s
 redirect($_SERVER['HTTP_REFERER']);
 break;
 case"report":
-$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_report');
+$data['in'] = $this->mddata->getAllDataTbl('tbl_op_po_header');
 $this->load->view('top', $data);
 $this->load->view('op/po_report_view', $data);
 break;

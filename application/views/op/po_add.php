@@ -151,7 +151,7 @@
 														foreach($this->mddata->getAllDataTbl('tbl_dm_supplier')->result() as $c)
 														{
 														?>
-														<option value="<?php echo $c->supplier; ?>"><?php echo $c->supplier; ?></option>	
+														<option value="<?php echo $c->id; ?>"><?php echo $c->supplier; ?></option>	
 														<?php
 														}
 													?>
@@ -176,7 +176,7 @@
 														foreach($this->mddata->getAllDataTbl('tbl_dm_forwarder')->result() as $c)
 														{
 														?>
-														<option value="<?php echo $c->name; ?>"><?php echo $c->name; ?></option>	
+														<option value="<?php echo $c->id; ?>"><?php echo $c->name; ?></option>	
 														<?php
 														}
 													?>

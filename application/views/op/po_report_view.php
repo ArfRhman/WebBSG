@@ -48,20 +48,21 @@
              $no = 1;
              foreach($in->result() as $c)
              {
+              $doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $c->no)->row();
                ?>
                <tr>
                 <td><?=$no;$no++;?></td>
                 <td><?=$c->po_no?></td>
                 <td><?=$c->po_date?></td>
                 <td><?=$c->pureq_no?></td>
-                <td><?=$c->invoice_no?></td>
+                <td><?=$doc->invoice_no?></td>
                 <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></td>
                 <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name; ?></td>
                 <td><?=$c->moda?></td>
                 <td><?=$c->currency?></td>
                 <td><?=$c->amount?></td>
-                <td><?=$c->gr_no?></td>
-                <td><?=$c->gr_date?></td>
+                <td><?=$doc->gr_no?></td>
+                <td><?=$doc->gr_date?></td>
                 <td><?=$c->payment_type?></td>
                 <td><?=$c->payment_date?></td>
               </tr>

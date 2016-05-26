@@ -111,29 +111,27 @@ height: 30px;
 border: 1px solid #fff;
 border-top: 1px solid #000;
 ">
-<td colspan="6" ></td>
+<td colspan="6" style="border-right:1px solid #fff;"></td>
 </tr>
 <tr style="border:1px solid #fff;">
- <td colspan="4">Remark :</td>
- <td>Import Cost Without VAT (% and amount)</td>
- <td align="right"><?=$costWithoutVat?> (<?=($costWithoutVat/$tTp)*100?>%)</td>
- <td align="right"></td>
- <td> </td>
+ <td colspan="4" style="border:1px solid #fff;">Remark :</td>
+ <td style="border:1px solid #fff;">Import Cost Without VAT (% and amount)</td>
+ <td align="right" style="border:1px solid #fff;"><?=$costWithoutVat?> (<?=($costWithoutVat/$tTp)*100?>%)</td>
+ 
 </tr>
 <tr style="border:1px solid #fff;">
   <td>1. </td>
-  <td colspan="3">All price in IDR</td>
-  <td>Taxes & Duties (% and amount)</td>
-  <td align="right"><?=$tax?> (<?=($tax/$tTp)*100?>%)</td>
-  <td align="right"></td>
-  <td></td>
+  <td colspan="3" style="border:1px solid #fff;">All price in IDR</td>
+  <td style="border:1px solid #fff;">Taxes & Duties (% and amount)</td>
+  <td align="right" style="border:1px solid #fff;"><?=$tax?> (<?=($tax/$tTp)*100?>%)</td>
+ 
 </tr>
 <tr style="border:1px solid #fff;">
   <td>2. </td>
-  <td colspan="3">All price refer to currency conversion as started in Price list, it is 1 USD = IDR</td>
-  <td>Custom Clearance (% and amount)</td>
-  <td align="right"><?=$clearance?> (<?=($clearance/$tTp)*100?>%)</td>
-  <td align="right"></td>
+  <td colspan="3" style="border:1px solid #fff;">All price refer to currency conversion as started in Price list, it is 1 USD = IDR</td>
+  <td style="border:1px solid #fff;">Custom Clearance (% and amount)</td>
+  <td align="right" style="border:1px solid #fff;"><?=$clearance?> (<?=($clearance/$tTp)*100?>%)</td>
+ 
 </tr>
 </table>
 <br>
