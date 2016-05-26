@@ -9,9 +9,9 @@
         <?php
         // if($this->mddata->access($this->session->userdata('group'), 'd15')->d15 > 1)
         // {
-          ?>						
-          	<!-- <a href="<?php echo site_url('op/po/report_add')?>" class="btn btn-success">Add New Data</a> -->
-          <?php
+        ?>						
+        <!-- <a href="<?php echo site_url('op/po/report_add')?>" class="btn btn-success">Add New Data</a> -->
+        <?php
         // }
         ?>
         <div class="panel panel-primary filterable">
@@ -48,32 +48,65 @@
              $no = 1;
              foreach($in->result() as $c)
              {
+              $pay = $this->mddata->getDataFromTblWhere('tbl_op_po_payment_information', 'po_no', $c->po_no)->row();
               $doc = $this->mddata->getDataFromTblWhere('tbl_op_po_documentation', 'no_po', $c->no)->row();
-               ?>
-               <tr>
+              $sup = $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row();
+              $for = $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row();
+              ?>
+              <tr>
                 <td><?=$no;$no++;?></td>
                 <td><?=$c->po_no?></td>
                 <td><?=$c->po_date?></td>
                 <td><?=$c->pureq_no?></td>
                 <td><?=$doc->invoice_no?></td>
-                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier; ?></td>
-                <td><?php echo $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name; ?></td>
-                <td><?=$c->moda?></td>
-                <td><?=$c->currency?></td>
-                <td><?=$c->amount?></td>
-                <td><?=$doc->gr_no?></td>
-                <td><?=$doc->gr_date?></td>
-                <td><?=$c->payment_type?></td>
-                <td><?=$c->payment_date?></td>
-              </tr>
-              <?php
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
+                <td>
+                  <?php
+                  if(!empty($sup)){
+                    echo $sup->supplier;
+                  }  
+                  ?>
+                </td>
+                <td>
+                 <?php
+                 if(!empty($for)){
+                  echo $for->name;
+                }  
+                ?>
+              </td>
+              <td><?=$c->moda?></td>
+              <td><?=$c->currency?></td>
+              <td>
+                <?php
+                if(!empty($pay)){
+                  echo $pay->payment_amount;
+                }  
+                ?>
+              </td>
+              <td><?=$doc->gr_no?></td>
+              <td><?=$doc->gr_date?></td>
+              <td>
+                <?php
+                if(!empty($pay)){
+                  echo $pay->payment_type;
+                }  
+                ?>
+              </td>
+              <td>
+                <?php
+                if(!empty($pay)){
+                  echo $pay->payment_date;
+                }  
+                ?>
+              </td>
+            </tr>
+            <?php
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
 </div>
 </section>
 </aside>

@@ -27,11 +27,11 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>PO No</th>
                 <th>Payment Type</th>
                 <th>Payment Date</th>
                 <th>Payment Amount</th>
                 <th>Payment Proof</th>
-
                 <th>Action</th>
               </tr>
             </thead>
@@ -43,6 +43,7 @@
                ?>
                <tr>
                  <td><?=$no;$no++;?></td>
+                 <td><?=$c->po_no?></td>
                  <td><?=$c->payment_type?></td>
                  <td><?=$c->payment_date?></td>
                  <td><?=$c->payment_amount?></td>

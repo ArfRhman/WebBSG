@@ -1331,7 +1331,8 @@ $data=array(
 	'payment_type' => $p['type'],
 	'payment_date' => $p['date'],
 	'payment_amount' => $p['amount'],
-	'payment_proof' => $p['proof']
+	'payment_proof' => $p['proof'],
+	'po_no'=> $p['po_no']
 	);
 $this->mddata->insertIntoTbl('tbl_op_po_payment_information', $data);
 $this->session->set_flashdata('data', 'Data Has Been Saved');
@@ -1343,7 +1344,8 @@ $data=array(
 	'payment_type' => $p['type'],
 	'payment_date' => $p['date'],
 	'payment_amount' => $p['amount'],
-	'payment_proof' => $p['proof']
+	'payment_proof' => $p['proof'],
+	'po_no' => $p['po_no']
 	);
 $this->mddata->updateDataTbl('tbl_op_po_payment_information',$data,'no',$this->input->post('no'));
 $this->session->set_flashdata('data', 'Data Has Been Saved');

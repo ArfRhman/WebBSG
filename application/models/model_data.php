@@ -443,9 +443,8 @@ class model_data extends CI_Model {
 
 	//[Sales] untuk AR performance
 	function getArPerformance(){
-		$query = $this->db->query("SELECT YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period,tbl_sale_so_invoicing.amount as invoiced,tbl_sale_so_payment.amount as paid from tbl_sale_so,tbl_sale_so_invoicing,tbl_sale_so_payment where
-			tbl_sale_so.id=tbl_sale_so_invoicing.id_so AND 
-			tbl_sale_so.id=tbl_sale_so_payment.id_so
+		$query = $this->db->query("SELECT YEAR(str_to_date(tbl_sale_so.so_date,'%d %b %Y')) as period, (SELECT sum(amount) from tbl_sale_so_invoicing where tbl_sale_so.id=tbl_sale_so_invoicing.id_so ) as invoiced, (SELECT sum(amount) from tbl_sale_so_payment where tbl_sale_so_payment.id_so = tbl_sale_so.id) as paid from tbl_sale_so 
+group by period
 			")->result_array();
 		return $query;
 	}

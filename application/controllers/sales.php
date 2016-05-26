@@ -869,13 +869,20 @@ class Sales extends CI_Controller {
 			foreach($res as $r){
 				$periode[$r['period']]=$r['period'];
 				if(!array_key_exists($r['period'], $invoice)){
-					$invoice[$r['period']]=intval($r['invoiced']);
-					$paid[$r['period']]=intval($r['paid']);
-					$out[$r['period']]=intval($invoice[$r['period']]-$paid[$r['period']]);
+					$invoice[$r['period']]['y']=intval($r['invoiced']);
+					$paid[$r['period']]['y']=intval($r['paid']);
+					$out[$r['period']]['y']=intval($invoice[$r['period']]['y']-$paid[$r['period']]['y']);
 				}else{
-					$invoice[$r['period']]+=intval($r['invoiced']);
-					$paid[$r['period']]+=intval($r['paid']);
-					$out[$r['period']]=intval($invoice[$r['period']]-$paid[$r['period']]);
+					$invoice[$r['period']]['y']+=intval($r['invoiced']);
+					$paid[$r['period']]['y']+=intval($r['paid']);
+					$out[$r['period']]['y']=intval($invoice[$r['period']]['y']-$paid[$r['period']]['y']);
+				}
+			}
+			foreach($periode as $pe){
+				$invoice[$pe]['name']='';
+				if($invoice[$pe]['y']!=0){
+					$paid[$pe]['name']=number_format(($paid[$pe]['y']/$invoice[$pe]['y'])*100,2)." %";
+					$out[$pe]['name']=number_format(($out[$pe]['y']/$invoice[$pe]['y'])*100,2)." %";
 				}
 			}
 			
@@ -2538,12 +2545,12 @@ function target()
 				// echo "disini 1"; die();
 			}else{
 				$data = array(
-				'a_m' => $p['am'],
-				'periode' => $p['periode'],
-				'operator' => $p['operator'],
-				'customer' => $p['customer_name'],
-				'amount' => $p['amount']
-				);
+					'a_m' => $p['am'],
+					'periode' => $p['periode'],
+					'operator' => $p['operator'],
+					'customer' => $p['customer_name'],
+					'amount' => $p['amount']
+					);
 				$this->mddata->insertIntoTbl('tbl_sale_target',$data);
 
 				// $this->mddata->updateDataTbl('tbl_sale_target',$data,'no',$sql2->no);

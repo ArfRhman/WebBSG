@@ -92,47 +92,46 @@
       tooltip: {
           // headerFormat: '<b>{series.name}</b><br>',
                   formatter: function() {
-                    return '<b> '+ this.series.name + ' </b> - <b>'+ this.point.name +'</b> <br/>'+
-        'amount: '+ this.point.name;
+                    return this.point.name;
 
     },
                 },
       series: 
-       [
+       // [
 
-          {
-            name: 'Invoiced',
-            data: [
-            {name: '2016', y: 10},
-            {name: '2017', y: 25},
-            {name: '2018', y: 30},
-            ]
-          },
-          {
-            name: 'Paid',
-            data: [
-            {name: '2016', y: 20},
-            {name: '2017', y: 70},
-            {name: '2018', y: 10},
-            ]
-          },{
-            name: 'Outstanding',
-            data: [
-            {name: '2016', y: 30},
-            {name: '2017', y: 30},
-            {name: '2018', y: 30},
-            ]
-          }]
-      // [{
-      //   name: 'Invoiced',
-      //   data: <?=$invoice?>,
-      // }, {
-      //   name: 'Paid',
-      //   data: <?=$paid?>,
-      // }, {
-      //   name: 'Outstanding',
-      //   data: <?=$out?>
-      // }]
+       //    {
+       //      name: 'Invoiced',
+       //      data: [
+       //      {name: '2016', y: 10},
+       //      {name: '2017', y: 25},
+       //      {name: '2018', y: 30},
+       //      ]
+       //    },
+       //    {
+       //      name: 'Paid',
+       //      data: [
+       //      {name: '2016', y: 20},
+       //      {name: '2017', y: 70},
+       //      {name: '2018', y: 10},
+       //      ]
+       //    },{
+       //      name: 'Outstanding',
+       //      data: [
+       //      {name: '2016', y: 30},
+       //      {name: '2017', y: 30},
+       //      {name: '2018', y: 30},
+       //      ]
+       //    }]
+      [{
+        name: 'Invoiced',
+        data: <?=$invoice?>,
+      }, {
+        name: 'Paid',
+        data: <?=$paid?>,
+      }, {
+        name: 'Outstanding',
+        data: <?=$out?>
+      }]
     });
   });
 </script>

@@ -32,6 +32,11 @@
                     <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo site_url('op/po/payment_update');?>" method="post">
                     <input type="hidden" name="no" value="<?=$in->no?>">
                         <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="no">PO No</label>
+                            <div class="col-md-7">
+                                <input value="<?=$in->po_no?>" id="po_no" name="po_no" placeholder="PO No" class="form-control" type="text"></div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="type">Payment Type</label>
                                 <div class="col-md-7">
