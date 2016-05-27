@@ -882,7 +882,17 @@ class Sales extends CI_Controller {
 				$invoice[$pe]['name']='';
 				if($invoice[$pe]['y']!=0){
 					$paid[$pe]['name']=number_format(($paid[$pe]['y']/$invoice[$pe]['y'])*100,2)." %";
-					$out[$pe]['name']=number_format(($out[$pe]['y']/$invoice[$pe]['y'])*100,2)." %";
+					$isiout=number_format(($out[$pe]['y']/$invoice[$pe]['y'])*100,2);
+					$out[$pe]['name']=$isiout." %";
+					if($isiout<0){
+						$out[$pe]['name']=($isiout*-1)." %";
+					}
+				}
+			}
+
+			foreach($out as $key=>$ou){
+				if($out[$key]['y']<0){
+					$out[$key]['y']=$out[$key]['y']*-1;
 				}
 			}
 			
