@@ -74,12 +74,12 @@
                         <td><?=$c->po_date?></td>
                         <td><?=$c->pureq_no?></td>
                         <td><?=$c->pureq_date?></td>
-                        <td><?=$c->supplier?></td>
+                        <td><?= $this->mddata->getDataFromTblWhere('tbl_dm_supplier', 'id', $c->supplier)->row()->supplier?></td>
                         <td><?=$c->description?></td>
                         <td><?=$c->purpose_of?></td>
-                        <td><?=$c->currency?></td>
+                        <td><?= strtoupper($c->currency)?></td>
                         <td><?=$cost->po_amount?></td>
-                        <td><?=$c->forwarder?></td>
+                        <td><?= $this->mddata->getDataFromTblWhere('tbl_dm_forwarder', 'id', $c->forwarder)->row()->name?></td>
                         <td><?=$c->payment_type?></td>
                         <td><?=$etf->etf_lc?></td>
                         <td><?=$etf->etf_production?></td>
