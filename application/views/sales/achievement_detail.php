@@ -17,7 +17,9 @@
             </div>
         </div>
         <div class="panel-body" style="width:99%;overflow-x:scroll">
-            <table class="table table-striped table-responsive" id="table1">
+            <table class="table table-striped table-responsive" id="table1" style="
+    width: 175%;
+">
                 <thead>
                     <tr>
                        <th>No</th>

@@ -43,7 +43,11 @@
             <div class="col-md-2"><input type="submit" value="Pilih" class="btn btn-responsive btn-primary btn-sm"></div>
           </fieldset>
         </form>
-        <table class="table table-striped table-responsive">
+          <div style="overflow-x:auto">
+        <table class="table table-striped table-responsive" style="
+    width: 117% !important;
+    max-width: 117% !important;
+">
           <thead>
             <tr>
               <th rowspan="2">No</th>
@@ -217,6 +221,7 @@
             } ?>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>

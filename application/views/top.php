@@ -35,6 +35,12 @@ if($this->session->userdata('active') == FALSE)
     <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>style/vendors/datatables/css/dataTables.bootstrap.css" />		<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>style/css/bootstrap-datepicker.min.css" />
     <link href="css/pages/tables.css" rel="stylesheet" type="text/css">
     <!--end of page level css-->
+    <style type="text/css">
+th,td{
+    overflow: hidden;
+    white-space: nowrap;
+}
+    </style>
 </head>
 <body class="skin-josh">
 	<header class="header">
