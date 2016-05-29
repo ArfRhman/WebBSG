@@ -16,8 +16,10 @@
                 </div>
             </div>
         </div>
-        <div class="panel-body">
-            <table class="table table-striped table-responsive" id="table1">
+        <div class="panel-body" style="overflow-x:auto">
+            <table class="table table-striped table-responsive" id="table1" style="
+    width: 175%;
+">
                 <thead>
                     <tr>
                         <th>No</th>

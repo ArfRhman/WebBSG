@@ -196,11 +196,11 @@
 												<label class="col-md-2 control-label" for="name">Moda</label>
 
 												<div class="col-md-3">
-													<input type="text" class="form-control" placeholder="Moda" name="moda" list="modaList">
-                                          			<datalist id="modaList">
-	                                                 <option value="Air">
-	                                                  <option value="Sea">
-                                                  	</datalist>
+												<select class="form-control" placeholder="Moda" name="moda"> 
+													<option value="Air">Air</option>
+	                                                  <option value="Sea">Sea</option>
+	                                                  <option value="Land">Land</option>
+												</select>
 												</div>
 												<label class="col-md-2 control-label" for="terms">Other Terms</label>
 

@@ -23,8 +23,11 @@
               </div>
             </div>
           </div>
-          <div class="panel-body">
-            <table class="table table-striped table-responsive">
+          <div class="panel-body" style="overflow-x:auto">
+            <table class="table table-striped table-responsive" style="
+    width: 125%;
+    max-width: 125%;
+">
               <thead>
 
                 <tr>

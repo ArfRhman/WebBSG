@@ -17,11 +17,14 @@
             </div>
         </div>
         <div class="panel-body" style="width:99%;overflow-x:scroll">
-            <table class="table table-striped table-responsive">
+            <table class="table table-striped table-responsive" style="
+    width: 150%;
+    max-width: 150%;
+">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th width="40%">Bulan</th>
+                        <th>Bulan</th>
                         <th>Target</th>
                         <th>Potential Order</th>
                         <th>%Potential Order</th>
