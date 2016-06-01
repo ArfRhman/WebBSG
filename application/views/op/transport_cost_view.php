@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="overflow-x:auto">
                 <table class="table table-striped table-responsive" id="table1">
                     <thead>
                         <tr>
